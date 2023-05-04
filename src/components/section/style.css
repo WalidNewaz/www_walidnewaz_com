@@ -1,0 +1,20 @@
+.section {
+  background-color: #f2f2f2;
+  padding: 50px;
+}
+
+.section h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+.section p {
+  font-size: 17px;
+}
+
+.section img {
+  border: solid black 1px;
+  margin-bottom: 30px;
+}
