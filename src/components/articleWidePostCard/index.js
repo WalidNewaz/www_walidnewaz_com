@@ -18,7 +18,7 @@ const ArticleWidePostCard = ({ image, title, description, postDate, readTime, ta
             tags && tags.length > 0 ? <p className='article-tags'>{ tags.join(" • ") }</p> : <p></p>
         }
       </div>
-      <div class="overlay"></div>
+      <div className="overlay"></div>
     </div>
   );
 }

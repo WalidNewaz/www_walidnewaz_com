@@ -249,7 +249,7 @@ a:focus {
 }
 
 .global-header {
-  margin-bottom: var(--spacing-12);
+  margin-bottom: var(--spacing-4);
 }
 
 .main-heading {
@@ -397,7 +397,22 @@ a:focus {
   flex: 30%
 }
 
+/* #newsletter-subcsribe {
+  background-color: rgb(214, 235, 251);
+} */
 #newsletter-subscribe div {
   display: flex;
   flex: auto;
+  background-color: #F4F4F4;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#newsletter-subscribe div>p {
+  margin: 5px;
+  text-align: center;
+  padding-left: 20px;
+  font-size: 24px;
 }

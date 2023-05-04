@@ -37,6 +37,7 @@ const Seo = ({ description, title, children }) => {
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
+      <script type="text/javascript" src="https://app.mailjet.com/pas-nc-pop-in-v1.js"></script>
       <meta
         name="twitter:creator"
         content={site.siteMetadata?.social?.twitter || ``}
