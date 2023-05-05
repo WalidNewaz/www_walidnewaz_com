@@ -416,3 +416,11 @@ a:focus {
   padding-left: 20px;
   font-size: 24px;
 }
+
+#more-posts {
+  padding: 20px;
+}
+
+#more-posts h2 {
+  margin: 0;
+}

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-const NewsletterSection = () => {
+const HomePageNewsletter = () => {
     return (
         <section id="newsletter-subscribe">
             <div>
@@ -34,4 +34,4 @@ const NewsletterSection = () => {
     )
 }
 
-export default NewsletterSection
+export default HomePageNewsletter
