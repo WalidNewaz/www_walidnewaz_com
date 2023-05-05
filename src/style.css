@@ -435,3 +435,25 @@ a:focus {
   display: flex;
   justify-content: flex-end;
 }
+
+/* About me sections */
+#about-me > div {
+  display: flex;
+}
+#about-me img {
+  width: 1112px;
+  margin: 0;
+  padding: 0;
+}
+
+#about-me p {
+  margin-bottom: 1em;
+}
+
+#about-me ul {
+  margin-left: 3em;
+}
+
+#about-me li {
+  margin-left: 0.5em;
+}
