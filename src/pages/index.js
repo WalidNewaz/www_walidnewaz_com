@@ -14,7 +14,7 @@ const profile = {
   image: profileImg,
   description: "I'm Walid Newaz, a software engineer who enjoys writing about learning, programming, the outdoors, and my obeservations.",
   detailLink: "#",
-  detailLinkLabel: "Read more &gt;"
+  detailLinkLabel: "Read more >"
 }
 
 const BlogIndex = ({ data, location }) => {
@@ -50,6 +50,7 @@ export const pageQuery = graphql`
     }
     allFeaturedPostsJson {
       nodes {
+        id
         description
         image
         postDate
@@ -68,7 +69,12 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
+          hero_image
+          tags
+          post_date
+          read_time
         }
+        id
       }
     }
   }

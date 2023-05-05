@@ -4,6 +4,7 @@ import ArticleWidePostCard from './articleWidePostCard'
 
 const FeaturedPosts = ({ posts }) => (
     posts.map(post => <ArticleWidePostCard
+        key={post.id}
         image={post.image}
         title={post.title}
         postDate={post.postDate}
