@@ -13,8 +13,6 @@ const HomePageNewsletter = () => {
                         data-w-type="pop-in" 
                         frameBorder="0" 
                         scrolling="yes" 
-                        marginHeight="0" 
-                        marginWidth="0" 
                         src="https://07w6k.mjt.lu/wgt/07w6k/z9g/form?c=e9ed7cf1" 
                         width="100%" 
                         style={{ height: 0 }}></iframe>
@@ -23,8 +21,6 @@ const HomePageNewsletter = () => {
                         data-w-type="trigger"
                         frameBorder="0"
                         scrolling="no"
-                        marginHeight="0"
-                        marginWidth="0"
                         src="https://07w6k.mjt.lu/wgt/07w6k/z9g/trigger?c=590ebb63"
                         width="100%"
                         style={{ height: '55px' }}></iframe>

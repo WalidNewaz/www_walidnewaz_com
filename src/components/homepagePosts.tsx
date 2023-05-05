@@ -30,7 +30,6 @@ const HomePageMorePosts = ({ posts }) => {
                     readTime={post.frontmatter.read_time}
                     title ={post.frontmatter.title || post.fields.slug}
                     image={post.frontmatter.hero_image}
-                    description={post.frontmatter.description || post.excerpt}
                     slug={post.fields.slug}
                     tags={post.frontmatter.tags} />
                 )
