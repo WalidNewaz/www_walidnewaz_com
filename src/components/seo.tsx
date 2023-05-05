@@ -9,7 +9,13 @@ import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import favicon from "../../static/favicon.ico"
 
-const Seo = ({ description, title, children }) => {
+interface Props {
+  description?: string,
+  title?: string,
+  children?: any
+}
+
+const Seo: React.FC<Props> = ({ description, title, children }) => {
   const { site } = useStaticQuery(
     graphql`
       query {

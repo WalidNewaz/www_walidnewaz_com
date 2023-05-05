@@ -15,9 +15,9 @@ module.exports = {
       summary: `who lives and works in Denver building useful things.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    siteUrl: `https://www.walidnewaz.com/`,
     social: {
-      twitter: `kylemathews`,
+      linkedin: `https://www.linkedin.com/in/walid-newaz/`,
     },
   },
   plugins: [
