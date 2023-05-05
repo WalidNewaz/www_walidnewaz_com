@@ -401,17 +401,18 @@ a:focus {
   display: flex;
   flex: auto;
   background-color: #F4F4F4;
-  min-height: 70px;
+  min-height: 140px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 #newsletter-subscribe div>p {
+  font-family: var(--font-heading);
   margin: 5px;
   text-align: center;
-  padding-left: 20px;
-  font-size: 24px;
+  padding-left: 35px;
+  font-size: 30px;
 }
 
 #more-posts {
