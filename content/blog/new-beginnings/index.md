@@ -2,6 +2,10 @@
 title: New Beginnings
 date: "2015-05-28T22:40:32.169Z"
 description: This is a custom description for SEO and Open Graph purposes, rather than the default generated excerpt. Simply add a description field to the frontmatter.
+hero_image: "https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+tags: ['common', 'page']
+post_date: May 21, 2022
+read_time: 5 min
 ---
 
 Far far away, behind the word mountains, far from the countries Vokalia and

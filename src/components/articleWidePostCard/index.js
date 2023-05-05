@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css'; // Import the CSS file for this component
 
+const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'>{ tags.join(" • ") }</p> : <p></p>
+
 const ArticleWidePostCard = ({ image, title, description, postDate, readTime, tags }) => {
   return (
     <div className="wide-card">
@@ -14,9 +16,7 @@ const ArticleWidePostCard = ({ image, title, description, postDate, readTime, ta
         </div>
         <h3 className="wide-card-title">{title}</h3>
         <p className="wide-card-text">{description}</p>
-        {
-            tags && tags.length > 0 ? <p className='article-tags'>{ tags.join(" • ") }</p> : <p></p>
-        }
+        <Tags tags={tags} />
       </div>
       <div className="overlay"></div>
     </div>

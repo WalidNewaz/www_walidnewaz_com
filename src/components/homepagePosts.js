@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import ArticlePostCard from "./articlePostCard"
 
 
 const HomePageMorePosts = ({ posts }) => {
@@ -21,7 +22,24 @@ const HomePageMorePosts = ({ posts }) => {
     return (
         <section id="more-posts" className="row">
             <h2>More Posts</h2>
-            <ol style={{ listStyle: `none` }}>
+            <div id="posts">
+            {
+                posts.map(post => <ArticlePostCard
+                    key={post.id}
+                    postDate={post.frontmatter.post_date}
+                    readTime={post.frontmatter.read_time}
+                    title ={post.frontmatter.title || post.fields.slug}
+                    image={post.frontmatter.hero_image}
+                    description={post.frontmatter.description || post.excerpt}
+                    slug={post.fields.slug}
+                    tags={post.frontmatter.tags} />
+                )
+            }
+            </div>
+
+            
+
+            {/* <ol style={{ listStyle: `none` }}>
                 {posts.map(post => {
                     const title = post.frontmatter.title || post.fields.slug
 
@@ -52,7 +70,7 @@ const HomePageMorePosts = ({ posts }) => {
                         </li>
                     )
                 })}
-            </ol>
+            </ol> */}
         </section>
     )
 }
