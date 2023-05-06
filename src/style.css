@@ -332,8 +332,16 @@ a:focus {
 }
 
 /* Site header */
+#site-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#main-menu {
+  width: 80%;
+}
+
 #main-menu nav {
-  background-color: #333;
   padding: 10px;
   height: 65px;
 }
@@ -354,14 +362,26 @@ a:focus {
 }
 
 #main-menu nav ul li a {
-  color: #fff;
+  color: #333;
   display: block;
   padding: 10px;
   text-decoration: none;
 }
 
 #main-menu nav ul li a:hover {
+  color: #fff;
+}
+
+#main-menu nav ul li a:hover {
   background-color: #555;
+}
+
+#social-links {
+  display: flex;
+}
+
+#social-links div {
+  padding: 15px 15px 10px 15px
 }
 
 /* Homepage sections */

@@ -1,5 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import GithubIcon from '../components/icons/github'
+import LinkedInIcon from '../components/icons/linkedin'
 
 const Header = () => {
     return (
@@ -21,6 +23,18 @@ const Header = () => {
                         </li>
                     </ul>
                 </nav>
+            </div>
+            <div id="social-links">
+                <div>
+                    <Link to="https://github.com/WalidNewaz" target="_blank">
+                        <GithubIcon />
+                    </Link>
+                </div>
+                <div>
+                    <Link to="https://www.linkedin.com/in/walid-newaz/" target="_blank">
+                        <LinkedInIcon />
+                    </Link>
+                </div>
             </div>
         </div>
     )

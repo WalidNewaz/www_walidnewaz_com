@@ -12,7 +12,7 @@ import profileImg from "../images/walid-profile.jpeg"
 const profile = {
   image: profileImg,
   description: "I'm Walid Newaz, a software engineer who enjoys writing about learning, programming, the outdoors, and my obeservations.",
-  detailLink: "#",
+  detailLink: "/about",
   detailLinkLabel: "Read more >"
 }
 
