@@ -373,7 +373,8 @@ a:focus {
 }
 
 #main-menu nav ul li a:hover {
-  background-color: #555;
+  background-color: #4f5969;
+  font-weight: bold;
 }
 
 #social-links {
