@@ -5,9 +5,7 @@ import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
 
 const Topics = ({ topics }): any => {
-    console.log("Topics", topics)
     const topicList = Object.keys(topics)
-    console.log("topicList", topicList)
     return (
         <ul>
             {
@@ -44,7 +42,7 @@ const MorePosts = ({ posts }) => {
     )
 }
 
-const BlogPage = ({ data, location }) => {
+const BlogPage = ({ data }) => {
     const posts = data.allMarkdownRemark.nodes
     console.log(posts)
     const topics = posts.reduce((topics, post) => {
