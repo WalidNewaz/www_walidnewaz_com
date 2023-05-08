@@ -135,7 +135,7 @@ const Index = ({ data, location }) => {
   const featuredPosts = data.allFeaturedPostsJson.nodes
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <section id="homepage-features" className="row">
         <HomePageFeatures featuredPosts={featuredPosts} profile={profile} />
       </section>
@@ -159,7 +159,7 @@ export default Index
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="All posts" />
+export const Head = () => <Seo title="Home" />
 
 export const pageQuery = graphql`
   {

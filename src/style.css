@@ -385,6 +385,11 @@ a:focus {
   padding: 15px 15px 10px 15px
 }
 
+/* Site footer */
+footer {
+  text-align: center;
+}
+
 /* Homepage sections */
 #homepage-features {
   margin: 0;
@@ -477,4 +482,30 @@ a:focus {
 
 #about-me li {
   margin-left: 0.5em;
+}
+
+/* All blog posts page */
+#blog-page-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+#blog-topics {
+  width: 22%;
+  border: #4f5969;
+  border-style: none dotted none none;
+  padding: 10px 10px 10px 15px;
+}
+
+#blog-topics > h3 {
+  margin: 0;
+}
+
+#blog-posts {
+  padding: 10px 10px 10px 30px;
+}
+
+#blog-posts > h3 {
+  margin: 0;
 }
