@@ -19,12 +19,13 @@ const ArticlePostCard = ({ title, image, postDate, slug, readTime, tags }) => {
                     </div>
                 </div>
                 <h3 className="card-title">
-                    <Link to={slug} itemProp="url">
-                        <span itemProp="headline">{title}</span>
-                    </Link>
+                    <span itemProp="headline">{title}</span>
                 </h3>
                 <Tags tags={tags} />
             </div>
+            <Link to={slug} itemProp="url">
+                <div className="overlay"></div>
+            </Link>
         </article>
     );
 }

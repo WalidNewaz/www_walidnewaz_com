@@ -20,7 +20,7 @@ const About = ({ data, location }) => {
           and the world.</p>
 
         <p>My fascination with programming started with BASIC in 6th grade.
-          I was fascinated with the small programs that we able to create even with such a simple language,
+          I was fascinated with the small programs that we were able to create even with such a simple language,
           that a 6th grader could understand. Later on I picked up Pascal and C which allowed me to write
           programs to record interesting data as files in my computer. I knew that I'd barely scratched the surface.</p>
 
@@ -63,7 +63,7 @@ export default About
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="All posts" />
+export const Head = () => <Seo title="About Walid" />
 
 export const pageQuery = graphql`
   {
