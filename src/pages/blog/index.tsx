@@ -38,7 +38,7 @@ const MorePosts = ({ posts }) => {
             readTime={post.frontmatter.read_time}
             title={post.frontmatter.title || post.fields.slug}
             image={post.frontmatter.hero_image}
-            slug={post.fields.slug}
+            slug={`/blog${post.fields.slug}`}
             tags={post.frontmatter.tags} />
         )
     )
