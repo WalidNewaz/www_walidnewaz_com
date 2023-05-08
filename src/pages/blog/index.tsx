@@ -5,9 +5,20 @@ import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
 
-const Topics = ({ posts }) => (
-    posts.map(post => <p key={post.id}>{post.frontmatter.title}</p>)
-)
+const Topics = ({ topics }): any => {
+    console.log("Topics", topics)
+    const topicList = Object.keys(topics)
+    console.log("topicList", topicList)
+    return (
+        <ul>
+            {
+                topicList
+                    .sort()
+                    .map(topic => <li key={topic}><Link to='#'>{topic} ({topics[topic]})</Link></li>)
+            }
+        </ul>
+    )
+}
 
 const MorePosts = ({ posts }) => {
 
@@ -36,16 +47,38 @@ const MorePosts = ({ posts }) => {
 
 const BlogPage = ({ data }) => {
     const posts = data.allMarkdownRemark.nodes
+    console.log(posts)
+    const topics = posts.reduce((topics, post) => {
+        const { tags } = post.frontmatter
+        
+        tags.forEach(tag => {
+            if (topics?.[tag]) {
+                topics[tag]++
+            } else {
+                topics = {
+                    ...topics,
+                    [tag]: 1
+                }
+            }
+        });
+        
+        return topics
+    }, {});
+
+    console.log("topics", topics)
 
     return (
         <Layout location={location}>
             <div id='blog-page-container'>
                 <div id='blog-topics'>
                     <h3>Topics:</h3>
+                    <Topics topics={topics} />
                 </div>
                 <div id='blog-posts'>
                     <h3>Posts:</h3>
-                    <MorePosts posts={posts} />
+                    <div id="posts">
+                        <MorePosts posts={posts} />                        
+                    </div>
                 </div>
             </div>
         </Layout>

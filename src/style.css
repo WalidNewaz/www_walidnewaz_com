@@ -492,20 +492,31 @@ footer {
 }
 
 #blog-topics {
-  width: 22%;
+  width: 20%;
   border: #4f5969;
-  border-style: none dotted none none;
+  border-style: none dashed none none;
   padding: 10px 10px 10px 15px;
+  border-width: thin;
 }
 
 #blog-topics > h3 {
   margin: 0;
 }
 
+#blog-topics ul {
+  list-style: none;
+  margin-left: 0.2em;
+}
+
 #blog-posts {
+  width: 80%;
   padding: 10px 10px 10px 30px;
 }
 
 #blog-posts > h3 {
   margin: 0;
+}
+
+#blog-posts #posts {
+  display: flex;
 }
