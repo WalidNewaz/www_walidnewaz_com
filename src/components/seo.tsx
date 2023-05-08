@@ -24,7 +24,7 @@ const Seo: React.FC<Props> = ({ description, title, children }) => {
             title
             description
             social {
-              twitter
+              linkedin
             }
           }
         }

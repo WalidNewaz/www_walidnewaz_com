@@ -1,7 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 
-import Layout from "../components/layout"
 import Seo from "../components/seo"
 import ArticlePostCard from "../components/articlePostCard"
 import ArticleWidePostCard from '../components/articleWidePostCard'
@@ -123,7 +122,7 @@ const HomePageMorePosts = ({ posts }) => {
       readTime={post.frontmatter.read_time}
       title={post.frontmatter.title || post.fields.slug}
       image={post.frontmatter.hero_image}
-      slug={post.fields.slug}
+      slug={`/blog${post.fields.slug}`}
       tags={post.frontmatter.tags} />
     )
   )
@@ -135,7 +134,7 @@ const Index = ({ data, location }) => {
   const featuredPosts = data.allFeaturedPostsJson.nodes
 
   return (
-    <Layout location={location}>
+    <>
       <section id="homepage-features" className="row">
         <HomePageFeatures featuredPosts={featuredPosts} profile={profile} />
       </section>
@@ -148,7 +147,7 @@ const Index = ({ data, location }) => {
           <HomePageMorePosts posts={posts} />
         </div>
       </section>
-    </Layout>
+    </>
   )
 }
 

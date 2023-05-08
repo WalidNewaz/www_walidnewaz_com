@@ -26,14 +26,14 @@ const Header = () => {
             </div>
             <div id="social-links">
                 <div>
-                    <Link to="https://github.com/WalidNewaz" target="_blank">
+                    <a href="https://github.com/WalidNewaz" target="_blank">
                         <GithubIcon />
-                    </Link>
+                    </a>
                 </div>
                 <div>
-                    <Link to="https://www.linkedin.com/in/walid-newaz/" target="_blank">
+                    <a href="https://www.linkedin.com/in/walid-newaz/" target="_blank">
                         <LinkedInIcon />
-                    </Link>
+                    </a>
                 </div>
             </div>
         </div>
