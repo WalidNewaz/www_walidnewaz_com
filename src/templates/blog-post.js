@@ -16,9 +16,12 @@ const BlogPostTemplate = ({
         itemScope
         itemType="http://schema.org/Article"
       >
-        <header>
+        <header className="article-header">
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <div>
+            <div className="article-post-date">{post.frontmatter.date}</div>
+            <div className="article-read-time">{post.frontmatter.read_time} read</div>
+          </div>
         </header>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
@@ -89,6 +92,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        read_time
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

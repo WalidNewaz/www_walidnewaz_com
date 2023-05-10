@@ -520,3 +520,11 @@ footer {
 #blog-posts #posts {
   display: flex;
 }
+
+/* Blog post */
+.article-header > div {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
