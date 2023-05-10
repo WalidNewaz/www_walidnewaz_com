@@ -23,12 +23,13 @@ const profile = {
 const FeaturedPosts = ({ posts }) => (
   posts.map(post => <ArticleWidePostCard
     key={post.id}
-    image={post.image}
-    title={post.title}
-    postDate={post.postDate}
-    readTime={post.readTime}
-    tags={post.tags}
-    description={post.description}
+    image={post.frontmatter.image}
+    title={post.frontmatter.title}
+    postDate={post.frontmatter.postDate}
+    readTime={post.frontmatter.readTime}
+    tags={post.frontmatter.tags}
+    description={post.excerpt}
+    slug={`/blog${post.fields.slug}`}
   />)
 )
 
@@ -130,8 +131,8 @@ const HomePageMorePosts = ({ posts }) => {
 
 const Index = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
-  const featuredPosts = data.allFeaturedPostsJson.nodes
+  const posts = data.allPosts.nodes
+  const featuredPosts = data.featuredPosts.nodes
 
   return (
     <>
@@ -167,18 +168,23 @@ export const pageQuery = graphql`
         title
       }
     }
-    allFeaturedPostsJson {
+    featuredPosts: allMarkdownRemark(filter: {frontmatter: {featured: {eq: true}}}) {
       nodes {
         id
-        description
-        image
-        postDate
-        readTime
-        tags
-        title
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          image: hero_image
+          postDate: post_date
+          readTime: read_time
+          title
+          tags
+        }
       }
     }
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    allPosts: allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         excerpt
         fields {
