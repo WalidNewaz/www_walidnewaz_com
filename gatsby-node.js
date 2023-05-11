@@ -8,7 +8,26 @@ const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 // Define the template for blog post
-const blogPost = path.resolve(`./src/templates/blog-post.js`)
+// const blogPost = path.resolve(`./src/templates/blog-post.js`)
+
+function createPostPages(posts, createPage) {
+  if (posts.length > 0) {
+    posts.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : posts[index - 1].id
+      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+
+      createPage({
+        path: `/blog${post.fields.slug}`,
+        component: path.resolve(`./src/templates/blog-post.js`),
+        context: {
+          id: post.id,
+          previousPostId,
+          nextPostId,
+        },
+      })
+    })
+  }
+}
 
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
@@ -43,23 +62,24 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
   // `context` is available in the template as a prop and as a variable in GraphQL
+  createPostPages(posts, createPage)
 
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+  // if (posts.length > 0) {
+  //   posts.forEach((post, index) => {
+  //     const previousPostId = index === 0 ? null : posts[index - 1].id
+  //     const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
 
-      createPage({
-        path: `/blog${post.fields.slug}`,
-        component: blogPost,
-        context: {
-          id: post.id,
-          previousPostId,
-          nextPostId,
-        },
-      })
-    })
-  }
+  //     createPage({
+  //       path: `/blog${post.fields.slug}`,
+  //       component: path.resolve(`./src/templates/blog-post.js`),
+  //       context: {
+  //         id: post.id,
+  //         previousPostId,
+  //         nextPostId,
+  //       },
+  //     })
+  //   })
+  // }
 }
 
 /**

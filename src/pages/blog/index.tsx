@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
@@ -11,7 +11,11 @@ const Topics = ({ topics }): any => {
             {
                 topicList
                     .sort()
-                    .map(topic => <li key={topic}><a href='#'>{topic} ({topics[topic]})</a></li>)
+                    .map(topic => <li key={topic}>
+                        <Link to={`/blog/${topic}`}>
+                            {topic} ({topics[topic]})
+                        </Link>
+                    </li>)
             }
         </ul>
     )
@@ -42,7 +46,8 @@ const MorePosts = ({ posts }) => {
     )
 }
 
-const BlogPage = ({ data }) => {
+const BlogPage = ({ data, location }) => {
+    console.log(location);
     const posts = data.allMarkdownRemark.nodes
     console.log(posts)
     const topics = posts.reduce((topics, post) => {
