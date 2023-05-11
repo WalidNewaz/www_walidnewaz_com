@@ -11,8 +11,8 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
 
-import Seo from "../../components/seo"
-import ArticlePostCard from "../../components/articlePostCard"
+import Seo from "../../src/components/seo"
+import ArticlePostCard from "../../src/components/articlePostCard"
 
 const Topics = ({ topics }): any => {
     const topicList = Object.keys(topics)
@@ -42,7 +42,7 @@ const MorePosts = ({ posts }) => {
     return (
         posts.map(post => <ArticlePostCard
             key={post.id}
-            postDate={post.frontmatter.post_date}
+            postDate={post.frontmatter.date}
             readTime={post.frontmatter.read_time}
             title={post.frontmatter.title || post.fields.slug}
             image={post.frontmatter.hero_image}
@@ -105,7 +105,6 @@ export const query = graphql`
               description
               hero_image
               tags
-              post_date
               read_time
             }
             id

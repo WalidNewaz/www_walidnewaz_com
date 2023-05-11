@@ -119,7 +119,7 @@ const HomePageMorePosts = ({ posts }) => {
   return (
     posts.map(post => <ArticlePostCard
       key={post.id}
-      postDate={post.frontmatter.post_date}
+      postDate={post.frontmatter.date}
       readTime={post.frontmatter.read_time}
       title={post.frontmatter.title || post.fields.slug}
       image={post.frontmatter.hero_image}
@@ -177,7 +177,7 @@ export const pageQuery = graphql`
         }
         frontmatter {
           image: hero_image
-          postDate: post_date
+          postDate: date(formatString: "MMMM DD, YYYY")
           readTime: read_time
           title
           tags
@@ -196,7 +196,6 @@ export const pageQuery = graphql`
           description
           hero_image
           tags
-          post_date
           read_time
         }
         id

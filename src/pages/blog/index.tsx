@@ -36,7 +36,7 @@ const MorePosts = ({ posts }) => {
     return (
         posts.map(post => <ArticlePostCard
             key={post.id}
-            postDate={post.frontmatter.post_date}
+            postDate={post.frontmatter.date}
             readTime={post.frontmatter.read_time}
             title={post.frontmatter.title || post.fields.slug}
             image={post.frontmatter.hero_image}
@@ -46,28 +46,30 @@ const MorePosts = ({ posts }) => {
     )
 }
 
-const BlogPage = ({ data, location }) => {
-    console.log(location);
-    const posts = data.allMarkdownRemark.nodes
-    console.log(posts)
-    const topics = posts.reduce((topics, post) => {
-        const { tags } = post.frontmatter
+/**
+ * Extracts a list of topics from all posts
+ * @param posts 
+ */
+const getTopics = (posts) => posts.reduce((topics, post) => {
+    const { tags } = post.frontmatter
 
-        tags.forEach(tag => {
-            if (topics?.[tag]) {
-                topics[tag]++
-            } else {
-                topics = {
-                    ...topics,
-                    [tag]: 1
-                }
+    tags.forEach(tag => {
+        if (topics?.[tag]) {
+            topics[tag]++
+        } else {
+            topics = {
+                ...topics,
+                [tag]: 1
             }
-        });
+        }
+    });
 
-        return topics
-    }, {});
+    return topics
+}, {});
 
-    console.log("topics", topics)
+const BlogPage = ({ data, location }) => {
+    const posts = data.allMarkdownRemark.nodes
+    const topics = getTopics(posts);
 
     return (
         <div id='blog-page-container'>
@@ -100,7 +102,6 @@ export const query = graphql`
               description
               hero_image
               tags
-              post_date
               read_time
             }
             id
