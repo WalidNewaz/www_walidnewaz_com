@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 import './style.css'; // Import the CSS file for this component
 
 const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>

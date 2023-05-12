@@ -1,16 +1,21 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import Seo from "../components/seo"
 
-import banner from '../images/about_banner.jpeg'
-
-const About = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+const About = ({ data }) => {
+  const banner = data.bannerFiles.nodes[0];
 
   return (
     <section id="about-me">
-      <div><img src={banner} alt="profile-mountains" /></div>
+      <div>
+        <GatsbyImage
+          image={banner.childImageSharp.gatsbyImageData}
+          alt="Walid Newaz"
+          style={{ float: "left", marginRight: "1rem" }}
+        />
+      </div>
       <h3>Welcome! Thanks for visiting.</h3>
 
       <p>Hello and welcome to my page! My name is Walid Newaz.
@@ -67,6 +72,14 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    bannerFiles: allFile(filter: {absolutePath: {regex: "/.*?/about_banner\\.jpeg$/"}}) {
+      nodes {
+        absolutePath
+        childImageSharp {
+          gatsbyImageData
+        }
       }
     }
   }

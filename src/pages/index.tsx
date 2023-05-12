@@ -1,37 +1,33 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import Seo from "../components/seo"
 import ArticlePostCard from "../components/articlePostCard"
 import ArticleWidePostCard from '../components/articleWidePostCard'
-import Section from '../components/section';
-
-import profileImg from "../images/walid-profile.jpeg"
-
-const profile = {
-  image: profileImg,
-  description: "I'm Walid Newaz, a software engineer who enjoys writing about learning, programming, the outdoors, and my obeservations.",
-  detailLink: "/about",
-  detailLinkLabel: "Read more >"
-}
 
 /**
  * Renders the featured posts
  * @param params
  * @returns 
  */
-const FeaturedPosts = ({ posts }) => (
-  posts.map(post => <ArticleWidePostCard
-    key={post.id}
-    image={post.frontmatter.image}
-    title={post.frontmatter.title}
-    postDate={post.frontmatter.postDate}
-    readTime={post.frontmatter.readTime}
-    tags={post.frontmatter.tags}
-    description={post.excerpt}
-    slug={`/blog${post.fields.slug}`}
-  />)
-)
+const FeaturedPosts = ({ posts }) => {
+  if (!posts || posts.length == 0) {
+    return <EmptyPosts />
+  }
+  return (
+    posts.map(post => <ArticleWidePostCard
+      key={post.id}
+      image={post.frontmatter.image}
+      title={post.frontmatter.title}
+      postDate={post.frontmatter.postDate}
+      readTime={post.frontmatter.readTime}
+      tags={post.frontmatter.tags}
+      description={post.excerpt}
+      slug={`/blog${post.fields.slug}`}
+    />)
+  )
+}
 
 /**
  * Renders empty message when no featured posts are available
@@ -40,28 +36,43 @@ const FeaturedPosts = ({ posts }) => (
 const EmptyPosts = () => <p>No fatured posts yet.</p>
 
 /**
+ * Renders the About Me section of the homepage
+ * @param param0 
+ * @returns 
+ */
+const AboutMe = ({ profileImg }) => {
+  return (
+    <div className="section">
+      <h2>About Me</h2>
+      <GatsbyImage
+        image={profileImg.childImageSharp.gatsbyImageData}
+        alt="Walid Newaz"
+        style={{ float: "left", marginRight: "1rem" }}
+      />
+      <p>I'm Walid Newaz, a software engineer who enjoys writing about learning,
+        programming, the outdoors, and my obeservations.</p>
+      <div>
+        <Link to="/about">Read More &gt;</Link>
+      </div>
+    </div>
+  )
+}
+
+/**
  * Renders the top of the index page containing the featured posts and
  * short bio.
  * @param params
  * @returns 
  */
-const HomePageFeatures = ({ featuredPosts, profile }) => {
+const HomePageFeatures = ({ featuredPosts, profileImg }) => {
   return (
     <>
       <div id="featured-posts" className="column">
         <h2>Featured Posts</h2>
-        {
-          !featuredPosts || featuredPosts.length == 0 ? <EmptyPosts /> : <FeaturedPosts posts={featuredPosts} />
-        }
+        <FeaturedPosts posts={featuredPosts} />
       </div>
       <div id="homepage-profile" className="column">
-        <Section
-          title="About Me"
-          img={profile.image}
-          description={profile.description}
-          detailLink={profile.detailLink}
-          detailLinkLabel={profile.detailLinkLabel}
-        />
+        <AboutMe profileImg={profileImg} />
       </div>
     </>
   )
@@ -129,15 +140,16 @@ const HomePageMorePosts = ({ posts }) => {
   )
 }
 
-const Index = ({ data, location }) => {
+const Index = ({ data }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allPosts.nodes
   const featuredPosts = data.featuredPosts.nodes
+  const profileImg = data.profilePhotos.nodes[0];
 
   return (
     <>
       <section id="homepage-features" className="row">
-        <HomePageFeatures featuredPosts={featuredPosts} profile={profile} />
+        <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
       </section>
       <section id="newsletter-subscribe">
         <HomePageNewsletter />
@@ -199,6 +211,14 @@ export const pageQuery = graphql`
           read_time
         }
         id
+      }
+    }
+    profilePhotos: allFile(filter: {absolutePath: {regex: "/.*?/walid-profile\\.jpeg$/"}}) {
+      nodes {
+        absolutePath
+        childImageSharp {
+          gatsbyImageData
+        }
       }
     }
   }
