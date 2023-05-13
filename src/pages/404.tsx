@@ -4,18 +4,17 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const NotFoundPage = ({ data, location }): any => {
-  const siteTitle = data.site.siteMetadata.title
+const NotFoundPage: React.FC<{ data, location }> = ({ location }) => {
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <h1>404: Not Found</h1>
       <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
     </Layout>
   )
 }
 
-export const Head = (): any => <Seo title="404: Not Found" />
+export const Head: React.FC = () => <Seo title="404: Not Found" />
 
 export default NotFoundPage
 

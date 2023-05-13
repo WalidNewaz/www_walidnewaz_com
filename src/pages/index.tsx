@@ -11,8 +11,7 @@ import ArticleWidePostCard from '../components/articleWidePostCard'
  * @param params
  * @returns 
  */
-const FeaturedPosts = ({ posts }) => {
-  console.log('FeaturedPosts', posts)
+const FeaturedPosts: React.FC<{ posts }> = ({ posts }) => {
   if (!posts || posts.length == 0) {
     return <EmptyPosts />
   }
@@ -34,14 +33,14 @@ const FeaturedPosts = ({ posts }) => {
  * Renders empty message when no featured posts are available
  * @returns 
  */
-const EmptyPosts = () => <p>No fatured posts yet.</p>
+const EmptyPosts: React.FC = () => <p>No fatured posts yet.</p>
 
 /**
  * Renders the About Me section of the homepage
  * @param param0 
  * @returns 
  */
-const AboutMe = ({ profileImg }) => {
+const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
     <div className="section">
       <h2>About Me</h2>
@@ -50,7 +49,7 @@ const AboutMe = ({ profileImg }) => {
         alt="Walid Newaz"
         style={{ float: "left", marginRight: "1rem" }}
       />
-      <p>I'm Walid Newaz, a software engineer who enjoys writing about learning,
+      <p>I&apos;m Walid Newaz, a software engineer who enjoys writing about learning,
         programming, the outdoors, and my obeservations.</p>
       <div>
         <Link to="/about">Read More &gt;</Link>
@@ -65,7 +64,7 @@ const AboutMe = ({ profileImg }) => {
  * @param params
  * @returns 
  */
-const HomePageFeatures = ({ featuredPosts, profileImg }) => {
+const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPosts, profileImg }) => {
   return (
     <>
       <div id="featured-posts" className="column">
@@ -83,7 +82,7 @@ const HomePageFeatures = ({ featuredPosts, profileImg }) => {
  * Newsletter signup section on the homepage.
  * @returns 
  */
-const HomePageNewsletter = () => {
+const HomePageNewsletter: React.FC = () => {
   return (
     <div>
       <div>
@@ -116,13 +115,13 @@ const HomePageNewsletter = () => {
  * @param params
  * @returns 
  */
-const HomePageMorePosts = ({ posts }) => {
+const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   if (posts.length === 0) {
     return (
       <p>
-        No blog posts found. Add markdown posts to "content/blog" (or the
-        directory you specified for the "gatsby-source-filesystem" plugin in
+        No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+        directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
         gatsby-config.js).
       </p>
     )
@@ -141,8 +140,7 @@ const HomePageMorePosts = ({ posts }) => {
   )
 }
 
-const Index = ({ data }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+const Index: React.FC<{ data }> = ({ data }) => {
   const posts = data.allPosts.nodes
   const featuredPosts = data.featuredPosts.nodes
   const profileImg = data.profilePhotos
@@ -172,7 +170,7 @@ export default Index
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="Home" />
+export const Head: React.FC = () => <Seo title="Home" />
 
 export const pageQuery = graphql`
   {

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * Configure your Gatsby site with this file.
  *
