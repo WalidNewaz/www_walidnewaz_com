@@ -1,6 +1,6 @@
 import * as React from "react"
 
-const Footer = () => {
+const Footer: React.FC = () => {
     return (
         <footer>
         Copyright © {new Date().getFullYear()} by Walid Newaz | Built with

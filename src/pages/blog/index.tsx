@@ -4,6 +4,9 @@ import { Link, graphql } from 'gatsby'
 import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
 
+/**
+ * Generate the topics section on the blogs main page
+ */
 const Topics = ({ topics }): any => {
     const topicList = Object.keys(topics)
     return (
@@ -21,6 +24,9 @@ const Topics = ({ topics }): any => {
     )
 }
 
+/**
+ * Generate all posts in blog main page
+ */
 const MorePosts = ({ posts }) => {
 
     if (posts.length === 0) {
