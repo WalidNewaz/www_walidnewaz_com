@@ -4,8 +4,8 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/
  */
 
-const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
+import * as path from 'path'
+import { createFilePath } from 'gatsby-source-filesystem'
 
 /**
  * Creates static pages for individual blog posts
@@ -13,7 +13,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
  * @param {*} createPage 
  */
 function createPostPages(posts, createPage) {
-  const getParsedPath = () => {};
+  // const getParsedPath = () => {};
 
   if (posts.length > 0) {
     posts.forEach((post, index) => {

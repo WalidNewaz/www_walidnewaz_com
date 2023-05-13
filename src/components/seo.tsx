@@ -7,7 +7,6 @@
 
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import favicon from "../../static/favicon.ico"
 
 interface Props {
   description?: string,
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const Seo: React.FC<Props> = ({ description, title, children }) => {
-  const { site } = useStaticQuery(
+  const { site, favicon } = useStaticQuery(
     graphql`
       query {
         site {
@@ -27,6 +26,9 @@ const Seo: React.FC<Props> = ({ description, title, children }) => {
               linkedin
             }
           }
+        }
+        favicon: file(relativePath: {regex: "/walid-newaz-favicon-512x512.png/"}) {
+          publicURL
         }
       }
     `
@@ -50,7 +52,7 @@ const Seo: React.FC<Props> = ({ description, title, children }) => {
       />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
-      <link rel="icon" href={favicon} type="image/png"></link>
+      <link rel="icon" href={favicon.publicURL} type="image/png"></link>
       {children}
     </>
   )

@@ -20,7 +20,6 @@ const ArticlePostCard = ({ title, image, postDate, slug, readTime, tags }) => {
             className="card"
             itemScope
             itemType="http://schema.org/Article">
-            {/* <img src={image} alt={title} /> */}
             <HeroImage {...{image, title}} />
             <div className="card-body">
                 <div>
