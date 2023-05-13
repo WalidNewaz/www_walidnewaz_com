@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 import './style.css'; // Import the CSS file for this component
 
 const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+
+const HeroImage = ({ image, title }) => (
+    image ? (
+        <GatsbyImage
+            image={image.childImageSharp.gatsbyImageData}
+            alt={title}
+        />
+    ) : null
+)
 
 const ArticlePostCard = ({ title, image, postDate, slug, readTime, tags }) => {
     return (
@@ -10,7 +20,8 @@ const ArticlePostCard = ({ title, image, postDate, slug, readTime, tags }) => {
             className="card"
             itemScope
             itemType="http://schema.org/Article">
-            <img src={image} alt={title} />
+            {/* <img src={image} alt={title} /> */}
+            <HeroImage {...{image, title}} />
             <div className="card-body">
                 <div>
                     <div>{postDate}</div>

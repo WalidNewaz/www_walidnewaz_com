@@ -2,9 +2,8 @@
 title: Hello World
 date: "2015-05-01T22:12:03.284Z"
 description: "Hello World"
-hero_image: "https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+hero_image: "neom-RqfFauPXJx0-unsplash.jpeg"
 tags: ['common', 'page']
-post_date: Jun 15, 2021
 read_time: 5 min
 ---
 

@@ -421,6 +421,23 @@ footer {
 
 #homepage-profile .section {
   background-color: transparent;
+  padding: 50px;
+}
+
+#homepage-profile .section h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+#homepage-profile .section p {
+  font-size: 17px;
+}
+
+#homepage-profile .section img {
+  border: solid black 1px;
+  margin-bottom: 30px;
 }
 
 #newsletter-subscribe div {

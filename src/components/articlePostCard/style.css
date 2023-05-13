@@ -8,11 +8,6 @@
     position: relative;
 }
 
-.card img {
-    max-width: 100%;
-    height: auto;
-}
-
 .card-body {
     padding: 20px;
 }
@@ -20,6 +15,7 @@
 .card-body div {
     display: flex;
     justify-content: space-between;
+    width: 100%;
     color: rgb(94, 94, 94)
 }
 
