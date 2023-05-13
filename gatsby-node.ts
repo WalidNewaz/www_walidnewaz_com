@@ -9,13 +9,8 @@ import { createFilePath } from 'gatsby-source-filesystem'
 
 /**
  * Creates static pages for individual blog posts
- * @param {*} posts 
- * @param {*} createPage 
  */
 const createPostPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions
-  // const getParsedPath = () => {};
-
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
@@ -45,6 +40,7 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
+  const { createPage } = actions
   const posts = result.data.allMarkdownRemark.nodes
 
   if (posts.length > 0) {
@@ -68,6 +64,59 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
   }
 }
 
+/**
+ * Creates a list of pages that filter blog posts based on topics
+ * @param params
+ */
+const createTopicsPages = async ({ graphql, actions, reporter }) => {
+  // Get all posts and their listed topics
+  const result = await graphql(`
+    {
+      allMarkdownRemark(limit: 1000) {
+        nodes {
+          frontmatter {
+            tags
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog posts`,
+      result.errors
+    )
+    return
+  }
+
+  // Aggregate unique topics into an array
+  const posts = result.data.allMarkdownRemark.nodes
+  const topics = posts.reduce((topics, post) => {
+    const { tags } = post.frontmatter
+    tags.forEach(tag => {
+      if (!topics.includes(tag)) {
+        topics = [...topics, tag]
+      }
+    })
+    return topics
+  }, []);
+
+  // Iterate through the topics and create pages
+  const { createPage } = actions
+
+  if (topics.length > 0) {
+    topics.forEach((topic, index) => {
+      createPage({
+        path: `/blog/${topic}`,
+        component: path.resolve(`./src/templates/blog-topic.tsx`),
+        context: {
+          topic,
+        },
+      })
+    })
+  }
+}
 
 
 /**
@@ -75,6 +124,7 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
  */
 exports.createPages = async ({ graphql, actions, reporter }) => {
   await createPostPages({ graphql, actions, reporter })
+  await createTopicsPages({ graphql, actions, reporter })
 }
 
 /**

@@ -87,30 +87,34 @@ const BlogTopicPage: React.FC<{ data, location }> = ({ data }) => {
     )
 }
 
-// Queries the blog directory for file names
-export const query = graphql`
-  {
-    allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
-        nodes {
-            excerpt
-            fields {
-              slug
-            }
-            frontmatter {
-              date(formatString: "MMMM DD, YYYY")
-              title
-              description
-              hero_image {
-                id
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
-              tags
-              read_time
-            }
+// Queries the blog directory for selected topics
+export const pageQuery = graphql`
+query ($topic: String) {
+    allMarkdownRemark(
+      sort: {frontmatter: {date: DESC}}
+      filter: {frontmatter: {tags: {eq: $topic}}}
+    ) {
+      nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
+          title
+          description
+          hero_image {
             id
+            childImageSharp {
+              gatsbyImageData
+            }
           }
+          tags
+          read_time
+        }
+        id
+      }
     }
   }
 `
