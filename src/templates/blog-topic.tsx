@@ -103,7 +103,12 @@ export const query = graphql`
               date(formatString: "MMMM DD, YYYY")
               title
               description
-              hero_image
+              hero_image {
+                id
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
               tags
               read_time
             }

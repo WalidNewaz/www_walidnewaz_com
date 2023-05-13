@@ -19,6 +19,7 @@ function createPostPages(posts, createPage) {
     posts.forEach((post, index) => {
       const previousPostId = index === 0 ? null : posts[index - 1].id
       const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+      const heroImagePattern = `/${post.frontmatter.hero_image ? post.frontmatter.hero_image.base : null}/`
 
       createPage({
         path: `/blog${post.fields.slug}`,
@@ -27,6 +28,7 @@ function createPostPages(posts, createPage) {
           id: post.id,
           previousPostId,
           nextPostId,
+          heroImagePattern,
         },
       })
     })
@@ -47,6 +49,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           id
           fields {
             slug
+          }
+          frontmatter {
+            hero_image {
+              id
+              base
+            }
           }
         }
       }

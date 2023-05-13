@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
+
 import './style.css'; // Import the CSS file for this component
 
 const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
@@ -7,12 +9,17 @@ const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'
 const ArticleWidePostCard = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
     <div className="wide-card">
-      <img src={image} alt={title} />
+      {/* <img src={image} alt={title} /> */}
+      <GatsbyImage
+        image={image.childImageSharp.gatsbyImageData}
+        alt={title}
+      />
       <div className="wide-card-body">
         <div>
           <div>{postDate}</div>
           <div>
-            <p className='read-time'>{readTime}</p>
+            {readTime}
+            {/* <p className='read-time'>{readTime}</p> */}
           </div>
         </div>
         <h3 className="wide-card-title">{title}</h3>

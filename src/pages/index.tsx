@@ -12,6 +12,7 @@ import ArticleWidePostCard from '../components/articleWidePostCard'
  * @returns 
  */
 const FeaturedPosts = ({ posts }) => {
+  console.log('FeaturedPosts', posts)
   if (!posts || posts.length == 0) {
     return <EmptyPosts />
   }
@@ -144,7 +145,7 @@ const Index = ({ data }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allPosts.nodes
   const featuredPosts = data.featuredPosts.nodes
-  const profileImg = data.profilePhotos.nodes[0];
+  const profileImg = data.profilePhotos
 
   return (
     <>
@@ -188,7 +189,12 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          image: hero_image
+          image: hero_image {
+            id
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
           postDate: date(formatString: "MMMM DD, YYYY")
           readTime: read_time
           title
@@ -206,19 +212,21 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
-          hero_image
+          hero_image {
+            id
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
           tags
           read_time
         }
         id
       }
     }
-    profilePhotos: allFile(filter: {absolutePath: {regex: "/.*?/walid-profile\\.jpeg$/"}}) {
-      nodes {
-        absolutePath
-        childImageSharp {
-          gatsbyImageData
-        }
+    profilePhotos: file(relativePath: {regex: "/walid-profile.jpeg/"}) {
+      childImageSharp {
+        gatsbyImageData
       }
     }
   }

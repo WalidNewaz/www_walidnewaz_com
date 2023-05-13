@@ -8,27 +8,32 @@
     position: relative;
 }
 
-.wide-card img {
+.wide-card div {
     width: 50%;
-    height: auto;
+}
+
+.wide-card img {
+    /* width: 50%; */
+    /* height: auto; */
 }
 
 .wide-card-body {
-    width: 50%;
+    /* width: 50%; */
     padding: 20px;
 }
 
 .wide-card-body div {
     display: flex;
     justify-content: space-between;
-    color: rgb(94, 94, 94)
+    color: rgb(94, 94, 94);
+    width: 100%;
+    padding-bottom: 0.6em;
 }
 
 .wide-card-title {
     font-size: 24px;
     font-weight: bold;
-    /* margin-bottom: 10px; */
-    margin: 0;
+    margin: 0 0 10px 0;
 }
 
 .wide-card-text {
@@ -40,7 +45,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     background-color: black;
     opacity: 0;

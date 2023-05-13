@@ -5,7 +5,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import Seo from "../components/seo"
 
 const About = ({ data }) => {
-  const banner = data.bannerFiles.nodes[0];
+  const banner = data.bannerFile;
 
   return (
     <section id="about-me">
@@ -74,12 +74,9 @@ export const pageQuery = graphql`
         title
       }
     }
-    bannerFiles: allFile(filter: {absolutePath: {regex: "/.*?/about_banner\\.jpeg$/"}}) {
-      nodes {
-        absolutePath
-        childImageSharp {
-          gatsbyImageData
-        }
+    bannerFile: file(relativePath: {regex: "/about_banner.jpeg/"}) {
+      childImageSharp {
+        gatsbyImageData
       }
     }
   }

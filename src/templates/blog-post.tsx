@@ -1,13 +1,22 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 
-// import Bio from "../components/bio"
 import Seo from "../components/seo"
 
+const HeroImage = ({ post, heroImage }) => (
+  !heroImage ? null : (
+    <GatsbyImage
+      image={heroImage.childImageSharp.gatsbyImageData}
+      alt={post.frontmatter.title}
+      style={{ height: "300px", marginBottom: "25px" }}
+    />
+  )
+)
+
 const BlogPostTemplate = ({
-  data: { previous, next, markdownRemark: post },
+  data: { previous, next, markdownRemark: post, heroImage },
 }) => {
-  // const siteTitle = site.siteMetadata?.title || `Title`
 
   return (
     <>
@@ -23,6 +32,9 @@ const BlogPostTemplate = ({
             <div className="article-read-time">{post.frontmatter.read_time} read</div>
           </div>
         </header>
+        <section>
+          <HeroImage {...{post, heroImage}} />
+        </section>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -78,6 +90,7 @@ export const pageQuery = graphql`
     $id: String!
     $previousPostId: String
     $nextPostId: String
+    $heroImagePattern: String
   ) {
     site {
       siteMetadata {
@@ -93,6 +106,13 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         read_time
+        hero_image {
+          id
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+        tags
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
@@ -109,6 +129,11 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+      }
+    }
+    heroImage: file(relativePath: {regex: $heroImagePattern}) {
+      childImageSharp {
+        gatsbyImageData
       }
     }
   }
