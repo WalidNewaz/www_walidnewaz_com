@@ -46,7 +46,7 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
             readTime={post.frontmatter.read_time}
             title={post.frontmatter.title || post.fields.slug}
             image={post.frontmatter.hero_image}
-            slug={`/blog${post.fields.slug}`}
+            slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
             tags={post.frontmatter.tags} />
         )
     )
@@ -104,6 +104,7 @@ export const query = graphql`
             }
             frontmatter {
               date(formatString: "MMMM DD, YYYY")
+              pathDate: date(formatString: "/YYYY/MM/DD")
               title
               description
               hero_image {

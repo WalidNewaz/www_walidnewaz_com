@@ -24,7 +24,7 @@ const FeaturedPosts: React.FC<{ posts }> = ({ posts }) => {
       readTime={post.frontmatter.readTime}
       tags={post.frontmatter.tags}
       description={post.excerpt}
-      slug={`/blog${post.fields.slug}`}
+      slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
     />)
   )
 }
@@ -134,7 +134,7 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
       readTime={post.frontmatter.read_time}
       title={post.frontmatter.title || post.fields.slug}
       image={post.frontmatter.hero_image}
-      slug={`/blog${post.fields.slug}`}
+      slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
       tags={post.frontmatter.tags} />
     )
   )
@@ -194,6 +194,7 @@ export const pageQuery = graphql`
             }
           }
           postDate: date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
           readTime: read_time
           title
           tags
@@ -208,6 +209,7 @@ export const pageQuery = graphql`
         }
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
           title
           description
           hero_image {

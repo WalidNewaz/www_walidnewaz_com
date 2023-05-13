@@ -12,34 +12,9 @@ import { createFilePath } from 'gatsby-source-filesystem'
  * @param {*} posts 
  * @param {*} createPage 
  */
-function createPostPages(posts, createPage) {
-  // const getParsedPath = () => {};
-
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
-      const heroImagePattern = `/${post.frontmatter.hero_image ? post.frontmatter.hero_image.base : null}/`
-
-      createPage({
-        path: `/blog${post.fields.slug}`,
-        component: path.resolve(`./src/templates/blog-post.tsx`),
-        context: {
-          id: post.id,
-          previousPostId,
-          nextPostId,
-          heroImagePattern,
-        },
-      })
-    })
-  }
-}
-
-/**
- * @type {import('gatsby').GatsbyNode['createPages']}
- */
-exports.createPages = async ({ graphql, actions, reporter }) => {
+const createPostPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
+  // const getParsedPath = () => {};
 
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
@@ -55,6 +30,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               id
               base
             }
+            pathDate: date(formatString: "/YYYY/MM/DD")
           }
         }
       }
@@ -71,10 +47,34 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const posts = result.data.allMarkdownRemark.nodes
 
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
-  // `context` is available in the template as a prop and as a variable in GraphQL
-  createPostPages(posts, createPage)
+  if (posts.length > 0) {
+    posts.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : posts[index - 1].id
+      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+      const heroImagePattern = `/${post.frontmatter.hero_image ? post.frontmatter.hero_image.base : null}/`
+      const { pathDate } = post.frontmatter
+
+      createPage({
+        path: `/blog${pathDate}${post.fields.slug}`,
+        component: path.resolve(`./src/templates/blog-post.tsx`),
+        context: {
+          id: post.id,
+          previousPostId,
+          nextPostId,
+          heroImagePattern,
+        },
+      })
+    })
+  }
+}
+
+
+
+/**
+ * @type {import('gatsby').GatsbyNode['createPages']}
+ */
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  await createPostPages({ graphql, actions, reporter })
 }
 
 /**
