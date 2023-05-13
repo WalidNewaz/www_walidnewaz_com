@@ -3,9 +3,14 @@ import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import './style.css'; // Import the CSS file for this component
 
-const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+const Tags:React.FC<{ tags: Array<string> }> = ({ tags }) =>  (
+    tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+)
 
-const HeroImage = ({ image, title }) => (
+const HeroImage:React.FC<{
+    image,
+    title: string
+}> = ({ image, title }) => (
     image ? (
         <GatsbyImage
             image={image.childImageSharp.gatsbyImageData}
@@ -14,13 +19,19 @@ const HeroImage = ({ image, title }) => (
     ) : null
 )
 
-const ArticlePostCard = ({ title, image, postDate, slug, readTime, tags }) => {
+const ArticlePostCard:React.FC<{
+    title: string,
+    image,
+    postDate: string,
+    slug: string,
+    readTime: string,
+    tags: Array<string>
+}> = ({ title, image, postDate, slug, readTime, tags }) => {
     return (
         <article
             className="card"
             itemScope
             itemType="http://schema.org/Article">
-            {/* <img src={image} alt={title} /> */}
             <HeroImage {...{image, title}} />
             <div className="card-body">
                 <div>

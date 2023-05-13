@@ -4,7 +4,10 @@ import { Link, graphql } from 'gatsby'
 import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
 
-const Topics = ({ topics }): any => {
+/**
+ * Generate the topics section on the blogs main page
+ */
+const Topics: React.FC<{ topics }> = ({ topics }) => {
     const topicList = Object.keys(topics)
     return (
         <ul>
@@ -21,13 +24,16 @@ const Topics = ({ topics }): any => {
     )
 }
 
-const MorePosts = ({ posts }) => {
+/**
+ * Generate all posts in blog main page
+ */
+const MorePosts: React.FC<{ posts }> = ({ posts }) => {
 
     if (posts.length === 0) {
         return (
             <p>
-                No blog posts found. Add markdown posts to "content/blog" (or the
-                directory you specified for the "gatsby-source-filesystem" plugin in
+                No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+                directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
                 gatsby-config.js).
             </p>
         )
@@ -67,7 +73,7 @@ const getTopics = (posts) => posts.reduce((topics, post) => {
     return topics
 }, {});
 
-const BlogPage = ({ data, location }) => {
+const BlogPage: React.FC<{ data, location }> = ({ data }) => {
     const posts = data.allMarkdownRemark.nodes
     const topics = getTopics(posts);
 
@@ -117,4 +123,4 @@ export const query = graphql`
 
 export default BlogPage
 
-export const Head = () => <Seo title="All posts" />
+export const Head: React.FC = () => <Seo title="All posts" />

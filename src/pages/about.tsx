@@ -4,7 +4,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 
 import Seo from "../components/seo"
 
-const About = ({ data }) => {
+const About: React.FC<{ data }> = ({ data }) => {
   const banner = data.bannerFile;
 
   return (
@@ -25,7 +25,7 @@ const About = ({ data }) => {
       <p>My fascination with programming started with BASIC in 6th grade.
         I was fascinated with the small programs that we were able to create even with such a simple language,
         that a 6th grader could understand. Later on I picked up Pascal and C which allowed me to write
-        programs to record interesting data as files in my computer. I knew that I'd barely scratched the surface.</p>
+        programs to record interesting data as files in my computer. I knew that I&apos;d barely scratched the surface.</p>
 
       <p>In college I learned more about computer systems and programming. I was exposed to many tools
         and practices in the world of software engineering.</p>
@@ -35,7 +35,7 @@ const About = ({ data }) => {
         flexibility of software architecture, and providing a cutting endge user experience.
       </p>
 
-      <p>Some of the notable things I've worked on over the years include:</p>
+      <p>Some of the notable things I&apos;ve worked on over the years include:</p>
       <ul>
         <li>Lead capture system</li>
         <li>User survey capture system</li>
@@ -50,10 +50,10 @@ const About = ({ data }) => {
         development. I am also interested in developing user-friendly applications that scale.
       </p>
 
-      <p>When I'm not writing code you can often find me cooking, hiking in the Colorado Front Range with my dog, or traveling.
+      <p>When I&apos;m not writing code you can often find me cooking, hiking in the Colorado Front Range with my dog, or traveling.
         I love music, art, books and podcasts.</p>
 
-      <p>Feel free to reach out to me if you'd like to share ideas, collaborate, or go on adventures together.</p>
+      <p>Feel free to reach out to me if you&apos;d like to share ideas, collaborate, or go on adventures together.</p>
     </section>
   )
 }
@@ -65,7 +65,7 @@ export default About
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="About Walid" />
+export const Head: React.FC = () => <Seo title="About Walid" />
 
 export const pageQuery = graphql`
   {

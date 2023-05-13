@@ -14,7 +14,7 @@ import { graphql } from 'gatsby'
 import Seo from "../../src/components/seo"
 import ArticlePostCard from "../../src/components/articlePostCard"
 
-const Topics = ({ topics }): any => {
+const Topics: React.FC<{ topics }> = ({ topics }) => {
     const topicList = Object.keys(topics)
     return (
         <ul>
@@ -27,13 +27,13 @@ const Topics = ({ topics }): any => {
     )
 }
 
-const MorePosts = ({ posts }) => {
+const MorePosts: React.FC<{ posts }> = ({ posts }) => {
 
     if (posts.length === 0) {
         return (
             <p>
-                No blog posts found. Add markdown posts to "content/blog" (or the
-                directory you specified for the "gatsby-source-filesystem" plugin in
+                No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+                directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
                 gatsby-config.js).
             </p>
         )
@@ -52,9 +52,8 @@ const MorePosts = ({ posts }) => {
     )
 }
 
-const BlogTopicPage = ({ data, location }) => {
+const BlogTopicPage: React.FC<{ data, location }> = ({ data }) => {
     const posts = data.allMarkdownRemark.nodes
-    console.log(posts)
     const topics = posts.reduce((topics, post) => {
         const { tags } = post.frontmatter
 
@@ -71,8 +70,6 @@ const BlogTopicPage = ({ data, location }) => {
 
         return topics
     }, {});
-
-    console.log("topics", topics)
 
     return (
         <div id='blog-page-container'>
@@ -120,4 +117,4 @@ export const query = graphql`
 
 export default BlogTopicPage
 
-export const Head = () => <Seo title="All posts" />
+export const Head: React.FC = () => <Seo title="All posts" />

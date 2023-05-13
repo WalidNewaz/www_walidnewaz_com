@@ -4,7 +4,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 
 import Seo from "../components/seo"
 
-const HeroImage = ({ post, heroImage }) => (
+const HeroImage: React.FC<{ post, heroImage }> = ({ post, heroImage }) => (
   !heroImage ? null : (
     <GatsbyImage
       image={heroImage.childImageSharp.gatsbyImageData}
@@ -14,7 +14,7 @@ const HeroImage = ({ post, heroImage }) => (
   )
 )
 
-const BlogPostTemplate = ({
+const BlogPostTemplate: React.FC<{ data }> = ({
   data: { previous, next, markdownRemark: post, heroImage },
 }) => {
 
@@ -74,7 +74,7 @@ const BlogPostTemplate = ({
   )
 }
 
-export const Head = ({ data: { markdownRemark: post } }) => {
+export const Head: React.FC<{ data }> = ({ data: { markdownRemark: post } }) => {
   return (
     <Seo
       title={post.frontmatter.title}

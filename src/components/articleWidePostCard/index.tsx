@@ -4,12 +4,21 @@ import { GatsbyImage } from "gatsby-plugin-image"
 
 import './style.css'; // Import the CSS file for this component
 
-const Tags = ({ tags }) => tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+const Tags: React.FC<{ tags: Array<string>}> = ({ tags }) => (
+  tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+)
 
-const ArticleWidePostCard = ({ image, title, description, postDate, slug, readTime, tags }) => {
+const ArticleWidePostCard: React.FC<{
+  title: string,
+  image,
+  description: string,
+  postDate: string,
+  slug: string,
+  readTime: string,
+  tags: Array<string>
+}> = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
     <div className="wide-card">
-      {/* <img src={image} alt={title} /> */}
       <GatsbyImage
         image={image.childImageSharp.gatsbyImageData}
         alt={title}
@@ -19,7 +28,6 @@ const ArticleWidePostCard = ({ image, title, description, postDate, slug, readTi
           <div>{postDate}</div>
           <div>
             {readTime}
-            {/* <p className='read-time'>{readTime}</p> */}
           </div>
         </div>
         <h3 className="wide-card-title">{title}</h3>

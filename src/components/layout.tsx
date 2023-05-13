@@ -2,9 +2,9 @@ import * as React from "react"
 import Header from "./header"
 import Footer from "./footer"
 
-declare var __PATH_PREFIX__: string
+declare let __PATH_PREFIX__: string
 
-const Layout = ({ location, children }) => {
+const Layout: React.FC<{ location, children }> = ({ location, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 

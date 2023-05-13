@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import GithubIcon from '../components/icons/github'
 import LinkedInIcon from '../components/icons/linkedin'
 
-const Header = () => {
+const Header: React.FC = () => {
     return (
         <div id="site-header">
             <div id="main-menu">
@@ -26,12 +26,12 @@ const Header = () => {
             </div>
             <div id="social-links">
                 <div>
-                    <a href="https://github.com/WalidNewaz" target="_blank">
+                    <a href="https://github.com/WalidNewaz" target="_blank" rel="noreferrer">
                         <GithubIcon />
                     </a>
                 </div>
                 <div>
-                    <a href="https://www.linkedin.com/in/walid-newaz/" target="_blank">
+                    <a href="https://www.linkedin.com/in/walid-newaz/" target="_blank" rel="noreferrer">
                         <LinkedInIcon />
                     </a>
                 </div>

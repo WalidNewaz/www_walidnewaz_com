@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { RenderBodyArgs } from 'gatsby'
 
 import Layout from './src/components/layout'
 
@@ -11,11 +12,11 @@ import Layout from './src/components/layout'
 /**
  * @type {import('gatsby').GatsbySSR['onRenderBody']}
  */
-export const onRenderBody = ({ setHtmlAttributes }) => {
+export const onRenderBody = ({ setHtmlAttributes }: RenderBodyArgs): void => {
   setHtmlAttributes({ lang: `en` })
 }
 
 // Wraps every page in a component
-export const wrapPageElement = ({ element, props }) => {
+export const wrapPageElement: React.FC<{ element, props }> = ({ element, props }): React.ReactElement => {
   return <Layout {...props}>{element}</Layout>
 }
