@@ -14,7 +14,7 @@ import { Link, graphql } from 'gatsby'
 import Seo from "../../src/components/seo"
 import ArticlePostCard from "../../src/components/articlePostCard"
 
-const Topics: React.FC<{ topics }> = ({ topics }) => {
+const Topics: React.FC<{ topics, currentTopic }> = ({ topics, currentTopic }) => {
     const topicList = Object.keys(topics)
     return (
         <ul>
@@ -22,7 +22,11 @@ const Topics: React.FC<{ topics }> = ({ topics }) => {
                 topicList
                     .sort()
                     .map(topic => <li key={topic}>
-                        <Link to={`/blog/${topic}`}>{topic} ({topics[topic]})</Link>
+                        {
+                            topic === currentTopic
+                                ? <strong>{topic} ({topics[topic]})</strong>
+                                : <Link to={`/blog/${topic}`}>{topic} ({topics[topic]})</Link>
+                        }
                     </li>)
             }
         </ul>
@@ -76,16 +80,17 @@ const mapTopicsCount = (postTopics) => postTopics.reduce((topics, post) => {
     return topics
 }, {});
 
-const BlogTopicPage: React.FC<{ data, location }> = ({ data }) => {
+const BlogTopicPage: React.FC<{ data, location, pageContext }> = ({ data, pageContext }) => {
     const { posts } = data.allPosts
     const { postTopics } = data
+    const { topic } = pageContext
     const topics = mapTopicsCount(postTopics.nodes)
 
     return (
         <div id='blog-page-container'>
             <div id='blog-topics'>
                 <h3>Topics:</h3>
-                <Topics topics={topics} />
+                <Topics topics={topics} currentTopic={topic} />
             </div>
             <div id='blog-posts'>
                 <h3>Posts:</h3>
