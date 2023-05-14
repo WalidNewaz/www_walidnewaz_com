@@ -474,9 +474,11 @@ footer {
   flex: 30%;
 }
 
-#more-posts #posts div.read-time {
+/* #more-posts #posts  */
+div.read-time {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end !important;
+  width: 90% !important;
 }
 
 /* About me sections */

@@ -9,38 +9,8 @@ import { createFilePath } from 'gatsby-source-filesystem'
 
 /**
  * Creates static pages for individual blog posts
- * @param {*} posts 
- * @param {*} createPage 
  */
-function createPostPages(posts, createPage) {
-  // const getParsedPath = () => {};
-
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
-      const heroImagePattern = `/${post.frontmatter.hero_image ? post.frontmatter.hero_image.base : null}/`
-
-      createPage({
-        path: `/blog${post.fields.slug}`,
-        component: path.resolve(`./src/templates/blog-post.tsx`),
-        context: {
-          id: post.id,
-          previousPostId,
-          nextPostId,
-          heroImagePattern,
-        },
-      })
-    })
-  }
-}
-
-/**
- * @type {import('gatsby').GatsbyNode['createPages']}
- */
-exports.createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions
-
+const createPostPages = async ({ graphql, actions, reporter }) => {
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
@@ -55,6 +25,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               id
               base
             }
+            pathDate: date(formatString: "/YYYY/MM/DD")
           }
         }
       }
@@ -69,12 +40,91 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
+  const { createPage } = actions
   const posts = result.data.allMarkdownRemark.nodes
 
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
-  // `context` is available in the template as a prop and as a variable in GraphQL
-  createPostPages(posts, createPage)
+  if (posts.length > 0) {
+    posts.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : posts[index - 1].id
+      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+      const heroImagePattern = `/${post.frontmatter.hero_image ? post.frontmatter.hero_image.base : null}/`
+      const { pathDate } = post.frontmatter
+
+      createPage({
+        path: `/blog${pathDate}${post.fields.slug}`,
+        component: path.resolve(`./src/templates/blog-post.tsx`),
+        context: {
+          id: post.id,
+          previousPostId,
+          nextPostId,
+          heroImagePattern,
+        },
+      })
+    })
+  }
+}
+
+/**
+ * Creates a list of pages that filter blog posts based on topics
+ * @param params
+ */
+const createTopicsPages = async ({ graphql, actions, reporter }) => {
+  // Get all posts and their listed topics
+  const result = await graphql(`
+    {
+      allMarkdownRemark(limit: 1000) {
+        nodes {
+          frontmatter {
+            tags
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog posts`,
+      result.errors
+    )
+    return
+  }
+
+  // Aggregate unique topics into an array
+  const posts = result.data.allMarkdownRemark.nodes
+  const topics = posts.reduce((topics, post) => {
+    const { tags } = post.frontmatter
+    tags.forEach(tag => {
+      if (!topics.includes(tag)) {
+        topics = [...topics, tag]
+      }
+    })
+    return topics
+  }, []);
+
+  // Iterate through the topics and create pages
+  const { createPage } = actions
+
+  if (topics.length > 0) {
+    topics.forEach((topic, index) => {
+      createPage({
+        path: `/blog/${topic}`,
+        component: path.resolve(`./src/templates/blog-topic.tsx`),
+        context: {
+          topic,
+        },
+      })
+    })
+  }
+}
+
+
+/**
+ * @type {import('gatsby').GatsbyNode['createPages']}
+ */
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  await createPostPages({ graphql, actions, reporter })
+  await createTopicsPages({ graphql, actions, reporter })
 }
 
 /**

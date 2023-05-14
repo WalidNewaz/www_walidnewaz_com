@@ -9,19 +9,25 @@
  */
 
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import Seo from "../../src/components/seo"
 import ArticlePostCard from "../../src/components/articlePostCard"
 
-const Topics: React.FC<{ topics }> = ({ topics }) => {
+const Topics: React.FC<{ topics, currentTopic }> = ({ topics, currentTopic }) => {
     const topicList = Object.keys(topics)
     return (
         <ul>
             {
                 topicList
                     .sort()
-                    .map(topic => <li key={topic}><a href='#'>{topic} ({topics[topic]})</a></li>)
+                    .map(topic => <li key={topic}>
+                        {
+                            topic === currentTopic
+                                ? <strong>{topic} ({topics[topic]})</strong>
+                                : <Link to={`/blog/${topic}`}>{topic} ({topics[topic]})</Link>
+                        }
+                    </li>)
             }
         </ul>
     )
@@ -52,30 +58,39 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
     )
 }
 
-const BlogTopicPage: React.FC<{ data, location }> = ({ data }) => {
-    const posts = data.allMarkdownRemark.nodes
-    const topics = posts.reduce((topics, post) => {
-        const { tags } = post.frontmatter
+/**
+ * Counts the number of each topic and maps them
+ * @param postTopics 
+ * @returns 
+ */
+const mapTopicsCount = (postTopics) => postTopics.reduce((topics, post) => {
+    const { tags } = post.frontmatter
 
-        tags.forEach(tag => {
-            if (topics?.[tag]) {
-                topics[tag]++
-            } else {
-                topics = {
-                    ...topics,
-                    [tag]: 1
-                }
+    tags.forEach(tag => {
+        if (topics?.[tag]) {
+            topics[tag]++
+        } else {
+            topics = {
+                ...topics,
+                [tag]: 1
             }
-        });
+        }
+    });
 
-        return topics
-    }, {});
+    return topics
+}, {});
+
+const BlogTopicPage: React.FC<{ data, location, pageContext }> = ({ data, pageContext }) => {
+    const { posts } = data.allPosts
+    const { postTopics } = data
+    const { topic } = pageContext
+    const topics = mapTopicsCount(postTopics.nodes)
 
     return (
         <div id='blog-page-container'>
             <div id='blog-topics'>
                 <h3>Topics:</h3>
-                <Topics topics={topics} />
+                <Topics topics={topics} currentTopic={topic} />
             </div>
             <div id='blog-posts'>
                 <h3>Posts:</h3>
@@ -87,30 +102,41 @@ const BlogTopicPage: React.FC<{ data, location }> = ({ data }) => {
     )
 }
 
-// Queries the blog directory for file names
-export const query = graphql`
-  {
-    allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
-        nodes {
-            excerpt
-            fields {
-              slug
-            }
-            frontmatter {
-              date(formatString: "MMMM DD, YYYY")
-              title
-              description
-              hero_image {
-                id
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
-              tags
-              read_time
-            }
+// Queries the blog directory for selected topics
+export const pageQuery = graphql`
+  query ($topic: String) {
+    allPosts: allMarkdownRemark(
+      sort: {frontmatter: {date: DESC}}
+      filter: {frontmatter: {tags: {eq: $topic}}}
+    ) {
+      posts: nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
+          title
+          description
+          hero_image {
             id
+            childImageSharp {
+              gatsbyImageData
+            }
           }
+          tags
+          read_time
+        }
+        id
+      }
+    }
+    postTopics: allMarkdownRemark(limit: 1000) {
+      nodes {
+        frontmatter {
+          tags
+        }
+      }
     }
   }
 `
