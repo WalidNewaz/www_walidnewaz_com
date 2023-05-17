@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GithubIcon from '../components/icons/github'
 import LinkedInIcon from '../components/icons/linkedin'
 
-const StyledSiteHeader = styled.section`
+const StyledSiteHeader = styled.header`
   display: flex;
   justify-content: space-between;
 `
@@ -64,7 +64,7 @@ const StyledSocialSection = styled.section`
 
 const Header: React.FC = () => {
     return (
-        <StyledSiteHeader>
+        <StyledSiteHeader className="global-header">
             <Nav>
                 <ul>
                     <li>
