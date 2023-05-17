@@ -331,56 +331,6 @@ a:focus {
   }
 }
 
-/* Homepage sections */
-#homepage-features {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#homepage-features .row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#homepage-features .column {
-  padding: 20px;
-}
-#featured-posts {
-  width: 100%;
-  flex: 65
-}
-
-#featured-posts h2 {
-  margin: 0;
-}
-
-#homepage-profile {
-  flex: 30%
-}
-
-#homepage-profile .section {
-  background-color: transparent;
-  padding: 50px;
-}
-
-#homepage-profile .section h2 {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  margin-top: 0px;
-}
-
-#homepage-profile .section p {
-  font-size: 17px;
-}
-
-#homepage-profile .section img {
-  border: solid black 1px;
-  margin-bottom: 30px;
-}
-
 #newsletter-subscribe div {
   display: flex;
   flex: auto;

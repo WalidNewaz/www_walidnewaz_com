@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
+import styled from "styled-components"
 
 import Seo from "../components/seo"
 import ArticlePostCard from "../components/articlePostCard"
@@ -37,7 +38,24 @@ const FeaturedPosts: React.FC<{ posts }> = ({ posts }) => {
  * Renders empty message when no featured posts are available
  * @returns 
  */
-const EmptyPosts: React.FC = () => <p>No fatured posts yet.</p>
+const EmptyPosts: React.FC = () => ( <article>
+  <p>No fatured posts yet.</p>
+  </article> )
+
+const StyledAboutMe = styled.article`
+  background-color: transparent;
+  padding: var(--spacing-5) var(--spacing-20) var(--spacing-5) 0;
+
+  img {
+    border: solid black 1px;
+    margin-bottom: 30px;
+  }
+
+  p {
+    margin: var(--spacing-4);
+    font-size: var(--fontSize-1);
+  }
+`
 
 /**
  * Renders the About Me section of the homepage
@@ -46,21 +64,48 @@ const EmptyPosts: React.FC = () => <p>No fatured posts yet.</p>
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <div className="section">
-      <h2>About Me</h2>
+    <StyledAboutMe>
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
-        style={{ float: "left", marginRight: "1rem" }}
       />
       <p>I&apos;m Walid Newaz, a software engineer who enjoys writing about learning,
-        programming, the outdoors, and my obeservations.</p>
-      <div>
+        programming, the outdoors, and my obeservations.
+      </p>
+      <p>
         <Link to="/about">Read More &gt;</Link>
-      </div>
-    </div>
+      </p>
+    </StyledAboutMe>
   )
 }
+
+const StyledHomePageFeaturesSection = styled.section`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .col {
+    padding: 20px;
+  }
+
+  .featured-posts.col {
+    width: 100%;
+    flex: 65%;
+  }
+
+  .featured-posts h2 {
+    margin: 0;
+  }
+
+  .profile.col {
+    flex: 30%;
+  }
+
+  .profile h2 {
+    margin: 0;
+  }
+`
 
 /**
  * Renders the top of the index page containing the featured posts and
@@ -70,15 +115,16 @@ const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
  */
 const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPosts, profileImg }) => {
   return (
-    <>
-      <div id="featured-posts" className="column">
+    <StyledHomePageFeaturesSection className="row">
+      <section className="featured-posts col">
         <h2>Featured Posts</h2>
         <FeaturedPosts posts={featuredPosts} />
-      </div>
-      <div id="homepage-profile" className="column">
+      </section>
+      <section className="profile col">
+        <h2>About Me</h2>
         <AboutMe profileImg={profileImg} />
-      </div>
-    </>
+      </section>
+    </StyledHomePageFeaturesSection>
   )
 }
 
@@ -151,9 +197,9 @@ const Index: React.FC<{ data }> = ({ data }) => {
 
   return (
     <>
-      <section id="homepage-features" className="row">
+      {/* <section id="homepage-features" className="row"> */}
         <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      </section>
+      {/* </section> */}
       <section id="newsletter-subscribe">
         <HomePageNewsletter />
       </section>
