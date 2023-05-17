@@ -6,6 +6,10 @@ import Seo from "../components/seo"
 import ArticlePostCard from "../components/articlePostCard"
 import ArticleWidePostCard from '../components/articleWidePostCard'
 
+const excerptStr = (post) => (
+  post.excerpt.slice(post.headings[0].value.length + 1, post.excerpt.length)
+)
+
 /**
  * Renders the featured posts
  * @param params
@@ -19,11 +23,11 @@ const FeaturedPosts: React.FC<{ posts }> = ({ posts }) => {
     posts.map(post => <ArticleWidePostCard
       key={post.id}
       image={post.frontmatter.image}
-      title={post.frontmatter.title}
+      title={post.headings[0].value}
       postDate={post.frontmatter.postDate}
       readTime={post.frontmatter.readTime}
       tags={post.frontmatter.tags}
-      description={post.excerpt}
+      description={excerptStr(post)}
       slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
     />)
   )
@@ -132,7 +136,7 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
       key={post.id}
       postDate={post.frontmatter.date}
       readTime={post.frontmatter.read_time}
-      title={post.frontmatter.title || post.fields.slug}
+      title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
       image={post.frontmatter.hero_image}
       slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
       tags={post.frontmatter.tags} />
@@ -179,7 +183,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    featuredPosts: allMarkdownRemark(filter: {frontmatter: {featured: {eq: true}}}) {
+    featuredPosts: allMarkdownRemark(filter: {frontmatter: {featured: {eq: true}}}, limit: 2) {
       nodes {
         id
         excerpt
@@ -198,6 +202,9 @@ export const pageQuery = graphql`
           readTime: read_time
           title
           tags
+        }
+        headings(depth: h1) {
+          value
         }
       }
     }
@@ -220,6 +227,9 @@ export const pageQuery = graphql`
           }
           tags
           read_time
+        }
+        headings(depth: h1) {
+          value
         }
         id
       }

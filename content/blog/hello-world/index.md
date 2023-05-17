@@ -1,6 +1,5 @@
 ---
 featured: true
-title: Hello World!
 date: "2023-05-16"
 description: Why I decided to create a personal blog.
 hero_image: "greg-rakozy-oMpAz-DN-9I-unsplash.jpeg"

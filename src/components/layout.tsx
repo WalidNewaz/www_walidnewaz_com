@@ -10,10 +10,10 @@ const Layout: React.FC<{ location, children }> = ({ location, children }) => {
 
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <header className="global-header">
-        <Header />
-      </header>
-      <main>{children}</main>
+      <Header />
+      <main>
+        {children}
+      </main>
       <Footer />
     </div>
   )

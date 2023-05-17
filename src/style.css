@@ -331,65 +331,6 @@ a:focus {
   }
 }
 
-/* Site header */
-#site-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-#main-menu {
-  width: 80%;
-}
-
-#main-menu nav {
-  padding: 10px;
-  height: 65px;
-}
-
-#main-menu nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#main-menu nav ul li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-#main-menu nav ul li:last-child {
-  margin-right: 0;
-}
-
-#main-menu nav ul li a {
-  color: #333;
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-}
-
-#main-menu nav ul li a:hover {
-  color: #fff;
-}
-
-#main-menu nav ul li a:hover {
-  background-color: #4f5969;
-  font-weight: bold;
-}
-
-#social-links {
-  display: flex;
-}
-
-#social-links div {
-  padding: 15px 15px 10px 15px
-}
-
-/* Site footer */
-footer {
-  text-align: center;
-}
-
 /* Homepage sections */
 #homepage-features {
   margin: 0;
