@@ -52,7 +52,7 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
             readTime={post.frontmatter.read_time}
             title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
             image={post.frontmatter.hero_image}
-            slug={`/blog${post.fields.slug}`}
+            slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
             tags={post.frontmatter.tags} />
         )
     )
