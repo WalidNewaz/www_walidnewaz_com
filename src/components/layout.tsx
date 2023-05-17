@@ -13,8 +13,12 @@ const Layout: React.FC<{ location, children }> = ({ location, children }) => {
       <header className="global-header">
         <Header />
       </header>
-      <main>{children}</main>
-      <Footer />
+      <main>
+        {children}
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   )
 }
