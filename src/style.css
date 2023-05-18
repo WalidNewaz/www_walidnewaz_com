@@ -365,12 +365,6 @@ a:focus {
   flex: 30%;
 }
 
-/* #more-posts #posts  */
-div.read-time {
-  display: flex;
-  justify-content: flex-end !important;
-  width: 90% !important;
-}
 
 /* About me sections */
 #about-me > div {

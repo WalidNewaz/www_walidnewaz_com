@@ -26,7 +26,7 @@ const ArticleWidePostCard: React.FC<{
       <div className="wide-card-body">
         <div>
           <div>{postDate}</div>
-          <div>
+          <div className='read-time'>
             {readTime}
           </div>
         </div>
