@@ -16,7 +16,7 @@
     padding: 20px;
 }
 
-.wide-card-body div {
+.wide-card-body>div {
     display: flex;
     justify-content: space-between;
     color: rgb(94, 94, 94);
@@ -55,4 +55,10 @@
     margin-bottom: 0;
     padding-top: 10px;
     color: rgb(94, 94, 94);
+}
+
+div.read-time {
+    display: flex;
+    justify-content: flex-end !important;
+    width: 90% !important;
 }

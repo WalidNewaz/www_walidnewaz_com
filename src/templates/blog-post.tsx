@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
+import styled from 'styled-components'
 
 import Seo from "../components/seo"
 
@@ -14,6 +15,14 @@ const HeroImage: React.FC<{ post, heroImage }> = ({ post, heroImage }) => (
   )
 )
 
+const ArticleHeader = styled.header`
+  div {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);
+  }  
+`
+
 const BlogPostTemplate: React.FC<{ data }> = ({
   data: { previous, next, markdownRemark: post, heroImage },
 }) => {
@@ -25,13 +34,13 @@ const BlogPostTemplate: React.FC<{ data }> = ({
         itemScope
         itemType="http://schema.org/Article"
       >
-        <header className="article-header">
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
+        <ArticleHeader>
+          {/* <h1 itemProp="headline">{post.frontmatter.title}</h1> */}
           <div>
             <div className="article-post-date">{post.frontmatter.date}</div>
             <div className="article-read-time">{post.frontmatter.read_time} read</div>
           </div>
-        </header>
+        </ArticleHeader>
         <section>
           <HeroImage {...{post, heroImage}} />
         </section>

@@ -1,46 +1,76 @@
 import * as React from 'react'
 import { Link, graphql } from 'gatsby'
+import styled from 'styled-components'
 
 import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
+
+const TopicsSection = styled.section`
+  width: 20%;
+  border: #4f5969;
+  border-style: none dashed none none;
+  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);
+  border-width: thin;
+
+  h3 {
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: var(--spacing-1);
+  }
+`
 
 /**
  * Generate the topics section on the blogs main page
  */
 const Topics: React.FC<{ topics }> = ({ topics }) => {
     const topicList = Object.keys(topics)
+    const linksText = topicList
+        .sort()
+        .map(topic => <li key={topic}>
+            <Link to={`/blog/${topic}`}>
+                {topic} ({topics[topic]})
+            </Link>
+        </li>)
     return (
-        <ul>
-            {
-                topicList
-                    .sort()
-                    .map(topic => <li key={topic}>
-                        <Link to={`/blog/${topic}`}>
-                            {topic} ({topics[topic]})
-                        </Link>
-                    </li>)
-            }
-        </ul>
+        <TopicsSection>
+            <h3>Topics:</h3>
+            <ul>
+                {linksText}
+            </ul>
+        </TopicsSection>
     )
 }
+
+const BlogPosts = styled.section`
+  width: 80%;
+  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-8);
+
+  h3 {
+    margin: var(--spacing-0);
+  }
+`
 
 /**
  * Generate all posts in blog main page
  */
 const MorePosts: React.FC<{ posts }> = ({ posts }) => {
+    let postsText;
 
     if (posts.length === 0) {
-        return (
-            <p>
-                No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
-                directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
-                gatsby-config.js).
-            </p>
+        postsText = (
+            <article>
+                <p>
+                    No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+                    directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
+                    gatsby-config.js).
+                </p>
+            </article>
         )
-    }
-
-    return (
-        posts.map(post => <ArticlePostCard
+    } else {
+        postsText = posts.map(post => <ArticlePostCard
             key={post.id}
             postDate={post.frontmatter.date}
             readTime={post.frontmatter.read_time}
@@ -49,6 +79,15 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
             slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
             tags={post.frontmatter.tags} />
         )
+    }
+
+    return (
+        <BlogPosts>
+            <h3>Posts:</h3>
+            <section>
+                {postsText}
+            </section>
+        </BlogPosts>
     )
 }
 
@@ -73,23 +112,20 @@ const getTopics = (posts) => posts.reduce((topics, post) => {
     return topics
 }, {});
 
+const BlogPostContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`
+
 const BlogPage: React.FC<{ data, location }> = ({ data }) => {
     const posts = data.allMarkdownRemark.nodes
-    const topics = getTopics(posts);
 
     return (
-        <div id='blog-page-container'>
-            <div id='blog-topics'>
-                <h3>Topics:</h3>
-                <Topics topics={topics} />
-            </div>
-            <div id='blog-posts'>
-                <h3>Posts:</h3>
-                <div id="posts">
-                    <MorePosts posts={posts} />
-                </div>
-            </div>
-        </div>
+        <BlogPostContainer>
+            <Topics topics={getTopics(posts)} />
+            <MorePosts posts={posts} />
+        </BlogPostContainer>
     )
 }
 

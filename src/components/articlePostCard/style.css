@@ -1,13 +1,13 @@
 .card {
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: 20px;
+    max-width: var(--maxWidth-xs);
+    margin: var(--spacing-4);
     position: relative;
 }
 
 .card-body {
-    padding: 20px;
+    padding: var(--spacing-5);
 }
 
 .card-body div {
@@ -35,7 +35,7 @@
     color: rgb(94, 94, 94);
 }
 
-.card-title > a:hover {
+.card-title>a:hover {
     color: var(--color-link-hover)
 }
 
@@ -52,4 +52,10 @@
 
 .card:hover .overlay {
     opacity: 0.2;
+}
+
+div.read-time {
+    display: flex;
+    justify-content: flex-end !important;
+    width: 90% !important;
 }

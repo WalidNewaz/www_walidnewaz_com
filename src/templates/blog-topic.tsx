@@ -10,52 +10,95 @@
 
 import * as React from 'react'
 import { Link, graphql } from 'gatsby'
+import styled from 'styled-components'
 
 import Seo from "../../src/components/seo"
 import ArticlePostCard from "../../src/components/articlePostCard"
 
+const TopicsSection = styled.section`
+  width: 20%;
+  border: #4f5969;
+  border-style: none dashed none none;
+  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);;
+  border-width: thin;
+
+  h3 {
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: var(--spacing-1);
+  }
+`
+
 const Topics: React.FC<{ topics, currentTopic }> = ({ topics, currentTopic }) => {
-    const topicList = Object.keys(topics)
-    return (
-        <ul>
-            {
-                topicList
-                    .sort()
-                    .map(topic => <li key={topic}>
-                        {
-                            topic === currentTopic
-                                ? <strong>{topic} ({topics[topic]})</strong>
-                                : <Link to={`/blog/${topic}`}>{topic} ({topics[topic]})</Link>
-                        }
-                    </li>)
-            }
-        </ul>
-    )
+  const topicList = Object.keys(topics)
+  const linksText = topicList
+    .sort()
+    .map(topic => <li key={topic}>
+      {
+        topic === currentTopic
+          ? <strong>{topic} ({topics[topic]})</strong>
+          : <Link to={`/blog/${topic}`}>{topic} ({topics[topic]})</Link>
+      }
+    </li>)
+
+  return (
+    <TopicsSection>
+      <h3>Topics:</h3>
+      <ul>
+        {linksText}
+      </ul>
+    </TopicsSection>
+  )
 }
 
+const BlogPosts = styled.section`
+  width: 80%;
+  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-8);
+
+  h3 {
+    margin: var(--spacing-0);
+  }
+`
+
+/**
+ * Generate all posts in blog main page
+ */
 const MorePosts: React.FC<{ posts }> = ({ posts }) => {
+  let postsText;
 
-    if (posts.length === 0) {
-        return (
-            <p>
-                No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
-                directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
-                gatsby-config.js).
-            </p>
-        )
-    }
-
-    return (
-        posts.map(post => <ArticlePostCard
-            key={post.id}
-            postDate={post.frontmatter.date}
-            readTime={post.frontmatter.read_time}
-            title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
-            image={post.frontmatter.hero_image}
-            slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
-            tags={post.frontmatter.tags} />
-        )
+  if (posts.length === 0) {
+    postsText = (
+      <article>
+        <p>
+          No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+          directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
+          gatsby-config.js).
+        </p>
+      </article>
     )
+  } else {
+    postsText = posts.map(post => <ArticlePostCard
+      key={post.id}
+      postDate={post.frontmatter.date}
+      readTime={post.frontmatter.read_time}
+      title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
+      image={post.frontmatter.hero_image}
+      slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
+      tags={post.frontmatter.tags} />
+    )
+  }
+
+  return (
+    <BlogPosts>
+      <h3>Posts:</h3>
+      <section>
+        {postsText}
+      </section>
+    </BlogPosts>
+  )
 }
 
 /**
@@ -80,25 +123,22 @@ const mapTopicsCount = (postTopics) => postTopics.reduce((topics, post) => {
     return topics
 }, {});
 
+const BlogPostContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`
+
 const BlogTopicPage: React.FC<{ data, location, pageContext }> = ({ data, pageContext }) => {
     const { posts } = data.allPosts
     const { postTopics } = data
     const { topic } = pageContext
-    const topics = mapTopicsCount(postTopics.nodes)
 
     return (
-        <div id='blog-page-container'>
-            <div id='blog-topics'>
-                <h3>Topics:</h3>
-                <Topics topics={topics} currentTopic={topic} />
-            </div>
-            <div id='blog-posts'>
-                <h3>Posts:</h3>
-                <div id="posts">
-                    <MorePosts posts={posts} />
-                </div>
-            </div>
-        </div>
+        <BlogPostContainer>
+            <Topics topics={mapTopicsCount(postTopics.nodes)} currentTopic={topic} />
+            <MorePosts posts={posts} />
+        </BlogPostContainer>
     )
 }
 

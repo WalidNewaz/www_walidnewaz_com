@@ -18,15 +18,15 @@ const ArticleWidePostCard: React.FC<{
   tags: Array<string>
 }> = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
-    <div className="wide-card">
-      <GatsbyImage
-        image={image.childImageSharp.gatsbyImageData}
-        alt={title}
-      />
+    <article className="wide-card">
+        <GatsbyImage
+          image={image.childImageSharp.gatsbyImageData}
+          alt={title}
+        />
       <div className="wide-card-body">
         <div>
           <div>{postDate}</div>
-          <div>
+          <div className='read-time'>
             {readTime}
           </div>
         </div>
@@ -37,7 +37,7 @@ const ArticleWidePostCard: React.FC<{
       <Link to={slug} itemProp="url">
         <div className="overlay"></div>
       </Link>
-    </div>
+    </article>
   );
 }
 
