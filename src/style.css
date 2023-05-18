@@ -331,62 +331,7 @@ a:focus {
   }
 }
 
-#newsletter-subscribe div {
-  display: flex;
-  flex: auto;
-  background-color: #F4F4F4;
-  min-height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-#newsletter-subscribe div>p {
-  font-family: var(--font-heading);
-  margin: 5px;
-  text-align: center;
-  padding-left: 35px;
-  font-size: 30px;
-}
-
-#more-posts {
-  padding: 20px;
-}
-
-#more-posts h2 {
-  margin: 0;
-}
-
-#more-posts #posts {
-  display: flex;
-}
-
-#more-posts #posts div {
-  flex: 30%;
-}
-
-
-/* About me sections */
-#about-me > div {
-  display: flex;
-}
-#about-me img {
-  width: 1112px;
-  margin: 0;
-  padding: 0;
-}
-
-#about-me p {
-  margin-bottom: 1em;
-}
-
-#about-me ul {
-  margin-left: 3em;
-}
-
-#about-me li {
-  margin-left: 0.5em;
-}
 
 /* All blog posts page */
 #blog-page-container {

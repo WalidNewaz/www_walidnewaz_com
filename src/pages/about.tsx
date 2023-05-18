@@ -1,15 +1,31 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
-import styled from 'styled-components'
+import styled from "styled-components"
 
 import Seo from "../components/seo"
+
+const StyledAboutSection = styled.section`
+img {
+  width: 1112px;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin-bottom: var(--spacing-5);
+}
+
+ul {
+  margin-left: var(--spacing-12);
+}
+`
 
 const About: React.FC<{ data }> = ({ data }) => {
   const banner = data.bannerFile;
 
   return (
-    <section id="about-me">
+    <StyledAboutSection>
       <article>
           <GatsbyImage
             image={banner.childImageSharp.gatsbyImageData}
@@ -55,7 +71,7 @@ const About: React.FC<{ data }> = ({ data }) => {
 
         <p>Feel free to reach out to me if you&apos;d like to share ideas, collaborate, or go on adventures together.</p>
       </article>
-    </section>
+    </StyledAboutSection>
   )
 }
 

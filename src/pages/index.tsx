@@ -128,37 +128,75 @@ const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPos
   )
 }
 
+const StyledNewspaperSection = styled.section`
+div {
+  display: flex;
+  flex: auto;
+  background-color: #F4F4F4;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+div>p {
+  font-family: var(--font-heading);
+  margin: 5px;
+  text-align: center;
+  padding-left: 35px;
+  font-size: 30px;
+}
+`
+
 /**
  * Newsletter signup section on the homepage.
  * @returns 
  */
 const HomePageNewsletter: React.FC = () => {
   return (
-    <div>
+    <StyledNewspaperSection>
       <div>
-        <p>Never Miss a New Post.</p>
+        <div>
+          <p>Never Miss a New Post.</p>
+        </div>
+        <div>
+          <iframe
+            data-w-token="bfcc24aa21ef34249119"
+            data-w-type="pop-in"
+            frameBorder="0"
+            scrolling="yes"
+            src="https://07w6k.mjt.lu/wgt/07w6k/z9g/form?c=e9ed7cf1"
+            width="100%"
+            style={{ height: 0 }}></iframe>
+          <iframe
+            data-w-token="bfcc24aa21ef34249119"
+            data-w-type="trigger"
+            frameBorder="0"
+            scrolling="no"
+            src="https://07w6k.mjt.lu/wgt/07w6k/z9g/trigger?c=590ebb63"
+            width="100%"
+            style={{ height: '55px' }}></iframe>
+        </div>
       </div>
-      <div>
-        <iframe
-          data-w-token="bfcc24aa21ef34249119"
-          data-w-type="pop-in"
-          frameBorder="0"
-          scrolling="yes"
-          src="https://07w6k.mjt.lu/wgt/07w6k/z9g/form?c=e9ed7cf1"
-          width="100%"
-          style={{ height: 0 }}></iframe>
-        <iframe
-          data-w-token="bfcc24aa21ef34249119"
-          data-w-type="trigger"
-          frameBorder="0"
-          scrolling="no"
-          src="https://07w6k.mjt.lu/wgt/07w6k/z9g/trigger?c=590ebb63"
-          width="100%"
-          style={{ height: '55px' }}></iframe>
-      </div>
-    </div>
+    </StyledNewspaperSection>
   )
 }
+
+const StyledMorePostsSection = styled.section`
+  padding: 20px;
+
+  h2 {
+    margin: 0;
+  }
+
+  #posts {
+    display: flex;
+  }
+
+  #posts div {
+    flex: 30%;
+  }
+`
 
 /**
  * Populates the homepage more posts section
@@ -166,35 +204,37 @@ const HomePageNewsletter: React.FC = () => {
  * @returns 
  */
 const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
+  let morePostsText;
 
   if (posts.length === 0) {
-    return (
-      <section>
-        <article>
-          <p>
-            No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
-            directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
-            gatsby-config.js).
-          </p>
-        </article>
-      </section>
+    morePostsText = (
+      <article>
+        <p>
+          No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+          directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
+          gatsby-config.js).
+        </p>
+      </article>
+    )
+  } else {
+    morePostsText = posts.map(post => <ArticlePostCard
+      key={post.id}
+      postDate={post.frontmatter.date}
+      readTime={post.frontmatter.read_time}
+      title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
+      image={post.frontmatter.hero_image}
+      slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
+      tags={post.frontmatter.tags} />
     )
   }
 
   return (
-    <section>
-      {
-        posts.map(post => <ArticlePostCard
-          key={post.id}
-          postDate={post.frontmatter.date}
-          readTime={post.frontmatter.read_time}
-          title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
-          image={post.frontmatter.hero_image}
-          slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
-          tags={post.frontmatter.tags} />
-        )
-      }
-    </section>
+    <StyledMorePostsSection>
+      <h2>More Posts</h2>
+      <section id="posts">
+        {morePostsText}
+      </section>
+    </StyledMorePostsSection>
   )
 }
 
@@ -206,15 +246,8 @@ const Index: React.FC<{ data }> = ({ data }) => {
   return (
     <>
       <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      <section id="newsletter-subscribe">
-        <HomePageNewsletter />
-      </section>
-      <section id="more-posts" className="row">
-        <h2>More Posts</h2>
-        <div id="posts">
-          <HomePageMorePosts posts={posts} />
-        </div>
-      </section>
+      <HomePageNewsletter />
+      <HomePageMorePosts posts={posts} />
     </>
   )
 }
