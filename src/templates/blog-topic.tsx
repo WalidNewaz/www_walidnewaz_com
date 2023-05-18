@@ -22,7 +22,7 @@ const TopicsSection = styled.section`
   padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);;
   border-width: thin;
 
-  h3 {
+  h2 {
     margin: 0;
   }
 
@@ -46,7 +46,7 @@ const Topics: React.FC<{ topics, currentTopic }> = ({ topics, currentTopic }) =>
 
   return (
     <TopicsSection>
-      <h3>Topics:</h3>
+      <h2>Topics:</h2>
       <ul>
         {linksText}
       </ul>
@@ -58,7 +58,7 @@ const BlogPosts = styled.section`
   width: 80%;
   padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-8);
 
-  h3 {
+  h2 {
     margin: var(--spacing-0);
   }
 `
@@ -93,7 +93,7 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   return (
     <BlogPosts>
-      <h3>Posts:</h3>
+      <h2>Posts:</h2>
       <section>
         {postsText}
       </section>
