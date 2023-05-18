@@ -6,19 +6,23 @@ import styled from "styled-components"
 import Seo from "../components/seo"
 
 const StyledAboutSection = styled.section`
-img {
-  width: 1112px;
-  margin: 0;
-  padding: 0;
-}
+  img {
+    width: 1112px;
+    margin: 0;
+    padding: 0;
+  }
 
-p {
-  margin-bottom: var(--spacing-5);
-}
+  h2 {
+    margin: var(--spacing-0) var(--spacing-0) var(--spacing-6) var(--spacing-0);
+  }
 
-ul {
-  margin-left: var(--spacing-12);
-}
+  p {
+    margin-bottom: var(--spacing-5);
+  }
+
+  ul {
+    margin-left: var(--spacing-12);
+  }
 `
 
 const About: React.FC<{ data }> = ({ data }) => {
@@ -32,7 +36,7 @@ const About: React.FC<{ data }> = ({ data }) => {
           alt="Walid Newaz"
           style={{ float: "left", marginRight: "1rem", marginBottom: "2rem" }}
         />
-        <h3>Welcome! Thanks for visiting.</h3>
+        <h2>Welcome! Thanks for visiting.</h2>
 
         <p>Hello and welcome to my page! My name is Walid Newaz.
           I am a software engineer who loves learning, and sharing my thoughts about software
