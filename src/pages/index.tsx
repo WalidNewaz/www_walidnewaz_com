@@ -129,23 +129,23 @@ const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPos
 }
 
 const StyledNewspaperSection = styled.section`
-div {
-  display: flex;
-  flex: auto;
-  background-color: #F4F4F4;
-  min-height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  div {
+    display: flex;
+    flex: auto;
+    background-color: #F4F4F4;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-div>p {
-  font-family: var(--font-heading);
-  margin: 5px;
-  text-align: center;
-  padding-left: 35px;
-  font-size: 30px;
-}
+  div>p {
+    font-family: var(--font-heading);
+    margin: 5px;
+    text-align: center;
+    padding-left: 35px;
+    font-size: 30px;
+  }
 `
 
 /**

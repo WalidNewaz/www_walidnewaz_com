@@ -27,11 +27,11 @@ const About: React.FC<{ data }> = ({ data }) => {
   return (
     <StyledAboutSection>
       <article>
-          <GatsbyImage
-            image={banner.childImageSharp.gatsbyImageData}
-            alt="Walid Newaz"
-            style={{ float: "left", marginRight: "1rem", marginBottom: "2rem" }}
-          />
+        <GatsbyImage
+          image={banner.childImageSharp.gatsbyImageData}
+          alt="Walid Newaz"
+          style={{ float: "left", marginRight: "1rem", marginBottom: "2rem" }}
+        />
         <h3>Welcome! Thanks for visiting.</h3>
 
         <p>Hello and welcome to my page! My name is Walid Newaz.
