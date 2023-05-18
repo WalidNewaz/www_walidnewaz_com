@@ -59,7 +59,7 @@ const StyledAboutMe = styled.article`
 
 /**
  * Renders the About Me section of the homepage
- * @param param0 
+ * @param params
  * @returns 
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
@@ -169,24 +169,32 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   if (posts.length === 0) {
     return (
-      <p>
-        No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
-        directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
-        gatsby-config.js).
-      </p>
+      <section>
+        <article>
+          <p>
+            No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
+            directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
+            gatsby-config.js).
+          </p>
+        </article>
+      </section>
     )
   }
 
   return (
-    posts.map(post => <ArticlePostCard
-      key={post.id}
-      postDate={post.frontmatter.date}
-      readTime={post.frontmatter.read_time}
-      title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
-      image={post.frontmatter.hero_image}
-      slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
-      tags={post.frontmatter.tags} />
-    )
+    <section>
+      {
+        posts.map(post => <ArticlePostCard
+          key={post.id}
+          postDate={post.frontmatter.date}
+          readTime={post.frontmatter.read_time}
+          title={post.frontmatter.title || post.headings[0].value || post.fields.slug}
+          image={post.frontmatter.hero_image}
+          slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
+          tags={post.frontmatter.tags} />
+        )
+      }
+    </section>
   )
 }
 
@@ -197,9 +205,7 @@ const Index: React.FC<{ data }> = ({ data }) => {
 
   return (
     <>
-      {/* <section id="homepage-features" className="row"> */}
-        <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      {/* </section> */}
+      <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
       <section id="newsletter-subscribe">
         <HomePageNewsletter />
       </section>

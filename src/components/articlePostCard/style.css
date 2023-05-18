@@ -1,13 +1,13 @@
 .card {
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: 20px;
+    max-width: var(--maxWidth-xs);
+    margin: var(--spacing-4);
     position: relative;
 }
 
 .card-body {
-    padding: 20px;
+    padding: var(--spacing-5);
 }
 
 .card-body div {
