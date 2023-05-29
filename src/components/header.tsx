@@ -11,8 +11,8 @@ const StyledSiteHeader = styled.header`
 
 const Nav = styled.nav`
   width: 80%;
-  padding: 10px;
-  height: 65px;
+  /* padding: 10px; */
+  /* height: 65px; */
 
   ul {
     list-style: none;
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
                         </li> */}
                 </ul>
             </Nav>
-            <StyledSocialSection className="header-social">
+            {/* <StyledSocialSection className="header-social">
                 <ul>
                     <li>
                         <a href="https://github.com/WalidNewaz" target="_blank" rel="noreferrer">
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
 
                     </li>
                 </ul>
-            </StyledSocialSection>
+            </StyledSocialSection> */}
         </StyledSiteHeader>
     )
 }
