@@ -6,6 +6,8 @@ import styled from "styled-components"
 import Seo from "../components/seo"
 
 const StyledAboutSection = styled.section`
+  padding: var(--spacing-4);
+  
   img {
     width: 1112px;
     margin: 0;
