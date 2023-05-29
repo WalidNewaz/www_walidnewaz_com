@@ -347,7 +347,7 @@ a:focus {
   }
 
   main {
-    padding-block: var(--spacing-2) var(--spacing-2);
+    padding-block: var(--spacing-0) var(--spacing-2);
     padding-inline: var(--spacing-6);
   }
 
