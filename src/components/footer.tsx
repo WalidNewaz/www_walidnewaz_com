@@ -9,9 +9,8 @@ const StyledFooter = styled.footer`
 const Footer: React.FC = () => {
     return (
       <StyledFooter>
-        Copyright © {new Date().getFullYear()} by Walid Newaz | Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+        <section className="copyright">Copyright © {new Date().getFullYear()} by Walid Newaz</section>
+        <section className="builtwith">Built with <a href="https://www.gatsbyjs.com">Gatsby</a></section>
       </StyledFooter>
     )
 }

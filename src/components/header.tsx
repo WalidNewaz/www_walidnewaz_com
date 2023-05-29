@@ -81,7 +81,7 @@ const Header: React.FC = () => {
                         </li> */}
                 </ul>
             </Nav>
-            <StyledSocialSection>
+            <StyledSocialSection className="header-social">
                 <ul>
                     <li>
                         <a href="https://github.com/WalidNewaz" target="_blank" rel="noreferrer">
