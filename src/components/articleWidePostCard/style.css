@@ -1,5 +1,6 @@
 .wide-card {
-    background-color: #fff;
+    background-color: var(--surface1-light);
+    color: var(--text2-regular-light);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 100%;
     margin: 20px;
@@ -30,9 +31,35 @@
     margin: 0 0 10px 0;
 }
 
-.wide-card-text {
+
+summary {
     font-size: 16px;
     margin-bottom: 0;
+}
+
+.tags {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-block: 0px;
+}
+
+.tags li {
+    border: darkgreen;
+    border-top-width: medium;
+    border-right-width: medium;
+    border-bottom-width: medium;
+    border-left-width: medium;
+    border-width: 2px;
+    display: inline-block;
+    background-color: darkgreen;
+    color: white;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-weight: bold;
+    justify-content: flex-end;
+    margin-block: 0px;
 }
 
 .overlay {
@@ -61,4 +88,30 @@ div.read-time {
     display: flex;
     justify-content: flex-end !important;
     width: 90% !important;
+}
+
+/* Media queries */
+@media screen and (max-width: 57.5rem) and (min-width: 55.6rem) {
+    .wide-card {
+        margin-inline: var(--spacing-0);
+        flex-direction: column;
+    }
+
+    .wide-card div {
+        width: 100% !important;
+    }
+}
+
+/**
+ *  Small devices (landscape phones, 576px and up)
+ */
+@media screen and (max-width: 30rem) {
+    .wide-card {
+        margin-inline: var(--spacing-0);
+        flex-direction: column;
+    }
+
+    .wide-card div {
+        width: 100% !important;
+    }
 }

@@ -52,7 +52,7 @@ const StyledAboutMe = styled.article`
   }
 
   p {
-    margin: var(--spacing-4);
+    margin: var(--spacing-4) var(--spacing-0);
     font-size: var(--fontSize-1);
   }
 `
@@ -69,12 +69,14 @@ const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
       />
-      <p>I&apos;m Walid Newaz, a software engineer who enjoys writing about learning,
-        programming, the outdoors, and my obeservations.
-      </p>
-      <p>
-        <Link to="/about">Read More &gt;</Link>
-      </p>
+      <section>
+        <p>I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
+          software programming, the outdoors, and common obeservations.
+        </p>
+        <p>
+          <Link to="/about">Read more about me &gt;</Link>
+        </p>
+      </section>
     </StyledAboutMe>
   )
 }
@@ -130,13 +132,18 @@ const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPos
 
 const StyledNewspaperSection = styled.section`
   div {
-    display: flex;
-    flex: auto;
-    background-color: #F4F4F4;
-    min-height: 140px;
-    display: flex;
-    align-items: center;
+    /* width: 100%; */
+    display: inline-flex;
+    /* grid-template-columns: 1fr 1fr; */
     justify-content: space-between;
+    align-content: center;
+    /* display: flex; */
+    /* flex: auto; */
+    background-color: #F4F4F4;
+    min-height: 4.5rem;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
   }
 
   div>p {
@@ -145,6 +152,10 @@ const StyledNewspaperSection = styled.section`
     text-align: center;
     padding-left: 35px;
     font-size: 30px;
+  }
+
+  iframe[data-w-type="trigger"] {
+    height: 105px;
   }
 `
 
@@ -156,9 +167,7 @@ const HomePageNewsletter: React.FC = () => {
   return (
     <StyledNewspaperSection>
       <div>
-        <div>
-          <p>Never Miss a New Post.</p>
-        </div>
+        <p>Never Miss a New Post.</p>
         <div>
           <iframe
             data-w-token="bfcc24aa21ef34249119"
@@ -175,7 +184,7 @@ const HomePageNewsletter: React.FC = () => {
             scrolling="no"
             src="https://07w6k.mjt.lu/wgt/07w6k/z9g/trigger?c=590ebb63"
             width="100%"
-            style={{ height: '55px' }}></iframe>
+            style={{ height: '60px', width: '150px' }}></iframe>
         </div>
       </div>
     </StyledNewspaperSection>
@@ -246,7 +255,7 @@ const Index: React.FC<{ data }> = ({ data }) => {
   return (
     <>
       <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      <HomePageNewsletter />
+      {/* <HomePageNewsletter /> */}
       <HomePageMorePosts posts={posts} />
     </>
   )

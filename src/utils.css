@@ -1,0 +1,20 @@
+/**
+ * Utility classes
+ */
+
+.heading {
+    font-weight: bold;
+    color: var(--text2-regular-light);
+}
+
+.thin-margin {
+    margin: 0 0 10px 0;
+}
+
+.remove-margin {
+    margin: 0;
+}
+
+.remove-padding {
+    padding: 0;
+}

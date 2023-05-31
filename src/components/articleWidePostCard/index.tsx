@@ -5,7 +5,9 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import './style.css'; // Import the CSS file for this component
 
 const Tags: React.FC<{ tags: Array<string>}> = ({ tags }) => (
-  tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+  tags && tags.length > 0 ? <ul className='tags'>{
+    tags.map(tag => <li key={tag}>{tag}</li>)
+    }</ul> : null
 )
 
 const ArticleWidePostCard: React.FC<{
@@ -30,9 +32,9 @@ const ArticleWidePostCard: React.FC<{
             {readTime}
           </div>
         </div>
-        <h3 className="wide-card-title">{title}</h3>
+        <h3 className="heading remove-padding thin-margin">{title}</h3>
         <p className="wide-card-text">{description}</p>
-        <Tags tags={tags} />
+        <Tags tags={tags} />        
       </div>
       <Link to={slug} itemProp="url">
         <div className="overlay"></div>
