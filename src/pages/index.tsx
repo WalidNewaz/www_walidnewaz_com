@@ -53,7 +53,7 @@ const StyledAboutMe = styled.article`
 
   p {
     margin: var(--spacing-4) var(--spacing-0);
-    font-size: var(--fontSize-1);
+    /* font-size: var(--fontSize-1); */
   }
 `
 

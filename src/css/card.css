@@ -14,6 +14,21 @@
     padding: 20px;
 }
 
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+    background-color: var(--surface4);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.wide-card:hover .overlay {
+    opacity: 0.2;
+}
+
 /* Media queries */
 /**
  *  Medium devices (tablets, 1200px and up)

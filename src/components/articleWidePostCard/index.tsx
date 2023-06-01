@@ -4,7 +4,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 
 const Tags: React.FC<{ tags: Array<string>}> = ({ tags }) => (
   tags && tags.length > 0 ? <ul className='list-none flex flex-row justify-end margin-block-0'>{
-    tags.map(tag => <li key={tag} className='pill'>{tag}</li>)
+    tags.map(tag => <li key={tag} className='pill margin-block-0'>{tag}</li>)
     }</ul> : null
 )
 
