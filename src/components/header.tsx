@@ -27,12 +27,12 @@ const Nav = styled.nav`
     padding: 0;
     width: 100%;
     max-width: var(--maxWidth-wrapper);
-    margin: 0 var(--spacing-16);
+    /* margin: 0 var(--spacing-16); */
   }
 
   ul li {
     display: inline-block;
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
 
   ul li:last-child {
@@ -56,28 +56,12 @@ const Nav = styled.nav`
   }
 `
 
-const StyledSocialSection = styled.section`
-  display: flex;
-
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  ul li {
-    display: inline-block;
-    margin-right: 20px;
-    padding: 30px 15px 10px 15px;
-  }
-`
-
 const Header: React.FC = () => {
     return (
         <StyledSiteHeader className="global-header">
             <Nav>
-                <ul>
-                    <li>
+                <ul className="margin-block-0">
+                    <li className="padding-inline-5">
                         <Link to="/">Home</Link>
                     </li>
                     <li>
@@ -86,9 +70,6 @@ const Header: React.FC = () => {
                     <li>
                         <Link to="/blog">Writing</Link>
                     </li>
-                    {/* <li>
-                            <Link to="/">Contact</Link>
-                        </li> */}
                 </ul>
             </Nav>
         </StyledSiteHeader>
