@@ -52,6 +52,14 @@ const Seo: React.FC<{
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
       <link rel="icon" href={favicon.publicURL} type="image/png"></link>
+      <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400&family=Crimson+Pro&&family=Montserrat&family=Playfair&display=swap" rel="stylesheet"></link>
+      <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)" />
+      <link
+        rel="stylesheet"
+        href="/light.css"
+        media="(prefers-color-scheme: light)"
+      />
       {children}
     </>
   )

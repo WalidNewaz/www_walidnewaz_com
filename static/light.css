@@ -1,0 +1,32 @@
+:root {
+    /* Brand */
+    --brand-light: hsl(var(--brand-primary-hue) var(--brand-primary-saturation) var(--brand-primary-lightness));
+    /* Text color */
+    --text1-regular-light: hsl(var(--brand-text-hue) var(--brand-text-saturation) var(--brand-text-lightness));
+    --text2-regular-light: hsl(var(--brand-text-hue) var(--brand-text-saturation) 30%);
+    --text1-heading-light: hsl(var(--brand-primary-hue) var(--brand-primary-saturation) var(--brand-primary-lightness));
+    --text2-heading-light: hsl(var(--brand-primary-hue) var(--brand-primary-saturation) 10%);
+    /* Surface */
+    --surface1-light: hsl(var(--brand-secondary-hue) var(--brand-secondary-saturation) var(--brand-secondary-lightness));
+    --surface2-light: hsl(var(--brand-secondary-hue) 25% 90%);
+    --surface3-light: hsl(var(--brand-secondary-hue) 20% 99%);
+    --surface4-light: hsl(var(--brand-secondary-hue) 20% 75%);
+    /* Shadows */
+    --surface-shadow-light: var(--brand-secondary-hue) 10% 20%;
+    --shadow-strength-light: .02;
+}
+html {
+    color-scheme: light;
+
+    --brand: var(--brand-light);
+    --text1: var(--text1-regular-light);
+    --text2: var(--text2-regular-light);
+    --heading1: var(--text1-heading-light);
+    --heading2: var(--text2-heading-light);
+    --surface1: var(--surface1-light);
+    --surface2: var(--surface2-light);
+    --surface3: var(--surface3-light);
+    --surface4: var(--surface4-light);
+    --surface-shadow: var(--surface-shadow-light);
+    --shadow-strength: var(--shadow-strength-light);
+}

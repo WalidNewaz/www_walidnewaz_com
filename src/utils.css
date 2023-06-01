@@ -1,11 +1,9 @@
 /**
  * Utility classes
  */
+ @import url("./css/card.css");
+ @import url("./css/pill.css");
 
-.heading {
-    font-weight: bold;
-    color: var(--text2-regular-light);
-}
 
 .thin-margin {
     margin: 0 0 10px 0;
@@ -54,4 +52,96 @@
         0 22.3px 17.9px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .02)),
         0 41.8px 33.4px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .03)),
         0 100px 80px hsl(var(--surface-shadow) / var(--shadow-strength));
+}
+
+/* Padding */
+.padding0 {
+    padding: var(--spacing-0);
+}
+
+.padding5 {
+    padding: var(--spacing-5);
+}
+
+/* Margins */
+.margin0 {
+    margin: var(--spacing-0);
+}
+
+.margin5 {
+    margin: var(--spacing-5);
+}
+
+.margin-bottom-1 {
+    margin-bottom: var(--spacing-1);
+}
+
+.margin-bottom-2 {
+    margin-bottom: var(--spacing-2);
+}
+
+.margin-bottom-3 {
+    margin-bottom: var(--spacing-3);
+}
+
+.margin-block-0 {
+    margin-block: var(--spacing-0);
+}
+
+/* Flex */
+.flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-end {
+    justify-content: end;
+}
+
+/* Headings */
+.heading {
+    color: var(--heading1);
+}
+
+/* Text */
+.text-1 {
+    font-size: var(--fontSize-1);
+    line-height: var(--lineHeight-normal);
+}
+
+.text-2 {
+    color: var(--text2);
+}
+
+/* Widths */
+.w-100 {
+    width: 100%;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+/* Lists */
+.list-none {
+    list-style: none;
 }

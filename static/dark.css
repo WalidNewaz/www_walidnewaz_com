@@ -1,0 +1,33 @@
+:root {
+    /* Brand */
+    --brand-dark: hsl(var(--brand-primary-hue) calc(var(--brand-primary-saturation) / 2) calc(var(--brand-primary-lightness) / 1.5));
+    /* Text color */
+    --text1-regular-dark: hsl(var(--brand-text-hue) 15% 85%);
+    --text2-regular-dark: hsl(var(--brand-text-hue) 5% 65%);
+    --text1-heading-dark: hsl(var(--brand-primary-hue) 15% 85%);
+    --text2-heading-dark: hsl(var(--brand-primary-hue) 5% 65%);
+    /* Surface colors are the background, borders and other decorative surfaces that text sits upon. */
+    --surface1-dark: hsl(var(--brand-secondary-hue) 10% 10%);
+    --surface2-dark: hsl(var(--brand-secondary-hue) 10% 15%);
+    --surface3-dark: hsl(var(--brand-secondary-hue) 5% 20%);
+    --surface4-dark: hsl(var(--brand-secondary-hue) 5% 25%);
+    /* Shadows */
+    --surface-shadow-dark: var(--brand-secondary-hue) 50% 3%;
+    --shadow-strength-dark: .8;
+}
+
+html {
+    color-scheme: dark;
+
+    --brand: var(--brand-dark);
+    --text1: var(--text1-regular-dark);
+    --text2: var(--text2-regular-dark);
+    --heading1: var(--text1-heading-dark);
+    --heading2: var(--text2-heading-dark);
+    --surface1: var(--surface1-dark);
+    --surface2: var(--surface2-dark);
+    --surface3: var(--surface3-dark);
+    --surface4: var(--surface4-dark);
+    --surface-shadow: var(--surface-shadow-dark);
+    --shadow-strength: var(--shadow-strength-dark);
+}

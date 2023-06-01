@@ -1,0 +1,16 @@
+.pill {
+    border: darkgreen;
+    border-top-width: medium;
+    border-right-width: medium;
+    border-bottom-width: medium;
+    border-left-width: medium;
+    border-width: 2px;
+    display: inline-block;
+    background-color: darkgreen;
+    color: white;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-weight: bold;
+    justify-content: flex-end;
+    margin-block: 0px;
+}

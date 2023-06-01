@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 
-import './style.css'; // Import the CSS file for this component
-
 const Tags: React.FC<{ tags: Array<string>}> = ({ tags }) => (
-  tags && tags.length > 0 ? <ul className='tags'>{
-    tags.map(tag => <li key={tag}>{tag}</li>)
+  tags && tags.length > 0 ? <ul className='list-none flex flex-row justify-end margin-block-0'>{
+    tags.map(tag => <li key={tag} className='pill'>{tag}</li>)
     }</ul> : null
 )
 
@@ -20,20 +18,21 @@ const ArticleWidePostCard: React.FC<{
   tags: Array<string>
 }> = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
-    <article className="surface1 rad-shadow">
+    <article className="wide-card surface1 margin5 rad-shadow">
         <GatsbyImage
           image={image.childImageSharp.gatsbyImageData}
           alt={title}
+          className="wide-card-heading"
         />
-      <div className="wide-card-body">
-        <div>
-          <div>{postDate}</div>
-          <div className='read-time'>
+      <div className="padding5 wide-card-body">
+        <div className='flex flex-row space-between w-100'>
+          <p className='text-2 margin-bottom-3'>{postDate}</p>
+          <p className='flex-end text-2 margin-bottom-3'>
             {readTime}
-          </div>
+          </p>
         </div>
-        <h3 className="heading remove-padding thin-margin">{title}</h3>
-        <p className="wide-card-text">{description}</p>
+        <h3 className="heading padding0 margin0 margin-bottom-3">{title}</h3>
+        <p className='margin-bottom-3'>{description}</p>
         <Tags tags={tags} />        
       </div>
       <Link to={slug} itemProp="url">
