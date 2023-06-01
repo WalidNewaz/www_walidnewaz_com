@@ -181,9 +181,9 @@ a:focus {
 /* Custom classes */
 
 .global-wrapper {
-  margin: var(--spacing-0) auto;
-  max-width: var(--maxWidth-wrapper);
-  padding: var(--spacing-10) var(--spacing-5);
+  /* margin: var(--spacing-0) auto; */
+  /* max-width: var(--maxWidth-wrapper); */
+  /* padding: var(--spacing-10) var(--spacing-5); */
 }
 
 .global-wrapper[data-is-root-path="true"] .bio {
@@ -261,17 +261,18 @@ a:focus {
 
 /* Media queries */
 
-@media screen and (min-width: 57.5rem) {
+@media screen and (min-width: 975px) {
   .global-wrapper {
     padding: var(--spacing-0);
   }
 
-  header[class*="header"] {
+  /* header[class*="header"] {
     margin-block-start: var(--spacing-4);
-  }
+  } */
 
   header[class*="header"] nav {
-    width: 100% !important;
+    /* width: 100% !important; */
+    max-width: var(--maxWidth-3xl);
     padding-block: var(--spacing-1) !important;
     padding-inline-start: var(--spacing-1) !important;
   }
@@ -292,7 +293,8 @@ a:focus {
   }
 
   main {
-    padding-block: var(--spacing-0) var(--spacing-2);
+    max-width: var(--maxWidth-wrapper);
+    padding-block: var(--spacing-20) var(--spacing-0);
     padding-inline: var(--spacing-6);
   }
 
@@ -329,19 +331,19 @@ a:focus {
   }
 }
 
-@media screen and (max-width: 57.5rem) and (min-width: 55.6rem) {
-  .global-wrapper {
-    /* background-color: aquamarine; */
+@media screen and (min-width: 55.6rem) and (max-width: 974px) {
+  /* .global-wrapper {
+    background-color: aquamarine;
     padding: var(--spacing-0);
-  }
+  } */
 
-  header[class*="header"] {
+  /* header[class*="header"] {
     background-color: silver;
     position: fixed;
     z-index: 5;
     width: 100%;
     filter: drop-shadow(0 0.1rem 0.5rem black);
-  }
+  } */
 
   header[class*="header"] nav {
     position: static;
@@ -387,18 +389,18 @@ a:focus {
     padding-block: var(--spacing-3);
   }
 
-  article[class*="StyledAboutMe"] {
+  /* article[class*="StyledAboutMe"] {
     display: inline-flex;
     padding: var(--spacing-5) var(--spacing-0);
-  }
+  } */
 
   article[class*="StyledAboutMe"] div[data-gatsby-image-wrapper] {
     width: 50%;
   }
 
-  article[class*="StyledAboutMe"] section p:nth-child(2) {
+  /* article[class*="StyledAboutMe"] section p:nth-child(2) {
     padding-block-start: var(--spacing-12);
-  }
+  } */
 
   article[class*="StyledAboutMe"] p {
     font-size: var(--fontSize-2);
@@ -645,9 +647,20 @@ a:focus {
     padding-inline: 0 !important;
   }
 
-  article[class*="StyledAboutMe"] {
-    /* display: inline-flex; */
+  article.about {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  /* article[class*="StyledAboutMe"] {
+    display: inline-flex;
     padding: var(--spacing-5) var(--spacing-0);
+  } */
+
+  article.about > .hero {
+    height: 175px;
+    width: 60%;
+    margin-inline: var(--spacing-5);
   }
 
   article[class*="StyledAboutMe"] div[data-gatsby-image-wrapper] {

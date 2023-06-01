@@ -43,18 +43,18 @@ const EmptyPosts: React.FC = () => ( <article>
   </article> )
 
 const StyledAboutMe = styled.article`
-  background-color: transparent;
-  padding: var(--spacing-5) var(--spacing-20) var(--spacing-5) 0;
+  /* background-color: transparent; */
+  /* padding: var(--spacing-5) var(--spacing-20) var(--spacing-5) 0; */
 
-  img {
+  /* img {
     border: solid black 1px;
     margin-bottom: 30px;
-  }
+  } */
 
-  p {
+  /* p {
     margin: var(--spacing-4) var(--spacing-0);
-    /* font-size: var(--fontSize-1); */
-  }
+    font-size: var(--fontSize-1);
+  } */
 `
 
 /**
@@ -64,16 +64,18 @@ const StyledAboutMe = styled.article`
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <StyledAboutMe>
+    <StyledAboutMe className="about inline-flex margin5 padding5 surface2">
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
+        className="hero"
+        // style={{ height: '175px', width: '45%' }}
       />
-      <section>
-        <p>I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
+      <section className="padding-inline-5">
+        <p className="margin-block-0">I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
           software programming, the outdoors, and common obeservations.
         </p>
-        <p>
+        <p className="padding-block-5 margin-block-0">
           <Link to="/about">Read more about me &gt;</Link>
         </p>
       </section>

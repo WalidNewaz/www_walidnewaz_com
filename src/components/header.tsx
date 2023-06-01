@@ -5,8 +5,15 @@ import GithubIcon from '../components/icons/github'
 import LinkedInIcon from '../components/icons/linkedin'
 
 const StyledSiteHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
+  background-color: var(--surface1);
+  display: block;
+  width: 100%;
+  z-index: 10;
+  border-bottom: solid 1px rgba(41, 41, 41, 1);
+  position: fixed;
+  transition: background-color 300ms linear;
 `
 
 const Nav = styled.nav`
@@ -16,8 +23,11 @@ const Nav = styled.nav`
 
   ul {
     list-style: none;
-    margin: 0;
+    /* margin: 0; */
     padding: 0;
+    width: 100%;
+    max-width: var(--maxWidth-wrapper);
+    margin: 0 var(--spacing-16);
   }
 
   ul li {
@@ -81,21 +91,6 @@ const Header: React.FC = () => {
                         </li> */}
                 </ul>
             </Nav>
-            {/* <StyledSocialSection className="header-social">
-                <ul>
-                    <li>
-                        <a href="https://github.com/WalidNewaz" target="_blank" rel="noreferrer">
-                            <GithubIcon />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/walid-newaz/" target="_blank" rel="noreferrer">
-                            <LinkedInIcon />
-                        </a>
-
-                    </li>
-                </ul>
-            </StyledSocialSection> */}
         </StyledSiteHeader>
     )
 }
