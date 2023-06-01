@@ -68,6 +68,22 @@
     margin: var(--spacing-0);
 }
 
+.margin1 {
+    margin: var(--spacing-1);
+}
+
+.margin2 {
+    margin: var(--spacing-2);
+}
+
+.margin3 {
+    margin: var(--spacing-3);
+}
+
+.margin4 {
+    margin: var(--spacing-4);
+}
+
 .margin5 {
     margin: var(--spacing-5);
 }
