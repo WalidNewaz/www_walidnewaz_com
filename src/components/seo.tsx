@@ -37,6 +37,7 @@ const Seo: React.FC<{
 
   return (
     <>
+      <html lang="en" className="site-theme" />
       <title>{defaultTitle ? `${title} | ${defaultTitle}` : title}</title>
       <meta name="description" content={metaDescription} />
       <meta property="og:title" content={title} />

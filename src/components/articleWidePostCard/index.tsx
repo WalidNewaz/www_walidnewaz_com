@@ -20,7 +20,7 @@ const ArticleWidePostCard: React.FC<{
   tags: Array<string>
 }> = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
-    <article className="wide-card">
+    <article className="surface1 rad-shadow">
         <GatsbyImage
           image={image.childImageSharp.gatsbyImageData}
           alt={title}
