@@ -257,6 +257,11 @@ header[class*="header"] nav ul a {
   color: var(--heading1);
   font-family: var(--fontFamily-sans);
   font-weight: var(--fontWeight-bold);
+  transition: color 300ms linear;
+}
+
+header[class*="header"] nav ul a:hover {
+  color: var(--text2);
 }
 
 /* Media queries */

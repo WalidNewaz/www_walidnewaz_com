@@ -9,7 +9,7 @@
     --maxWidth-2xl: 72rem;
     --maxWidth-3xl: 78rem;
     --maxWidth-4xl: 86rem;
-    --maxWidth-full: "100%";
+    --maxWidth-full: 100%;
     --maxWidth-wrapper: var(--maxWidth-2xl);
     /* Spacing */
     --spacing-px: "1px";
