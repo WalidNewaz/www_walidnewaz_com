@@ -42,21 +42,6 @@ const EmptyPosts: React.FC = () => ( <article>
   <p>No fatured posts yet.</p>
   </article> )
 
-const StyledAboutMe = styled.article`
-  /* background-color: transparent; */
-  /* padding: var(--spacing-5) var(--spacing-20) var(--spacing-5) 0; */
-
-  /* img {
-    border: solid black 1px;
-    margin-bottom: 30px;
-  } */
-
-  /* p {
-    margin: var(--spacing-4) var(--spacing-0);
-    font-size: var(--fontSize-1);
-  } */
-`
-
 /**
  * Renders the About Me section of the homepage
  * @param params
@@ -64,12 +49,11 @@ const StyledAboutMe = styled.article`
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <StyledAboutMe className="about inline-flex margin5 padding5 surface2">
+    <article className="about inline-flex margin5 padding5 surface2">
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
         className="hero"
-        // style={{ height: '175px', width: '45%' }}
       />
       <section className="padding-inline-5">
         <p className="margin-block-0">I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
@@ -79,7 +63,7 @@ const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
           <Link to="/about">Read more about me &gt;</Link>
         </p>
       </section>
-    </StyledAboutMe>
+    </article>
   )
 }
 
@@ -134,18 +118,11 @@ const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPos
 
 const StyledNewspaperSection = styled.section`
   div {
-    /* width: 100%; */
     display: inline-flex;
-    /* grid-template-columns: 1fr 1fr; */
     justify-content: space-between;
     align-content: center;
-    /* display: flex; */
-    /* flex: auto; */
     background-color: #F4F4F4;
     min-height: 4.5rem;
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: space-between; */
   }
 
   div>p {
@@ -194,7 +171,7 @@ const HomePageNewsletter: React.FC = () => {
 }
 
 const StyledMorePostsSection = styled.section`
-  padding: 20px;
+  padding: var(--spacing-5);
 
   h2 {
     margin: 0;

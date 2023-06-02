@@ -1,38 +1,31 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import styled from 'styled-components';
-import GithubIcon from '../components/icons/github'
-import LinkedInIcon from '../components/icons/linkedin'
 
 const StyledSiteHeader = styled.header`
-  /* display: flex;
-  justify-content: space-between; */
   background-color: var(--surface1);
   display: block;
   width: 100%;
   z-index: 10;
-  border-bottom: solid 1px rgba(41, 41, 41, 1);
+  border-bottom-color: hsl(var(--heading2));
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   position: fixed;
   transition: background-color 300ms linear;
 `
 
 const Nav = styled.nav`
   width: 80%;
-  /* padding: 10px; */
-  /* height: 65px; */
 
   ul {
     list-style: none;
-    /* margin: 0; */
     padding: 0;
     width: 100%;
     max-width: var(--maxWidth-wrapper);
-    /* margin: 0 var(--spacing-16); */
   }
 
   ul li {
     display: inline-block;
-    /* margin-right: 20px; */
   }
 
   ul li:last-child {
