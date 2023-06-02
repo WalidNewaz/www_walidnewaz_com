@@ -73,10 +73,6 @@ const StyledHomePageFeaturesSection = styled.section`
   display: flex;
   flex-wrap: wrap;
 
-  /* .col {
-    padding: var(--spacing-4);
-  } */
-
   .featured-posts.col {
     width: 100%;
     flex: 65%;

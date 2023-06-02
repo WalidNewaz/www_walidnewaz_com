@@ -3,7 +3,7 @@ featured: true
 date: "2023-06-01"
 description: Boosting Performance, Enhancing Design, and Streamlining Development with Advanced CSS Techniques.
 hero_image: "html-css.jpg"
-tags: ['wev dev', 'css']
+tags: ['web dev', 'css']
 read_time: 12 min
 ---
 
