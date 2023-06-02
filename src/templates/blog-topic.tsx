@@ -15,42 +15,27 @@ import styled from 'styled-components'
 import Seo from "../../src/components/seo"
 import ArticlePostCard from "../../src/components/articlePostCard"
 
-const TopicsSection = styled.section`
-  width: 9rem;
-  border: hsl(var(--heading2));
-  border-style: none dashed none none;
-  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);;
-  border-width: thin;
-
-  h2 {
-    margin: 0;
-  }
-
-  ul {
-    list-style: none;
-    margin-left: var(--spacing-1);
-  }
-`
 
 const Topics: React.FC<{ topics, currentTopic }> = ({ topics, currentTopic }) => {
   const topicList = Object.keys(topics)
   const linksText = topicList
     .sort()
-    .map(topic => <li key={topic}>
+    .map(topic => <li key={topic} className='pill margin-block-0 bg-surface-brand text-surface-2'>
       {
         topic === currentTopic
           ? <strong>{topic} ({topics[topic]})</strong>
-          : <Link to={`/blog/${topic}`}>{topic} ({topics[topic]})</Link>
+          : <Link to={`/blog/${topic}`} className='text-decoration-none'>
+            {topic} ({topics[topic]})
+          </Link>
       }
     </li>)
 
   return (
-    <TopicsSection>
-      <h2>Topics:</h2>
-      <ul>
+    <section className="border-color-heading2 border-block-end-dashed border-thin">
+      <ul className='list-none flex flex-row justify-start margin-5 gap-1 wrap'>
         {linksText}
       </ul>
-    </TopicsSection>
+    </section>
   )
 }
 

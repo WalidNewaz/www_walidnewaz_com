@@ -7,32 +7,10 @@
 @import url("./css/padding.css");
 @import url("./css/margin.css");
 @import url("./css/flex.css");
-
-/* Colors */
-.brand {
-    color: var(--brand);
-    background-color: var(--brand);
-}
-
-.surface1 {
-    background-color: var(--surface1);
-    color: var(--text2);
-}
-
-.surface2 {
-    background-color: var(--surface2);
-    color: var(--text2);
-}
-
-.surface3 {
-    background-color: var(--surface3);
-    color: var(--text1);
-}
-
-.surface4 {
-    background-color: var(--surface4);
-    color: var(--text1);
-}
+@import url("./css/border.css");
+@import url("./css/text.css");
+@import url("./css/colors.css");
+@import url("./css/dims.css");
 
 /* Headings */
 .heading {
@@ -79,3 +57,30 @@
 .gap-3 {
     gap: 3rem;
 }
+
+/* Z index */
+.z-1 {
+    z-index: 1;
+}
+
+.z-2 {
+    z-index: 2;
+}
+
+.z-3 {
+    z-index: 3;
+}
+
+/* Position */
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.position-fixed {
+    position: fixed;
+}
+

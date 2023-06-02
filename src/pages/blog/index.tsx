@@ -5,23 +5,6 @@ import styled from 'styled-components'
 import Seo from "../../components/seo"
 import ArticlePostCard from "../../components/articlePostCard"
 
-const TopicsSection = styled.section`
-  width: 9rem;
-  border: hsl(var(--heading2));
-  border-style: none dashed none none;
-  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);
-  border-width: thin;
-
-  h2 {
-    margin: var(--spacing-0);
-  }
-
-  ul {
-    list-style: none;
-    margin-left: var(--spacing-1);
-  }
-`
-
 /**
  * Generate the topics section on the blogs main page
  */
@@ -29,18 +12,17 @@ const Topics: React.FC<{ topics }> = ({ topics }) => {
     const topicList = Object.keys(topics)
     const linksText = topicList
         .sort()
-        .map(topic => <li key={topic}>
-            <Link to={`/blog/${topic}`}>
+        .map(topic => <li key={topic} className='pill margin-block-0 bg-surface-brand text-surface-2'>
+            <Link to={`/blog/${topic}`} className='text-decoration-none'>
                 {topic} ({topics[topic]})
             </Link>
         </li>)
     return (
-        <TopicsSection>
-            <h2>Topics:</h2>
-            <ul>
+        <section className="border-color-heading2 border-block-end-dashed border-thin">
+            <ul className='list-none flex flex-row justify-start margin-5 gap-1 wrap'>
                 {linksText}
             </ul>
-        </TopicsSection>
+        </section>
     )
 }
 
@@ -112,22 +94,14 @@ const getTopics = (posts) => posts.reduce((topics, post) => {
     return topics
 }, {});
 
-const BlogPostContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-`
-
 const BlogPage: React.FC<{ data, location }> = ({ data }) => {
     const posts = data.allMarkdownRemark.nodes
 
     return (
-        <BlogPostContainer>
+        <section className="flex flex-column wrap flex-start">
             <Topics topics={getTopics(posts)} />
             <MorePosts posts={posts} />
-        </BlogPostContainer>
+        </section>
     )
 }
 

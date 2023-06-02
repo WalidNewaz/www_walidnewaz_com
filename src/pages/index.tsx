@@ -49,7 +49,7 @@ const EmptyPosts: React.FC = () => ( <article>
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <article className="about inline-flex margin-5 surface2">
+    <article className="about inline-flex margin-5 bg-surface-2">
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"

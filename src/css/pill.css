@@ -5,4 +5,11 @@
     border-radius: 1.25rem;
     padding: var(--spacing-1) var(--spacing-3);
     font-weight: var(--fontWeight-bold);
+    transition: opacity 300ms linear;
+}
+
+
+
+.pill:hover {
+    opacity: 0.75;
 }
