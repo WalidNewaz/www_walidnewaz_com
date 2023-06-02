@@ -16,8 +16,8 @@ import Seo from "../../src/components/seo"
 import ArticlePostCard from "../../src/components/articlePostCard"
 
 const TopicsSection = styled.section`
-  width: 20%;
-  border: #4f5969;
+  width: 9rem;
+  border: hsl(var(--heading2));
   border-style: none dashed none none;
   padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-4);;
   border-width: thin;

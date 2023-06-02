@@ -42,21 +42,6 @@ const EmptyPosts: React.FC = () => ( <article>
   <p>No fatured posts yet.</p>
   </article> )
 
-const StyledAboutMe = styled.article`
-  background-color: transparent;
-  padding: var(--spacing-5) var(--spacing-20) var(--spacing-5) 0;
-
-  img {
-    border: solid black 1px;
-    margin-bottom: 30px;
-  }
-
-  p {
-    margin: var(--spacing-4);
-    font-size: var(--fontSize-1);
-  }
-`
-
 /**
  * Renders the About Me section of the homepage
  * @param params
@@ -64,18 +49,21 @@ const StyledAboutMe = styled.article`
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <StyledAboutMe>
+    <article className="about inline-flex margin5 padding5 surface2">
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
+        className="hero"
       />
-      <p>I&apos;m Walid Newaz, a software engineer who enjoys writing about learning,
-        programming, the outdoors, and my obeservations.
-      </p>
-      <p>
-        <Link to="/about">Read More &gt;</Link>
-      </p>
-    </StyledAboutMe>
+      <section className="padding-inline-5">
+        <p className="margin-block-0">I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
+          software programming, the outdoors, and common obeservations.
+        </p>
+        <p className="padding-block-5 margin-block-0">
+          <Link to="/about">Read more about me &gt;</Link>
+        </p>
+      </section>
+    </article>
   )
 }
 
@@ -130,13 +118,11 @@ const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPos
 
 const StyledNewspaperSection = styled.section`
   div {
-    display: flex;
-    flex: auto;
-    background-color: #F4F4F4;
-    min-height: 140px;
-    display: flex;
-    align-items: center;
+    display: inline-flex;
     justify-content: space-between;
+    align-content: center;
+    background-color: #F4F4F4;
+    min-height: 4.5rem;
   }
 
   div>p {
@@ -145,6 +131,10 @@ const StyledNewspaperSection = styled.section`
     text-align: center;
     padding-left: 35px;
     font-size: 30px;
+  }
+
+  iframe[data-w-type="trigger"] {
+    height: 105px;
   }
 `
 
@@ -156,9 +146,7 @@ const HomePageNewsletter: React.FC = () => {
   return (
     <StyledNewspaperSection>
       <div>
-        <div>
-          <p>Never Miss a New Post.</p>
-        </div>
+        <p>Never Miss a New Post.</p>
         <div>
           <iframe
             data-w-token="bfcc24aa21ef34249119"
@@ -175,7 +163,7 @@ const HomePageNewsletter: React.FC = () => {
             scrolling="no"
             src="https://07w6k.mjt.lu/wgt/07w6k/z9g/trigger?c=590ebb63"
             width="100%"
-            style={{ height: '55px' }}></iframe>
+            style={{ height: '60px', width: '150px' }}></iframe>
         </div>
       </div>
     </StyledNewspaperSection>
@@ -183,7 +171,7 @@ const HomePageNewsletter: React.FC = () => {
 }
 
 const StyledMorePostsSection = styled.section`
-  padding: 20px;
+  padding: var(--spacing-5);
 
   h2 {
     margin: 0;
@@ -246,7 +234,7 @@ const Index: React.FC<{ data }> = ({ data }) => {
   return (
     <>
       <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      <HomePageNewsletter />
+      {/* <HomePageNewsletter /> */}
       <HomePageMorePosts posts={posts} />
     </>
   )

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
-import './style.css'; // Import the CSS file for this component
 
-const Tags:React.FC<{ tags: Array<string> }> = ({ tags }) =>  (
-    tags && tags.length > 0 ? <p className='article-tags'>{tags.join(" • ")}</p> : <p></p>
+const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) => (
+    tags && tags.length > 0 ? <ul className='list-none flex flex-row justify-end margin-block-0'>{
+        tags.map(tag => <li key={tag} className='pill margin-block-0'>{tag}</li>)
+    }</ul> : null
 )
 
-const HeroImage:React.FC<{
+const HeroImage: React.FC<{
     image,
     title: string
 }> = ({ image, title }) => (
@@ -15,11 +16,12 @@ const HeroImage:React.FC<{
         <GatsbyImage
             image={image.childImageSharp.gatsbyImageData}
             alt={title}
+            className='hero'
         />
     ) : null
 )
 
-const ArticlePostCard:React.FC<{
+const ArticlePostCard: React.FC<{
     title: string,
     image,
     postDate: string,
@@ -29,20 +31,18 @@ const ArticlePostCard:React.FC<{
 }> = ({ title, image, postDate, slug, readTime, tags }) => {
     return (
         <article
-            className="card"
+            className="card margin4 surface3 rad-shadow"
             itemScope
             itemType="http://schema.org/Article">
-            <HeroImage {...{image, title}} />
-            <div className="card-body">
-                <div>
-                    <div>{postDate}</div>
-                    <div className='read-time'>
-                        <p>{readTime}</p>
-                    </div>
+            <HeroImage {...{ image, title }} />
+            <div className="padding5">
+                <div className='flex flex-row space-between w-100'>
+                    <p className='text-2 margin-bottom-3'>{postDate}</p>
+                    <p className='flex-end text-2 margin-bottom-3'>
+                        {readTime}
+                    </p>
                 </div>
-                <h3 className="card-title">
-                    <span itemProp="headline">{title}</span>
-                </h3>
+                <h3 className="heading padding0 margin0 margin-bottom-3">{title}</h3>
                 <Tags tags={tags} />
             </div>
             <Link to={slug} itemProp="url">

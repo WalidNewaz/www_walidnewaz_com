@@ -1,0 +1,8 @@
+.pill {
+    border: var(--surface4);
+    background-color: var(--surface4);
+    color: var(--text2);
+    border-radius: 1.25rem;
+    padding: var(--spacing-1) var(--spacing-3);
+    font-weight: var(--fontWeight-bold);
+}

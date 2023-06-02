@@ -1,0 +1,56 @@
+/* Padding */
+.padding0 {
+    padding: var(--spacing-0);
+}
+
+.padding5 {
+    padding: var(--spacing-5);
+}
+
+.padding-block-0 {
+    padding-block: var(--spacing-0);
+}
+
+.padding-block-1 {
+    padding-block: var(--spacing-1);
+}
+
+.padding-block-2 {
+    padding-block: var(--spacing-2);
+}
+
+.padding-block-3 {
+    padding-block: var(--spacing-3);
+}
+
+.padding-block-4 {
+    padding-block: var(--spacing-4);
+}
+
+.padding-block-5 {
+    padding-block: var(--spacing-5);
+}
+
+.padding-inline-0 {
+    padding-inline: var(--spacing-0);
+}
+
+.padding-inline-1 {
+    padding-inline: var(--spacing-1);
+}
+
+.padding-inline-2 {
+    padding-inline: var(--spacing-2);
+}
+
+.padding-inline-3 {
+    padding-inline: var(--spacing-3);
+}
+
+.padding-inline-4 {
+    padding-inline: var(--spacing-4);
+}
+
+.padding-inline-5 {
+    padding-inline: var(--spacing-5);
+}

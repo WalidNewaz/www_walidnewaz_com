@@ -1,0 +1,79 @@
+/**
+ * Utility classes
+ */
+@import url("./css/card.css");
+@import url("./css/pill.css");
+@import url("./css/shadows.css");
+@import url("./css/padding.css");
+@import url("./css/margin.css");
+@import url("./css/flex.css");
+
+.thin-margin {
+    margin: 0 0 10px 0;
+}
+
+.remove-margin {
+    margin: 0;
+}
+
+.remove-padding {
+    padding: 0;
+}
+
+.brand {
+    color: var(--brand);
+    background-color: var(--brand);
+}
+
+.surface1 {
+    background-color: var(--surface1);
+    color: var(--text2);
+}
+
+.surface2 {
+    background-color: var(--surface2);
+    color: var(--text2);
+}
+
+.surface3 {
+    background-color: var(--surface3);
+    color: var(--text1);
+}
+
+.surface4 {
+    background-color: var(--surface4);
+    color: var(--text1);
+}
+
+/* Headings */
+.heading {
+    color: var(--heading1);
+}
+
+/* Text */
+.text-1 {
+    font-size: var(--fontSize-1);
+    line-height: var(--lineHeight-normal);
+}
+
+.text-2 {
+    color: var(--text2);
+}
+
+/* Widths */
+.w-100 {
+    width: 100%;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+/* Lists */
+.list-none {
+    list-style: none;
+}

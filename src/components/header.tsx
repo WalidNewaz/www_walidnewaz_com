@@ -1,28 +1,31 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import styled from 'styled-components';
-import GithubIcon from '../components/icons/github'
-import LinkedInIcon from '../components/icons/linkedin'
 
 const StyledSiteHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
+  background-color: var(--surface1);
+  display: block;
+  width: 100%;
+  z-index: 10;
+  border-bottom-color: hsl(var(--heading2));
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  position: fixed;
+  transition: background-color 300ms linear;
 `
 
 const Nav = styled.nav`
   width: 80%;
-  /* padding: 10px; */
-  /* height: 65px; */
 
   ul {
     list-style: none;
-    margin: 0;
     padding: 0;
+    width: 100%;
+    max-width: var(--maxWidth-wrapper);
   }
 
   ul li {
     display: inline-block;
-    margin-right: 20px;
   }
 
   ul li:last-child {
@@ -46,28 +49,12 @@ const Nav = styled.nav`
   }
 `
 
-const StyledSocialSection = styled.section`
-  display: flex;
-
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  ul li {
-    display: inline-block;
-    margin-right: 20px;
-    padding: 30px 15px 10px 15px;
-  }
-`
-
 const Header: React.FC = () => {
     return (
         <StyledSiteHeader className="global-header">
             <Nav>
-                <ul>
-                    <li>
+                <ul className="margin-block-0">
+                    <li className="padding-inline-5">
                         <Link to="/">Home</Link>
                     </li>
                     <li>
@@ -76,26 +63,8 @@ const Header: React.FC = () => {
                     <li>
                         <Link to="/blog">Writing</Link>
                     </li>
-                    {/* <li>
-                            <Link to="/">Contact</Link>
-                        </li> */}
                 </ul>
             </Nav>
-            {/* <StyledSocialSection className="header-social">
-                <ul>
-                    <li>
-                        <a href="https://github.com/WalidNewaz" target="_blank" rel="noreferrer">
-                            <GithubIcon />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/walid-newaz/" target="_blank" rel="noreferrer">
-                            <LinkedInIcon />
-                        </a>
-
-                    </li>
-                </ul>
-            </StyledSocialSection> */}
         </StyledSiteHeader>
     )
 }
