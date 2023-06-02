@@ -49,11 +49,11 @@ const EmptyPosts: React.FC = () => ( <article>
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <article className="about inline-flex margin5 padding5 surface2">
+    <article className="about inline-flex margin5 surface2">
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
-        className="hero"
+        className="hero margin5"
       />
       <section className="padding-inline-5">
         <p className="margin-block-0">I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
@@ -73,9 +73,9 @@ const StyledHomePageFeaturesSection = styled.section`
   display: flex;
   flex-wrap: wrap;
 
-  .col {
+  /* .col {
     padding: var(--spacing-4);
-  }
+  } */
 
   .featured-posts.col {
     width: 100%;
@@ -219,7 +219,7 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
   return (
     <StyledMorePostsSection>
       <h2>More Posts</h2>
-      <section id="posts">
+      <section id="posts" className="wrap">
         {morePostsText}
       </section>
     </StyledMorePostsSection>
