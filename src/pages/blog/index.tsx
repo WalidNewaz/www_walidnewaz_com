@@ -84,7 +84,7 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
     return (
         <BlogPosts>
             <h2>Posts:</h2>
-            <section>
+            <section className='flex wrap'>
                 {postsText}
             </section>
         </BlogPosts>

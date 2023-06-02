@@ -167,19 +167,19 @@ const HomePageNewsletter: React.FC = () => {
 }
 
 const StyledMorePostsSection = styled.section`
-  padding: var(--spacing-5);
+  /* padding: var(--spacing-5); */
 
-  h2 {
+  /* h2 {
     margin: 0;
-  }
+  } */
 
-  #posts {
+  /* #posts {
     display: flex;
-  }
+  } */
 
-  #posts div {
+  /* #posts div {
     flex: 30%;
-  }
+  } */
 `
 
 /**
@@ -214,8 +214,8 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   return (
     <StyledMorePostsSection>
-      <h2>More Posts</h2>
-      <section id="posts" className="wrap">
+      <h2 className="margin">More Posts</h2>
+      <section className="flex wrap">
         {morePostsText}
       </section>
     </StyledMorePostsSection>
