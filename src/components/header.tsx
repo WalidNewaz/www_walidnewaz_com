@@ -52,7 +52,7 @@ const Nav = styled.nav`
 const Header: React.FC = () => {
     return (
         <StyledSiteHeader className="global-header">
-            <Nav>
+            <Nav className="margin-inline-auto">
                 <ul className="margin-block-0">
                     <li className="padding-inline-5">
                         <Link to="/">Home</Link>

@@ -31,16 +31,16 @@ const ArticleWidePostCard: React.FC<{
   tags: Array<string>
 }> = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
-    <article className="card wide surface1 margin5 rad-shadow">
+    <article className="card wide surface1 margin-5 rad-shadow">
       <HeroImage {...{ image, title }} />
-      <div className="padding5">
+      <div className="padding-5">
         <div className='flex flex-row space-between w-100'>
           <p className='text-2 margin-bottom-3'>{postDate}</p>
           <p className='flex-end text-2 margin-bottom-3'>
             {readTime}
           </p>
         </div>
-        <h3 className="heading padding0 margin0 margin-bottom-3">{title}</h3>
+        <h3 className="heading padding-0 margin-0 margin-bottom-3">{title}</h3>
         <p className='margin-bottom-3'>{description}</p>
         <Tags tags={tags} />
       </div>

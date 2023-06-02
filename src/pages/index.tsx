@@ -49,11 +49,11 @@ const EmptyPosts: React.FC = () => ( <article>
  */
 const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
   return (
-    <article className="about inline-flex margin5 surface2">
+    <article className="about inline-flex margin-5 surface2">
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
-        className="hero margin5"
+        className="hero margin-5"
       />
       <section className="padding-inline-5">
         <p className="margin-block-0">I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
@@ -99,7 +99,7 @@ const StyledHomePageFeaturesSection = styled.section`
  */
 const HomePageFeatures: React.FC<{ featuredPosts, profileImg }> = ({ featuredPosts, profileImg }) => {
   return (
-    <StyledHomePageFeaturesSection className="row">
+    <StyledHomePageFeaturesSection className="margin-0 padding-0">
       <section className="featured-posts col">
         <h2>Featured Posts</h2>
         <FeaturedPosts posts={featuredPosts} />
@@ -166,21 +166,6 @@ const HomePageNewsletter: React.FC = () => {
   )
 }
 
-const StyledMorePostsSection = styled.section`
-  /* padding: var(--spacing-5); */
-
-  /* h2 {
-    margin: 0;
-  } */
-
-  /* #posts {
-    display: flex;
-  } */
-
-  /* #posts div {
-    flex: 30%;
-  } */
-`
 
 /**
  * Populates the homepage more posts section
@@ -213,12 +198,12 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
   }
 
   return (
-    <StyledMorePostsSection>
+    <section>
       <h2 className="margin">More Posts</h2>
       <section className="flex wrap">
         {morePostsText}
       </section>
-    </StyledMorePostsSection>
+    </section>
   )
 }
 
