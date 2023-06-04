@@ -13,7 +13,7 @@ const Seo: React.FC<{
   title?: string,
   children?
 }> = ({ description, title, children }) => {
-  const { site, favicon } = useStaticQuery(
+  const { site } = useStaticQuery(
     graphql`
       query {
         site {
@@ -24,9 +24,6 @@ const Seo: React.FC<{
               linkedin
             }
           }
-        }
-        favicon: file(relativePath: {regex: "/walid-newaz-favicon-512x512.png/"}) {
-          publicURL
         }
       }
     `
@@ -51,7 +48,10 @@ const Seo: React.FC<{
       />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
-      <link rel="icon" href={favicon.publicURL} type="image/png"></link>
+
+      <link rel="icon" href="/favicon.ico" sizes="any"></link>
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml"></link>
+
       <link rel="preconnect" href="https://fonts.gstatic.com"></link>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400&family=Crimson+Pro&&family=Montserrat&family=Playfair&display=swap" rel="stylesheet"></link>
       <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)" />
