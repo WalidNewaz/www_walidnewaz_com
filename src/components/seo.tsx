@@ -25,9 +25,6 @@ const Seo: React.FC<{
             }
           }
         }
-        # favicon: file(relativePath: {regex: "/walid-newaz-favicon-512x512.png/"}) {
-        #   publicURL
-        # }
       }
     `
   )
@@ -53,8 +50,6 @@ const Seo: React.FC<{
       <meta name="twitter:description" content={metaDescription} />
 
       <link rel="icon" href="/favicon.ico" sizes="any"></link>
-      {/* <link rel="icon" href={favicon.publicURL} type="image/png"></link> */}
-      {/* <link rel="icon" href="/favicon.ico" type="image/png"></link> */}
       <link rel="icon" href="/favicon.svg" type="image/svg+xml"></link>
 
       <link rel="preconnect" href="https://fonts.gstatic.com"></link>
