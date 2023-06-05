@@ -37,6 +37,8 @@ const Seo: React.FC<{
       <html lang="en" className="site-theme" />
       <title>{defaultTitle ? `${title} | ${defaultTitle}` : title}</title>
       <meta name="description" content={metaDescription} />
+      <meta name="referrer" content="strict-origin-when-cross-origin" />
+      
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content="website" />
