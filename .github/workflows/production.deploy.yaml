@@ -28,10 +28,6 @@ jobs:
       run: npm install
     - name: Install Gatsby CLI
       run: npm install -g gatsby-cli
-    - name: Debug Environment Variables
-      run: |
-        echo "API_HOST: ${{ env.API_HOST }}"
-        echo "API_HOST_PROTOCOL: ${{ env.API_HOST_PROTOCOL }}"
     - name: Build
       run: npm run build
     - name: Configure AWS credentials
