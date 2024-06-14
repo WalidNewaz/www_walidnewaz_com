@@ -57,7 +57,7 @@ const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
       />
       <section className="padding-inline-5">
         <p className="margin-block-0">I&apos;m Walid Newaz, a software engineer who enjoys writing and learning about
-          software programming, the outdoors, and common obeservations.
+          software programming, the outdoors, and common observations.
         </p>
         <p className="padding-block-5 margin-block-0">
           <Link to="/about">Read more about me &gt;</Link>
