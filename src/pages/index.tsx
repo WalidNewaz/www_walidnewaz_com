@@ -200,7 +200,7 @@ const HomePageMorePosts: React.FC<{ posts }> = ({ posts }) => {
   return (
     <section>
       <h2 className="margin">More Posts</h2>
-      <section className="flex wrap">
+      <section className="flex wrap mb-6">
         {morePostsText}
       </section>
     </section>
