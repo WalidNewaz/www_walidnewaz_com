@@ -53,9 +53,22 @@ A quick look at the top-level files and directories you'll see in a typical Gats
 
 Build, Deploy, and Host On AWS S3
 
+### CI/CD
+
+The application uses Github Actions for CI/CD. Deployment workflows will be initiated once code is merged into the `staging` and `production` branches of the repository. This is the preferred method of deployment.
+
+### Manual
+
 The project comes with its deployment scripts. To build and deploy to the correct s3 bucket, run the following:
 
 ```shell
 cd www_walidnewaz_com/
 npm run publish
 ```
+
+## Contact
+
+Please feel free to reach out for support, feedback, or questions via the following:
+
+- Email: <mdwalid@gmail.com>
+- @GitHub: WalidNewaz
