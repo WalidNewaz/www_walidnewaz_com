@@ -1,6 +1,7 @@
 ---
 featured: true
 date: "2023-05-16"
+title: "Hello World!"
 description: Why I decided to create a personal blog.
 hero_image: "greg-rakozy-oMpAz-DN-9I-unsplash.jpeg"
 tags: ['personal']
