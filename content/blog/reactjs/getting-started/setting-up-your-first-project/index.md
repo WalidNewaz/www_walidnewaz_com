@@ -2,14 +2,14 @@
 featured: true
 date: "2023-07-21"
 title: "Setting Up Your First React Project"
-description: "Setting Up Your First React Project"
+description: "Introduction to React: Setting Up Your First React Project"
 hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
 tags: ['beginner', 'react']
 series: "Modern React.js Series"
 read_time: 10 min
 ---
 
-# Setting Up Your First React Project
+# Introduction to React: Setting Up Your First React Project
 
 Creating a new React project can seem challenging, especially if you're new to the framework. However, with the help of `Create React App`, the process is streamlined and straightforward. In this article, we'll guide you through setting up your first React project, understanding the basic folder structure, and creating a simple React component.
 
