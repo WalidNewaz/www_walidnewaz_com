@@ -1,6 +1,6 @@
 /* Cards */
 .card {
-    max-width: var(--maxWidth-xs);
+    max-width: var(--maxWidth-xxs);
     position: relative;
 }
 
