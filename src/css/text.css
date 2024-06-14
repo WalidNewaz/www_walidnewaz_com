@@ -1,0 +1,23 @@
+.text-brand {
+  color: var(--brand);
+}
+
+.text-surface-1 {
+  color: var(--surface1);
+}
+
+.text-surface-2 {
+  color: var(--surface2);
+}
+
+.text-surface-3 {
+  color: var(--surface3);
+}
+
+.text-surface-4 {
+  color: var(--surface4);
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}

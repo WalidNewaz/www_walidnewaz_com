@@ -1,0 +1,25 @@
+/**
+ * Background colors
+ */
+.bg-surface-brand {
+    background-color: var(--brand);
+}
+
+.bg-surface-1 {
+    background-color: var(--surface1);
+}
+
+.bg-surface-2 {
+    background-color: var(--surface2);
+    color: var(--text2);
+}
+
+.bg-surface-3 {
+    background-color: var(--surface3);
+    color: var(--text1);
+}
+
+.bg-surface-4 {
+    background-color: var(--surface4);
+    color: var(--text1);
+}

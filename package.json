@@ -1,12 +1,9 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "www.walidnewaz.com",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "Walid's personal website",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
+  "author": "Walid Newaz <mdwalid@gmail.com>",
   "dependencies": {
     "@fontsource/merriweather": "^4.5.14",
     "@fontsource/montserrat": "^4.5.14",
@@ -17,8 +14,9 @@
     "gatsby": "^5.3.3",
     "gatsby-plugin-feed": "^5.9.0",
     "gatsby-plugin-image": "^3.9.0",
-    "gatsby-plugin-manifest": "^5.9.0",
-    "gatsby-plugin-sharp": "^5.9.0",
+    "gatsby-plugin-manifest": "^5.10.0",
+    "gatsby-plugin-offline": "^6.10.0",
+    "gatsby-plugin-sharp": "^5.10.0",
     "gatsby-plugin-styled-components": "^6.10.0",
     "gatsby-remark-images": "^7.9.0",
     "gatsby-remark-prismjs": "^7.9.0",
@@ -38,14 +36,14 @@
     "eslint-plugin-react": "^7.32.2",
     "prettier": "^2.8.8"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/WalidNewaz/www_walidnewaz_com",
   "keywords": [
-    "gatsby"
+    "gatsby", "blog"
   ],
   "license": "0BSD",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/WalidNewaz/www_walidnewaz_com.git"
   },
   "scripts": {
     "build": "gatsby build",

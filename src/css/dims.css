@@ -1,0 +1,6 @@
+/**
+ * Site dimensions
+ */
+.width-full {
+  width: var(--maxWidth-full);
+}

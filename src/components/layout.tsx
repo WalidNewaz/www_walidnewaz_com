@@ -11,7 +11,7 @@ const Layout: React.FC<{ location, children }> = ({ location, children }) => {
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <Header />
-      <main>
+      <main className="margin-inline-auto">
         {children}
       </main>
       <Footer />

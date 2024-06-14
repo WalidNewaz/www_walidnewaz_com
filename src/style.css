@@ -257,6 +257,11 @@ header[class*="header"] nav ul a {
   color: var(--heading1);
   font-family: var(--fontFamily-sans);
   font-weight: var(--fontWeight-bold);
+  transition: color 300ms linear;
+}
+
+header[class*="header"] nav ul a:hover {
+  color: var(--text2);
 }
 
 /* Media queries */
@@ -296,7 +301,7 @@ header[class*="header"] nav ul a {
     grid-template-columns: 2fr 1fr;
   }
 
-  article[class*="StyledAboutMe"] {
+  article.about {
     flex-direction: column;
   }
 
@@ -404,7 +409,7 @@ header[class*="header"] nav ul a {
     margin-inline: var(--spacing-5);
   }
 
-  article[class*="StyledAboutMe"] p {
+  article.about p {
     font-size: var(--fontSize-2);
   }
 
@@ -543,11 +548,11 @@ header[class*="header"] nav ul a {
     margin-inline: var(--spacing-5);
   }
 
-  article[class*="StyledAboutMe"] section p:nth-child(2) {
+  article.about section p:nth-child(2) {
     padding-block-start: var(--spacing-4);
   }
 
-  article[class*="StyledAboutMe"] p {
+  article.about p {
     font-size: var(--fontSize-2);
   }
 
