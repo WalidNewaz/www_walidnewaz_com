@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-07-14"
 title: "Introduction to React"
 description: "Introduction to React: Understanding components, props, and state"

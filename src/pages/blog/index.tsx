@@ -30,10 +30,14 @@ const Topics: React.FC<{ topics }> = ({ topics }) => {
 
 const BlogPosts = styled.section`
   width: 100%;
-  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-8);
+  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-0);
 
   h2 {
-    margin: var(--spacing-0);
+    margin: 0 1.25rem;
+  }
+
+  @media (max-width: 940px) {
+    padding: var(--spacing-4) var(--spacing-0);
   }
 `;
 

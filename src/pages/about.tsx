@@ -27,16 +27,26 @@ const StyledAboutSection = styled.section`
   }
 `
 
+// Create a styled component
+const StyledImage = styled(GatsbyImage)`
+  float: left;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    min-height: 20rem;
+  }
+`;
+
 const About: React.FC<{ data }> = ({ data }) => {
   const banner = data.bannerFile;
 
   return (
     <StyledAboutSection>
       <article>
-        <GatsbyImage
+        <StyledImage
           image={banner.childImageSharp.gatsbyImageData}
           alt="Walid Newaz"
-          style={{ float: "left", marginRight: "1rem", marginBottom: "2rem" }}
         />
         <h2>Welcome! Thanks for visiting.</h2>
 

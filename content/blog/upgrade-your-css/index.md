@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-06-01"
 title: "Upgrade your CSS!"
 description: Boosting Performance, Enhancing Design, and Streamlining Development with Advanced CSS Techniques.
