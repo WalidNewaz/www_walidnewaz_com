@@ -6,7 +6,7 @@ description: "Introduction to React: Understanding components, props, and state"
 hero_image: "pexels-realtoughcandy-11035471.jpg"
 tags: ['react', 'beginner']
 series: "Modern React.js Series"
-read_time: 5 min
+read_time: 10 min
 ---
 
 # Introduction to React: Understanding components, props, and state
