@@ -1,10 +1,10 @@
 ---
 featured: true
-date: "2023-07-16"
+date: "2023-07-14"
 title: "Introduction to React"
 description: "Introduction to React: Understanding components, props, and state"
 hero_image: "pexels-realtoughcandy-11035471.jpg"
-tags: ['react', 'beginner']
+tags: ['beginner', 'react']
 series: "Modern React.js Series"
 read_time: 10 min
 ---
