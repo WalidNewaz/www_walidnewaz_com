@@ -1,6 +1,7 @@
 ---
 featured: true
 date: "2023-06-01"
+title: "Upgrade your CSS!"
 description: Boosting Performance, Enhancing Design, and Streamlining Development with Advanced CSS Techniques.
 hero_image: "html-css.jpg"
 tags: ['web dev', 'css']

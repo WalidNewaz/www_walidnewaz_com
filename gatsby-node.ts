@@ -4,8 +4,8 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/
  */
 
-import * as path from 'path'
-import { createFilePath } from 'gatsby-source-filesystem'
+import * as path from 'path';
+import { createFilePath } from 'gatsby-source-filesystem';
 
 /**
  * Creates static pages for individual blog posts
@@ -30,25 +30,30 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
         }
       }
     }
-  `)
+  `);
 
   if (result.errors) {
     reporter.panicOnBuild(
       `There was an error loading your blog posts`,
       result.errors
-    )
-    return
+    );
+    return;
   }
 
-  const { createPage } = actions
-  const posts = result.data.allMarkdownRemark.nodes
+  const { createPage } = actions;
+  const posts = result.data.allMarkdownRemark.nodes;
 
   if (posts.length > 0) {
     posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
-      const heroImagePattern = `/${post.frontmatter.hero_image ? post.frontmatter.hero_image.base : null}/`
-      const { pathDate } = post.frontmatter
+      const previousPostId = index === 0 ? null : posts[index - 1].id;
+      const nextPostId =
+        index === posts.length - 1 ? null : posts[index + 1].id;
+      const heroImagePattern = post.frontmatter.hero_image
+        ? `${post.fields.slug}${post.frontmatter.hero_image.base}/`
+        : null;
+      const { pathDate } = post.frontmatter;
+
+      console.log('heroImagePattern', heroImagePattern)
 
       createPage({
         path: `/blog${pathDate}${post.fields.slug}`,
@@ -59,10 +64,10 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
           nextPostId,
           heroImagePattern,
         },
-      })
-    })
+      });
+    });
   }
-}
+};
 
 /**
  * Creates a list of pages that filter blog posts based on topics
@@ -80,30 +85,30 @@ const createTopicsPages = async ({ graphql, actions, reporter }) => {
         }
       }
     }
-  `)
+  `);
 
   if (result.errors) {
     reporter.panicOnBuild(
       `There was an error loading your blog posts`,
       result.errors
-    )
-    return
+    );
+    return;
   }
 
   // Aggregate unique topics into an array
-  const posts = result.data.allMarkdownRemark.nodes
+  const posts = result.data.allMarkdownRemark.nodes;
   const topics = posts.reduce((topics, post) => {
-    const { tags } = post.frontmatter
-    tags.forEach(tag => {
+    const { tags } = post.frontmatter;
+    tags.forEach((tag) => {
       if (!topics.includes(tag)) {
-        topics = [...topics, tag]
+        topics = [...topics, tag];
       }
-    })
-    return topics
+    });
+    return topics;
   }, []);
 
   // Iterate through the topics and create pages
-  const { createPage } = actions
+  const { createPage } = actions;
 
   if (topics.length > 0) {
     topics.forEach((topic, index) => {
@@ -113,42 +118,41 @@ const createTopicsPages = async ({ graphql, actions, reporter }) => {
         context: {
           topic,
         },
-      })
-    })
+      });
+    });
   }
-}
-
+};
 
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  await createPostPages({ graphql, actions, reporter })
-  await createTopicsPages({ graphql, actions, reporter })
-}
+  await createPostPages({ graphql, actions, reporter });
+  await createTopicsPages({ graphql, actions, reporter });
+};
 
 /**
  * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+  const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
+    const value = createFilePath({ node, getNode });
 
     createNodeField({
       name: `slug`,
       node,
       value,
-    })
+    });
   }
-}
+};
 
 /**
  * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
  */
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
+  const { createTypes } = actions;
 
   // Explicitly define the siteMetadata {} object
   // This way those will always be defined even if removed from gatsby-config.js
@@ -186,5 +190,5 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Fields {
       slug: String
     }
-  `)
-}
+  `);
+};
