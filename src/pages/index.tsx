@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 /** Components */
 import Seo from "../components/seo"
 import HomePageFeatures from '../components/page/home/HomePageFeatures'
-import HomePageNewsletter from '../components/page/home/Newsletter'
 import HomePageMorePosts from '../components/page/home/MorePosts'
 
 /**
@@ -20,7 +19,6 @@ const Index: React.FC<{ data }> = ({ data }) => {
   return (
     <>
       <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      <HomePageNewsletter />
       <HomePageMorePosts posts={posts} />
     </>
   )

@@ -13,6 +13,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME_PROD }}
+  GA_TRACKING_ID: ${{ vars.GA_TRACKING_ID }}
 
 jobs:
   staging-deployment:
