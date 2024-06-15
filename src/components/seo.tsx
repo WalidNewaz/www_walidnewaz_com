@@ -44,6 +44,7 @@ const Seo: React.FC<{
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
       <script type="text/javascript" src="https://app.mailjet.com/pas-nc-pop-in-v1.js"></script>
+      <script type="text/javascript" src="https://f.convertkit.com/ckjs/ck.5.js"></script>
       <meta
         name="twitter:creator"
         content={site.siteMetadata?.social?.twitter || ``}
