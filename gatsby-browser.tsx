@@ -20,8 +20,8 @@ type onRouteUpdateParams = {
 
 // Logs when the client route changes
 export const onRouteUpdate = ({ location, prevLocation }: onRouteUpdateParams): void => {
-    console.log("new pathname", location.pathname)
-    console.log("old pathname", prevLocation ? prevLocation.pathname : null)
+    // console.log("new pathname", location.pathname)
+    // console.log("old pathname", prevLocation ? prevLocation.pathname : null)
 }
 
 type wrapPageElementParams = {
