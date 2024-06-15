@@ -1,54 +1,92 @@
 import React from 'react';
-import { Link } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
+import { Link } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import styled from 'styled-components';
 
-const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) => (
-  tags && tags.length > 0 ? <ul className='list-none flex flex-row justify-end margin-block-0 gap-1'>{
-    tags.map(tag => <li key={tag} className='pill margin-block-0'>{tag}</li>)
-  }</ul> : null
-)
+/** Utils */
+import { abbreviate } from '../../utils/string';
+
+/** Constants */
+const ARTICLE_HEADING = `
+  heading
+  padding-0 margin-0 margin-bottom-3
+  leading-5 lg:leading-6
+  text-lg lg:text-xl
+`;
+const ARTICLE_DESCRIPTION = `
+  text-2
+  margin-bottom-3
+  !leading-5 lg:!leading-6
+`;
+
+const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
+  tags && tags.length > 0 ? (
+    <ul className='list-none flex flex-row justify-end margin-block-0 gap-1'>
+      {tags.map((tag) => (
+        <li key={tag} className='pill margin-block-0'>
+          {tag}
+        </li>
+      ))}
+    </ul>
+  ) : null;
+
+// Create a styled component
+const StyledImage = styled(GatsbyImage)`
+  max-width: 15rem;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+`;
 
 const HeroImage: React.FC<{
-  image,
-  title: string
-}> = ({ image, title }) => (
+  image;
+  title: string;
+}> = ({ image, title }) =>
   image ? (
-    <GatsbyImage
+    <StyledImage
       image={image.childImageSharp.gatsbyImageData}
       alt={title}
       className='hero'
     />
-  ) : null
-)
+  ) : null;
 
 const ArticleWidePostCard: React.FC<{
-  title: string,
-  image,
-  description: string,
-  postDate: string,
-  slug: string,
-  readTime: string,
-  tags: Array<string>
+  title: string;
+  image;
+  description: string;
+  postDate: string;
+  slug: string;
+  readTime: string;
+  tags: Array<string>;
 }> = ({ image, title, description, postDate, slug, readTime, tags }) => {
   return (
-    <article className="card wide bg-surface-1 margin-5 rad-shadow">
+    <article className='card wide bg-surface-1 margin-5 rad-shadow'>
       <HeroImage {...{ image, title }} />
-      <div className="padding-5">
-        <div className='flex flex-row space-between w-100'>
-          <p className='text-2 margin-bottom-3'>{postDate}</p>
-          <p className='flex-end text-2 margin-bottom-3'>
-            {readTime}
-          </p>
+      <div
+        className='flex padding-5'
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div className='text'>
+          <div className='flex flex-row space-between w-100'>
+            <p className='text-2 margin-bottom-3'>{postDate}</p>
+            <p className='flex-end text-2 margin-bottom-3'>{readTime}</p>
+          </div>
+          <h3 className={ARTICLE_HEADING}>{abbreviate(title, 32)}</h3>
+          <p className={ARTICLE_DESCRIPTION}>{description}</p>
         </div>
-        <h3 className="heading padding-0 margin-0 margin-bottom-3">{title}</h3>
-        <p className='margin-bottom-3'>{description}</p>
-        <Tags tags={tags} />
+        <div className='tags'>
+          <Tags tags={tags} />
+        </div>
       </div>
-      <Link to={slug} itemProp="url">
-        <div className="overlay"></div>
+      <Link to={slug} itemProp='url'>
+        <div className='overlay'></div>
       </Link>
     </article>
   );
-}
+};
 
 export default ArticleWidePostCard;

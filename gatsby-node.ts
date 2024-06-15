@@ -3,7 +3,7 @@
  *
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/
  */
-
+import { GatsbyNode, WebpackPlugins } from 'gatsby';
 import * as path from 'path';
 import { createFilePath } from 'gatsby-source-filesystem';
 
@@ -52,8 +52,6 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
         ? `${post.fields.slug}${post.frontmatter.hero_image.base}/`
         : null;
       const { pathDate } = post.frontmatter;
-
-      console.log('heroImagePattern', heroImagePattern)
 
       createPage({
         path: `/blog${pathDate}${post.fields.slug}`,
@@ -191,4 +189,27 @@ exports.createSchemaCustomization = ({ actions }) => {
       slug: String
     }
   `);
+};
+
+/**
+ * Webpack configuration for Gatsby
+ * @param params
+ */
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+  actions,
+  stage,
+  getConfig,
+}) => {
+  if (stage === 'build-javascript') {
+    const config = getConfig();
+    const miniCssExtractPlugin = config.plugins.find(
+      (plugin: WebpackPlugins) =>
+        plugin.constructor.name === 'MiniCssExtractPlugin',
+    );
+    // Prevent MiniCssExtractPlugin's default filename hashing error during build
+    if (miniCssExtractPlugin) {
+      miniCssExtractPlugin.options.ignoreOrder = true;
+    }
+    actions.replaceWebpackConfig(config);
+  }
 };

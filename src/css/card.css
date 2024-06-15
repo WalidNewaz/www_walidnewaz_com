@@ -1,6 +1,6 @@
 /* Cards */
 .card {
-    max-width: var(--maxWidth-xxs);
+    max-width: var(--maxWidth-xxxs);
     position: relative;
 }
 
@@ -73,5 +73,13 @@
     .wide>.hero {
         width: 100%;
         height: 200px;
+    }
+
+    .card {
+        max-width: var(--maxWidth-sm);
+    }
+
+    .card > h3 {
+        font-size: var(--fontSize-2);
     }
 }

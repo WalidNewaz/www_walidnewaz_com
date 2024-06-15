@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-07-21"
 title: "Setting Up Your First React Project"
 description: "Introduction to React: Setting Up Your First React Project"
