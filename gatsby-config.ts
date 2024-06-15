@@ -5,6 +5,16 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
  */
 
+import * as dotenv from 'dotenv';
+
+/** Utils */
+import { getGtagForEnv } from './src/utils/gtag';
+
+dotenv.config();
+
+/** Constants */
+const GATSBY_ACTIVE_ENV = process.env.GATSBY_ACTIVE_ENV || 'development';
+
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
@@ -22,6 +32,7 @@ module.exports = {
     },
   },
   plugins: [
+    getGtagForEnv(GATSBY_ACTIVE_ENV),
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,

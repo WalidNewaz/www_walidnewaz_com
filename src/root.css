@@ -1,6 +1,7 @@
 :root {
     /* Width */
     --maxWidth-none: "none";
+    --maxWidth-xxxs: 16.2rem;
     --maxWidth-xxs: 18rem;
     --maxWidth-xs: 20rem;
     --maxWidth-sm: 24rem;

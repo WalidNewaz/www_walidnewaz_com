@@ -50,9 +50,17 @@ const BlogPosts = styled.section`
   width: 100%;
   padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-8);
 
-  h2 {
-    margin: var(--spacing-0);
+  section > h2 {
+    margin: 0 1.25rem;
   }
+
+  @media (max-width: 940px) {
+    padding: var(--spacing-4) var(--spacing-0);
+  }
+`;
+
+const StyledHeading = styled.h2`
+  margin: 0 1.25rem;
 `;
 
 /**
@@ -89,7 +97,7 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   return (
     <BlogPosts>
-      <h2>Posts:</h2>
+      <StyledHeading>Posts:</StyledHeading>
       <section className='flex wrap my-6'>{postsText}</section>
     </BlogPosts>
   );
