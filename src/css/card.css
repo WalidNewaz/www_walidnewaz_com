@@ -1,6 +1,6 @@
 /* Cards */
 .card {
-    max-width: var(--maxWidth-xxxs);
+    max-width: var(--maxWidth-xs);
     position: relative;
 }
 
@@ -75,6 +75,36 @@
         height: 200px;
     }
 
+    /* .card {
+        max-width: var(--maxWidth-sm);
+    }
+
+    .card > h3 {
+        font-size: var(--fontSize-2);
+    } */
+}
+
+@media screen and (min-width: 769px) and ( max-width: 976px) {
+    .card {
+        max-width: var(--maxWidth-xs);
+    }
+
+    .card > h3 {
+        font-size: var(--fontSize-2);
+    }
+}
+
+@media screen and (min-width: 413px) and ( max-width: 768px) {
+    .card {
+        max-width: var(--maxWidth-xs);
+    }
+
+    .card > h3 {
+        font-size: var(--fontSize-2);
+    }
+}
+
+@media screen and (max-width: 412px) {
     .card {
         max-width: var(--maxWidth-sm);
     }

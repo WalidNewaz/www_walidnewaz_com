@@ -14,7 +14,7 @@ const StyledForm = styled.form`
   }
 `;
 
-const NewsLetterForm = () => (
+const NewsLetterForm: React.FC = () => (
   <StyledForm
     action='https://app.convertkit.com/forms/6707899/subscriptions'
     className='seva-form formkit-form'
