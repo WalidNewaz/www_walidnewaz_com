@@ -1,7 +1,18 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
 /** Components */
 import ArticlePostCard from '../../articlePostCard';
+
+const StyledHeading = styled.h2`
+  margin: 0 1.25rem;
+`;
+const StyledMorePosts = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem;
+`;
 
 /**
  * Populates the homepage more posts section
@@ -39,15 +50,8 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   return (
     <section>
-      <h2
-        className='margin'
-        style={{
-          margin: '0 1.25rem',
-        }}
-      >
-        More Posts
-      </h2>
-      <section className='flex wrap mb-6'>{morePostsText}</section>
+      <StyledHeading>More Posts</StyledHeading>
+      <StyledMorePosts>{morePostsText}</StyledMorePosts>
     </section>
   );
 };

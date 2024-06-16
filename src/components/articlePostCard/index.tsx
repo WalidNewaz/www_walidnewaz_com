@@ -44,7 +44,7 @@ const ArticlePostCard: React.FC<{
 }> = ({ title, image, postDate, slug, readTime, tags }) => {
   return (
     <article
-      className='card margin-4 bg-surface-3 rad-shadow'
+      className='card bg-surface-3 rad-shadow'
       itemScope
       itemType='http://schema.org/Article'
     >
