@@ -75,7 +75,7 @@ const ArticleWidePostCard: React.FC<{
             <p className='text-2 margin-bottom-3'>{postDate}</p>
             <p className='flex-end text-2 margin-bottom-3'>{readTime}</p>
           </div>
-          <h3 className={ARTICLE_HEADING}>{abbreviate(title, 32)}</h3>
+          <h3 className={ARTICLE_HEADING}>{abbreviate(title, 30)}</h3>
           <p className={ARTICLE_DESCRIPTION}>{description}</p>
         </div>
         <div className='tags'>
