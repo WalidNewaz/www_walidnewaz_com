@@ -1,115 +1,152 @@
 /* Cards */
 .card {
-    max-width: var(--maxWidth-xs);
-    position: relative;
+  max-width: var(--maxWidth-xs);
+  position: relative;
 }
 
 .wide {
-    max-width: 100%;
-    display: flex;
-    flex-direction: row;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .wide-card-heading {
-    width: 100%;
+  width: 100%;
 }
 
 .hero {
-    /* width: 100%; */
-    height: 200px;
+  /* width: 100%; */
+  height: 200px;
 }
 
 .wide > .hero {
-    height: 268px;
+  height: 268px;
 }
 
 .card > h3 {
-    font-size: var(--fontSize-3);
+  font-size: var(--fontSize-3);
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100%;
-    background-color: var(--surface4);
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100%;
+  background-color: var(--surface4);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .card:hover .overlay {
-    opacity: 0.2;
+  opacity: 0.2;
 }
-
 
 @media screen and (max-width: 68.32rem) and (min-width: 55.6rem) {
-    .wide > .hero {
-        height: 300px;
-    }
+  .wide > .hero {
+    height: 300px;
+  }
 }
 
-/**
- *  Small devices (landscape phones, 576px and up)
- */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1025px) {
+  .card {
+    max-width: var(--maxWidth-xxs);
+    margin: var(--spacing-3);
+  }
 
-    .wide>.hero {
-        width: 100%;
-        height: 268px;
-    }
-
+  .wide {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
 }
 
-/**
- *  Small devices (portrait phones, 576px and up)
- */
-@media screen and (max-width: 799px) {
-    .wide {
-        margin-inline: var(--spacing-0);
-        flex-direction: column;
-    }
+@media screen and (min-width: 977px) and (max-width: 1024px) {
+  .card {
+    max-width: var(--maxWidth-xxs);
+    margin: var(--spacing-3);
+  }
 
-    .wide>.hero {
-        width: 100%;
-        height: 200px;
-    }
+  .card > h3 {
+    font-size: var(--fontSize-2);
+  }
 
-    /* .card {
-        max-width: var(--maxWidth-sm);
-    }
-
-    .card > h3 {
-        font-size: var(--fontSize-2);
-    } */
+  .wide {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
 }
 
-@media screen and (min-width: 769px) and ( max-width: 976px) {
-    .card {
-        max-width: var(--maxWidth-xs);
-    }
+@media screen and (min-width: 769px) and (max-width: 976px) {
+  .card {
+    max-width: var(--maxWidth-xs);
+    margin: var(--spacing-4);
+  }
 
-    .card > h3 {
-        font-size: var(--fontSize-2);
-    }
+  .card > h3 {
+    font-size: var(--fontSize-1);
+  }
+
+  .pill {
+    font-size: var(--fontSize-1);
+  }
+
+  .wide {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-inline: var(--spacing-0);
+  }
+
+  .wide > .hero {
+    width: 100%;
+    /* height: 200px; */
+  }
 }
 
-@media screen and (min-width: 413px) and ( max-width: 768px) {
-    .card {
-        max-width: var(--maxWidth-xs);
-    }
+@media screen and (min-width: 431px) and (max-width: 768px) {
+  .card {
+    max-width: var(--maxWidth-xxs);
+    margin: var(--spacing-4);
+  }
 
-    .card > h3 {
-        font-size: var(--fontSize-2);
-    }
+  .card > h3 {
+    font-size: var(--fontSize-2);
+  }
+
+  .wide {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-inline: var(--spacing-0);
+  }
+
+  .wide > .hero {
+    width: 100%;
+    height: 200px;
+  }
 }
 
-@media screen and (max-width: 412px) {
-    .card {
-        max-width: var(--maxWidth-sm);
-    }
+@media screen and (max-width: 430px) {
+  .card {
+    max-width: var(--maxWidth-sm);
+    margin: var(--spacing-4);
+  }
 
-    .card > h3 {
-        font-size: var(--fontSize-2);
-    }
+  .card > h3 {
+    font-size: var(--fontSize-2);
+  }
+
+  .wide {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-inline: var(--spacing-0);
+  }
+
+  .wide > .hero {
+    width: 100%;
+    height: 268px;
+  }
 }
