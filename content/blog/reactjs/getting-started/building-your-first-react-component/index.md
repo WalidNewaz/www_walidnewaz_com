@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-07-28"
 title: "Building your first React component"
 description: "Introduction to React: Building your first React component"
