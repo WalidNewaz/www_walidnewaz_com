@@ -1,6 +1,6 @@
 ---
 featured: true
-date: "2023-11-28"
+date: "2023-08-18"
 title: "React Hooks: A brief introduction"
 description: "React Hooks: A Deep Dive into useState, useEffect, and Custom Hooks, pitfalls and optimization."
 hero_image: "ferenc-almasi-tvHtIGbbjMo-unsplash.jpg"
