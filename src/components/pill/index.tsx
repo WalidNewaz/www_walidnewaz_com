@@ -1,28 +1,34 @@
 import * as React from 'react';
-import { Link } from 'gatsby';
 
 const Pill: React.FC<{
   topic: string;
   count?: number;
   currentTopic?: string;
-}> = ({ topic, count = 0, currentTopic }) => {
+  className?: string;
+  style?: React.CSSProperties;
+}> = ({ topic, count = 0, currentTopic, className = '', style }) => {
   const topicText = `${topic} ${count > 0 ? `(${count})` : ''}`;
   return topic === currentTopic ? (
-    <li key={topic} className='pill margin-block-0 bg-slate-600'>
-      <strong>{topicText}</strong>
-    </li>
-  ) : (
-    <li
-      key={`topic-${topic}`}
-      className='pill margin-block-0 bg-surface-brand text-surface-2'
+    <div
+      key={topic}
+      className={`pill margin-block-0 bg-slate-600 ${className}`}
+      style={style}
     >
-      <Link
-        to={`/blog/${topic !== 'All' ? topic : ''}`}
+      <strong>{topicText}</strong>
+    </div>
+  ) : (
+    <div
+      key={`topic-${topic}`}
+      className={`pill margin-block-0 bg-surface-brand text-surface-2 ${className}`}
+      style={style}
+    >
+      <a
+        href={`/blog/${topic !== 'All' ? topic : ''}`}
         className='text-decoration-none'
       >
         {topicText}
-      </Link>
-    </li>
+      </a>
+    </div>
   );
 };
 
