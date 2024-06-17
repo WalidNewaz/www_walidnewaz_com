@@ -3,6 +3,7 @@ ul {
   list-style-position: inside;
 }
 
+code.grvsc-code,
 code[class*='language-'],
 pre[class*='language-'] {
   font-size: 0.95rem;

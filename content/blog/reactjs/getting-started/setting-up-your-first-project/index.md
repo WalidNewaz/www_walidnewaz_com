@@ -34,14 +34,14 @@ This command will create a new directory called `my-first-react-app` with all th
 
 Navigate into your new project directory and start the development server:
 
-```bash
+```bash {numberLines}
 cd my-first-react-app
 npm start
 ```
 
 This will start the development server, and you should see something like this:
 
-```bash
+```bash {numberLines}
 Compiled successfully!
 
 You can now view my-first-react-app in the browser.
@@ -95,7 +95,7 @@ React components are the building blocks of any React application. Let's create 
 
 ### Open `App.js` and replace its content with the following code
 
-```javascript
+```javascript {numberLines}
 import React from 'react';
 import './App.css';
 
@@ -114,7 +114,7 @@ export default App;
 
 ### Open `App.css` and add some basic styling
 
-```css
+```css {numberLines}
 .App {
   text-align: center;
 }
@@ -139,7 +139,7 @@ Save your changes and go back to your browser. You should see a styled "Hello, W
 
 Let's add another component to understand how components work together in React. Create a new file in the `src` folder named `Greeting.js` and add the following code:
 
-```javascript
+```javascript {numberLines}
 import React from 'react';
 
 function Greeting(props) {
@@ -157,7 +157,7 @@ In this example, the `Greeting` component accepts a `message` prop and displays 
 
 Now, modify the `App.js` file to use the `Greeting` component:
 
-```javascript
+```javascript {numberLines}
 import React from 'react';
 import './App.css';
 import Greeting from './Greeting';

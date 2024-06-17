@@ -25,7 +25,7 @@ Components are the building blocks of a React application. They allow you to spl
 
 Functional components are simple JavaScript functions. These functions accept props (more on props later) and return React elements describing what should appear on the screen.
 
-```javascript
+```javascript {numberLines}
 import React from 'react';
 
 function Welcome(props) {
@@ -39,7 +39,7 @@ export default Welcome;
 
 Class components are more feature-rich than functional components. They can hold and manage state and lifecycle methods.
 
-```javascript
+```javascript {numberLines}
 import React, { Component } from 'react';
 
 class Welcome extends Component {
@@ -59,7 +59,7 @@ Props (short for properties) are the way components communicate with each other.
 
 Here’s how you can use props in a functional component:
 
-```javascript
+```javascript {numberLines}
 import React from 'react';
 
 function Greeting(props) {
@@ -71,7 +71,7 @@ export default Greeting;
 
 You can use this component in another component by passing props to it:
 
-```javascript
+```javascript {numberLines}
 import React from 'react';
 import Greeting from './Greeting';
 
@@ -90,7 +90,7 @@ export default App;
 
 You can define default values for props using `defaultProps`:
 
-```javascript
+```javascript {numberLines}
 function Greeting(props) {
   return <h1>{props.message}</h1>;
 }
@@ -108,7 +108,7 @@ State is similar to props, but it is private and fully controlled by the compone
 
 To use state in a class component, you need to initialize it in the constructor:
 
-```javascript
+```javascript {numberLines}
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -138,7 +138,7 @@ export default Counter;
 
 With the introduction of React Hooks, you can use state in functional components:
 
-```javascript
+```javascript {numberLines}
 import React, { useState } from 'react';
 
 function Counter() {
@@ -174,7 +174,7 @@ Lifecycle methods are special methods in class components that allow you to run 
 
 Here’s an example of a component with lifecycle methods:
 
-```javascript
+```javascript {numberLines}
 import React, { Component } from 'react';
 
 class Timer extends Component {
@@ -212,4 +212,3 @@ export default Timer;
 ## Conclusion
 
 Understanding components, props, and state is essential for mastering React. Components allow you to break down your UI into reusable pieces, props enable data flow between components, and state makes your components dynamic and interactive. By combining these concepts, you can build complex and efficient user interfaces.
-

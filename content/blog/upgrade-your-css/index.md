@@ -20,7 +20,7 @@ CSS variables, denoted by the prefix `--`, are a powerful feature known as custo
 
 For instance, you can define a custom property for a brand color using a variable like `--brand` and assign it a specific value, such as `#124536`. To make this variable accessible to all elements in the document, you can define it within the `:root` pseudo-selector, which represents the root element of the document:
 
-```css
+```css {numberLines}
 :root {
   --brand: gold;
 }
@@ -28,7 +28,7 @@ For instance, you can define a custom property for a brand color using a variabl
 
 Once defined, you can utilize the variable to apply consistent styling to elements. In the example below, we're setting the background color of a section element using the `--brand` variable:
 
-```css
+```css {numberLines}
 section {
   background-color: var(--brand);
 }
@@ -44,7 +44,7 @@ CSS value functions are powerful tools that process data and provide computed va
 
 The `var()` function enables you to reference a variable that was declared earlier, promoting reusability and consistency. As mentioned earlier, here's an example of how `var()` can be utilized:
 
-```css
+```css {numberLines}
 .section {
   background-color: var(--brand);
 }
@@ -54,7 +54,7 @@ By referencing the `--brand` variable, you can easily apply the same brand color
 
 The `calc()` function allows you to perform mathematical calculations to dynamically compute property values. It's incredibly handy when you need to adjust measurements based on specific requirements. For instance, consider the following example:
 
-```css
+```css {numberLines}
 .box {
   width: calc(var(--width-small) + 2rem);
 }
@@ -95,7 +95,7 @@ Web fonts open up a world of possibilities when it comes to adding style and per
 To utilize a custom web font, you'll need to load it onto your web page. This can be done by using a `<link>` element that references the font file. Once the font is loaded, you can apply it to specific HTML elements using the powerful `@font-face` property.
 For example, if you want to use the "`Playfair`" font for your heading elements, you can define it like this:
 
-```css
+```css {numberLines}
 h3 {
   font-family: "Playfair", Times, serif;
 }
@@ -103,7 +103,7 @@ h3 {
 
 This will ensure that the "`Playfair`" font is applied to all `<h3>` headings, creating a unique and visually appealing typography style.
 
-There's a <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts" target="_blank">comprehensive tutorial</a> available that guides you through the process of loading web fonts onto your website. It provides detailed instructions and valuable insights to help you make the most of this exciting feature.
+There's a [comprehensive tutorial](https://fonts.google.com/knowledge/using_type/using_web_fonts) available that guides you through the process of loading web fonts onto your website. It provides detailed instructions and valuable insights to help you make the most of this exciting feature.
 
 ## Utility classes
 
@@ -111,7 +111,7 @@ When it comes to styling elements on a web page or within a component, we've tra
 
 For example, let's say we have the following classes defined:
 
-```css
+```css {numberLines}
 .italic {
   font-style: italic;
 }
@@ -131,7 +131,7 @@ By combining these classes, we can achieve our desired styles without creating n
 
 In this example, the text "good" is rendered in italics, with bold weight, and transformed to uppercase. By utilizing these reusable classes, we can easily combine them in various ways to achieve effective and flexible styling without duplicating CSS code.
 
-If you're intrigued by this system of design, I recommend exploring the detailed resources available on the <a href="https://designsystem.digital.gov/utilities/" target="_blank">USWDS site</a>. They delve into this approach, providing valuable insights and guidelines for creating efficient and modular CSS designs.
+If you're intrigued by this system of design, I recommend exploring the detailed resources available on the [USWDS site](https://designsystem.digital.gov/utilities/). They delve into this approach, providing valuable insights and guidelines for creating efficient and modular CSS designs.
 
 ## Theming
 
@@ -139,13 +139,13 @@ When it comes to theming, a simple yet effective approach is to select a few col
 
 To create a comprehensive color palette, I've converted the primary colors into the HSL (`hue`, `saturation`, `lightness`) format. By doing so, I can maintain a consistent hue while adjusting the saturation and lightness values to generate intermediate colors for different elements. The following is an example of how the primary brand color (Dark Green) is altered for “dark mode” presentation.
 
-```css
+```css {numberLines}
 --brand-dark: hsl(var(--brand-primary-hue) calc(var(--brand-primary-saturation) / 2) calc(var(--brand-primary-lightness) / 1.5));
 ```
 
 To ensure a cohesive visual experience, I've developed two sets of color palettes—one for the light mode and another for the dark mode. Each palette follows the same underlying principles, but the specific values are tailored to create distinct aesthetics for each mode. The process of creating these palettes is thoroughly explained in a tutorial, which provides detailed insights into achieving harmonious color schemes.
 
-By employing this approach, you can establish a unified and visually pleasing theme for your site. By carefully selecting and manipulating colors, you can create a sense of cohesion and enhance the overall user experience. To delve deeper into the intricacies of this process and gain a deeper understanding of color theory, I encourage you to explore this <a href="https://web.dev/building-a-color-scheme/" target="_blank">tutorial</a>.
+By employing this approach, you can establish a unified and visually pleasing theme for your site. By carefully selecting and manipulating colors, you can create a sense of cohesion and enhance the overall user experience. To delve deeper into the intricacies of this process and gain a deeper understanding of color theory, I encourage you to [explore this tutorial](https://web.dev/building-a-color-scheme/).
 
 ## Dark mode
 
@@ -154,7 +154,7 @@ In today's digital landscape, it's becoming increasingly common for websites and
 To bring this dark theme to life, you'll need to create a specialized color palette that can be applied when the user opts for the dark mode. Typically, this color palette consists of a set of variables that define the desired colors for different elements throughout the site. By dynamically adjusting the values of these CSS variables, you can effortlessly switch between light and dark modes without the need for complex scripting.
 Let's take a look at a sample dark mode theme file as an example (`dark.css`):
 
-```css
+```css {numberLines}
 :root {
   --brand-dark: hsl(var(--brand-primary-hue), calc(var(--brand-primary-saturation) / 2), calc(var(--brand-primary-lightness) / 1.5));
   ...
@@ -176,7 +176,7 @@ To instruct the browser to load the appropriate theme based on the user's prefer
 
 The above `<link>` tag specifies a separate CSS file, `dark.css`, to be loaded when the user's preferred color scheme is set to dark. This way, the browser automatically selects and applies the appropriate theme based on the user's settings.
 
-For further exploration and alternative approaches to achieving the same outcome, I recommend referring to additional resources available <a href="https://web.dev/color-scheme/" target="_blank">here</a>. These resources provide further insights and techniques to help you implement and customize dark themes to suit your specific needs.
+For further exploration and alternative approaches to achieving the same outcome, I recommend referring to additional resources [available here](https://web.dev/color-scheme/). These resources provide further insights and techniques to help you implement and customize dark themes to suit your specific needs.
 
 ## In closing
 
@@ -188,9 +188,9 @@ So, don't hesitate to explore the incredible possibilities that CSS offers beyon
 
 The following sites helped me with the understanding of the features I’d highlighted here:
 
-1.  <a href="https://web.dev/learn/css/" target="_blank">Learn CSS</a> - An introductory, but detailed walk through of the essential features of modern CSS.
-2.  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">CSS: Cascading Style Sheets</a> - An authoritative source of information regarding all things CSS.
-3.  <a href="https://css-tricks.com/" target="_blank">CSS-Tricks</a> - Many useful articles about CSS features from experts.
-4.  <a href="https://web.dev/building-a-color-scheme/" target="_blank">Building a color scheme</a>.
-5.  <a href="https://web.dev/color-scheme/" target="_blank">Improving dark mode default styling with the color-scheme CSS property and the corresponding meta tag</a>.
-6.  <a href="https://designsystem.digital.gov/utilities/" target="_blank">Utilities</a> - U.S. Web Design System.
+1. [Learn CSS](https://web.dev/learn/css/) - An introductory, but detailed walk through of the essential features of modern CSS.
+2. [CSS: Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) - An authoritative source of information regarding all things CSS.
+3. [CSS-Tricks](https://css-tricks.com/) - Many useful articles about CSS features from experts.
+4. [Building a color scheme](https://web.dev/building-a-color-scheme/).
+5. [Improving dark mode default styling with the color-scheme CSS property and the corresponding meta tag](https://web.dev/color-scheme/).
+6. [Utilities](https://designsystem.digital.gov/utilities/) - U.S. Web Design System.
