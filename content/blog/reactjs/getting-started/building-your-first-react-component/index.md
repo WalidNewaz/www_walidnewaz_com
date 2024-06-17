@@ -30,7 +30,7 @@ Before creating your first component, ensure you have a React environment set up
 
 2. **Create a New React App**
 
-```shell
+```shell {numberLines}
 npx create-react-app my-first-react-app
 cd my-first-react-app
 npm start
@@ -46,7 +46,7 @@ Let's create a simple React component that displays a greeting message.
 
 First, we'll create a functional component. Open the `src` directory and create a new file named `Greeting.js`.
 
-```javascript
+```javascript {numberLines}
 // src/Greeting.js
 import React from 'react';
 
@@ -63,7 +63,7 @@ In this file, we've defined a functional component named `Greeting` that returns
 
 Next, let's use this `Greeting` component in our main `App` component. Open `src/App.js` and modify it as follows:
 
-```javascript
+```javascript {numberLines}
 // src/App.js
 import React from 'react';
 import './App.css';
@@ -94,7 +94,7 @@ Props are inputs to a React component. They allow you to pass data from a parent
 
 Update the `Greeting` component to accept and use props:
 
-```javascript
+```javascript {numberLines}
 // src/Greeting.js
 import React from 'react';
 
@@ -109,7 +109,7 @@ export default Greeting;
 
 Now, pass a `name` prop to the `Greeting` component in `App.js`:
 
-```javascript
+```javascript {numberLines}
 // src/App.js
 import React from 'react';
 import './App.css';
@@ -140,7 +140,7 @@ Let's create a class component and use state to manage the data. We'll create a 
 
 Create a new file named `Counter.js` in the `src` directory:
 
-```javascript
+```javascript {numberLines}
 // src/Counter.js
 import React, { Component } from 'react';
 
@@ -173,7 +173,7 @@ In this code, we've defined a `Counter` class component with a state property `c
 
 Import and use the `Counter` component in `App.js`:
 
-```javascript
+```javascript {numberLines}
 // src/App.js
 import React from 'react';
 import './App.css';

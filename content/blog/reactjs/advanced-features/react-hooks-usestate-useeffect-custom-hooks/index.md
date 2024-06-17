@@ -21,7 +21,7 @@ Before hooks were introduced, React relied heavily on class components for manag
 
 In class components, state is managed using the `state` property and the `setState` method. Here's an example:
 
-```jsx
+```jsx {numberLines}
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -53,7 +53,7 @@ In this example, the `Counter` component initializes state in the constructor an
 
 Side effects in class components are handled using lifecycle methods such as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`. Here’s an example of how you might set up a timer in a class component:
 
-```jsx
+```jsx {numberLines}
 import React, { Component } from 'react';
 
 class Timer extends Component {
@@ -92,7 +92,6 @@ class Timer extends Component {
 }
 
 export default Timer;
-
 ```
 
 Here, `componentDidMount` sets up the timer when the component mounts, `componentDidUpdate` logs the count when it changes, and `componentWillUnmount` cleans up the timer when the component unmounts.
@@ -106,7 +105,7 @@ Here, `componentDidMount` sets up the timer when the component mounts, `componen
 
 Before hooks, functional components were stateless and couldn’t handle side effects directly. They were simple functions that took props and returned JSX. Any state management or side effects had to be handled in parent class components.
 
-```jsx
+```jsx {numberLines}
 const Greeting = (props) => {
   return <h1>Hello, {props.name}!</h1>;
 };
@@ -122,7 +121,7 @@ The `useState` hook is the most fundamental hook in React, enabling us to add st
 
 Here's a simple example of how `useState` works:
 
-```jsx
+```jsx {numberLines}
 import React, { useState } from 'react';
 
 const Counter = () => {
@@ -153,7 +152,7 @@ In this example, `useState(0)` initializes the state variable `count` to `0`. Th
 
 State can also be an object, which is useful for managing more complex state:
 
-```jsx
+```jsx {numberLines}
 import React, { useState } from 'react';
 
 // Define a functional component named UserProfile
@@ -209,7 +208,7 @@ The `useEffect` hook allows us to perform side effects in function components. I
 
 Here's an example of `useEffect`:
 
-```jsx
+```jsx {numberLines}
 import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
@@ -242,7 +241,7 @@ In this example, `useEffect` sets up a timer that increments the `count` state e
 
 The second argument to `useEffect` is a dependency array. This array tells React when to re-run the effect:
 
-```jsx
+```jsx {numberLines}
 useEffect(() => {
   console.log('Count changed:', count);
 }, [count]);
@@ -258,7 +257,7 @@ Custom hooks let us encapsulate logic that we want to reuse across multiple comp
 
 Let's create a custom hook called `useLocalStorage` to manage state that syncs with `localStorage`:
 
-```jsx
+```jsx {numberLines}
 import { useState, useEffect } from 'react';
 
 const useLocalStorage = (key, initialValue) => {
@@ -288,7 +287,7 @@ export default useLocalStorage;
 
 Here's how you can use the `useLocalStorage` hook:
 
-```jsx
+```jsx {numberLines}
 import React from 'react';
 import useLocalStorage from './useLocalStorage';
 
@@ -321,7 +320,7 @@ Optimizing hooks involves several strategies to ensure that your components run 
 
 Use `useMemo` to memoize expensive calculations and `useCallback` to memoize functions, preventing unnecessary re-creations on every render.
 
-```jsx
+```jsx {numberLines}
 import React, { useState, useMemo, useCallback } from 'react';
 
 function ExpensiveComponent({ data }) {
@@ -348,7 +347,7 @@ function ExpensiveComponent({ data }) {
 
 Always specify dependency arrays in `useEffect`, `useCallback`, and `useMemo` to control when your side effects or memoizations should be re-executed. Omitting dependencies can lead to performance issues or incorrect behavior.
 
-```jsx
+```jsx {numberLines}
 useEffect(() => {
   // Your effect logic
 }, [dependency1, dependency2]);
@@ -360,7 +359,7 @@ useEffect(() => {
 
 Be cautious with dependency arrays in `useEffect` to avoid infinite loops. Ensure that you correctly manage dependencies and avoid unnecessary updates.
 
-```jsx
+```jsx {numberLines}
 useEffect(() => {
   const interval = setInterval(() => {
     setSeconds(s => s + 1);
@@ -376,7 +375,7 @@ Here inside the `useEffect` callback function, an interval is set up using `setI
 
 When using state within a function inside `useEffect` or event handlers, be aware of stale closures, which can lead to unexpected behavior. Let's consider a game of earning and spending money:
 
-```jsx
+```jsx {numberLines}
 import React, { useState } from 'react';
 
 export function App(props) {
@@ -436,7 +435,7 @@ This is because, on each click `setTimeout(delay, 1000)` schedules the execution
 
 To fix the problem, let's use a functional way `setBalance(balance => balance + amount)` to update count state:
 
-```jsx
+```jsx {numberLines}
 import React, { useState } from 'react';
 
 export function App(props) {

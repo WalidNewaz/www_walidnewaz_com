@@ -19,7 +19,7 @@ Class components were the standard way to create stateful components in React be
 
 ### Example
 
-```jsx
+```jsx {numberLines}
 import React, { Component } from 'react';
 
 class Greeting extends Component {
@@ -65,7 +65,7 @@ Functional components are simpler and more concise than class components. They w
 
 ### Example
 
-```jsx
+```jsx {numberLines}
 import React, { useState } from 'react';
 
 const Greeting = () => {
