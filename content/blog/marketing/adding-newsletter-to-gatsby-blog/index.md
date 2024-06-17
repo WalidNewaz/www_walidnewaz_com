@@ -59,7 +59,7 @@ ConvertKit allows creators to easily add newsletter forms to their sites, manage
 
 The following component is the one I created to enclose the HTML body of the newsletter subscription form:
 
-```javascript
+```javascript {numberLines}
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -207,7 +207,7 @@ I extracted the CSS that was within `<style>` tags in the original code snippet 
 
 Here is source of the `Confirmation` component:
 
-```javascript
+```javascript {numberLines}
 import * as React from 'react';
 
 const Confirmation: React.FC = () => (

@@ -80,6 +80,15 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+          {
+            resolve: `gatsby-remark-vscode`,
+            options: {
+              theme: {
+                default: 'Monokai Dimmed',
+                dark: 'Monokai Dimmed'
+              }
+            }
+          },
           `gatsby-remark-prismjs`,
         ],
       },
