@@ -16,6 +16,7 @@ import styled from 'styled-components';
 import Seo from '../../src/components/seo';
 import ArticlePostCard from '../../src/components/articlePostCard';
 import Pill from '../../src/components/pill';
+import ContentRibbon from '../../src/components/ContentRibbon/ContentRibbon';
 
 const Topics: React.FC<{ topics; currentTopic }> = ({
   topics,
@@ -30,18 +31,25 @@ const Topics: React.FC<{ topics; currentTopic }> = ({
         topic={topic}
         count={topics[topic]}
         currentTopic={currentTopic}
+        style={{ margin: '0.25rem' }}
       />
     ));
+  const showContent = true;
 
   return (
     <section
       className='border-color-heading2 border-block-end-dashed border-thin'
-      style={{ width: '100%' }}
+      style={{ width: '100%', paddingBottom: '1rem' }}
     >
-      <ul className='list-none flex flex-row justify-start margin-5 gap-1 wrap'>
+      <ContentRibbon
+        className={`transition-opacity duration-500 h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+        scrollContainerClassName='h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] gap-6'
+      >
+        <Pill topic='All' style={{ margin: '0.25rem' }} />
         {linksText}
-        <Pill topic='All' />
-      </ul>
+      </ContentRibbon>
     </section>
   );
 };

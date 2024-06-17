@@ -3,7 +3,10 @@ import { Link, graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styled from 'styled-components'
 
+/** Components */
 import Seo from "../components/seo"
+
+import './blog-post.css'
 
 const HeroImage: React.FC<{ post, heroImage }> = ({ post, heroImage }) => (
   !heroImage ? null : (

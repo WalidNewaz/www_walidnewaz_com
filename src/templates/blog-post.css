@@ -1,0 +1,26 @@
+ol,
+ul {
+  list-style-position: inside;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  font-size: 0.95rem;
+}
+
+pre[class*='language-'] {
+  border-radius: 0.25rem;
+  margin: 0;
+}
+
+:not(pre) > code[class*='language-'] {
+  padding-inline: 0.25rem;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  background: none;
+}
