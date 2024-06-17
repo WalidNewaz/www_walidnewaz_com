@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-08-04"
 title: "Adding Newsletter to My Blog"
 description: Adding a Newsletter to My Blog Running on Top of Gatsby, by using ConvertKit.
