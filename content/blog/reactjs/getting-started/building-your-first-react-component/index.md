@@ -7,6 +7,9 @@ hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
 tags: ['beginner', 'react']
 series: "Modern React.js Series"
 read_time: 10 min
+related: 
+  - "Introduction to React"
+  - "Setting Up Your First React Project"
 ---
 
 # Introduction to React: Building your first React component

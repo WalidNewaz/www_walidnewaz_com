@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 /** Components */
 import Seo from '../components/seo';
+import { MorePosts } from './blog-topic';
 
 import './blog-post.css';
 
@@ -40,9 +41,17 @@ const ArticleHeader = styled.header`
   }
 `;
 
-const BlogPostTemplate: React.FC<{ data }> = ({
-  data: { previous, next, markdownRemark: post, heroImage },
+const BlogPostContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`;
+
+const BlogPostTemplate: React.FC<{ data: any }> = ({
+  data: { previous, next, markdownRemark: post, heroImage, relatedPosts },
 }) => {
+  console.log('relatedPosts', relatedPosts);
+  const { posts } = relatedPosts;
   return (
     <>
       <article
@@ -102,12 +111,17 @@ const BlogPostTemplate: React.FC<{ data }> = ({
             )}
           </li>
         </ul>
+        {relatedPosts && relatedPosts.length > 0 && (
+          <>
+            <MorePosts posts={posts} heading={`You may also like`} />
+          </>
+        )}
       </nav>
     </>
   );
 };
 
-export const Head: React.FC<{ data }> = ({
+export const Head: React.FC<{ data: any }> = ({
   data: { markdownRemark: post },
 }) => {
   return (
@@ -126,6 +140,7 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
     $heroImagePattern: String
+    $relatedPosts: [String]
   ) {
     site {
       siteMetadata {
@@ -171,6 +186,35 @@ export const pageQuery = graphql`
     heroImage: file(relativePath: { regex: $heroImagePattern }) {
       childImageSharp {
         gatsbyImageData
+      }
+    }
+    relatedPosts: allMarkdownRemark(
+      filter: { frontmatter: { title: { in: $relatedPosts } } }
+      sort: { frontmatter: { date: DESC } }
+    ) {
+      posts: nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
+          title
+          description
+          hero_image {
+            id
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+          tags
+          read_time
+        }
+        headings(depth: h1) {
+          value
+        }
+        id
       }
     }
   }
