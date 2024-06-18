@@ -62,7 +62,7 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
           previousPostId,
           nextPostId,
           heroImagePattern,
-          relatedPosts: post.frontmatter.related || [],
+          related: post.frontmatter.related || [],
         },
       });
     });

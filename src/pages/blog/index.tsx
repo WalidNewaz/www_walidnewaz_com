@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
-import styled from 'styled-components';
 
 /** Components */
 import Seo from '../../components/seo';
-import ArticlePostCard from '../../components/articlePostCard';
 import Pill from '../../components/pill';
 import ContentRibbon from '../../components/ContentRibbon/ContentRibbon';
+import MorePosts from '../../components/MorePosts';
 
 /**
  * Generate the topics section on the blogs main page
@@ -39,59 +38,6 @@ const Topics: React.FC<{ topics }> = ({ topics }) => {
         {linksText}
       </ContentRibbon>
     </section>
-  );
-};
-
-const BlogPosts = styled.section`
-  width: 100%;
-  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-0);
-
-  h2 {
-    margin: 0 1.25rem;
-  }
-
-  @media (max-width: 940px) {
-    padding: var(--spacing-4) var(--spacing-0);
-  }
-`;
-
-/**
- * Generate all posts in blog main page
- */
-const MorePosts: React.FC<{ posts }> = ({ posts }) => {
-  let postsText;
-
-  if (posts.length === 0) {
-    postsText = (
-      <article>
-        <p>
-          No blog posts found. Add markdown posts to &quot;content/blog&quot;
-          (or the directory you specified for the
-          &quot;gatsby-source-filesystem&quot; plugin in gatsby-config.js).
-        </p>
-      </article>
-    );
-  } else {
-    postsText = posts.map((post) => (
-      <ArticlePostCard
-        key={post.id}
-        postDate={post.frontmatter.date}
-        readTime={post.frontmatter.read_time}
-        title={
-          post.frontmatter.title || post.headings[0].value || post.fields.slug
-        }
-        image={post.frontmatter.hero_image}
-        slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
-        tags={post.frontmatter.tags}
-      />
-    ));
-  }
-
-  return (
-    <BlogPosts>
-      <h2>Posts:</h2>
-      <section className='flex wrap my-6'>{postsText}</section>
-    </BlogPosts>
   );
 };
 
