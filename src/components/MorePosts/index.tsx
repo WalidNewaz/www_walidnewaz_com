@@ -46,6 +46,7 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
           padding: '40px',
           width: '100%',
           color: 'rgb(104, 104, 104)',
+          justifyContent: 'center',
         }}
       >
         <p style={{ margin: 0 }}>No posts found!</p>
@@ -70,7 +71,7 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
   return (
     <StyledBlogPostsSection>
       <StyledHeading>{heading}:</StyledHeading>
-      <section className='col flex justify-center wrap my-6'>
+      <section className='col flex wrap my-6'>
         {postsText}
       </section>
     </StyledBlogPostsSection>
