@@ -6,7 +6,7 @@ import ArticlePostCard from '../articlePostCard';
 
 const StyledBlogPostsSection = styled.section`
   width: 100%;
-  padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-8);
+  padding: var(--spacing-4) var(--spacing-2);
 
   section > h2 {
     margin: 0 1.25rem;
