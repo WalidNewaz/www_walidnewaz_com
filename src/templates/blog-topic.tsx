@@ -74,16 +74,31 @@ const StyledHeading = styled.h2`
 /**
  * Generate all posts in blog main page
  */
-const MorePosts: React.FC<{ posts }> = ({ posts }) => {
+export const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
+  posts,
+  heading = 'Posts',
+}) => {
   let postsText;
 
   if (posts.length === 0) {
     postsText = (
-      <article>
-        <p>
-          No blog posts found. Add markdown posts to &quot;content/blog&quot;
-          (or the directory you specified for the
-          &quot;gatsby-source-filesystem&quot; plugin in gatsby-config.js).
+      <article
+        style={{
+          maxWidth: '700px',
+          textAlign: 'center',
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: '#e3e3e3',
+          borderRadius: '4px',
+          backgroundColor: 'rgb(249, 250, 251)',
+          margin: '1.15rem',
+          padding: '40px',
+          width: '100%',
+          color: 'rgb(104, 104, 104)',
+        }}
+      >
+        <p style={{ margin: 0 }}>
+          No posts found!
         </p>
       </article>
     );
@@ -105,8 +120,10 @@ const MorePosts: React.FC<{ posts }> = ({ posts }) => {
 
   return (
     <BlogPosts>
-      <StyledHeading>Posts:</StyledHeading>
-      <section className='flex wrap my-6'>{postsText}</section>
+      <StyledHeading>{heading}:</StyledHeading>
+      <section className='col flex justify-center wrap my-6'>
+        {postsText}
+      </section>
     </BlogPosts>
   );
 };
