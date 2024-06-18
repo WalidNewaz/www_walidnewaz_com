@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 /** Components */
 import Seo from '../components/seo';
-import { MorePosts } from './blog-topic';
+import MorePosts from '../components/MorePosts';
 
 import './blog-post.css';
 
@@ -50,8 +50,8 @@ const BlogPostContainer = styled.section`
 const BlogPostTemplate: React.FC<{ data: any }> = ({
   data: { previous, next, markdownRemark: post, heroImage, relatedPosts },
 }) => {
-  console.log('relatedPosts', relatedPosts);
   const { posts } = relatedPosts;
+  console.log('posts', posts);
   return (
     <>
       <article
@@ -111,7 +111,7 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
             )}
           </li>
         </ul>
-        {relatedPosts && relatedPosts.length > 0 && (
+        {relatedPosts && posts.length > 0 && (
           <>
             <MorePosts posts={posts} heading={`You may also like`} />
           </>
@@ -140,7 +140,7 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
     $heroImagePattern: String
-    $relatedPosts: [String]
+    $related: [String]
   ) {
     site {
       siteMetadata {
@@ -189,7 +189,7 @@ export const pageQuery = graphql`
       }
     }
     relatedPosts: allMarkdownRemark(
-      filter: { frontmatter: { title: { in: $relatedPosts } } }
+      filter: { frontmatter: { title: { in: $related } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       posts: nodes {
