@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 /** Components */
 import Seo from "../components/seo"
 import HomePageFeatures from '../components/page/home/HomePageFeatures'
-import HomePageMorePosts from '../components/page/home/MorePosts'
+import HomePageMorePosts from '../components/MorePosts'
 
 /**
  * This is the homepage of the blog
