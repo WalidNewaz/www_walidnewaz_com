@@ -26,6 +26,7 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
               base
             }
             pathDate: date(formatString: "/YYYY/MM/DD")
+            related
           }
         }
       }
@@ -61,11 +62,19 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
           previousPostId,
           nextPostId,
           heroImagePattern,
+          relatedPosts: post.frontmatter.related || [],
         },
       });
     });
   }
 };
+
+interface Topic {
+  frontmatter: {
+    tags: string[];
+    related: string[];
+  }
+}
 
 /**
  * Creates a list of pages that filter blog posts based on topics
@@ -94,8 +103,8 @@ const createTopicsPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Aggregate unique topics into an array
-  const posts = result.data.allMarkdownRemark.nodes;
-  const topics = posts.reduce((topics, post) => {
+  const posts = result.data.allMarkdownRemark.nodes as Topic[];
+  const topics: string[] = posts.reduce((topics: string[], post: Topic) => {
     const { tags } = post.frontmatter;
     tags.forEach((tag) => {
       if (!topics.includes(tag)) {
