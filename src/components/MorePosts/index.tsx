@@ -30,7 +30,6 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
 }) => {
   let postsText;
 
-  console.log('posts', JSON.stringify(posts));
   if (posts.length === 0) {
     postsText = (
       <article

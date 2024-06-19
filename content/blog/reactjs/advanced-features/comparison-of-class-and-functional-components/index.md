@@ -7,6 +7,9 @@ hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['components', 'react']
 series: "Modern React.js Series"
 read_time: 5 min
+related: 
+  - "React Hooks: A brief introduction"
+  - "React Context API"
 ---
 
 # Comparison of Class Components and Functional Components in React
