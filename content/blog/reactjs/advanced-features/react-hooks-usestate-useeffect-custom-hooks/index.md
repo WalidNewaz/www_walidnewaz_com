@@ -7,6 +7,9 @@ hero_image: "ferenc-almasi-tvHtIGbbjMo-unsplash.jpg"
 tags: ['react hooks', 'react']
 series: "Modern React.js Series"
 read_time: 15 min
+related: 
+  - "Class and Functional React Components"
+  - "React Context API"
 ---
 
 # React Hooks: A Deep Dive into useState, useEffect, and Custom Hooks
