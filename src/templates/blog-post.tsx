@@ -51,7 +51,6 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
   data: { previous, next, markdownRemark: post, heroImage, relatedPosts },
 }) => {
   const { posts } = relatedPosts;
-  console.log('posts', posts);
   return (
     <>
       <article
