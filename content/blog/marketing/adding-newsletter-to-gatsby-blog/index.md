@@ -188,7 +188,7 @@ const NewsLetterForm: React.FC = () => (
  */
 const Newsletter: React.FC = () => {
   return (
-    <section className='homepage-newsletter col flex justify-center'>
+    <section className='newsletter col flex justify-center'>
       <NewsLetterForm />
     </section>
   );

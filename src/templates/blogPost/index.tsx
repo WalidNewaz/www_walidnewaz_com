@@ -18,6 +18,10 @@ const StyledArticleBody = styled.section`
     margin-bottom: var(--spacing-6);
   }
 
+  a, li {
+    color: var(--text1);
+  }
+
   img {
     border-radius: 0.25rem;
   }
@@ -26,12 +30,19 @@ const StyledArticleBody = styled.section`
     content: "";
     margin-left: 0.25rem;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading2);
+    font-family: var(--fontFamily-sans);
+    font-weight: var(--fontWeight-bold);
+    transition: color 300ms linear;
+  }
 `;
 
 /**
  * Component used to display the blog post
  * @param params
- * @returns 
+ * @returns
  */
 const BlogPostTemplate: React.FC<{ data: any }> = ({
   data: { previous, next, markdownRemark: post, heroImage, relatedPosts },

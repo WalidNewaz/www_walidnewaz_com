@@ -1,5 +1,8 @@
 import * as React from "react";
 
+/**
+ * Pill component to display topics
+ */
 const Pill: React.FC<{
   topic: string;
   count?: number;
@@ -19,7 +22,7 @@ const Pill: React.FC<{
   ) : (
     <div
       key={`topic-${topic}`}
-      className={`pill margin-block-0 bg-surface-brand text-surface-2 ${className}`}
+      className={`pill margin-block-0  ${className}`}
       style={style}
     >
       <a

@@ -8,6 +8,7 @@ const ArticleHeader = styled.header`
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-0);
+    color: var(--text1);
   }
 `;
 

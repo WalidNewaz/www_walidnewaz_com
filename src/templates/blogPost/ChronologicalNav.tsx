@@ -1,5 +1,12 @@
 import React from 'react';
 import { Link } from "gatsby";
+import styled from "styled-components";
+
+const StyledList = styled.ul`
+  a, li {
+    color: var(--text1);
+  }
+`;
 
 /**
  * Displays the previous and next blog post links
@@ -10,7 +17,7 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
   previous,
   next,
 }) => (
-  <ul
+  <StyledList
     style={{
       display: `flex`,
       flexWrap: `wrap`,
@@ -39,7 +46,7 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
         </Link>
       )}
     </li>
-  </ul>
+  </StyledList>
 );
 
 export default ChronologicalNav;

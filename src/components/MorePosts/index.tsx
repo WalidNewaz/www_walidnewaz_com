@@ -1,8 +1,8 @@
-import * as React from 'react';
-import styled from 'styled-components';
+import * as React from "react";
+import styled from "styled-components";
 
 /** Components */
-import ArticlePostCard from '../articlePostCard';
+import ArticlePostCard from "../articlePostCard";
 
 const StyledBlogPostsSection = styled.section`
   width: 100%;
@@ -19,6 +19,10 @@ const StyledBlogPostsSection = styled.section`
 
 const StyledHeading = styled.h2`
   margin: 0 1.25rem;
+  color: var(--heading2);
+  font-family: var(--fontFamily-sans);
+  font-weight: var(--fontWeight-bold);
+  transition: color 300ms linear;
 `;
 
 /**
@@ -26,7 +30,7 @@ const StyledHeading = styled.h2`
  */
 const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
   posts,
-  heading = 'Posts',
+  heading = "Posts",
 }) => {
   let postsText;
 
@@ -34,18 +38,18 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
     postsText = (
       <article
         style={{
-          maxWidth: '700px',
-          textAlign: 'center',
+          maxWidth: "700px",
+          textAlign: "center",
           borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: '#e3e3e3',
-          borderRadius: '4px',
-          backgroundColor: 'rgb(249, 250, 251)',
-          margin: '1.15rem',
-          padding: '40px',
-          width: '100%',
-          color: 'rgb(104, 104, 104)',
-          justifyContent: 'center',
+          borderStyle: "solid",
+          borderColor: "#e3e3e3",
+          borderRadius: "4px",
+          backgroundColor: "rgb(249, 250, 251)",
+          margin: "1.15rem",
+          padding: "40px",
+          width: "100%",
+          color: "rgb(104, 104, 104)",
+          justifyContent: "center",
         }}
       >
         <p style={{ margin: 0 }}>No posts found!</p>
@@ -70,9 +74,7 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
   return (
     <StyledBlogPostsSection>
       <StyledHeading>{heading}:</StyledHeading>
-      <section className='col flex wrap my-6'>
-        {postsText}
-      </section>
+      <section className="col flex wrap my-6">{postsText}</section>
     </StyledBlogPostsSection>
   );
 };
