@@ -11,6 +11,13 @@ const StyledHomePageFeaturesSection = styled.section`
   display: flex;
   flex-wrap: wrap;
 
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading2);
+    font-family: var(--fontFamily-sans);
+    font-weight: var(--fontWeight-bold);
+    transition: color 300ms linear;
+  }
+
   .featured-posts.col {
     width: 100%;
     flex: 65%;

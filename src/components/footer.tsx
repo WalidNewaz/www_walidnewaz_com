@@ -20,6 +20,10 @@ const StyledFooterDiv = styled.div`
   justify-content: space-between;
 `;
 
+const StyledCopyRight = styled.div`
+  color: var(--heading2);
+`;
+
 const Footer: React.FC = () => {
   return (
     <>
@@ -27,9 +31,9 @@ const Footer: React.FC = () => {
       <StyledFooter>
         <StyledFooterDiv>
           <section className='flex gap-4'>
-            <div className='copyright'>
-              Copyright © {new Date().getFullYear()} by Walid Newaz
-            </div>
+            <StyledCopyRight className='copyright'>
+              Copyright © 2023 - {new Date().getFullYear()} by Walid Newaz
+            </StyledCopyRight>
           </section>
           <section className='social'>
             <ul>
