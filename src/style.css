@@ -96,7 +96,7 @@ h6 > a {
   color: inherit;
 }
 
-section > h2 {
+article > h2 {
   color: var(--heading1);
   font-family: var(--fontFamily-sans);
   font-weight: var(--fontWeight-bold);

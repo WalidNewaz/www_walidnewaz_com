@@ -25,6 +25,10 @@ const StyledAboutSection = styled.section`
   ul {
     margin-left: var(--spacing-12);
   }
+
+  li {
+    color: var(--text1);
+  }
 `
 
 // Create a styled component
