@@ -2,7 +2,7 @@
 import * as React from 'react'
 
 // custom typefaces
-import "@fontsource/montserrat/variable.css"
+import "@fontsource/montserrat"; // Defaults to weight 400
 import "@fontsource/merriweather"
 // normalize CSS across browsers
 import "./src/normalize.css"
