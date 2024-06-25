@@ -60,7 +60,7 @@ const ArticlePostCard: React.FC<{
           </h3>
         </div>
         <div className='tags'>
-          <Tags tags={tags} />
+          <Tags tags={[tags[tags.length - 1]]} />
         </div>
       </StyledCardText>
       <Link to={slug} itemProp='url'>
