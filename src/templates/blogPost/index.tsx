@@ -1,13 +1,17 @@
-import * as React from 'react';
-import { Link, graphql } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
-import styled from 'styled-components';
+import * as React from "react";
+import { graphql } from "gatsby";
+import styled from "styled-components";
 
 /** Components */
-import Seo from '../components/seo';
-import MorePosts from '../components/MorePosts';
+import Seo from "../../components/seo";
+import MorePosts from "../../components/MorePosts";
+import HeroImage from "./HeroImage";
+import ArticleHeader from "./ArticleHeader";
+import ChronologicalNav from "./ChronologicalNav";
+import PostTags from "./PostTags";
 
-import './blog-post.css';
+/** Styles */
+import "./blog-post.css";
 
 const StyledArticleBody = styled.section`
   p {
@@ -19,34 +23,16 @@ const StyledArticleBody = styled.section`
   }
 
   li::before {
-    content: '';
+    content: "";
     margin-left: 0.25rem;
   }
 `;
 
-const HeroImage: React.FC<{ post; heroImage }> = ({ post, heroImage }) =>
-  !heroImage ? null : (
-    <GatsbyImage
-      image={heroImage.childImageSharp.gatsbyImageData}
-      alt={post.frontmatter.title}
-      style={{ height: '300px', marginBottom: '25px', borderRadius: '0.25rem' }}
-    />
-  );
-
-const ArticleHeader = styled.header`
-  div.article-header {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-0);
-  }
-`;
-
-const BlogPostContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
-
+/**
+ * Component used to display the blog post
+ * @param params
+ * @returns 
+ */
 const BlogPostTemplate: React.FC<{ data: any }> = ({
   data: { previous, next, markdownRemark: post, heroImage, relatedPosts },
 }) => {
@@ -54,15 +40,15 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
   return (
     <>
       <article
-        className='blog-post'
+        className="blog-post"
         itemScope
-        itemType='http://schema.org/Article'
+        itemType="http://schema.org/Article"
       >
         <ArticleHeader>
           {/* <h1 itemProp="headline">{post.frontmatter.title}</h1> */}
-          <div className='article-header'>
-            <div className='article-post-date'>{post.frontmatter.date}</div>
-            <div className='article-read-time'>
+          <div className="article-header">
+            <div className="article-post-date">{post.frontmatter.date}</div>
+            <div className="article-read-time">
               {post.frontmatter.read_time} read
             </div>
           </div>
@@ -72,44 +58,12 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
         </section>
         <StyledArticleBody
           dangerouslySetInnerHTML={{ __html: post.html }}
-          itemProp='articleBody'
+          itemProp="articleBody"
         />
-        {/* <hr /> */}
-        {/* <footer> */}
-        {/* <Bio /> */}
-        {/* </footer> */}
+        <PostTags tags={post.frontmatter.tags} />
       </article>
-      <nav className='blog-post-nav'>
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link
-                to={`/blog${previous.frontmatter.pathDate}${previous.fields.slug}`}
-                rel='prev'
-              >
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link
-                to={`/blog${next.frontmatter.pathDate}${next.fields.slug}`}
-                rel='next'
-              >
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
+      <nav className="blog-post-nav">
+        <ChronologicalNav previous={previous} next={next} />
         {relatedPosts && posts.length > 0 && (
           <>
             <MorePosts posts={posts} heading={`You may also like`} />
