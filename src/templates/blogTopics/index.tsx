@@ -8,59 +8,22 @@
  * Currently there is no pagination support.
  */
 
-import * as React from 'react';
-import { graphql } from 'gatsby';
-import styled from 'styled-components';
+import * as React from "react";
+import { graphql, PageProps } from "gatsby";
+import styled from "styled-components";
 
 /** Components */
-import Seo from '../../src/components/seo';
-import Pill from '../../src/components/pill';
-import ContentRibbon from '../../src/components/ContentRibbon/ContentRibbon';
-import MorePosts from '../../src/components/MorePosts';
-
-const Topics: React.FC<{ topics; currentTopic }> = ({
-  topics,
-  currentTopic,
-}) => {
-  const topicList = Object.keys(topics);
-  const linksText = topicList
-    .sort()
-    .map((topic) => (
-      <Pill
-        key={topic}
-        topic={topic}
-        count={topics[topic]}
-        currentTopic={currentTopic}
-        style={{ margin: '0.25rem' }}
-      />
-    ));
-  const showContent = true;
-
-  return (
-    <section
-      className='border-color-heading2 border-block-end-dashed border-thin'
-      style={{ width: '100%', paddingBottom: '1rem' }}
-    >
-      <ContentRibbon
-        className={`transition-opacity duration-500 h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] ${
-          showContent ? 'opacity-100' : 'opacity-0'
-        }`}
-        scrollContainerClassName='h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] gap-6'
-      >
-        <Pill topic='All' style={{ margin: '0.25rem' }} />
-        {linksText}
-      </ContentRibbon>
-    </section>
-  );
-};
+import Seo from "../../components/seo";
+import MorePosts from "../../components/MorePosts";
+import Topics from "./Topics";
 
 /**
  * Counts the number of each topic and maps them
  * @param postTopics
  * @returns
  */
-const mapTopicsCount = (postTopics) =>
-  postTopics.reduce((topics, post) => {
+const mapTopicsCount = (postTopics: PostTopic[]) =>
+  postTopics.reduce((topics: Record<string, number>, post) => {
     const { tags } = post.frontmatter;
 
     tags.forEach((tag) => {
@@ -83,7 +46,54 @@ const BlogPostContainer = styled.section`
   justify-content: flex-start;
 `;
 
-const BlogTopicPage: React.FC<{ data; location; pageContext }> = ({
+type PostTopic = {
+  frontmatter: {
+    tags: string[];
+  };
+};
+
+type AllPosts = {
+  allPosts: {
+    posts: {
+      excerpt: string;
+      fields: {
+        slug: string;
+      };
+      frontmatter: {
+        date: string;
+        pathDate: string;
+        title: string;
+        description: string;
+        hero_image: {
+          id: string;
+          childImageSharp: {
+            gatsbyImageData: any;
+          };
+        };
+        tags: string[];
+        read_time: string;
+      };
+      headings: {
+        value: string;
+      }[];
+      id: string;
+    }[];
+  };
+  postTopics: {
+    nodes: PostTopic[];
+  };
+};
+
+type PageContext = {
+  topic: string;
+};
+
+/**
+ * Page template for displaying all posts for a selected topic
+ * @param params
+ * @returns 
+ */
+const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   data,
   pageContext,
 }) => {
@@ -146,4 +156,4 @@ export const pageQuery = graphql`
 
 export default BlogTopicPage;
 
-export const Head: React.FC = () => <Seo title='All posts' />;
+export const Head: React.FC = () => <Seo title="All posts" />;

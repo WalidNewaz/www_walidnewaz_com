@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 const Pill: React.FC<{
   topic: string;
@@ -6,8 +6,8 @@ const Pill: React.FC<{
   currentTopic?: string;
   className?: string;
   style?: React.CSSProperties;
-}> = ({ topic, count = 0, currentTopic, className = '', style }) => {
-  const topicText = `${topic} ${count > 0 ? `(${count})` : ''}`;
+}> = ({ topic, count = 0, currentTopic, className = "", style }) => {
+  const topicText = `${topic} ${count > 0 ? `(${count})` : ""}`;
   return topic === currentTopic ? (
     <div
       key={topic}
@@ -23,8 +23,8 @@ const Pill: React.FC<{
       style={style}
     >
       <a
-        href={`/blog/${topic !== 'All' ? topic : ''}`}
-        className='text-decoration-none'
+        href={`/blog/${topic !== "All" ? encodeURIComponent(topic) : ""}`}
+        className="text-decoration-none"
       >
         {topicText}
       </a>

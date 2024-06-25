@@ -3,14 +3,28 @@
  *
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/
  */
-import { GatsbyNode, WebpackPlugins } from 'gatsby';
-import * as path from 'path';
-import { createFilePath } from 'gatsby-source-filesystem';
+import {
+  GatsbyNode,
+  WebpackPlugins,
+  CreatePagesArgs,
+  CreateNodeArgs,
+  CreateSchemaCustomizationArgs,
+} from "gatsby";
+import * as path from "path";
+import { createFilePath } from "gatsby-source-filesystem";
 
 /**
  * Creates static pages for individual blog posts
  */
-const createPostPages = async ({ graphql, actions, reporter }) => {
+const createPostPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: any;
+  reporter: any;
+}) => {
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
@@ -45,7 +59,7 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
   const posts = result.data.allMarkdownRemark.nodes;
 
   if (posts.length > 0) {
-    posts.forEach((post, index) => {
+    posts.forEach((post: any, index: number) => {
       const previousPostId = index === 0 ? null : posts[index - 1].id;
       const nextPostId =
         index === posts.length - 1 ? null : posts[index + 1].id;
@@ -56,7 +70,7 @@ const createPostPages = async ({ graphql, actions, reporter }) => {
 
       createPage({
         path: `/blog${pathDate}${post.fields.slug}`,
-        component: path.resolve(`./src/templates/blog-post.tsx`),
+        component: path.resolve(`./src/templates/blogPost/index.tsx`),
         context: {
           id: post.id,
           previousPostId,
@@ -73,14 +87,22 @@ interface Topic {
   frontmatter: {
     tags: string[];
     related: string[];
-  }
+  };
 }
 
 /**
  * Creates a list of pages that filter blog posts based on topics
  * @param params
  */
-const createTopicsPages = async ({ graphql, actions, reporter }) => {
+const createTopicsPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: any;
+  reporter: any;
+}) => {
   // Get all posts and their listed topics
   const result = await graphql(`
     {
@@ -121,7 +143,7 @@ const createTopicsPages = async ({ graphql, actions, reporter }) => {
     topics.forEach((topic, index) => {
       createPage({
         path: `/blog/${topic}`,
-        component: path.resolve(`./src/templates/blog-topic.tsx`),
+        component: path.resolve(`./src/templates/blogTopics/index.tsx`),
         context: {
           topic,
         },
@@ -133,7 +155,11 @@ const createTopicsPages = async ({ graphql, actions, reporter }) => {
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
-exports.createPages = async ({ graphql, actions, reporter }) => {
+exports.createPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: CreatePagesArgs) => {
   await createPostPages({ graphql, actions, reporter });
   await createTopicsPages({ graphql, actions, reporter });
 };
@@ -141,7 +167,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 /**
  * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions, getNode }: CreateNodeArgs) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
@@ -158,7 +184,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 /**
  * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
  */
-exports.createSchemaCustomization = ({ actions }) => {
+exports.createSchemaCustomization = ({
+  actions,
+}: CreateSchemaCustomizationArgs) => {
   const { createTypes } = actions;
 
   // Explicitly define the siteMetadata {} object
@@ -204,16 +232,16 @@ exports.createSchemaCustomization = ({ actions }) => {
  * Webpack configuration for Gatsby
  * @param params
  */
-export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
   stage,
   getConfig,
 }) => {
-  if (stage === 'build-javascript') {
+  if (stage === "build-javascript") {
     const config = getConfig();
     const miniCssExtractPlugin = config.plugins.find(
       (plugin: WebpackPlugins) =>
-        plugin.constructor.name === 'MiniCssExtractPlugin',
+        plugin.constructor.name === "MiniCssExtractPlugin"
     );
     // Prevent MiniCssExtractPlugin's default filename hashing error during build
     if (miniCssExtractPlugin) {
