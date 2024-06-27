@@ -8,38 +8,28 @@
  * Currently there is no pagination support.
  */
 
-import * as React from "react";
+import React, { useState } from "react";
 import { graphql, PageProps } from "gatsby";
 import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import MorePosts from "../../components/MorePosts";
-import Topics from "./Topics";
+import PaginatedArticleCards from "../../components/PaginatedArticleCards";
+import Topics from "../../components/Topics";
 
-/**
- * Counts the number of each topic and maps them
- * @param postTopics
- * @returns
- */
-const mapTopicsCount = (postTopics: PostTopic[]) =>
-  postTopics.reduce((topics: Record<string, number>, post) => {
-    const { tags } = post.frontmatter;
+/** Interfaces */
+import { AllTopics } from "../../interfaces";
 
-    tags.forEach((tag) => {
-      if (topics?.[tag]) {
-        topics[tag]++;
-      } else {
-        topics = {
-          ...topics,
-          [tag]: 1,
-        };
-      }
-    });
+/** Hooks */
+import { useFetchNextPage } from "../../hooks/posts";
 
-    return topics;
-  }, {});
+/** Utils */
+import { getTopics } from "../../utils/posts";
 
+/** Constants */
+import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
+
+/** Styles */
 const BlogPostContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
@@ -78,43 +68,64 @@ type AllPosts = {
       }[];
       id: string;
     }[];
+    totalCount: number;
   };
-  postTopics: {
-    nodes: PostTopic[];
-  };
+  postTopics: AllTopics;
 };
 
 type PageContext = {
   topic: string;
+  currentPage: number;
 };
 
 /**
  * Page template for displaying all posts for a selected topic
  * @param params
- * @returns 
+ * @returns
  */
 const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   data,
   pageContext,
 }) => {
-  const { posts } = data.allPosts;
-  const { postTopics } = data;
+  const { posts, totalCount } = data.allPosts;
+  const postTopics = data.postTopics.group;
   const { topic } = pageContext;
+  const currentTopic = topic || "";
+
+  const [currentPage, setCurrentPage] = useState(pageContext.currentPage || 1);
+  const fetchNextPage = useFetchNextPage();
+  const query = {
+    limit: ITEMS_PER_PAGE,
+    offset: (currentPage - 1) * ITEMS_PER_PAGE,
+  };
 
   return (
     <BlogPostContainer>
-      <Topics topics={mapTopicsCount(postTopics.nodes)} currentTopic={topic} />
-      <MorePosts posts={posts} />
+      <Topics topics={getTopics(postTopics)} currentTopic={currentTopic} />
+      <PaginatedArticleCards
+        posts={posts}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalItemsCount={totalCount}
+        itemsPerPage={ITEMS_PER_PAGE}
+        maxPages={MAX_PAGES}
+        fetchNextPage={fetchNextPage}
+        showContent={true}
+        pathname={`/blog/${currentTopic}`}
+        query={query}
+      />
     </BlogPostContainer>
   );
 };
 
 // Queries the blog directory for selected topics
 export const pageQuery = graphql`
-  query ($topic: String) {
+  query ($topic: String, $skip: Int, $limit: Int) {
     allPosts: allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { eq: $topic } } }
+      limit: $limit
+      skip: $skip
     ) {
       posts: nodes {
         excerpt
@@ -140,15 +151,15 @@ export const pageQuery = graphql`
         }
         id
       }
+      totalCount
     }
     postTopics: allMarkdownRemark(
       limit: 1000
       filter: { frontmatter: { tags: { eq: $topic } } }
     ) {
-      nodes {
-        frontmatter {
-          tags
-        }
+      group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
       }
     }
   }
