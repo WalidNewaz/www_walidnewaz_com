@@ -1,15 +1,15 @@
 import React from "react";
 
 /** Components */
-import Pill from "../../components/pill";
-import ContentRibbon from "../../components/ContentRibbon/ContentRibbon";
+import Pill from "../pill";
+import ContentRibbon from "../ContentRibbon/ContentRibbon";
 
 /**
  * Displays the topics for the blog
  * @param params
  * @returns 
  */
-const Topics: React.FC<{ topics: any; currentTopic: string }> = ({
+const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
   topics,
   currentTopic,
 }) => {

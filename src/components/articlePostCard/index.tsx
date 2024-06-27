@@ -15,7 +15,7 @@ const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
   ) : null;
 
 const HeroImage: React.FC<{
-  image;
+  image: any;
   title: string;
 }> = ({ image, title }) =>
   image ? (
@@ -36,15 +36,16 @@ const StyledCardText = styled.div`
 
 const ArticlePostCard: React.FC<{
   title: string;
-  image;
+  image: any;
   postDate: string;
   slug: string;
   readTime: string;
   tags: Array<string>;
-}> = ({ title, image, postDate, slug, readTime, tags }) => {
+  className?: string;
+}> = ({ title, image, postDate, slug, readTime, tags, className = '' }) => {
   return (
     <article
-      className='card bg-surface-3 rad-shadow'
+      className={`card bg-surface-3 rad-shadow ${className}`}
       itemScope
       itemType='http://schema.org/Article'
     >

@@ -1,37 +1,47 @@
-import * as React from "react"
-import { graphql } from "gatsby"
+import React from "react";
+import { graphql, PageProps } from "gatsby";
 
 /** Components */
-import Seo from "../components/seo"
-import HomePageFeatures from '../components/page/home/HomePageFeatures'
-import HomePageMorePosts from '../components/MorePosts'
+import Seo from "../components/seo";
+import HomePageFeatures from "../components/page/home/HomePageFeatures";
+import HomePageMorePosts from "../components/MorePosts";
 
 /**
  * This is the homepage of the blog
  * @param params
- * @returns 
+ * @returns
  */
-const Index: React.FC<{ data }> = ({ data }) => {
-  const posts = data.allPosts.nodes
-  const featuredPosts = data.featuredPosts.nodes
-  const profileImg = data.profilePhotos
+const Index: React.FC<PageProps<any>> = ({
+  data,
+}) => {
+  const posts = data.allPosts.nodes;
+  const featuredPosts = data.featuredPosts.nodes;
+  const profileImg = data.profilePhotos;
+  const postCount = data.postCount.totalCount;
 
   return (
     <>
       <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
       <HomePageMorePosts posts={posts} />
+      {
+        postCount > 9 && (
+          <div className="flex align-center justify-center" style={{ margin: '1.5rem' }}>
+            <a href="/blog" className="pill">View More Posts</a>
+          </div>
+        )
+      }
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
 
 /**
  * Head export to define metadata for the page
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head: React.FC = () => <Seo title="Home" />
+export const Head: React.FC = () => <Seo title="Home" />;
 
 export const pageQuery = graphql`
   {
@@ -40,7 +50,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    featuredPosts: allMarkdownRemark(filter: {frontmatter: {featured: {eq: true}}}, limit: 2) {
+    featuredPosts: allMarkdownRemark(
+      filter: { frontmatter: { featured: { eq: true } } }
+      limit: 2
+    ) {
       nodes {
         id
         excerpt
@@ -65,7 +78,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allPosts: allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    allPosts: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 9) {
       nodes {
         excerpt
         fields {
@@ -91,10 +104,13 @@ export const pageQuery = graphql`
         id
       }
     }
-    profilePhotos: file(relativePath: {regex: "/walid-profile.jpeg/"}) {
+    postCount: allMarkdownRemark {
+      totalCount
+    }
+    profilePhotos: file(relativePath: { regex: "/walid-profile.jpeg/" }) {
       childImageSharp {
         gatsbyImageData
       }
     }
   }
-`
+`;
