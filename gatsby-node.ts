@@ -9,9 +9,17 @@ import {
   CreatePagesArgs,
   CreateNodeArgs,
   CreateSchemaCustomizationArgs,
+  Actions,
+  Reporter,
 } from "gatsby";
 import * as path from "path";
 import { createFilePath } from "gatsby-source-filesystem";
+
+/** Interfaces */
+import { AggregatedTopic } from "./src/interfaces";
+
+/** Constants */
+import { ITEMS_PER_PAGE } from "./src/constants";
 
 /**
  * Creates static pages for individual blog posts
@@ -22,8 +30,8 @@ const createPostPages = async ({
   reporter,
 }: {
   graphql: any;
-  actions: any;
-  reporter: any;
+  actions: Actions;
+  reporter: Reporter;
 }) => {
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
@@ -83,12 +91,70 @@ const createPostPages = async ({
   }
 };
 
-interface Topic {
-  frontmatter: {
-    tags: string[];
-    related: string[];
-  };
-}
+/**
+ * Creates a single posts page based on the topic and index
+ * @param params
+ */
+const createPageTopics = async ({
+  topic,
+  index,
+  postsPerPage,
+  actions,
+}: {
+  topic: string | null;
+  index: number;
+  postsPerPage: number;
+  actions: Actions;
+}) => {
+  const { createPage } = actions;
+  const topicPathStr = topic ? `${topic}/` : "";
+  const currentPage = index + 1;
+  const pagePath =
+    index === 0
+      ? `/blog/${topicPathStr}`
+      : `/blog/${topicPathStr}${currentPage}`;
+  createPage({
+    path: pagePath,
+    component: path.resolve(`./src/templates/blogTopics/index.tsx`),
+    context: {
+      ...(topic && { topic }),
+      currentPage,
+      limit: postsPerPage,
+      skip: index * postsPerPage,
+    },
+  });
+};
+
+// Create paginated topic pages
+const createTopicsPagesWithToicFilter = async ({
+  topic,
+  numPages,
+  postsPerPage,
+  actions,
+}: {
+  topic: string;
+  numPages: number;
+  postsPerPage: number;
+  actions: Actions;
+}) => {
+  if (numPages > 1) {
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPageTopics({
+        topic,
+        index: i,
+        postsPerPage,
+        actions,
+      });
+    });
+  } else {
+    createPageTopics({
+      topic,
+      index: 0,
+      postsPerPage,
+      actions,
+    });
+  }
+};
 
 /**
  * Creates a list of pages that filter blog posts based on topics
@@ -100,12 +166,21 @@ const createTopicsPages = async ({
   reporter,
 }: {
   graphql: any;
-  actions: any;
-  reporter: any;
+  actions: Actions;
+  reporter: Reporter;
 }) => {
   // Get all posts and their listed topics
   const result = await graphql(`
     {
+      postCount: allMarkdownRemark {
+        totalCount
+      }
+      allTopics: allMarkdownRemark {
+        group(field: { frontmatter: { tags: SELECT } }) {
+          fieldValue
+          totalCount
+        }
+      }
       allMarkdownRemark(limit: 1000) {
         nodes {
           frontmatter {
@@ -124,32 +199,33 @@ const createTopicsPages = async ({
     return;
   }
 
-  // Aggregate unique topics into an array
-  const posts = result.data.allMarkdownRemark.nodes as Topic[];
-  const topics: string[] = posts.reduce((topics: string[], post: Topic) => {
-    const { tags } = post.frontmatter;
-    tags.forEach((tag) => {
-      if (!topics.includes(tag)) {
-        topics = [...topics, tag];
-      }
-    });
-    return topics;
-  }, []);
+  const postCount = result.data.postCount.totalCount;
+  const postsPerPage = ITEMS_PER_PAGE;
+  const numPages = Math.ceil(postCount / postsPerPage);
+  const allTopics: AggregatedTopic[] = result.data.allTopics.group;
 
-  // Iterate through the topics and create pages
-  const { createPage } = actions;
-
-  if (topics.length > 0) {
-    topics.forEach((topic, index) => {
-      createPage({
-        path: `/blog/${topic}`,
-        component: path.resolve(`./src/templates/blogTopics/index.tsx`),
-        context: {
-          topic,
-        },
+  // Create paginated pages for all posts
+  if (numPages > 1) {
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPageTopics({
+        topic: null,
+        index: i,
+        postsPerPage,
+        actions,
       });
     });
   }
+
+  // Create paginated topic pages
+  allTopics.forEach((topic) => {
+    const numPages = Math.ceil(topic.totalCount / postsPerPage);
+    createTopicsPagesWithToicFilter({
+      topic: topic.fieldValue,
+      numPages,
+      postsPerPage,
+      actions,
+    });
+  });
 };
 
 /**

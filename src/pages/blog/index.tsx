@@ -1,83 +1,124 @@
-import * as React from 'react';
-import { graphql } from 'gatsby';
+import React, { useState } from "react";
+import { graphql, PageProps, navigate } from "gatsby";
 
 /** Components */
-import Seo from '../../components/seo';
-import Pill from '../../components/pill';
-import ContentRibbon from '../../components/ContentRibbon/ContentRibbon';
-import MorePosts from '../../components/MorePosts';
+import Seo from "../../components/seo";
+import PaginatedArticleCards from "../../components/PaginatedArticleCards";
+import Topics from "../../components/Topics";
 
-/**
- * Generate the topics section on the blogs main page
- */
-const Topics: React.FC<{ topics }> = ({ topics }) => {
-  const topicList = Object.keys(topics);
-  const linksText = topicList
-    .sort()
-    .map((topic) => (
-      <Pill
-        key={topic}
-        topic={topic}
-        count={topics[topic]}
-        style={{ margin: '0.25rem' }}
-      />
-    ));
-  const showContent = true;
-  return (
-    <section
-      className='border-color-heading2 border-block-end-dashed border-thin'
-      style={{ width: '100%', paddingBottom: '1rem' }}
-    >
-      <ContentRibbon
-        className={`transition-opacity duration-500 h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] ${
-          showContent ? 'opacity-100' : 'opacity-0'
-        }`}
-        scrollContainerClassName='h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] gap-6'
-      >
-        <Pill topic='All' style={{ margin: '0.25rem' }} />
-        {linksText}
-      </ContentRibbon>
-    </section>
-  );
+/** Utils */
+import { getTopics } from "../../utils/posts";
+
+/** Hooks */
+import { useFetchNextPage } from "../../hooks/posts";
+
+/** Constants */
+import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
+
+interface Topic {
+  [key: string]: number;
+}
+
+interface Image {
+  id: string;
+  childImageSharp: {
+    gatsbyImageData: any;
+  };
+}
+
+interface Post {
+  excerpt: string;
+  fields: {
+    slug: string;
+  };
+  frontmatter: {
+    date: string;
+    pathDate: string;
+    title: string;
+    description: string;
+    hero_image: Image;
+    tags: string[];
+    read_time: string;
+  };
+  headings: {
+    value: string;
+  }[];
+  id: string;
+}
+
+interface AggregatedTopic {
+  fieldValue: string;
+  totalCount: number;
+}
+
+interface AllTopics {
+  group: AggregatedTopic[];
+}
+
+interface AllPosts {
+  allMarkdownRemark: {
+    nodes: Post[];
+  };
+  postCount: {
+    totalCount: number;
+  };
+  allTopics: AllTopics;
+}
+
+type PageContext = {
+  topic: string;
+  currentPage: number;
 };
 
 /**
- * Extracts a list of topics from all posts
- * @param posts
+ * Main blog page
+ * @param params
+ * @returns
  */
-const getTopics = (posts) =>
-  posts.reduce((topics, post) => {
-    const { tags } = post.frontmatter;
-
-    tags.forEach((tag) => {
-      if (topics?.[tag]) {
-        topics[tag]++;
-      } else {
-        topics = {
-          ...topics,
-          [tag]: 1,
-        };
-      }
-    });
-
-    return topics;
-  }, {});
-
-const BlogPage: React.FC<{ data; location }> = ({ data }) => {
+const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
+  data,
+  params,
+  pageContext,
+  pageResources,
+  path,
+  uri,
+  location,
+}) => {
   const posts = data.allMarkdownRemark.nodes;
+  const postCount = data.postCount.totalCount;
+  const allTopics = data.allTopics.group;
+
+  const [currentPage, setCurrentPage] = useState(pageContext.currentPage || 1);
+  const fetchNextPage = useFetchNextPage();
+  const query = {
+    limit: ITEMS_PER_PAGE,
+    offset: (currentPage - 1) * ITEMS_PER_PAGE,
+  };
 
   return (
-    <section className='flex flex-column wrap flex-start'>
-      <Topics topics={getTopics(posts)} />
-      <MorePosts posts={posts} />
+    <section className="flex flex-column wrap flex-start">
+      <Topics topics={getTopics(allTopics)} />
+      <PaginatedArticleCards
+        posts={posts}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalItemsCount={postCount}
+        itemsPerPage={ITEMS_PER_PAGE}
+        maxPages={MAX_PAGES}
+        fetchNextPage={fetchNextPage}
+        showContent={true}
+        pathname={location.pathname}
+        query={query}
+      />
     </section>
   );
 };
 
-// Queries the blog directory for file names
+// Queries the blog directory for file names.
+// This is the first page of the blog, so we only want to show the 6 most recent posts.
 export const query = graphql`
   {
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 6) {
       nodes {
         excerpt
         fields {
@@ -103,9 +144,18 @@ export const query = graphql`
         id
       }
     }
+    postCount: allMarkdownRemark {
+      totalCount
+    }
+    allTopics: allMarkdownRemark {
+      group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
+      }
+    }
   }
 `;
 
 export default BlogPage;
 
-export const Head: React.FC = () => <Seo title='All posts' />;
+export const Head: React.FC = () => <Seo title="All posts" />;
