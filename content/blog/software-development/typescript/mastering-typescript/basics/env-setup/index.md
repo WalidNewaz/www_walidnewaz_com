@@ -76,7 +76,7 @@ Let's create a simple TypeScript project to demonstrate how to set up your envir
 
 Create a new TypeScript file, `src/index.ts`:
 
-```typescript {numberLines}
+```javascript {numberLines}
 export function greet(name: string): string {
   return `Hello, ${name}!`;
 }
@@ -132,7 +132,7 @@ You can also use `jest --init` command, to have more options related to Jest. Ho
 
 In your `./src` directory create the file `index.test.ts` and add the following source:
 
-```typescript {numberLines}
+```javascript {numberLines}
 import { greet } from "./index";
 
 test("greet", () => {
@@ -169,13 +169,14 @@ You should see something like the following as an output:
 ### Use Strict Mode
 
 - Enable strict mode in your `tsconfig.json` to enforce strict type checking and catch potential errors early:
-  ```json {numberLines 3}
-  {
-    "compilerOptions": {
-      "strict": true
-    }
+
+```json {numberLines 3}
+{
+  "compilerOptions": {
+    "strict": true
   }
-  ```
+}
+```
 
 ### Organize Your Code
 
