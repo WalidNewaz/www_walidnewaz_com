@@ -4,11 +4,12 @@ date: "2023-07-12"
 title: "Introduction to TypeScript"
 description: "Introduction to TypeScript: Why You Should Switch from JavaScript"
 hero_image: "typescript-banner.png"
-tags: ["beginner", "typescript", "software development"]
+tags: ["beginner", "typescript"]
 series: "Mastering TypeScript Series"
 read_time: 5 min
 related: 
-  - "Setting up your TypeScript environment"
+  - "Environment setup for TypeScript"
+  - "Understanding TypeScript Types"
 ---
 
 # Introduction to TypeScript: Why You Should Switch from JavaScript
