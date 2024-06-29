@@ -4,11 +4,12 @@ date: "2023-07-17"
 title: "Environment setup for TypeScript"
 description: "Setting Up Your TypeScript Environment: Tools and Best Practices"
 hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
-tags: ["beginner", "typescript", "software development"]
+tags: ["beginner", "typescript"]
 series: "Mastering TypeScript Series"
 read_time: 6 min
 related: 
   - "Introduction to TypeScript"
+  - "Understanding TypeScript Types"
 ---
 
 # Setting Up Your TypeScript Environment: Tools and Best Practices
