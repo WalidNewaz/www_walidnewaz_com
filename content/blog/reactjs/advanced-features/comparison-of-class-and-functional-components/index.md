@@ -1,11 +1,12 @@
 ---
 featured: false
 date: "2023-08-11"
+series: "Modern React.js Series"
+chapter: "2. Advanced React Features"
 title: "Class and Functional React Components"
 description: "Comparison of Class Components and Functional Components in React."
 hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['components', 'react']
-series: "Modern React.js Series"
 read_time: 5 min
 related: 
   - "React Hooks: A brief introduction"

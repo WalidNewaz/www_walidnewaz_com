@@ -1,11 +1,12 @@
 ---
 featured: false
 date: "2023-07-14"
+series: "Modern React.js Series"
+chapter: "1. Getting Started With React"
 title: "Introduction to React"
 description: "Introduction to React: Understanding components, props, and state"
 hero_image: "pexels-realtoughcandy-11035471.jpg"
 tags: ['beginner', 'react']
-series: "Modern React.js Series"
 read_time: 10 min
 related: 
   - "Building your first React component"

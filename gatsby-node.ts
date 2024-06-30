@@ -43,6 +43,7 @@ const createPostPages = async ({
             slug
           }
           frontmatter {
+            series
             hero_image {
               id
               base
@@ -83,6 +84,7 @@ const createPostPages = async ({
           id: post.id,
           previousPostId,
           nextPostId,
+          series: post.frontmatter.series,
           heroImagePattern,
           related: post.frontmatter.related || [],
         },
