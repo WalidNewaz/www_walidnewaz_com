@@ -1,11 +1,12 @@
 ---
 featured: false
 date: "2023-07-17"
+series: "Mastering TypeScript Series"
+chapter: "1. Introduction and Basics"
 title: "Environment setup for TypeScript"
 description: "Setting Up Your TypeScript Environment: Tools and Best Practices"
 hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["beginner", "typescript"]
-series: "Mastering TypeScript Series"
 read_time: 6 min
 related: 
   - "Introduction to TypeScript"

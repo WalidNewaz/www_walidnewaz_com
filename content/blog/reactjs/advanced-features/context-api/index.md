@@ -1,6 +1,8 @@
 ---
 featured: false
 date: "2023-08-25"
+series: "Modern React.js Series"
+chapter: "2. Advanced React Features"
 title: "React Context API"
 description: "React Context API: Managing Global State Without Redux."
 hero_image: "kelly-sikkema-gcHFXsdcmJE-unsplash.jpg"

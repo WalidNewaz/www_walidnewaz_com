@@ -1,15 +1,13 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 /**
  * The header of the article.
  */
 const ArticleHeader = styled.header`
-  div.article-header {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--spacing-4) var(--spacing-0) var(--spacing-4) var(--spacing-0);
-    color: var(--text1);
-  }
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-4) var(--spacing-1);
+  color: var(--text1);
 `;
 
 export default ArticleHeader;
