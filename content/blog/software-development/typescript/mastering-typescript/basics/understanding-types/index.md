@@ -1,11 +1,12 @@
 ---
 featured: false
 date: "2023-07-19"
+series: "Mastering TypeScript Series"
+chapter: "1. Introduction and Basics"
 title: "Understanding TypeScript Types"
 description: "TypeScript Fundamentals: Understanding Types and Interfaces. Learn how to write more type-safe and manageable code."
 hero_image: "typescript-banner.png"
 tags: ["beginner", "typescript"]
-series: "Mastering TypeScript Series"
 read_time: 15 min
 related: 
   - "Introduction to TypeScript"

@@ -1,11 +1,12 @@
 ---
 featured: false
 date: "2023-07-28"
+series: "Modern React.js Series"
+chapter: "1. Getting Started With React"
 title: "Building your first React component"
 description: "Introduction to React: Building your first React component"
 hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
 tags: ['beginner', 'react']
-series: "Modern React.js Series"
 read_time: 10 min
 related: 
   - "Introduction to React"

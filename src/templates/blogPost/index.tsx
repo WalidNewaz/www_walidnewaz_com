@@ -1,14 +1,15 @@
-import * as React from "react";
+import React from "react";
 import { graphql } from "gatsby";
 import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import MorePosts from "../../components/MorePosts";
 import HeroImage from "./HeroImage";
 import ArticleHeader from "./ArticleHeader";
 import ChronologicalNav from "./ChronologicalNav";
 import PostTags from "./PostTags";
+import SeriesNav from "./SeriesNav";
+import RelatedPosts from "./RelatedPosts";
 
 /** Styles */
 import "./blog-post.css";
@@ -18,7 +19,8 @@ const StyledArticleBody = styled.section`
     margin-bottom: var(--spacing-6);
   }
 
-  a, li {
+  a,
+  li {
     color: var(--text1);
   }
 
@@ -31,11 +33,24 @@ const StyledArticleBody = styled.section`
     margin-left: 0.25rem;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--heading2);
     font-family: var(--fontFamily-sans);
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
+  }
+`;
+
+const StyledBlogPostNav = styled.nav`
+  margin-top: 1.25rem;
+
+  ul {
+    margin: var(--spacing-0);
   }
 `;
 
@@ -45,9 +60,17 @@ const StyledArticleBody = styled.section`
  * @returns
  */
 const BlogPostTemplate: React.FC<{ data: any }> = ({
-  data: { previous, next, markdownRemark: post, heroImage, relatedPosts },
+  data: {
+    previous,
+    next,
+    markdownRemark: post,
+    heroImage,
+    allSeriesPosts,
+    relatedPosts,
+  },
 }) => {
   const { posts } = relatedPosts;
+
   return (
     <>
       <article
@@ -57,30 +80,23 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
       >
         <ArticleHeader>
           {/* <h1 itemProp="headline">{post.frontmatter.title}</h1> */}
-          <div className="article-header">
-            <div className="article-post-date">{post.frontmatter.date}</div>
-            <div className="article-read-time">
-              {post.frontmatter.read_time} read
-            </div>
+          <div className="article-post-date">{post.frontmatter.date}</div>
+          <div className="article-read-time">
+            {post.frontmatter.read_time} read
           </div>
         </ArticleHeader>
-        <section>
-          <HeroImage {...{ post, heroImage }} />
-        </section>
+        <HeroImage {...{ post, heroImage }} className="article-hero-img" />
         <StyledArticleBody
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
         <PostTags tags={post.frontmatter.tags} />
       </article>
-      <nav className="blog-post-nav">
+      <SeriesNav allSeriesPosts={allSeriesPosts} post={post} />
+      <StyledBlogPostNav>
         <ChronologicalNav previous={previous} next={next} />
-        {relatedPosts && posts.length > 0 && (
-          <>
-            <MorePosts posts={posts} heading={`You may also like`} />
-          </>
-        )}
-      </nav>
+        <RelatedPosts posts={posts} />
+      </StyledBlogPostNav>
     </>
   );
 };
@@ -103,6 +119,7 @@ export const pageQuery = graphql`
     $id: String!
     $previousPostId: String
     $nextPostId: String
+    $series: String
     $heroImagePattern: String
     $related: [String]
   ) {
@@ -116,6 +133,8 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       html
       frontmatter {
+        series
+        chapter
         title
         date(formatString: "MMMM DD, YYYY")
         description
@@ -150,6 +169,24 @@ export const pageQuery = graphql`
     heroImage: file(relativePath: { regex: $heroImagePattern }) {
       childImageSharp {
         gatsbyImageData
+      }
+    }
+    allSeriesPosts: allMarkdownRemark(
+      sort: { frontmatter: { date: ASC } }
+      filter: { frontmatter: { series: { eq: $series } } }
+    ) {
+      nodes {
+        frontmatter {
+          series
+          chapter
+          tags
+          title
+          description
+          pathDate: date(formatString: "/YYYY/MM/DD")
+        }
+        fields {
+          slug
+        }
       }
     }
     relatedPosts: allMarkdownRemark(

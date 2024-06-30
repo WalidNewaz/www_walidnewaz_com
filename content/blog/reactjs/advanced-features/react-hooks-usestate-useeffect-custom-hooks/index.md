@@ -1,11 +1,12 @@
 ---
 featured: true
 date: "2023-08-18"
+series: "Modern React.js Series"
+chapter: "2. Advanced React Features"
 title: "React Hooks: A brief introduction"
 description: "React Hooks: A Deep Dive into useState, useEffect, and Custom Hooks, pitfalls and optimization."
 hero_image: "ferenc-almasi-tvHtIGbbjMo-unsplash.jpg"
 tags: ['react hooks', 'react']
-series: "Modern React.js Series"
 read_time: 15 min
 related: 
   - "Class and Functional React Components"

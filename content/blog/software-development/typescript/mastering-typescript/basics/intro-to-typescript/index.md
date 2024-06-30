@@ -1,11 +1,12 @@
 ---
 featured: false
 date: "2023-07-12"
+series: "Mastering TypeScript Series"
+chapter: "1. Introduction and Basics"
 title: "Introduction to TypeScript"
 description: "Introduction to TypeScript: Why You Should Switch from JavaScript"
 hero_image: "typescript-banner.png"
 tags: ["beginner", "typescript"]
-series: "Mastering TypeScript Series"
 read_time: 5 min
 related: 
   - "Environment setup for TypeScript"
