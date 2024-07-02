@@ -115,10 +115,10 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
 };
 
 // Queries the blog directory for file names.
-// This is the first page of the blog, so we only want to show the 6 most recent posts.
+// This is the first page of the blog, so we only want to show the 9 most recent posts.
 export const query = graphql`
   {
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 6) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 9) {
       nodes {
         excerpt
         fields {
