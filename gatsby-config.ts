@@ -149,12 +149,15 @@ module.exports = {
       options: {
         name: `Walid's Blog`,
         short_name: `Walid Newaz`,
+        "description": "Personal blog and technical documentation for web application development.",
         start_url: `/`,
         background_color: `#ffffff`,
+        "categories": ["Personal Blog", "Tech blog"],
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
-        // theme_color: `#663399`,
+        theme_color: `#ffd900`,
         display: `minimal-ui`,
+        "orientation": "portrait",
         icon: `src/images/android-chrome-512x512.png`, // This path is relative to the root of the site.
       },
     },
