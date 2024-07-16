@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-08-25"
 series: "Modern React.js Series"
 chapter: "2. Advanced React Features"
