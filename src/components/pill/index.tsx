@@ -14,10 +14,10 @@ const Pill: React.FC<{
   return topic === currentTopic ? (
     <div
       key={topic}
-      className={`pill margin-block-0 bg-slate-600 ${className}`}
+      className={`pill margin-block-0 bg-surface-1 border-color-surface4 ${className}`}
       style={style}
     >
-      <strong>{topicText}</strong>
+      <strong className="text-surface-3">{topicText}</strong>
     </div>
   ) : (
     <div
