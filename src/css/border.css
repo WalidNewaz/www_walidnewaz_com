@@ -23,11 +23,15 @@
 }
 
 .border-color-surface4 {
-  border-color: var(--surface4);
+  border-color: 2px solid var(--surface4);
 }
 
 .border-color-black {
   border-color: black;
+}
+
+.border-brand {
+  border: 2px solid var(--surface4);
 }
 
 /**
