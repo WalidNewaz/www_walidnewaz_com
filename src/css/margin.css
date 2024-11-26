@@ -23,6 +23,10 @@
     margin: var(--spacing-5);
 }
 
+.margin-6 {
+    margin: var(--spacing-6);
+}
+
 .margin-inline-auto {
     margin-inline: auto;
 }
@@ -61,6 +65,10 @@
 
 .margin-block-5 {
     margin-block: var(--spacing-5);
+}
+
+.margin-block-6 {
+    margin-block: var(--spacing-6);
 }
 
 .margin-inline-0 {
