@@ -82,9 +82,9 @@ const ArticleWidePostCard: React.FC<{
           <Tags tags={tags} />
         </div>
       </div>
-      <Link to={slug} itemProp='url'>
+      <a href={slug} itemProp='url'>
         <div className='overlay'></div>
-      </Link>
+      </a>
     </article>
   );
 };

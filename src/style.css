@@ -267,6 +267,65 @@ header[class*="header"] nav ul a:hover {
   color: var(--text2);
 }
 
+header[class*="header"] nav .logo {
+  display: none;
+}
+
+#ham-menu {
+  display: none;
+}
+
+#ham-menu button {
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.hamburger-label {
+  overflow: hidden;
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+}
+
+.mobile-menu {
+  overflow-y: scroll;
+  max-height: calc(90%);
+  scrollbar-width: thin; /* Set the width of the scrollbar */
+  scrollbar-color: transparent transparent; /* Set the color of the scrollbar track and thumb */
+}
+
+.mobile-menu-container {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  flex-direction: column;
+  width: 100vw;
+  height: 100%;
+  background-color: #1f2937;
+}
+
+.mobile-menu::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+  background-color: transparent; /* Set the background color of the scrollbar track */
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Set the color of the scrollbar thumb */
+}
+
 /* Media queries */
 
 @media screen and (min-width: 975px) {
@@ -506,11 +565,26 @@ header[class*="header"] nav ul a:hover {
 
   header[class*="header"] nav {
     position: static;
+    width: 100% !important;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+
+  #ham-menu {
+    display: flex;
+  }
+
+  header[class*="header"] nav .logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-family: var(--fontFamily-sans);
+    padding-left: 1.75rem;
   }
 
   header[class*="header"] nav ul {
-    display: inline-flex;
-    justify-content: space-around;
+    display: none;
   }
 
   header[class*="header"] nav li {

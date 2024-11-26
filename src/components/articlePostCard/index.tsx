@@ -64,9 +64,9 @@ const ArticlePostCard: React.FC<{
           <Tags tags={[tags[tags.length - 1]]} />
         </div>
       </StyledCardText>
-      <Link to={slug} itemProp='url'>
+      <a href={slug} itemProp='url'>
         <div className='overlay'></div>
-      </Link>
+      </a>
     </article>
   );
 };
