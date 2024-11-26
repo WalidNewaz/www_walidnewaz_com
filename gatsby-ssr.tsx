@@ -1,7 +1,11 @@
 import * as React from 'react'
 import { RenderBodyArgs } from 'gatsby'
 
+/** Components */
 import Layout from './src/components/layout'
+
+/** Styles */
+import './src/styles/index.css'
 
 /**
  * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.

@@ -48,8 +48,8 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
   <StyledList>
     {previous && (
       <li>
-        <Link
-          to={`/blog${previous.frontmatter.pathDate}${previous.fields.slug}`}
+        <a
+          href={`/blog${previous.frontmatter.pathDate}${previous.fields.slug}`}
           rel="prev"
         >
           <div
@@ -81,14 +81,14 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
               <span>{previous.frontmatter.title}</span>
             </div>
           </div>
-        </Link>
+        </a>
       </li>
     )}
 
     {next && (
       <li>
-        <Link
-          to={`/blog${next.frontmatter.pathDate}${next.fields.slug}`}
+        <a
+          href={`/blog${next.frontmatter.pathDate}${next.fields.slug}`}
           rel="next"
         >
           <div
@@ -121,7 +121,7 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
               <span>{next.frontmatter.title}</span>
             </div>
           </div>
-        </Link>
+        </a>
       </li>
     )}
   </StyledList>

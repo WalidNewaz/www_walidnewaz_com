@@ -1,5 +1,7 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import React, { useState } from "react";
+
+/** Components */
+import { FaBars, FaXmark } from "react-icons/fa6";
 
 /** Constants */
 const HEADER_CLASSES = `
@@ -11,25 +13,168 @@ const HEADER_CLASSES = `
   border-block-end-solid
   border-thin
   position-fixed`;
+const HAMBURGER_MENU_CLASSES = `
+  ham-menu
+  flex visible md:hidden`;
+const DESKTOP_MENU_CLASSES = `
+  desktop-menu
+  margin-block-2
+  list-none
+  flex
+  width-full`;
 
-const Header: React.FC = () => {
-  return (
-    <header className={HEADER_CLASSES}>
-      <nav className="margin-inline-auto">
-        <ul className="margin-block-2 list-none flex width-full">
-          <li className="padding-inline-5">
-            <Link to="/" className="margin-5 text-decoration-none">Home</Link>
-          </li>
-          <li>
-            <Link to="/about" className="margin-5 text-decoration-none">About</Link>
-          </li>
-          <li>
-            <Link to="/blog" className="margin-5 text-decoration-none">Blog</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  )
+type clickHandler =
+  | ((
+      event: React.MouseEvent<
+        HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
+      >
+    ) => void)
+  | (() => Promise<void>)
+  | (() => void)
+  | undefined;
+
+interface HamburgerMenuProps {
+  isOpen: boolean;
+  onClick: clickHandler;
 }
 
-export default Header
+const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
+  <div id="ham-menu" className={HAMBURGER_MENU_CLASSES}>
+    <button onClick={onClick} aria-label="Toggle menu">
+      <span className="hamburger-label">Open main menu</span>
+      <FaBars
+        className={`icon ${isOpen ? "text-indigo-600" : "text-slate-900"}`}
+        aria-label="Toggle icon"
+      />
+    </button>
+  </div>
+);
+
+const DesktopMenu: React.FC = () => (
+  <ul className={DESKTOP_MENU_CLASSES}>
+    <li className="padding-inline-5">
+      <a href="/" className="margin-5 text-decoration-none">
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="/about" className="margin-5 text-decoration-none">
+        About
+      </a>
+    </li>
+    <li>
+      <a href="/blog" className="margin-5 text-decoration-none">
+        Blog
+      </a>
+    </li>
+  </ul>
+);
+
+const MobileMenu: React.FC<{ isOpen: boolean; onClick: clickHandler }> = ({
+  isOpen,
+  onClick,
+}) => {
+  return (
+    isOpen && (
+      <div className="mobile-menu-container" data-testid="mobile-menu">
+        <div
+          style={{
+            height: "100%",
+          }}
+        >
+          <div
+            id="logo-close"
+            className="mb-8 flex justify-between"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div></div>
+            <button
+              className="top-2 right-2 text-slate-200"
+              onClick={onClick}
+              data-testid="mobile-toggle-menu"
+              style={{
+                paddingTop: "0.5rem",
+              }}
+            >
+              <span className="hamburger-label">Close main menu</span>
+              <FaXmark
+                className="icon !text-slate-300"
+                style={{ margin: "0.125rem" }}
+              />
+            </button>
+          </div>
+
+          <div
+            style={{
+              height: "100%",
+              paddingTop: "4rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "4.5rem",
+            }}
+          >
+            <div style={{ textAlign: "center" }}>
+              <a
+                href="/"
+                className="margin-6 text-decoration-none header-link-home"
+              >
+                Home
+              </a>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <a
+                href="/about"
+                className="margin-6 text-decoration-none header-link-home"
+              >
+                About
+              </a>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <a
+                href="/blog"
+                className="margin-6 text-decoration-none header-link-home"
+              >
+                Blog
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  );
+};
+
+const Header: React.FC = () => {
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuIsOpen(!mobileMenuIsOpen);
+  };
+
+  return (
+    <header className={HEADER_CLASSES}>
+      <nav className="flex justify-between margin-inline-auto">
+        <DesktopMenu />
+        {/* Mobile Menu */}
+        <div className="logo">
+          <a href="/" style={{ textDecoration: "none" }}>
+            WalidNewaz.com
+          </a>
+        </div>
+        <HamburgerMenu
+          isOpen={mobileMenuIsOpen}
+          onClick={handleMobileMenuToggle}
+        />
+        <MobileMenu
+          isOpen={mobileMenuIsOpen}
+          onClick={handleMobileMenuToggle}
+        />
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
