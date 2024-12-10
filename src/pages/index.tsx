@@ -11,25 +11,45 @@ import HomePageMorePosts from "../components/MorePosts";
  * @param params
  * @returns
  */
-const Index: React.FC<PageProps<any>> = ({
-  data,
-}) => {
-  const posts = data.allPosts.nodes;
+const Index: React.FC<PageProps<any>> = ({ data }) => {
   const featuredPosts = data.featuredPosts.nodes;
   const profileImg = data.profilePhotos;
+
+  const posts = data.allPosts.nodes;
   const postCount = data.postCount.totalCount;
+
+  const tutorials = data.allTutorials.nodes;
+  const tutorialsCount = data.tutorialsCount.totalCount;
 
   return (
     <>
       <HomePageFeatures featuredPosts={featuredPosts} profileImg={profileImg} />
-      <HomePageMorePosts posts={posts} />
-      {
-        postCount > 9 && (
-          <div className="flex align-center justify-center" style={{ margin: '1.5rem' }}>
-            <a href="/blog" className="pill">View More Posts</a>
+      <>
+        <HomePageMorePosts posts={posts} />
+        {postCount > 9 && (
+          <div
+            className="flex align-center justify-center"
+            style={{ margin: "1.5rem" }}
+          >
+            <a href="/blog" className="pill">
+              View More Posts
+            </a>
           </div>
-        )
-      }
+        )}
+      </>
+      <>
+        <HomePageMorePosts posts={tutorials} heading="Tutorials" />
+        {tutorialsCount > 9 && (
+          <div
+            className="flex align-center justify-center"
+            style={{ margin: "1.5rem" }}
+          >
+            <a href="/tutorials" className="pill">
+              View More Tutorials
+            </a>
+          </div>
+        )}
+      </>
     </>
   );
 };
@@ -51,7 +71,10 @@ export const pageQuery = graphql`
       }
     }
     featuredPosts: allMarkdownRemark(
-      filter: { frontmatter: { featured: { eq: true } } }
+      filter: {
+        fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" }
+        frontmatter: { featured: { eq: true } }
+      }
       limit: 2
     ) {
       nodes {
@@ -78,7 +101,11 @@ export const pageQuery = graphql`
         }
       }
     }
-    allPosts: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 9) {
+    allPosts: allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      limit: 9
+      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+    ) {
       nodes {
         excerpt
         fields {
@@ -104,7 +131,48 @@ export const pageQuery = graphql`
         id
       }
     }
-    postCount: allMarkdownRemark {
+    postCount: allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      limit: 9
+      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+    ) {
+      totalCount
+    }
+    allTutorials: allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      limit: 9
+      filter: { fileAbsolutePath: { regex: "/^.*/content/tutorials/.*?$/" } }
+    ) {
+      nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
+          title
+          description
+          hero_image {
+            id
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+          tags
+          read_time
+        }
+        headings(depth: h1) {
+          value
+        }
+        id
+      }
+    }
+    tutorialsCount: allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      limit: 9
+      filter: { fileAbsolutePath: { regex: "/^.*/content/tutorials/.*?$/" } }
+    ) {
       totalCount
     }
     profilePhotos: file(relativePath: { regex: "/walid-profile.jpeg/" }) {

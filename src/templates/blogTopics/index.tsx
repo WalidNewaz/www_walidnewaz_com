@@ -123,7 +123,10 @@ export const pageQuery = graphql`
   query ($topic: String, $skip: Int, $limit: Int) {
     allPosts: allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
-      filter: { frontmatter: { tags: { eq: $topic } } }
+      filter: {
+        frontmatter: { tags: { eq: $topic } }
+        fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" }
+      }
       limit: $limit
       skip: $skip
     ) {
@@ -155,7 +158,10 @@ export const pageQuery = graphql`
     }
     postTopics: allMarkdownRemark(
       limit: 1000
-      filter: { frontmatter: { tags: { eq: $topic } } }
+      filter: {
+        frontmatter: { tags: { eq: $topic } }
+        fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" }
+      }
     ) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue

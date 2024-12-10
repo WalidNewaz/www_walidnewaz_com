@@ -4,11 +4,11 @@ import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import HeroImage from "./HeroImage";
-import ArticleHeader from "./ArticleHeader";
-import ChronologicalNav from "./ChronologicalNav";
-import PostTags from "./PostTags";
-import SeriesNav from "./SeriesNav";
+import HeroImage from "../../components/article/HeroImage";
+import ArticleHeader from "../../components/article/ArticleHeader";
+import ChronologicalNav from "../../components/article/ChronologicalNav";
+import PostTags from "../../components/article/PostTags";
+import SeriesNav from "../../components/article/SeriesNav";
 import RelatedPosts from "./RelatedPosts";
 
 /** Styles */
