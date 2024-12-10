@@ -145,6 +145,14 @@ const MobileMenu: React.FC<{ isOpen: boolean; onClick: clickHandler }> = ({
                 Blog
               </a>
             </div>
+            <div style={{ textAlign: "center" }}>
+              <a
+                href="/tutorials"
+                className="margin-6 text-decoration-none header-link-home"
+              >
+                Tutorials
+              </a>
+            </div>
           </div>
         </div>
       </div>

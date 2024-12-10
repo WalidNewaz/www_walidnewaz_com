@@ -22,9 +22,107 @@ import { AggregatedTopic } from "./src/interfaces";
 import { ITEMS_PER_PAGE } from "./src/constants";
 
 /**
+ * Creates static pages for individual tutorial chapters
+ */
+const createTutorialChapterPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  // Get all markdown tutorial chapters sorted by date
+  const result = await graphql(`
+    {
+      allMarkdownRemark(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: { fileAbsolutePath: { regex: "/^.*/content/tutorials/.*?$/" } }
+      ) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            series
+            part
+            chapter
+            hero_image {
+              id
+              base
+            }
+            pathDate: date(formatString: "/YYYY/MM/DD")
+            related
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading the tutorial chapters`,
+      result.errors
+    );
+    return;
+  }
+
+  const { createPage } = actions;
+  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
+    (acc: any, article: any) => {
+      const { series } = article.frontmatter;
+      if (Object.hasOwn(acc, series)) {
+        const currChapters = [...acc[series], article];
+        return {
+          ...acc,
+          [series]: currChapters,
+        };
+      } else {
+        acc[series] = [article];
+      }
+      return acc;
+    },
+    {}
+  );
+  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+
+  if (Object.keys(seriesChapters).length > 0) {
+    Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
+      reporter.info(`Creating pages for series: ${series}`);
+      const chapters = seriesChapters[series];
+      return chapters.map((chapter: any, index: number) => {
+        reporter.info(`Creating page for chapter: ${chapter.frontmatter.chapter}`);
+        const previousPostId = index === 0 ? null : chapters[index - 1].id;
+        const nextPostId =
+          index === chapters.length - 1 ? null : chapters[index + 1].id;
+        const heroImagePattern = chapter.frontmatter.hero_image
+          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
+          : null;
+
+        createPage({
+          path: `/tutorials${chapter.fields.slug}`,
+          component: path.resolve(`./src/templates/tutorialChapter/index.tsx`),
+          context: {
+            id: chapter.id,
+            previousPostId,
+            nextPostId,
+            series: chapter.frontmatter.series,
+            heroImagePattern,
+            related: chapter.frontmatter.related || [],
+          },
+        });
+      });
+    });
+  }
+};
+
+/**
  * Creates static pages for individual blog posts
  */
-const createPostPages = async ({
+const createBlogPostPages = async ({
   graphql,
   actions,
   reporter,
@@ -36,7 +134,11 @@ const createPostPages = async ({
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000) {
+      allMarkdownRemark(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+      ) {
         nodes {
           id
           fields {
@@ -44,6 +146,7 @@ const createPostPages = async ({
           }
           frontmatter {
             series
+            title
             hero_image {
               id
               base
@@ -69,6 +172,7 @@ const createPostPages = async ({
 
   if (posts.length > 0) {
     posts.forEach((post: any, index: number) => {
+      reporter.info(`Creating page for blog post: ${post.frontmatter.title}`);
       const previousPostId = index === 0 ? null : posts[index - 1].id;
       const nextPostId =
         index === posts.length - 1 ? null : posts[index + 1].id;
@@ -238,7 +342,8 @@ exports.createPages = async ({
   actions,
   reporter,
 }: CreatePagesArgs) => {
-  await createPostPages({ graphql, actions, reporter });
+  await createTutorialChapterPages({ graphql, actions, reporter });
+  await createBlogPostPages({ graphql, actions, reporter });
   await createTopicsPages({ graphql, actions, reporter });
 };
 

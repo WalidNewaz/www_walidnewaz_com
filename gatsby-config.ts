@@ -36,6 +36,7 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
+    `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
@@ -53,15 +54,22 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/blog`,
         name: `blog`,
+        path: `${__dirname}/content/blog`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/images`,
+        name: `tutorials`,
+        path: `${__dirname}/content/tutorials`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `images`,
+        path: `${__dirname}/src/images`,
       },
     },
     {
