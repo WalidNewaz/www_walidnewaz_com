@@ -1,35 +1,43 @@
 /* eslint-disable no-console */
-import * as React from 'react'
+import * as React from "react";
 
 // custom typefaces
 import "@fontsource/montserrat"; // Defaults to weight 400
-import "@fontsource/merriweather"
+import "@fontsource/merriweather";
 // normalize CSS across browsers
-import "./src/normalize.css"
+import "./src/normalize.css";
 // custom CSS styles
-import "./src/style.css"
-import './src/styles/index.css'
+import "./src/style.css";
+import "./src/styles/index.css";
 
 // Highlighting for code blocks
-import "prismjs/themes/prism.css"
+import "prismjs/themes/prism.css";
 
-import Layout from './src/components/layout'
+import Layout from "./src/components/layout";
 
 type onRouteUpdateParams = {
-    location, prevLocation
-}
+  location;
+  prevLocation;
+};
 
 // Logs when the client route changes
-export const onRouteUpdate = ({ location, prevLocation }: onRouteUpdateParams): void => {
-    // console.log("new pathname", location.pathname)
-    // console.log("old pathname", prevLocation ? prevLocation.pathname : null)
-}
+export const onRouteUpdate = ({
+  location,
+  prevLocation,
+}: onRouteUpdateParams): void => {
+  // console.log("new pathname", location.pathname)
+  // console.log("old pathname", prevLocation ? prevLocation.pathname : null)
+};
 
 type wrapPageElementParams = {
-    element, props
-}
+  element;
+  props;
+};
 
 // Wraps every page in a component
-export const wrapPageElement: React.FC<{ element, props }> = ({ element, props }: wrapPageElementParams): React.ReactElement => {
-    return <Layout {...props}>{element}</Layout>
-}
+export const wrapPageElement: React.FC<{ element; props }> = ({
+  element,
+  props,
+}: wrapPageElementParams): React.ReactElement => {
+  return <Layout {...props}>{element}</Layout>;
+};

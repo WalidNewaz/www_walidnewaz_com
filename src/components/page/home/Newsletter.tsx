@@ -78,7 +78,7 @@ const NewsLetterForm: React.FC = () => (
     data-format="inline"
     data-version="5"
     data-options={JSON.stringify(NEWSLETTER_OPTIONS)}
-    min-width="400 500 600 700 800"
+    // min-width="400 500 600 700 800"
   >
     <div className="formkit-background bg-surface-3 rad-shadow"></div>
     <div data-style="minimal">

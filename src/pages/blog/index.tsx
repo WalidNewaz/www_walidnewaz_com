@@ -118,7 +118,11 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
 // This is the first page of the blog, so we only want to show the 9 most recent posts.
 export const query = graphql`
   {
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 9) {
+    allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      limit: 9
+      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+    ) {
       nodes {
         excerpt
         fields {
@@ -144,10 +148,14 @@ export const query = graphql`
         id
       }
     }
-    postCount: allMarkdownRemark {
+    postCount: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+    ) {
       totalCount
     }
-    allTopics: allMarkdownRemark {
+    allTopics: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+    ) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
