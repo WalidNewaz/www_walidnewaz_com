@@ -5,6 +5,7 @@ import { graphql, PageProps } from "gatsby";
 import Seo from "../components/seo";
 import HomePageFeatures from "../components/page/home/HomePageFeatures";
 import HomePageMorePosts from "../components/MorePosts";
+import HomePageMoreTutorials from "../components/MoreTutorials";
 
 /**
  * This is the homepage of the blog
@@ -38,7 +39,7 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
         )}
       </>
       <>
-        <HomePageMorePosts posts={tutorials} heading="Tutorials" />
+        <HomePageMoreTutorials posts={tutorials} heading="Tutorials" />
         {tutorialsCount > 9 && (
           <div
             className="flex align-center justify-center"
