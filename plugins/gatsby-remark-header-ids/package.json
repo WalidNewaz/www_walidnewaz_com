@@ -1,0 +1,31 @@
+{
+  "name": "gatsby-remark-header-ids",
+  "version": "1.0.0",
+  "engines": {
+    "npm": "^10.0.0",
+    "node": "20.10.0"
+  },
+  "main": "dist/index.mjs",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Walid Newaz <mdwalid@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-typescript": "7.24.7",
+    "@typescript-eslint/eslint-plugin": "7.13.1",
+    "@typescript-eslint/parser": "7.13.1",
+    "babel-preset-gatsby-package": "^0.1.4"
+  },
+  "dependencies": {
+    "rimraf": "^6.0.1",
+    "slugify": "^1.6.6"
+  }
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { graphql } from "gatsby";
 import styled from "styled-components";
 
@@ -8,13 +8,22 @@ import ArticleHeader from "../../components/article/ArticleHeader";
 import HeroImage from "../../components/article/HeroImage";
 import PostTags from "../../components/article/PostTags";
 import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
-import SeriesNav from "../../components/article/SeriesNav";
+import ChapterTOC from "../../components/tutorial/ChapterTOC";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
+
+/** Types */
+type ChapterHeading = {
+  value: string;
+  depth: number;
+  id: string;
+};
 
 /** Styles */
 import "./tutorial-chapter.css";
 
 const StyledArticleBody = styled.section`
+  grid-column: span 9;
+
   p {
     margin-bottom: var(--spacing-6);
   }
@@ -54,6 +63,12 @@ const StyledBlogPostNav = styled.nav`
   }
 `;
 
+const StyledTutorialGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-6);
+`;
+
 /**
  * Component used to display a tutorial chapter
  * @param params
@@ -69,7 +84,14 @@ const TutorialChapter: React.FC<any> = ({
     relatedPosts,
   },
 }) => {
-  const { posts } = relatedPosts;
+  const articleBody = useRef<HTMLDivElement>(null);
+
+  // Scroll to top of article when navigating to a new page
+  useEffect(() => {
+    if (articleBody.current) {
+      articleBody.current.scrollIntoView();
+    }
+  }, [post.id]);
 
   return (
     <>
@@ -77,25 +99,27 @@ const TutorialChapter: React.FC<any> = ({
         className="tutorial-chapter"
         itemScope
         itemType="http://schema.org/Article"
+        ref={articleBody}
       >
         <ArticleHeader>
-          {/* <h1 itemProp="headline">{post.frontmatter.title}</h1> */}
           <div className="article-post-date">{post.frontmatter.date}</div>
           <div className="article-read-time">
             {post.frontmatter.read_time} read
           </div>
         </ArticleHeader>
         <HeroImage {...{ post, heroImage }} className="article-hero-img" />
-        <StyledArticleBody
-          dangerouslySetInnerHTML={{ __html: post.html }}
-          itemProp="articleBody"
-        />
+        <StyledTutorialGrid className="grid grid-cols-2">
+          <ChapterTOC chapter={post} maxDeth={3} />
+          <StyledArticleBody
+            dangerouslySetInnerHTML={{ __html: post.html }}
+            itemProp="articleBody"
+          />
+        </StyledTutorialGrid>
         <PostTags tags={post.frontmatter.tags} />
       </article>
       <TutorialTOC allSeriesPosts={allSeriesPosts} post={post} />
       <StyledBlogPostNav>
         <ChronologicalNav previous={previous} next={next} />
-        {/* <RelatedPosts posts={posts} /> */}
       </StyledBlogPostNav>
     </>
   );
@@ -147,6 +171,11 @@ export const pageQuery = graphql`
           }
         }
         tags
+      }
+      headings {
+        value
+        depth
+        id
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
