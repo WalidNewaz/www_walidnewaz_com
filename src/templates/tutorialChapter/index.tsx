@@ -21,6 +21,14 @@ type ChapterHeading = {
 /** Styles */
 import "./tutorial-chapter.css";
 
+const StyledTutorialGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-6);
+
+  @media screen and (max-width: 480px) {}
+`;
+
 const StyledArticleBody = styled.section`
   grid-column: span 9;
 
@@ -53,6 +61,18 @@ const StyledArticleBody = styled.section`
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
   }
+
+  @media screen and (min-width: 800px) and (max-width: 975px) {
+    grid-column: span 8;
+  }
+
+  @media screen and (min-width: 480px) and (max-width: 800px) {
+    grid-column: span 8;
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-column: span 12;
+  }
 `;
 
 const StyledBlogPostNav = styled.nav`
@@ -61,12 +81,6 @@ const StyledBlogPostNav = styled.nav`
   ul {
     margin: var(--spacing-0);
   }
-`;
-
-const StyledTutorialGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--spacing-6);
 `;
 
 /**
@@ -108,7 +122,7 @@ const TutorialChapter: React.FC<any> = ({
           </div>
         </ArticleHeader>
         <HeroImage {...{ post, heroImage }} className="article-hero-img" />
-        <StyledTutorialGrid className="grid grid-cols-2">
+        <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
           <StyledArticleBody
             dangerouslySetInnerHTML={{ __html: post.html }}
