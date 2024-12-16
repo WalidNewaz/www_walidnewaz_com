@@ -24,14 +24,13 @@ const StyledTOC = styled.div`
   border-style: solid;
   border-width: 2px;
 
-
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    color: var(--heading2);
+    color: rgb(63 63 70);
     font-family: var(--fontFamily-sans);
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
@@ -39,6 +38,7 @@ const StyledTOC = styled.div`
 
   h1 {
     font-size: 1.5rem;
+    padding-top: 0.25rem;
   }
   ul {
     margin: 0;
@@ -49,7 +49,6 @@ const StyledTOC = styled.div`
     font-family: var(--fontFamily-sans);
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
-    max-width: 15rem;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -67,13 +66,27 @@ const StyledTOC = styled.div`
   @media screen and (max-width: 480px) {
     grid-column: span 12;
     margin-bottom: 0;
-    background-color: #1f2937;
-    z-index: 10;
+    background-color: rgb(226 232 240);
+    z-index: 2;
     top: 3.65rem;
     border-radius: 0;
 
     h1 {
       margin: 0;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      background-color: rgb(16 23 34);
+
+      h1 {
+        color: rgb(191 191 191);
+      }
+    }
+  }
+
+  @media screen and (prefers-color-scheme: dark) {
+    h1 {
+      color: rgb(191 191 191);
     }
   }
 `;
@@ -130,6 +143,7 @@ const StyledHeadings = styled.ul`
   list-style-position: outside;
   list-style: none;
   margin-left: 0;
+  margin-top: 1rem !important;
 `;
 
 const IndentedHeadings: React.FC<{
@@ -155,32 +169,34 @@ const IndentedHeadings: React.FC<{
     }
   };
 
-  return isOpen && (
-    <StyledHeadings>
-      {headings.map((heading: ChapterHeading) => {
-        return (
-          heading.depth <= maxDeth && (
-            <li key={heading.id}>
-              <a
-                href={`#${heading.id}`}
-                onClick={handleTOCClick}
-                style={{
-                  paddingLeft: 1 * (heading.depth - 1) + "rem",
-                  ...(selectedId === heading.id && {
-                    color: "var(--brand)",
-                    backgroundColor: "white",
-                    fontWeight: "bold",
-                    borderRadius: "0.25rem",
-                  }),
-                }}
-              >
-                {heading.value.replaceAll(/<\/?code.*?>/g, "")}
-              </a>
-            </li>
-          )
-        );
-      })}
-    </StyledHeadings>
+  return (
+    isOpen && (
+      <StyledHeadings>
+        {headings.map((heading: ChapterHeading) => {
+          return (
+            heading.depth <= maxDeth && (
+              <li key={heading.id}>
+                <a
+                  href={`#${heading.id}`}
+                  onClick={handleTOCClick}
+                  style={{
+                    paddingLeft: 1 * (heading.depth - 1) + "rem",
+                    ...(selectedId === heading.id && {
+                      color: "var(--brand)",
+                      backgroundColor: "white",
+                      fontWeight: "bold",
+                      borderRadius: "0.25rem",
+                    }),
+                  }}
+                >
+                  {heading.value.replaceAll(/<\/?code.*?>/g, "")}
+                </a>
+              </li>
+            )
+          );
+        })}
+      </StyledHeadings>
+    )
   );
 };
 
@@ -192,7 +208,6 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
   chapter,
   maxDeth,
 }) => {
-
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -205,7 +220,7 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
       document.documentElement.clientWidth
     );
   }
-  
+
   function getHeight() {
     return Math.max(
       document.body.scrollHeight,
@@ -217,7 +232,6 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
   }
 
   useEffect(() => {
-
     if (getWidth() > 480) {
       setIsOpen(true);
     }
@@ -238,7 +252,11 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
         <h1>Table of contents</h1>
         <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
       </div>
-      <IndentedHeadings headings={chapter.headings} maxDeth={maxDeth} isOpen={isOpen} />
+      <IndentedHeadings
+        headings={chapter.headings}
+        maxDeth={maxDeth}
+        isOpen={isOpen}
+      />
     </StyledTOC>
   );
 };
