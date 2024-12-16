@@ -100,7 +100,7 @@
     "url": "git+https://github.com/WalidNewaz/www_walidnewaz_com.git"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build": "./node_modules/.bin/dotenv ./scripts/build.sh",
     "publish": "./node_modules/.bin/dotenv ./scripts/publish.sh",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
