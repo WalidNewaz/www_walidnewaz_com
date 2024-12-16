@@ -36,7 +36,7 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
-    `gatsby-plugin-mdx`,
+    // `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
@@ -76,6 +76,12 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          {
+            resolve: `gatsby-remark-header-ids`,
+            options: {
+              // Options here
+            }
+          },
           {
             resolve: `gatsby-remark-images`,
             options: {
