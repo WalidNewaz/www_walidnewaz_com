@@ -189,7 +189,7 @@ const IndentedHeadings: React.FC<{
                     }),
                   }}
                 >
-                  {heading.value.replaceAll(/<\/?code.*?>/g, "")}
+                  {heading.value.replace(/(<\/?code.*?>|&lt;|&gt;|<|>)/g, "")}
                 </a>
               </li>
             )
