@@ -24,9 +24,9 @@ React Router is a powerful library that simplifies navigation and routing in Rea
 
 Nested routes allow you to define a hierarchy of routes, where child routes are rendered within the context of a parent route. This is particularly useful for structuring applications with multiple levels of navigation, such as a dashboard with different sections.
 
-### Example: Setting Up Nested Routes
+### Setting Up Nested Routes
 
-#### Directory Structure:
+#### Directory Structure
 
 ```bash
 src/
@@ -38,7 +38,7 @@ src/
 │   ├── Profile.jsx
 ```
 
-#### Code Implementation:
+#### Code Implementation
 
 1. **Create the Components:**
 
@@ -104,11 +104,13 @@ function App() {
 export default App;
 ```
 
-#### How It Works:
+#### How It Works
 
 - The `Dashboard` component serves as the parent route and uses the `<Outlet />` component to render its child routes.
 - The child routes (`DashboardHome`, `Profile`, `Settings`) are defined as nested routes within `/dashboard`.
 - The `index` route renders by default when `/dashboard` is accessed.
+
+![Nested Route components](./nested_routing_dashbaord.png)
 
 ### Understanding the `<Outlet>` Component in React Router
 
@@ -166,10 +168,200 @@ function App() {
 export default App;
 ```
 
-#### How It Works:
+#### How It Works
 
 - The `Dashboard` component serves as the parent layout, displaying a header and navigation links. It uses the `<Outlet />` component to render the child routes (`Profile` and `Settings`) dynamically.
 - When the user navigates to `/dashboard/profile`, React Router will render the Profile component within the `<Outlet />` placeholder in the `Dashboard` component. Similarly, navigating to `/dashboard/settings` renders the `Settings` component.
 
 ## Dynamic Routing
 
+Dynamic routing allows you to define routes with placeholders that can match dynamic segments of the URL. This is particularly useful for handling routes with parameters, such as viewing individual items in a list.
+
+### Setting Up Dynamic Routes
+
+#### Directory Structure
+
+```bash
+src/
+├── App.jsx
+├── pages/
+│   ├── Products.jsx
+│   ├── ProductDetails.jsx
+```
+
+#### Code Implementation
+
+1. **Create the Components:**
+
+```jsx {numberLines}
+// Products.jsx
+import { Link } from 'react-router-dom';
+
+export default function Products() {
+  const productList = [
+    { id: 1, name: 'Product A' },
+    { id: 2, name: 'Product B' },
+    { id: 3, name: 'Product C' },
+  ];
+
+  return (
+    <div>
+      <h1>Products</h1>
+      <ul>
+        {productList.map(product => (
+          <li key={product.id}>
+            <Link to={`/products/${product.id}`}>{product.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// ProductDetails.jsx
+import { useParams } from 'react-router-dom';
+
+export default function ProductDetails() {
+  const { id } = useParams();
+
+  return (
+    <div>
+      <h1>Product Details</h1>
+      <p>Viewing details for product ID: {id}</p>
+    </div>
+  );
+}
+```
+
+2. **Set Up the Routes:**
+
+```jsx {numberLines}
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Products from './pages/Products';
+import ProductDetails from './pages/ProductDetails';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+#### How It Works
+
+- The `:id` in the route definition (`/products/:id`) represents a dynamic parameter.
+- The `useParams` hook is used in the `ProductDetails` component to access the dynamic id parameter from the URL.
+
+![All products page](./dynamic_routing_products_page.png)
+
+![Product Details page](./dynamic_routing_product_details_page.png)
+
+## Route Guards
+
+Route guards are used to protect specific routes by restricting access based on conditions, such as user authentication. This ensures that only authorized users can access certain parts of your application.
+
+### Implementing Route Guards
+
+#### Code Implementation
+
+1. **Create a Fake Authentication Service:**
+
+```jsx {numberLines}
+// auth.js
+export const isAuthenticated = () => {
+  return localStorage.getItem('auth') === 'true';
+};
+
+export const login = () => {
+  localStorage.setItem('auth', 'true');
+};
+
+export const logout = () => {
+  localStorage.removeItem('auth');
+};
+```
+
+2. **Create a Protected Route Component:**
+
+```jsx {numberLines}
+import { Navigate } from 'react-router-dom';
+import { isAuthenticated } from './auth';
+
+export default function ProtectedRoute({ children }) {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" />;
+  }
+  return children;
+}
+```
+
+3. **Set Up Routes with Guards:**
+
+```jsx {numberLines}
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+4. **Create the Login Component:**
+
+```jsx {numberLines}
+import { useNavigate } from 'react-router-dom';
+import { login } from './auth';
+
+export default function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    login();
+    navigate('/dashboard');
+  };
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <button onClick={handleLogin}>Log In</button>
+    </div>
+  );
+}
+```
+
+#### How It Works
+
+- The `ProtectedRoute` component checks if the user is authenticated using the `isAuthenticated` function.
+- If the user is not authenticated, they are redirected to the `/login` page using the `<Navigate />` component.
+- Upon successful login, the user is redirected to the protected route (e.g., `/dashboard`).
+
+## Conclusion
+
+Advanced routing techniques like nested routes, dynamic routing, and route guards are essential for building scalable, user-friendly, and secure React applications. With React Router, these techniques can be implemented efficiently, enabling you to create complex applications with ease.
+
+By combining these techniques, you can handle hierarchical navigation, dynamic content, and protected routes seamlessly. For more details, check out the [React Router documentation](https://reactrouter.com/). Stay tuned for the next article in the Modern **React.js** series!
