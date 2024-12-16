@@ -8,4 +8,4 @@ npm run build
 # Build the site
 echo "Building site..."
 cd ../..
-npm run build
+npm gatsby build
