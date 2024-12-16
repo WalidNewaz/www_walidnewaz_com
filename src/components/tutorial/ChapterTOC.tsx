@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 /** Components */
+import { FaBars, FaXmark } from "react-icons/fa6";
 
 /** Types */
 type ChapterHeading = {
@@ -22,6 +23,7 @@ const StyledTOC = styled.div`
   border-color: hsl(var(--brand-text-hue) 0% 80%);
   border-style: solid;
   border-width: 2px;
+
 
   h1,
   h2,
@@ -53,15 +55,88 @@ const StyledTOC = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  @media screen and (min-width: 800px) and (max-width: 975px) {
+    grid-column: span 4;
+  }
+
+  @media screen and (min-width: 480px) and (max-width: 800px) {
+    grid-column: span 4;
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-column: span 12;
+    margin-bottom: 0;
+    background-color: #1f2937;
+    z-index: 10;
+    top: 3.65rem;
+    border-radius: 0;
+
+    h1 {
+      margin: 0;
+    }
+  }
 `;
 
-const IndentedHeadings = ({
-  headings,
-  maxDeth = 2,
-}: {
+const StyledHanburgerMenu = styled.div`
+  display: none;
+
+  button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    margin-top: -0.25rem;
+    margin-right: -0.25rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    display: block;
+  }
+`;
+
+/** Styles */
+
+type clickHandler =
+  | ((
+      event: React.MouseEvent<
+        HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
+      >
+    ) => void)
+  | (() => Promise<void>)
+  | (() => void)
+  | undefined;
+
+interface HamburgerMenuProps {
+  isOpen: boolean;
+  onClick: clickHandler;
+}
+
+const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
+  <StyledHanburgerMenu id="chapter-ham-menu">
+    <button onClick={onClick} aria-label="Toggle menu">
+      <span className="hamburger-label">Open main menu</span>
+      <FaBars
+        className={`icon ${isOpen ? "text-indigo-600" : "text-slate-900"}`}
+        aria-label="Toggle icon"
+      />
+    </button>
+  </StyledHanburgerMenu>
+);
+
+const StyledHeadings = styled.ul`
+  list-style-type: disc;
+  list-style-position: outside;
+  list-style: none;
+  margin-left: 0;
+`;
+
+const IndentedHeadings: React.FC<{
   headings: ChapterHeading[];
   maxDeth?: number;
-}) => {
+  isOpen?: boolean;
+}> = ({ headings, maxDeth = 2, isOpen = false }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const handleTOCClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -73,22 +148,15 @@ const IndentedHeadings = ({
 
       if (targetElement) {
         window.scrollTo({
-          top: (targetElement as HTMLElement).offsetTop - 75,
+          top: (targetElement as HTMLElement).offsetTop - (isOpen ? 175 : 75),
           behavior: "smooth",
         });
       }
     }
   };
 
-  return (
-    <ul
-      style={{
-        listStyleType: "disc",
-        listStylePosition: "outside",
-        listStyle: "none",
-        marginLeft: "0",
-      }}
-    >
+  return isOpen && (
+    <StyledHeadings>
       {headings.map((heading: ChapterHeading) => {
         return (
           heading.depth <= maxDeth && (
@@ -112,7 +180,7 @@ const IndentedHeadings = ({
           )
         );
       })}
-    </ul>
+    </StyledHeadings>
   );
 };
 
@@ -124,10 +192,53 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
   chapter,
   maxDeth,
 }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  function getWidth() {
+    return Math.max(
+      document.body.scrollWidth,
+      document.documentElement.scrollWidth,
+      document.body.offsetWidth,
+      document.documentElement.offsetWidth,
+      document.documentElement.clientWidth
+    );
+  }
+  
+  function getHeight() {
+    return Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.documentElement.clientHeight
+    );
+  }
+
+  useEffect(() => {
+
+    if (getWidth() > 480) {
+      setIsOpen(true);
+    }
+
+    const handleResize = () => {
+      if (getWidth() > 480) {
+        setIsOpen(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <StyledTOC>
-      <h1>Table of contents</h1>
-      <IndentedHeadings headings={chapter.headings} maxDeth={maxDeth} />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h1>Table of contents</h1>
+        <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
+      </div>
+      <IndentedHeadings headings={chapter.headings} maxDeth={maxDeth} isOpen={isOpen} />
     </StyledTOC>
   );
 };

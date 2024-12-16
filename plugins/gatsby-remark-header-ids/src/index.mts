@@ -16,7 +16,7 @@ export default ({ markdownAST }: { markdownAST: any }, pluginOptions: any) => {
     node.data = {
       hProperties: {
         id: `heading-${depth}-${slugify(
-          text.replace(/[\:\.]/g, "").toLocaleLowerCase()
+          text.replace(/[\:\.\(\)]/g, "").toLocaleLowerCase()
         )}`,
       },
     };
