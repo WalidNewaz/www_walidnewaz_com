@@ -9,7 +9,7 @@ chapter: "9. Setting up React Router for Navigation"
 title: "Setting up React Router for Navigation"
 description: "React Router is a powerful library that enables navigation and dynamic routing in React applications. Whether you're building a single-page application (SPA) or a complex, multi-page app."
 hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['router', 'react']
+tags: ['react router']
 read_time: 5 min
 related: 
   - "React Hooks: A brief introduction"
