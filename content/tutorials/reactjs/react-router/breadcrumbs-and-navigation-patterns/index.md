@@ -4,13 +4,13 @@ date: "2023-09-22"
 
 series: "Modern React.js"
 part: "IV. React Router"
-chapter: "11. Implementing breadcrumbs and navigation patterns"
+chapter: "11. Implementing breadcrumbs"
 
-title: "Implementing breadcrumbs and navigation patterns"
-description: "Breadcrumbs and navigation patterns provide users with contextual information about their current location within the app and allow them to navigate efficiently."
+title: "Implementing breadcrumbs"
+description: "Breadcrumbs provide users with contextual information about their current location within the app and allow them to navigate efficiently."
 hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['react router', 'breadcrumb']
-read_time: 8 min
+read_time: 6 min
 related: 
   - "React Hooks: A brief introduction"
   - "React Context API"
@@ -88,6 +88,7 @@ const routes = [
     ],
   },
 ];
+
 export default routes;
 ```
 
@@ -139,102 +140,10 @@ export default App;
 
 ---
 
-## Navigation Patterns in React Router
-
-In addition to breadcrumbs, React Router offers several tools for creating efficient navigation patterns. Let’s explore some common patterns and how to implement them.
-
-### 1. Persistent Navigation with Layout Components
-
-For apps with shared navigation (e.g., a sidebar or top navbar), layout components can ensure consistent navigation across routes.
-
-```jsx {numberLines}
-import { Outlet } from 'react-router-dom';
-
-function Layout() {
-  return (
-    <div>
-      <header>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/electronics">Electronics</Link></li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  );
-}
-
-// Usage in Route Config
-const routes = [
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
-      { path: '', element: <Home /> },
-      { path: 'electronics', element: <Electronics /> },
-    ],
-  },
-];
-```
-
----
-
-### 2. Dynamic Navigation with Programmatic Redirects
-
-Dynamic navigation allows developers to navigate users programmatically based on certain conditions, such as form submissions or authentication status.
-
-```jsx {numberLines}
-import { useNavigate } from 'react-router-dom';
-
-function Login() {
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    // Perform login logic
-    navigate('/dashboard');
-  };
-
-  return (
-    <button onClick={handleLogin}>Login</button>
-  );
-}
-```
-
----
-
-### 3. Route Guards for Protected Navigation
-
-For applications with protected routes, you can use route guards to restrict access based on user roles or authentication.
-
-```jsx {numberLines}
-import { Navigate, Outlet } from 'react-router-dom';
-
-function PrivateRoute({ isAuthenticated }) {
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
-}
-
-// Usage in Route Config
-const routes = [
-  {
-    path: '/dashboard',
-    element: <PrivateRoute isAuthenticated={true} />,
-    children: [
-      { path: '', element: <Dashboard /> },
-    ],
-  },
-];
-```
-
----
-
 ## Complete Example
 
 A complete example app with nested routes, and breadcrumb may be found on <a href="https://github.com/WalidNewaz/react-breadcrumb" target="_blank">my Github repository</a>.
 
 ## Conclusion
 
-Breadcrumbs and navigation patterns significantly enhance the user experience by making navigation intuitive and seamless. With React Router, you can implement dynamic breadcrumbs, persistent layouts, and advanced navigation patterns like route guards or programmatic redirects. These tools not only make your app easier to navigate but also provide a solid foundation for scalable, maintainable front-end applications.
+Breadcrumbs significantly enhance the user experience by making navigation intuitive and seamless. With React Router, you can implement dynamic breadcrumbs, persistent layouts, and advanced navigation patterns like route guards or programmatic redirects. These tools not only make your app easier to navigate but also provide a solid foundation for scalable, maintainable front-end applications.
