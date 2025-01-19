@@ -32,7 +32,7 @@ Code splitting allows you to load parts of your application on demand, reducing 
 
 #### Example
 
-```jsx
+```jsx {numberLines}
 import React, { Suspense } from 'react';
 
 const LazyComponent = React.lazy(() => import('./LazyComponent'));
@@ -63,7 +63,7 @@ Memoization prevents unnecessary re-renders by caching the results of expensive 
 
 Wrap functional components with `React.memo` to avoid re-renders unless their props change.
 
-```jsx
+```jsx {numberLines}
 const ExpensiveComponent = React.memo(({ data }) => {
   console.log('Rendering ExpensiveComponent');
   return <div>{data}</div>;
@@ -74,7 +74,7 @@ const ExpensiveComponent = React.memo(({ data }) => {
 
 Use `useMemo` to memoize the results of expensive calculations.
 
-```jsx
+```jsx {numberLines}
 import React, { useMemo } from 'react';
 
 function ExpensiveCalculation({ items }) {
@@ -95,7 +95,7 @@ When rendering lists, React uses the `key` property to identify which items have
 
 #### Example
 
-```jsx
+```jsx {numberLines}
 const items = ['Apple', 'Banana', 'Cherry'];
 
 function List() {
@@ -119,7 +119,7 @@ Managing state efficiently can significantly improve performance. Here are some 
 
 Lift state up to a parent component to prevent unnecessary re-renders of deeply nested components.
 
-```jsx
+```jsx {numberLines}
 function Parent() {
   const [count, setCount] = useState(0);
 
@@ -143,7 +143,7 @@ Avoid overusing `React.Context` for frequently updated state, as it can trigger 
 
 #### Example
 
-```jsx
+```jsx {numberLines}
 import React, { useState, useCallback } from 'react';
 
 function Parent() {
@@ -167,7 +167,7 @@ For applications displaying large datasets, rendering all items at once can be c
 
 #### Example with `react-window`
 
-```jsx
+```jsx {numberLines}
 import { FixedSizeList } from 'react-window';
 
 const Row = ({ index, style }) => <div style={style}>Row {index}</div>;
@@ -194,7 +194,7 @@ For frequently fired events like typing or scrolling, debouncing or throttling c
 
 #### Example with `lodash`
 
-```jsx
+```jsx {numberLines}
 import React, { useState } from 'react';
 import { debounce } from 'lodash';
 
