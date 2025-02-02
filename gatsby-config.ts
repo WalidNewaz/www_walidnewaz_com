@@ -132,21 +132,28 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(node => {
+              return allMarkdownRemark.nodes.map((node) => {
+                const absPath = node.fileAbsolutePath;
+                const slug = node.fields.slug;
+                const prefixPath = absPath.substring(0, absPath.indexOf(slug));
+                // console.log(prefixPath);
+                const paths = prefixPath.split("/");
+                const lastPath = paths.pop();
+                // console.log(lastPath);
+
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
-                })
-              })
+                  url: site.siteMetadata.siteUrl + `/${lastPath}` + slug,
+                  guid: site.siteMetadata.siteUrl + `/${lastPath}` + slug,
+                  // custom_elements: [{ "content:encoded": node.html }],
+                });
+              });
             },
             query: `{
               allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
                 nodes {
                   excerpt
-                  html
                   fields {
                     slug
                   }
@@ -154,6 +161,7 @@ module.exports = {
                     title
                     date
                   }
+                  fileAbsolutePath
                 }
               }
             }`,
