@@ -94,7 +94,9 @@ const createTutorialChapterPages = async ({
       reporter.info(`Creating pages for series: ${series}`);
       const chapters = seriesChapters[series];
       return chapters.map((chapter: any, index: number) => {
-        reporter.info(`Creating page for chapter: ${chapter.frontmatter.chapter}`);
+        reporter.info(
+          `Creating page for chapter: ${chapter.frontmatter.chapter}`
+        );
         const previousPostId = index === 0 ? null : chapters[index - 1].id;
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
@@ -278,16 +280,23 @@ const createTopicsPages = async ({
   // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postCount: allMarkdownRemark {
+      postCount: allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+      ) {
         totalCount
       }
-      allTopics: allMarkdownRemark {
+      allTopics: allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+      ) {
         group(field: { frontmatter: { tags: SELECT } }) {
           fieldValue
           totalCount
         }
       }
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(
+        limit: 1000
+        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+      ) {
         nodes {
           frontmatter {
             tags

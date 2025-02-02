@@ -115,12 +115,12 @@ const TutorialChapter: React.FC<any> = ({
         itemType="http://schema.org/Article"
         ref={articleBody}
       >
-        <ArticleHeader>
+        {/* <ArticleHeader>
           <div className="article-post-date">{post.frontmatter.date}</div>
           <div className="article-read-time">
             {post.frontmatter.read_time} read
           </div>
-        </ArticleHeader>
+        </ArticleHeader> */}
         <HeroImage {...{ post, heroImage }} className="article-hero-img" />
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />

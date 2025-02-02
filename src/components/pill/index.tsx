@@ -26,7 +26,7 @@ const Pill: React.FC<{
       style={style}
     >
       <a
-        href={`/blog/${topic !== "All" ? encodeURIComponent(topic) : ""}`}
+        href={`/blog/${topic !== "All" ? `${encodeURIComponent(topic)}/` : ""}`}
         className="text-decoration-none"
       >
         {topicText}

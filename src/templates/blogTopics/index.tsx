@@ -111,7 +111,7 @@ const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
         maxPages={MAX_PAGES}
         fetchNextPage={fetchNextPage}
         showContent={true}
-        pathname={`/blog/${currentTopic}`}
+        pathname={`/blog/${currentTopic}/`}
         query={query}
       />
     </BlogPostContainer>

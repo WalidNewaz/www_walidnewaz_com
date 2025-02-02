@@ -33,7 +33,12 @@ module.exports = {
   },
   plugins: [
     getGtagForEnv(GATSBY_ACTIVE_ENV),
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        excludes: ['/confirm-subscription/'],
+      },
+    },
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
     // `gatsby-plugin-mdx`,
