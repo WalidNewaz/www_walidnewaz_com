@@ -58,17 +58,17 @@ const DesktopMenu: React.FC = () => (
       </a>
     </li>
     <li>
-      <a href="/about" className="margin-5 text-decoration-none">
+      <a href="/about/" className="margin-5 text-decoration-none">
         About
       </a>
     </li>
     <li>
-      <a href="/blog" className="margin-5 text-decoration-none">
+      <a href="/blog/" className="margin-5 text-decoration-none">
         Blog
       </a>
     </li>
     <li>
-      <a href="/tutorials" className="margin-5 text-decoration-none">
+      <a href="/tutorials/" className="margin-5 text-decoration-none">
         Tutorials
       </a>
     </li>
@@ -131,7 +131,7 @@ const MobileMenu: React.FC<{ isOpen: boolean; onClick: clickHandler }> = ({
             </div>
             <div style={{ textAlign: "center" }}>
               <a
-                href="/about"
+                href="/about/"
                 className="margin-6 text-decoration-none header-link-home"
               >
                 About
@@ -139,7 +139,7 @@ const MobileMenu: React.FC<{ isOpen: boolean; onClick: clickHandler }> = ({
             </div>
             <div style={{ textAlign: "center" }}>
               <a
-                href="/blog"
+                href="/blog/"
                 className="margin-6 text-decoration-none header-link-home"
               >
                 Blog
@@ -147,7 +147,7 @@ const MobileMenu: React.FC<{ isOpen: boolean; onClick: clickHandler }> = ({
             </div>
             <div style={{ textAlign: "center" }}>
               <a
-                href="/tutorials"
+                href="/tutorials/"
                 className="margin-6 text-decoration-none header-link-home"
               >
                 Tutorials
