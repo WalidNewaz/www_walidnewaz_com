@@ -11,6 +11,7 @@ const StyledFooter = styled.footer`
   padding: var(--spacing-20) var(--spacing-0);
   display: flex;
   justify-content: center;
+  font-family: var(--fontFamily-sans);
 `;
 
 const StyledFooterDiv = styled.div`
