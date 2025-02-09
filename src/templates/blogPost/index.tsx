@@ -22,6 +22,7 @@ const StyledArticleBody = styled.section`
   a,
   li {
     color: var(--text1);
+    font-family: var(--fontFamily-sans);
   }
 
   img {
@@ -80,8 +81,22 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
       >
         <ArticleHeader>
           {/* <h1 itemProp="headline">{post.frontmatter.title}</h1> */}
-          <div className="article-post-date">{post.frontmatter.date}</div>
-          <div className="article-read-time">
+          <div
+            className="article-post-date"
+            style={{
+              fontFamily: "var(--fontFamily-sans)",
+              fontSize: "var(--fontSize-1)",
+            }}
+          >
+            {post.frontmatter.date}
+          </div>
+          <div
+            className="article-read-time"
+            style={{
+              fontFamily: "var(--fontFamily-sans)",
+              fontSize: "var(--fontSize-1)",
+            }}
+          >
             {post.frontmatter.read_time} read
           </div>
         </ArticleHeader>

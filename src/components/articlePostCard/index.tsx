@@ -53,9 +53,27 @@ const ArticlePostCard: React.FC<{
       <StyledCardText>
         <div className="text">
           <div className="flex flex-row space-between w-100 h-100">
-            {postDate && <p className="text-2 margin-bottom-3">{postDate}</p>}
+            {postDate && (
+              <p
+                className="text-2 margin-bottom-3"
+                style={{
+                  fontFamily: "var(--fontFamily-sans)",
+                  fontSize: "var(--fontSize-1)",
+                }}
+              >
+                {postDate}
+              </p>
+            )}
             {readTime && (
-              <p className="flex-end text-2 margin-bottom-3">{readTime}</p>
+              <p
+                className="flex-end text-2 margin-bottom-3"
+                style={{
+                  fontFamily: "var(--fontFamily-sans)",
+                  fontSize: "var(--fontSize-1)",
+                }}
+              >
+                {readTime}
+              </p>
             )}
           </div>
           <h3 className="heading padding-0 margin-0 margin-bottom-3">

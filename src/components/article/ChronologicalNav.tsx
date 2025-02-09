@@ -23,6 +23,7 @@ const StyledList = styled.ul`
   }
   a {
     text-decoration: none;
+    font-family: var(--fontFamily-sans);
   }
   .nav-arrow {
     display: flex;
@@ -77,7 +78,14 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
               }}
             >
               <div className="prev-next">Previous</div>
-              <span>{previous.frontmatter.title}</span>
+              <span
+                style={{
+                  fontFamily: "var(--fontFamily-sans)",
+                  fontSize: "var(--fontSize-1)",
+                }}
+              >
+                {previous.frontmatter.title}
+              </span>
             </div>
           </div>
         </a>
@@ -117,7 +125,14 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
               }}
             >
               <div className="prev-next">Next</div>
-              <span>{next.frontmatter.title}</span>
+              <span
+                style={{
+                  fontFamily: "var(--fontFamily-sans)",
+                  fontSize: "var(--fontSize-1)",
+                }}
+              >
+                {next.frontmatter.title}
+              </span>
             </div>
           </div>
         </a>

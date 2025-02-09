@@ -34,7 +34,6 @@ Components come in two types:
 Before creating your first component, ensure you have a React environment set up. If you haven't already, you can set up a new React project using Create React App.
 
 1. **Install Node.js and npm**: React and Create React App require Node.js and npm. You can download and install them from [nodejs.org](https://nodejs.org/).
-
 2. **Create a New React App**
 
 ```shell {numberLines}

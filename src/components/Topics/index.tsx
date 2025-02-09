@@ -22,7 +22,12 @@ const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
         topic={topic}
         count={topics[topic]}
         currentTopic={currentTopic}
-        style={{ margin: "0.25rem" }}
+        style={{
+          margin: "0.25rem",
+          padding: "0.5rem 1.5rem",
+          fontFamily: "var(--fontFamily-sans)",
+          fontSize: "var(--fontSize-1)",
+        }}
       />
     ));
   const showContent = true;
@@ -38,7 +43,15 @@ const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
         }`}
         scrollContainerClassName="h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] gap-6"
       >
-        <Pill topic="All" style={{ margin: "0.25rem" }} />
+        <Pill
+          topic="All"
+          style={{
+            margin: "0.25rem",
+            padding: "0.5rem 1.5rem",
+            fontFamily: "var(--fontFamily-sans)",
+            fontSize: "var(--fontSize-1)",
+          }}
+        />
         {linksText}
       </ContentRibbon>
     </section>

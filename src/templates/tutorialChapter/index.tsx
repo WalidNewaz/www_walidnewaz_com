@@ -39,6 +39,7 @@ const StyledArticleBody = styled.section`
   a,
   li {
     color: var(--text1);
+    font-family: var(--fontFamily-sans);
   }
 
   img {
@@ -129,7 +130,7 @@ const TutorialChapter: React.FC<any> = ({
             itemProp="articleBody"
           />
         </StyledTutorialGrid>
-        <PostTags tags={post.frontmatter.tags} />
+        {/* <PostTags tags={post.frontmatter.tags} /> */}
       </article>
       <TutorialTOC allSeriesPosts={allSeriesPosts} post={post} />
       <StyledBlogPostNav>

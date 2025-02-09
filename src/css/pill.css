@@ -5,6 +5,8 @@
     border-radius: 1.25rem;
     padding: var(--spacing-1) var(--spacing-3);
     font-weight: var(--fontWeight-bold);
+    font-family: var(--fontFamily-sans);
+    font-size: var(--fontSize-1);
     transition: opacity 300ms linear;
 }
 
