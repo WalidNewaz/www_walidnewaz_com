@@ -15,6 +15,7 @@ const TutorialsHeading = styled.h2`
 `;
 const StyledParagraph = styled.p`
   margin: 1rem 1.25rem 0.5rem;
+  font-family: var(--fontFamily-sans);
 `;
 
 /**

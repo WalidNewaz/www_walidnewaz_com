@@ -14,7 +14,12 @@ const PostTags: React.FC<{ tags: string[] }> = ({ tags }) => {
   const linksText = tags
     .sort()
     .map((topic) => (
-      <Pill key={topic} topic={topic} style={{ margin: "0.25rem" }} />
+      <Pill key={topic} topic={topic} style={{
+        margin: "0.25rem",
+        padding: "0.5rem 1.5rem",
+        fontFamily: "var(--fontFamily-sans)",
+        fontSize: "var(--fontSize-1)",
+      }} />
     ));
   return (
     tags && (

@@ -4,12 +4,20 @@ import * as React from "react";
  * Pill component to display topics
  */
 const Pill: React.FC<{
+  section?: string;
   topic: string;
   count?: number;
   currentTopic?: string;
   className?: string;
   style?: React.CSSProperties;
-}> = ({ topic, count = 0, currentTopic, className = "", style }) => {
+}> = ({
+  section = "blog",
+  topic,
+  count = 0,
+  currentTopic,
+  className = "",
+  style,
+}) => {
   const topicText = `${topic} ${count > 0 ? `(${count})` : ""}`;
   return topic === currentTopic ? (
     <div
@@ -26,7 +34,7 @@ const Pill: React.FC<{
       style={style}
     >
       <a
-        href={`/blog/${topic !== "All" ? `${encodeURIComponent(topic)}/` : ""}`}
+        href={`/${section}/${topic !== "All" ? `${encodeURIComponent(topic)}/` : ""}`}
         className="text-decoration-none"
       >
         {topicText}

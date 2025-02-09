@@ -20,6 +20,7 @@ const StyledAboutSection = styled.section`
 
   p {
     margin-bottom: var(--spacing-5);
+    font-family: var(--fontFamily-sans);
   }
 
   ul {
@@ -28,6 +29,7 @@ const StyledAboutSection = styled.section`
 
   li {
     color: var(--text1);
+    font-family: var(--fontFamily-sans);
   }
 `
 
@@ -36,6 +38,7 @@ const StyledImage = styled(GatsbyImage)`
   float: left;
   margin-right: 1rem;
   margin-bottom: 2rem;
+  border-radius: 0.25rem;
 
   @media (max-width: 768px) {
     min-height: 20rem;
