@@ -249,7 +249,7 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
   return (
     <StyledTOC>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h1>Table of contents</h1>
+        <h1>Chapter Outline</h1>
         <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
       </div>
       <IndentedHeadings
