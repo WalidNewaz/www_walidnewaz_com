@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 /** Components */
-import ArticlePostCard from "../articlePostCard";
+import ArticlePostCard from "../molecules/articlePostCard";
 
 const StyledBlogPostsSection = styled.section`
   width: 100%;

@@ -14,6 +14,7 @@ import {
 } from "gatsby";
 import * as path from "path";
 import { createFilePath } from "gatsby-source-filesystem";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 /** Interfaces */
 import { AggregatedTopic } from "./src/interfaces";
@@ -431,14 +432,15 @@ export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
 }) => {
   if (stage === "build-javascript") {
     const config = getConfig();
-    const miniCssExtractPlugin = config.plugins.find(
-      (plugin: WebpackPlugins) =>
-        plugin.constructor.name === "MiniCssExtractPlugin"
-    );
-    // Prevent MiniCssExtractPlugin's default filename hashing error during build
-    if (miniCssExtractPlugin) {
-      miniCssExtractPlugin.options.ignoreOrder = true;
+
+    for (const plugin of config.plugins) {
+      // Match by constructor type (not just name)
+      if (plugin instanceof MiniCssExtractPlugin) {
+        // This cast is safe — options is mutable
+        (plugin as any).options.ignoreOrder = true;
+      }
     }
+
     actions.replaceWebpackConfig(config);
   }
 };

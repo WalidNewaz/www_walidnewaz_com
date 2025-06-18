@@ -59,9 +59,13 @@ This technique is particularly useful for large applications where components ar
 
 Memoization prevents unnecessary re-renders by caching the results of expensive computations or preventing components from re-rendering when their props haven’t changed.
 
-#### `React.memo`
+#### React.memo
 
-Wrap functional components with `React.memo` to avoid re-renders unless their props change.
+`React.memo` is a higher-order component (HOC) used to memoize functional components. It wraps a functional component and prevents it from re-rendering if its props haven't changed.
+
+When a component wrapped in `React.memo` receives new props, React performs a shallow comparison of the new props with the previous ones. If the props are the same, React reuses the previous render output, skipping the re-rendering process.
+
+Use `React.memo` when you have functional components that are expensive to render, especially if their props don't change frequently. It's useful for optimizing components that receive large data sets as props or that are part of frequently re-rendered lists.
 
 ```jsx {numberLines}
 const ExpensiveComponent = React.memo(({ data }) => {
@@ -70,9 +74,11 @@ const ExpensiveComponent = React.memo(({ data }) => {
 });
 ```
 
-#### `useMemo`
+#### useMemo
 
-Use `useMemo` to memoize the results of expensive calculations.
+`useMemo` is a **React Hook** used to memoize the result of expensive calculations or values within a functional component. It takes a function and an array of dependencies as input. React caches the result of the function call and reuses it in subsequent renders as long as the dependencies don't change.
+
+Use `useMemo` when you have computationally intensive operations within a component that shouldn't be recomputed on every render. It's useful for memoizing values derived from complex calculations, filtered lists, or objects that are passed as props to child components to prevent unnecessary re-renders of the child components.
 
 ```jsx {numberLines}
 import React, { useMemo } from 'react';
@@ -139,9 +145,9 @@ Avoid overusing `React.Context` for frequently updated state, as it can trigger 
 
 ### 5. **Leveraging the `useCallback` Hook**
 
-`useCallback` ensures that functions are not re-created on every render, which can help when passing callback functions to child components.
+`useCallback` is a **React Hook** used to memoize the function definition itself, ensuring the function reference remains stable across renders unless its dependencies change.
 
-#### Example
+`useCallback` is particularly beneficial when passing callbacks as props to child components that rely on referential equality to prevent unnecessary re-renders.
 
 ```jsx {numberLines}
 import React, { useState, useCallback } from 'react';
