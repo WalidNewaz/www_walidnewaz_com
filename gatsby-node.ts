@@ -430,7 +430,7 @@ export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   stage,
   getConfig,
 }) => {
-  if (["develop", "build-javascript"].includes(stage)) {
+  if (stage === "build-javascript") {
     const config = getConfig();
 
     for (const plugin of config.plugins) {
