@@ -60,9 +60,9 @@
   background: linear-gradient(to left,var(--yt-spec-base-background) 20%,rgba(255,255,255,0) 80%);
 } */
 
-#right-arrow::after {
+/* #right-arrow::after {
   height: 100%;
   width: 50px;
   content: "";
   pointer-events: none;
-}
+} */
