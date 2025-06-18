@@ -1,7 +1,7 @@
 import React from "react";
 
 /** Components */
-import Pill from "../pill";
+import Pill from "../atoms/pill";
 import ContentRibbon from "../ContentRibbon/ContentRibbon";
 
 /**

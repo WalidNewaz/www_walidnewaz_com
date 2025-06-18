@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import ArticlePostCard from "../../components/articlePostCard";
+import ArticlePostCard from "../../components/molecules/articlePostCard";
 
 const TutorialsHeading = styled.h2`
   margin: 1rem 1.25rem 0.5rem;
