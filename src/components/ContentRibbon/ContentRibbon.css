@@ -47,22 +47,3 @@
 .scroll-button:hover {
   background-color: rgba(0, 0, 0, 0.7);
 }
-
-/* .scroll-left {
-  left: 16px;
-} */
-
-/* .scroll-right {
-  right: 16px;
-} */
-
-/* #right-arrow::before {
-  background: linear-gradient(to left,var(--yt-spec-base-background) 20%,rgba(255,255,255,0) 80%);
-} */
-
-#right-arrow::after {
-  height: 100%;
-  width: 50px;
-  content: "";
-  pointer-events: none;
-}

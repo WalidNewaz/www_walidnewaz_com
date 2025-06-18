@@ -1,7 +1,7 @@
 import React from "react";
 
 /** Components */
-import ArticlePostCard from "../articlePostCard";
+import ArticlePostCard from "../molecules/articlePostCard";
 
 const ArticlePostCardGroup: React.FC<{ posts: any[]; className?: string }> = ({
   posts,

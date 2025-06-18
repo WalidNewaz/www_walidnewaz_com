@@ -99,4 +99,6 @@
     --surface-shadow-dark: var(--brand-secondary-hue) 30% 13%;
     --shadow-strength-dark: .2;
 
+    --color-border: rgb(140, 140, 140);
+
 }
