@@ -130,3 +130,9 @@ If you're deploying to **AWS S3 with CloudFront**, you can add deployment steps 
 * [CloudFront Invalidation API](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html)
 * [jakejarvis/s3-sync-action](https://github.com/jakejarvis/s3-sync-action)
 * [chetan/invalidate-cloudfront-action](https://github.com/chetan/invalidate-cloudfront-action)
+
+## Conclusion
+
+This concludes the React tutorial series, for web application developement. The topic of web development, as well as React is vast, and mastering them takes time and experience. However the previous chapters cover enough topics with examples that should set you up with a solid foundation for developing web application using React.js.
+
+Future tutorial series would cover additional topics that would include more topics related to web development and React.
