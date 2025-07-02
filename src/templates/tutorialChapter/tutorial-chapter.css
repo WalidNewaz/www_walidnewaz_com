@@ -59,7 +59,7 @@ caption {
 
 thead,
 tfoot {
-  background-color: rgb(228 240 245);
+  background-color: var(--surface4);
 }
 
 th,
@@ -74,7 +74,7 @@ td:first-of-type {
 }
 
 tbody > tr:nth-of-type(even) {
-  background-color: rgb(237 238 242);
+  background-color: var(--surface2);
 }
 
 tfoot th {
