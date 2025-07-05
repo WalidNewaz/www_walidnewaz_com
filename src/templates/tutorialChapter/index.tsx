@@ -10,6 +10,7 @@ import PostTags from "../../components/article/PostTags";
 import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
 import ChapterTOC from "../../components/tutorial/ChapterTOC";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
+import ChapterQuiz from "../../components/organisms/ChapterQuiz";
 
 /** Types */
 type ChapterHeading = {
@@ -17,6 +18,7 @@ type ChapterHeading = {
   depth: number;
   id: string;
 };
+import { QuizType } from "../../components/organisms/ChapterQuiz/";
 
 /** Styles */
 import "./tutorial-chapter.css";
@@ -26,7 +28,8 @@ const StyledTutorialGrid = styled.div`
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--spacing-6);
 
-  @media screen and (max-width: 480px) {}
+  @media screen and (max-width: 480px) {
+  }
 `;
 
 const StyledArticleBody = styled.section`
@@ -84,6 +87,21 @@ const StyledBlogPostNav = styled.nav`
   }
 `;
 
+const StyledBlankDiv = styled.div`
+  grid-column: span 3;
+  @media screen and (min-width: 800px) and (max-width: 975px) {
+    grid-column: span 4;
+  }
+
+  @media screen and (min-width: 480px) and (max-width: 800px) {
+    grid-column: span 4;
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-column: span 12;
+  }
+`;
+
 /**
  * Component used to display a tutorial chapter
  * @param params
@@ -98,8 +116,11 @@ const TutorialChapter: React.FC<any> = ({
     allSeriesPosts,
     relatedPosts,
   },
+  pageContext,
 }) => {
   const articleBody = useRef<HTMLDivElement>(null);
+  // console.log(pageContext);
+  // console.log("Quiz:", pageContext?.quiz);
 
   // Scroll to top of article when navigating to a new page
   useEffect(() => {
@@ -129,6 +150,15 @@ const TutorialChapter: React.FC<any> = ({
             dangerouslySetInnerHTML={{ __html: post.html }}
             itemProp="articleBody"
           />
+
+        </StyledTutorialGrid>
+        <StyledTutorialGrid>
+          <StyledBlankDiv></StyledBlankDiv>
+          {pageContext?.quiz && (
+            <StyledArticleBody className="chapter-quiz">
+              <ChapterQuiz quiz={pageContext.quiz as QuizType} />
+            </StyledArticleBody>
+          )}
         </StyledTutorialGrid>
         {/* <PostTags tags={post.frontmatter.tags} /> */}
       </article>
