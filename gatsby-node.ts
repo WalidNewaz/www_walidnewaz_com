@@ -13,6 +13,7 @@ import {
   Reporter,
 } from "gatsby";
 import * as path from "path";
+import * as fs from "fs";
 import { createFilePath } from "gatsby-source-filesystem";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
@@ -57,6 +58,7 @@ const createTutorialChapterPages = async ({
             }
             pathDate: date(formatString: "/YYYY/MM/DD")
             related
+            has_quiz
           }
         }
       }
@@ -101,9 +103,39 @@ const createTutorialChapterPages = async ({
         const previousPostId = index === 0 ? null : chapters[index - 1].id;
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
+        // TODO: Use hero image file from the main series folder
+        // e.g. /content/tutorials/react-native/hero_image.png
+        // Currently, it uses the hero image from the chapter folder
+        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
+        // This is to ensure that the hero image is always available
+        // for the chapter page, even if the series folder doesn't have a hero image
         const heroImagePattern = chapter.frontmatter.hero_image
           ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
           : null;
+
+        const quizFilePath = chapter.frontmatter.has_quiz
+          ? `./content/tutorials${chapter.fields.slug}chapter-quiz.json`
+          : null;
+
+        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
+
+        // Load the quiz data if it exists
+        let quizData = null;
+        if (quizFilePath && fs.existsSync(quizFilePath)) {
+          try {
+            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
+            quizData = JSON.parse(quizContent);
+            // reporter.info(
+            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
+            // );
+            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
+          } catch (error) {
+            reporter.warn(
+              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
+            );
+          }
+        }
+
 
         createPage({
           path: `/tutorials${chapter.fields.slug}`,
@@ -115,6 +147,7 @@ const createTutorialChapterPages = async ({
             series: chapter.frontmatter.series,
             heroImagePattern,
             related: chapter.frontmatter.related || [],
+            ...(quizData && { quiz: quizData }),
           },
         });
       });

@@ -43,7 +43,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
     <button onClick={onClick} aria-label="Toggle menu">
       <span className="hamburger-label">Open main menu</span>
       <FaBars
-        className={`icon ${isOpen ? "text-indigo-600" : "text-slate-900"}`}
+        className={`icon ${isOpen ? "text-indigo-600" : "text-slate-100"}`}
         aria-label="Toggle icon"
       />
     </button>
