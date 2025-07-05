@@ -32,6 +32,7 @@ module.exports = {
     },
   },
   plugins: [
+    `gatsby-plugin-postcss`,
     getGtagForEnv(GATSBY_ACTIVE_ENV),
     {
       resolve: `gatsby-plugin-sitemap`,

@@ -9,7 +9,7 @@ chapter: "1. Setting Up Your Python Development Environment"
 title: "Development Environment Setup"
 description: "Before diving into writing Python code, it’s essential to have a clean, efficient, and testable development environment. This chapter covers, Installing Python, Setting up virtual environments, Choosing the right IDE or editor, Creating your first Python script, Writing and running your first unit test."
 hero_image: "python-tutorial-banner.png"
-tags: ["fundamentals", "python"]
+tags: ["fundamentals", "Python"]
 ---
 
 # Chapter 1: Setting Up Your Python Development Environment
