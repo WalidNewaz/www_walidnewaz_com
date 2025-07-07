@@ -1,0 +1,87 @@
+{
+  "topic": "React Native Fundamentals",
+  "questions": [{
+    "question": "Where should reusable UI elements go?",
+    "options": [
+      {
+        "text": "/screens`",
+        "correct": false,
+        "explanation": "The screens directory is for screen components."
+      },
+      {
+        "text": "/components",
+        "correct": true,
+        "explanation": "🎉 Reusable React Native components should be placed in the components directory."
+      },
+      {
+        "text": "/assets",
+        "correct": false,
+        "explanation": "The assets directory is for images, fonts, and other static files."
+      },
+      {
+        "text": "/utils",
+        "correct": false,
+        "explanation": "Utility functions should be placed in the utils directory."
+      }
+    ]
+  }, {
+    "question": "Which folder would you store custom fonts?",
+    "options": [
+      {
+        "text": "/constants",
+        "correct": false,
+        "explanation": "🎉 The constants directory is for constant values and configurations."
+      },
+      {
+        "text": "/components",
+        "correct": false,
+        "explanation": "The components directory is for reusable UI components."
+      },
+      {
+        "text": "/assets/fonts",
+        "correct": true,
+        "explanation": "🎉 The assets/fonts directory is for custom font files."
+      },
+      {
+        "text": "/screens",
+        "correct": false,
+        "explanation": "The screens directory is for screen components."
+      }
+    ]
+  }, {
+    "question": "True or False: React Native automatically selects `.ios.js` and `.android.js` files at build time.",
+    "options": [
+      {
+        "text": "True",
+        "correct": true,
+        "explanation": "🎉 React Native automatically selects `.ios.js` and `.android.js` files at build time."
+      },
+      {
+        "text": "False",
+        "correct": false,
+        "explanation": "React Native automatically selects `.ios.js` and `.android.js` files at build time."
+      }
+    ]
+  }, {
+    "question": "What tool do you run after adding new fonts in React Native CLI projects?",
+    "options": [
+      {
+        "text": "npx react-native link",
+        "correct": true,
+        "explanation": "🎉 You run `npx react-native link` to link the new fonts."
+      }, {
+        "text": "npx react-native install",
+        "correct": false,
+        "explanation": "You run `npx react-native link` to link the new fonts."
+      }, {
+        "text": "npx react-native add-fonts",
+        "correct": false,
+        "explanation": "You run `npx react-native link` to link the new fonts."
+      }, {
+        "text": "npx react-native setup-fonts",
+        "correct": false,
+        "explanation": "You run `npx react-native link` to link the new fonts."
+      }
+    ]
+  }]
+}
