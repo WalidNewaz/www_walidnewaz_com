@@ -84,7 +84,7 @@ You have **two main setup options**:
 npm install -g expo-cli
 expo init MyFirstApp
 cd MyFirstApp
-expo start
+npx expo start
 ```
 
 You can preview your app using the **Expo Go app** on your real Android/iOS device.
@@ -173,7 +173,7 @@ In this chapter, you learned:
 * How to set up your environment using Expo or React Native CLI
 * How to run your first app on a device or emulator
 
-## What’s Next?
+## What is Next?
 
 In **Chapter 2**, we’ll dive into **project structure, file organization**, and how to **create scalable folder layouts** for real-world React Native apps.
 
@@ -181,29 +181,3 @@ We’ll also start building our sample project:
 **"Task Tracker Mobile"**
 
 ---
-
-<!-- ## **Quick Quiz: Test Your Understanding**
-
-- What does React Native render UI elements into?
-  - HTML Elements
-  - Native UI Components
-  - WebViews
-  - Canvas
-- What is the purpose of the React Native Bridge?
-   - Render CSS faster
-   - Connect JS code with native modules
-   - Manage API requests
-   - Host images
-- Which of the following is **not** a React Native component?
-   - View
-   - Text
-   - Div
-   - ScrollView
-- True or False: React Native apps run in the browser.
-
-**Answers:**
-
-1. **B**
-2. **B**
-3. **C**
-4. **False** -->
