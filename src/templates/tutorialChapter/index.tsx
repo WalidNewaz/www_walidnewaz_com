@@ -36,7 +36,8 @@ const StyledArticleBody = styled.section`
   grid-column: span 9;
 
   p {
-    margin-bottom: var(--spacing-6);
+    margin-top: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
   }
 
   a,
@@ -47,6 +48,21 @@ const StyledArticleBody = styled.section`
 
   img {
     border-radius: 0.25rem;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul, ol {
+    list-style-position: inside;
+    margin-top: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
+    padding-left: var(--spacing-2);
   }
 
   li::before {
@@ -64,6 +80,7 @@ const StyledArticleBody = styled.section`
     font-family: var(--fontFamily-sans);
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
+    margin-bottom: var(--spacing-6);
   }
 
   @media screen and (min-width: 800px) and (max-width: 975px) {
