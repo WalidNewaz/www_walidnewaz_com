@@ -84,7 +84,8 @@ const MultipleChoice: React.FC<{
             <MultipleChoiceQuestion question={cachedMultipleChoice.question} />
             {/* {cachedMultipleChoice.question} */}
             <ChevronDownIcon
-              className={`size-8 fill-white/60 mx-4 group-data-hover:fill-white/50 transition-all ${open && "rotate-180"}`}
+              className={`size-8 mx-4 group-data-hover:fill-white/50 transition-all ${open && "rotate-180"}`}
+              style={{ color: "var(--text1)" }}
             />
           </DisclosureButton>
 
