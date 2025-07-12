@@ -13,7 +13,7 @@ tags: ["Core Components", "React Native"]
 has_quiz: true
 ---
 
-# UI Building Blocks
+# Chpater 3: UI Building Blocks
 
 Now that your project structure is in place, it’s time to dive into the **core UI components** that power every React Native app.
 

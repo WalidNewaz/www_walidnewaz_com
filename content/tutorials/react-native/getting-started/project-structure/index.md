@@ -13,7 +13,7 @@ tags: ["Getting Started", "React Native"]
 has_quiz: true
 ---
 
-# Project Structure and File Organization
+# Chapter 2: Project Structure and File Organization
 
 You’ve successfully run your first React Native app. Now, let’s talk about something every developer (especially coming from React.js) struggles with at the start:
 
