@@ -435,7 +435,7 @@ In React Native:
 
 We’ll go deeper on styling and theming in the next chapter.
 
-## **3.8 Your Development Task**
+## 3.8 Assignment
 
 **✅ Task:**
 
