@@ -1,0 +1,86 @@
+{
+  "topic": "UI Building Blocks",
+  "questions": [{
+    "question": "Which package provides navigation in React Native?",
+    "options": [
+      {
+        "text": "React Router DOM",
+        "correct": false,
+        "explanation": "React Router DOM is not used in React Native."
+      },
+      {
+        "text": "React Navigation",
+        "correct": true,
+        "explanation": "🎉 React Navigation is the most popular library for navigation in React Native."
+      },
+      {
+        "text": "Native Router",
+        "correct": false,
+        "explanation": "Native Router is not a recognized package in React Native."
+      },
+      {
+        "text": "Mobile Navigation",
+        "correct": false,
+        "explanation": "Mobile Navigation is not a recognized package in React Native."
+      }
+    ]
+  }, {
+    "question": "True or False: You can navigate programmatically using the `useNavigation` hook.",
+    "options": [
+      {
+        "text": "True",
+        "correct": true,
+        "explanation": "🎉 You can navigate programmatically using the `useNavigation` hook."
+      },
+      {
+        "text": "False",
+        "correct": false,
+        "explanation": "The `useNavigation` hook is not used for programmatic navigation."
+      }
+    ]
+  }, {
+    "question": "What is the purpose of `NavigationContainer`?",
+    "options": [
+      {
+        "text": "To store app state",
+        "correct": false,
+        "explanation": "The `NavigationContainer` is not used to store app state."
+      },
+      {
+        "text": "To wrap your entire navigation structure",
+        "correct": true,
+        "explanation": "🎉 The `NavigationContainer` is used to wrap your entire navigation structure."
+      }, {
+        "text": "To manage network requests",
+        "correct": false,
+        "explanation": "The `NavigationContainer` is not used to manage network requests."
+      },
+      {
+        "text": "To render modals",
+        "correct": false,
+        "explanation": "The `NavigationContainer` is not used to render modals."
+      }
+    ]
+  }, {
+    "question": "Which navigator creates bottom tabs?",
+    "options": [
+      {
+        "text": "Stack Navigator",
+        "correct": false,
+        "explanation": "Stack Navigator is used for creating a stack of screens."
+      }, {
+        "text": "Drawer Navigator",
+        "correct": false,
+        "explanation": "Drawer Navigator is used for creating a drawer menu."
+      }, {
+        "text": "Bottom Tab Navigator",
+        "correct": true,
+        "explanation": "🎉 Bottom Tab Navigator is used for creating bottom tabs."
+      }, {
+        "text": "NativeStackNavigator",
+        "correct": false,
+        "explanation": "NativeStackNavigator is used for creating a stack of screens with native views."
+      }
+    ]
+  }]
+}

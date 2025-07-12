@@ -13,6 +13,8 @@ tags: ["Styling", "React Native"]
 has_quiz: true
 ---
 
+# Chapter 4: Styling in React Native
+
 You’ve now built screens, lists, and clickable components. But let’s face it—right now your app probably **looks like a wireframe**.
 
 This chapter will show you how to **style React Native apps properly**.
