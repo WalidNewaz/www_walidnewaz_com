@@ -21,6 +21,7 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
 
   const tutorials = data.allTutorials.nodes;
   const tutorialsCount = data.tutorialsCount.totalCount;
+  const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
     <>
@@ -39,7 +40,7 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
         )}
       </>
       <>
-        <HomePageMoreTutorials posts={tutorials} heading="Tutorials" />
+        <HomePageMoreTutorials posts={tutorials} heroes={tutorialHeroes} heading="Tutorials" />
         {tutorialsCount > 9 && (
           <div
             className="flex align-center justify-center"
@@ -167,6 +168,17 @@ export const pageQuery = graphql`
           value
         }
         id
+      }
+    }
+    allTutorialHeroes: allFile(
+      filter: { relativePath: { regex: ".*/hero-image.png$/" } }
+    ) {
+      nodes {
+        id
+        relativeDirectory
+        childImageSharp {
+          gatsbyImageData
+        }
       }
     }
     tutorialsCount: allMarkdownRemark(
