@@ -7,8 +7,8 @@ part: "I. Python Foundations"
 chapter: "2. Python Syntax and Core Concepts"
 
 title: "Syntax and Core Concepts"
-description: "Before diving into writing Python code, it’s essential to have a clean, efficient, and testable development environment. This chapter covers, Installing Python, Setting up virtual environments, Choosing the right IDE or editor, Creating your first Python script, Writing and running your first unit test."
-hero_image: "python-tutorial-banner.png"
+description: "This chapter discusses hands-on Python syntax and core programming concepts."
+has_quiz: true
 tags: ["fundamentals", "Python"]
 ---
 
@@ -347,7 +347,7 @@ You’ve learned:
 
 ---
 
-## What’s Next
+## What is Next?
 
 In **Chapter 3: Working with Files and Data Serialization**, we’ll cover:
 

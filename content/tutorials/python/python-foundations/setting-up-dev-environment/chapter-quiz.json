@@ -1,0 +1,110 @@
+{
+  "topic": "Python Fundamentals",
+  "questions": [
+    {
+      "question": "Which of the following commands is used to create a virtual environment using the built-in `venv` module?",
+      "options": [
+        {
+          "text": "python -m venv venv",
+          "correct": true,
+          "explanation": "This is the correct way to create a virtual environment using Python’s built-in venv module."
+        },
+        {
+          "text": "pip install venv",
+          "correct": false,
+          "explanation": "venv is part of the Python standard library and doesn’t require installation via pip."
+        },
+        {
+          "text": "virtualenv install venv",
+          "correct": false,
+          "explanation": "This is not a valid Python command for creating virtual environments."
+        },
+        {
+          "text": "python create-env",
+          "correct": false,
+          "explanation": "This is not a valid syntax for creating virtual environments in Python."
+        }
+      ]
+    },
+    {
+      "question": "True or False: The command `pip freeze > requirements.txt` lists all installed packages and their versions into a file.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "`pip freeze > requirements.txt` captures all current environment dependencies in a reproducible format."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "This command is explicitly used to list and save all installed packages and their versions."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following IDEs is best suited for beginners starting with Python?",
+      "options": [
+        {
+          "text": "PyCharm Professional",
+          "correct": false,
+          "explanation": "PyCharm Professional is powerful, but better suited for advanced users or large-scale development."
+        },
+        {
+          "text": "Thonny",
+          "correct": true,
+          "explanation": "Thonny is lightweight and beginner-friendly, making it ideal for new Python learners."
+        },
+        {
+          "text": "Sublime Text",
+          "correct": false,
+          "explanation": "Sublime is a general-purpose text editor and lacks Python-specific beginner features out of the box."
+        },
+        {
+          "text": "Spyder",
+          "correct": false,
+          "explanation": "Spyder is tailored for scientific Python use and might be overwhelming for general-purpose beginners."
+        }
+      ]
+    },
+    {
+      "question": "True or False: A virtual environment allows you to isolate dependencies for each project separately.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "Correct. Virtual environments are used to isolate dependencies between Python projects."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "Incorrect. Virtual environments are specifically designed for dependency isolation."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following commands runs all `pytest` test cases in the current directory?",
+      "options": [
+        {
+          "text": "pytest",
+          "correct": true,
+          "explanation": "Running `pytest` from the command line will automatically discover and run all tests."
+        },
+        {
+          "text": "run tests",
+          "correct": false,
+          "explanation": "`run tests` is not a valid command recognized by pytest."
+        },
+        {
+          "text": "python test_all.py",
+          "correct": false,
+          "explanation": "This only works if you manually wrote a `test_all.py` runner script."
+        },
+        {
+          "text": "python -m tests",
+          "correct": false,
+          "explanation": "`tests` is not a default module and this command will fail unless you’ve structured your project accordingly."
+        }
+      ]
+    }
+  ]
+}

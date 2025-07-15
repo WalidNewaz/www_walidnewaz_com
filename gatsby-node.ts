@@ -103,6 +103,9 @@ const createTutorialChapterPages = async ({
         const previousPostId = index === 0 ? null : chapters[index - 1].id;
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
+
+        const seriesDir = chapter.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+
         // TODO: Use hero image file from the main series folder
         // e.g. /content/tutorials/react-native/hero_image.png
         // Currently, it uses the hero image from the chapter folder
@@ -111,7 +114,8 @@ const createTutorialChapterPages = async ({
         // for the chapter page, even if the series folder doesn't have a hero image
         const heroImagePattern = chapter.frontmatter.hero_image
           ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
-          : null;
+          : `${seriesDir}/hero-image.png/`;
+        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
 
         const quizFilePath = chapter.frontmatter.has_quiz
           ? `./content/tutorials${chapter.fields.slug}chapter-quiz.json`

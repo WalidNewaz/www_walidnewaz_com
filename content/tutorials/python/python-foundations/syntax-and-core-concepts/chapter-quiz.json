@@ -1,0 +1,110 @@
+{
+  "topic": "Python Syntax and Core Concepts",
+  "questions": [
+    {
+      "question": "Which of the following is a valid Python variable name?",
+      "options": [
+        {
+          "text": "2value",
+          "correct": false,
+          "explanation": "Variable names cannot start with a number."
+        },
+        {
+          "text": "user-name",
+          "correct": false,
+          "explanation": "Hyphens are not allowed in variable names."
+        },
+        {
+          "text": "_user_location",
+          "correct": true,
+          "explanation": "This is a valid Python variable name using an underscore prefix."
+        },
+        {
+          "text": "class",
+          "correct": false,
+          "explanation": "`class` is a reserved keyword in Python."
+        }
+      ]
+    },
+    {
+      "question": "Which statement is true about Python's `if` statement?",
+      "options": [
+        {
+          "text": "It uses curly braces to define blocks.",
+          "correct": false,
+          "explanation": "Python uses indentation, not braces, to define code blocks."
+        },
+        {
+          "text": "It requires a semicolon after the condition.",
+          "correct": false,
+          "explanation": "Python does not use semicolons after conditions."
+        },
+        {
+          "text": "It executes indented code if the condition is true.",
+          "correct": true,
+          "explanation": "Correct—Python executes the indented block only when the condition is true."
+        },
+        {
+          "text": "It is case-insensitive.",
+          "correct": false,
+          "explanation": "`if`, `elif`, and `else` are lowercase keywords and case-sensitive."
+        }
+      ]
+    },
+    {
+      "question": "True or False: A Python `tuple` is mutable.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "Tuples are immutable—once created, their values cannot be changed."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "Correct. Tuples are immutable, unlike lists."
+        }
+      ]
+    },
+    {
+      "question": "True or False: The `def` keyword is used to define a new function in Python.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "Correct. `def` is used to define functions in Python."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "`def` is the correct keyword for defining functions."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following correctly swaps the values of variables `a` and `b` in Python?",
+      "options": [
+        {
+          "text": "a, b = b, a",
+          "correct": true,
+          "explanation": "Python allows swapping without a temporary variable using tuple unpacking."
+        },
+        {
+          "text": "a = b; b = a",
+          "correct": false,
+          "explanation": "This incorrectly sets both `a` and `b` to the original value of `b`."
+        },
+        {
+          "text": "temp = a; a = b; b = temp",
+          "correct": false,
+          "explanation": "This is correct logic but not the most Pythonic way."
+        },
+        {
+          "text": "swap(a, b)",
+          "correct": false,
+          "explanation": "This assumes a swap function exists, which is not built-in."
+        }
+      ]
+    }
+  ]
+}

@@ -25,6 +25,7 @@ const StyledParagraph = styled.p`
  */
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   const tutorials = data.allMarkdownRemark.nodes;
+  const tutorialHeroes = data.allTutorialHeroes.nodes;
   const firstTutorials = tutorials.reduce((acc: Array<any>, tutorial: any) => {
     return tutorial?.frontmatter?.chapter?.startsWith("1. ")
       ? [...acc, tutorial]
@@ -56,7 +57,12 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
       </section>
 
       <section className="blog-posts col flex wrap my-6 pb-12">
-        {firstTutorials.map((tutorial: any) => (
+        {firstTutorials.map((tutorial: any) => {
+          const seriesDir = tutorial.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+          const heroImagePattern = tutorial.frontmatter.hero_image || tutorialHeroes.find((hero: any) => {
+            return hero.relativeDirectory === seriesDir;
+          });
+          return (
           <ArticlePostCard
             key={tutorial.id}
             // postDate={tutorial.frontmatter.date}
@@ -64,12 +70,12 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
             title={
               tutorial.frontmatter.series 
             }
-            image={tutorial.frontmatter.hero_image}
+            image={heroImagePattern}
             slug={`/tutorials${tutorial.fields.slug}`}
             tags={tutorial.frontmatter.tags}
             className="col-4"
           />
-        ))}
+        )})}
       </section>
     </>
   );
@@ -106,6 +112,17 @@ export const query = graphql`
           value
         }
         id
+      }
+    }
+    allTutorialHeroes: allFile(
+      filter: { relativePath: { regex: ".*/hero-image.png$/" } }
+    ) {
+      nodes {
+        id
+        relativeDirectory
+        childImageSharp {
+          gatsbyImageData
+        }
       }
     }
   }

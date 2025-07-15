@@ -8,7 +8,8 @@ chapter: "1. Setting Up Your Python Development Environment"
 
 title: "Development Environment Setup"
 description: "Before diving into writing Python code, it’s essential to have a clean, efficient, and testable development environment. This chapter covers, Installing Python, Setting up virtual environments, Choosing the right IDE or editor, Creating your first Python script, Writing and running your first unit test."
-hero_image: "python-tutorial-banner.png"
+# hero_image: "python-tutorial-banner.png"
+has_quiz: true
 tags: ["fundamentals", "Python"]
 ---
 
@@ -229,7 +230,7 @@ git commit -m "Initial commit with greet function and test"
 
 Consider pushing to GitHub later for backup and collaboration.
 
-## **Conclusion**
+## Conclusion
 
 You now have:
 
@@ -238,7 +239,7 @@ You now have:
 * A dependency management workflow
 * Your first Python script and test case
 
-## **What’s Next:**
+## What is Next?
 
 In **Chapter 2: Python Syntax and Core Concepts**, we’ll cover:
 
