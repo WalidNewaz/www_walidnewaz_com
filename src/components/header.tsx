@@ -9,9 +9,6 @@ const HEADER_CLASSES = `
   bg-surface-1
   width-full
   z-3
-  border-block-end-black
-  border-block-end-solid
-  border-thin
   position-fixed`;
 const HAMBURGER_MENU_CLASSES = `
   ham-menu
