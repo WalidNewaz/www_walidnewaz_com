@@ -34,14 +34,14 @@ const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
 
   return (
     <section
-      className="border-color-heading2 border-block-end-dashed border-thin"
+      className=""
       style={{ width: "100%", paddingBottom: "1rem" }}
     >
       <ContentRibbon
-        className={`transition-opacity duration-500 h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] ${
+        className={`transition-opacity duration-500 ${
           showContent ? "opacity-100" : "opacity-0"
         }`}
-        scrollContainerClassName="h-[28rem] md:h-[20rem] lg:h-[21rem] dt_small:h-[22rem] gap-6"
+        scrollContainerClassName="gap-4"
       >
         <Pill
           topic="All"
