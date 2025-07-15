@@ -1,0 +1,110 @@
+{
+  "topic": "Files and Data Serialization",
+  "questions": [
+    {
+      "question": "Which mode opens a file for binary writing and overwrites existing content?",
+      "options": [
+        {
+          "text": "'wb'",
+          "correct": true,
+          "explanation": "'wb' opens the file in write-binary mode."
+        },
+        {
+          "text": "'rb'",
+          "correct": false,
+          "explanation": "'rb' is read-binary mode."
+        },
+        {
+          "text": "'ab'",
+          "correct": false,
+          "explanation": "'ab' is append-binary mode."
+        },
+        {
+          "text": "'wt'",
+          "correct": false,
+          "explanation": "'wt' is not a valid file mode."
+        }
+      ]
+    },
+    {
+      "question": "True or False: The `pickle` module is safe to use with untrusted input.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "Pickle can execute arbitrary code when loading data."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "Correct. Never unpickle data from untrusted sources."
+        }
+      ]
+    },
+    {
+      "question": "Which Python module would you use to write YAML configuration files?",
+      "options": [
+        {
+          "text": "pyyaml",
+          "correct": true,
+          "explanation": "pyyaml is the standard Python YAML parser."
+        },
+        {
+          "text": "csv",
+          "correct": false,
+          "explanation": "csv is for comma-separated files."
+        },
+        {
+          "text": "json",
+          "correct": false,
+          "explanation": "json is for JSON files, not YAML."
+        },
+        {
+          "text": "configparser",
+          "correct": false,
+          "explanation": "configparser is used for .ini files."
+        }
+      ]
+    },
+    {
+      "question": "True or False: `os.makedirs(path, exist_ok=True)` creates intermediate directories if needed.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "Correct. It creates nested directories recursively."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "Incorrect. It does create intermediate directories."
+        }
+      ]
+    },
+    {
+      "question": "Which Python function reads the full contents of a file into a string?",
+      "options": [
+        {
+          "text": "file.readlines()",
+          "correct": false,
+          "explanation": "`readlines()` returns a list of lines."
+        },
+        {
+          "text": "file.read()",
+          "correct": true,
+          "explanation": "`read()` reads the entire file into a single string."
+        },
+        {
+          "text": "file.readline()",
+          "correct": false,
+          "explanation": "`readline()` returns only the next line."
+        },
+        {
+          "text": "file.get()",
+          "correct": false,
+          "explanation": "`get()` is not a valid file method."
+        }
+      ]
+    }
+  ]
+}

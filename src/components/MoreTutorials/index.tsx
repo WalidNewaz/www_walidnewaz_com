@@ -28,8 +28,9 @@ const StyledHeading = styled.h2`
 /**
  * Generate all tutorials in the homepage
  */
-const MoreTutorials: React.FC<{ posts: any; heading?: string }> = ({
+const MoreTutorials: React.FC<{ posts: any; heroes: any; heading?: string }> = ({
   posts,
+  heroes,
   heading = "Posts",
 }) => {
   let postsText;
@@ -56,7 +57,13 @@ const MoreTutorials: React.FC<{ posts: any; heading?: string }> = ({
       </article>
     );
   } else {
-    postsText = posts.map((post: any) => (
+    postsText = posts.map((post: any) => {
+      const seriesDir = post.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+      const heroImagePattern = post.frontmatter.hero_image || heroes.find((hero: any) => {
+        return hero.relativeDirectory === seriesDir;
+      });
+
+      return (
       <ArticlePostCard
         key={post.id}
         postDate={post.frontmatter.date}
@@ -64,11 +71,11 @@ const MoreTutorials: React.FC<{ posts: any; heading?: string }> = ({
         title={
           post.frontmatter.title || post.headings[0].value || post.fields.slug
         }
-        image={post.frontmatter.hero_image}
+        image={heroImagePattern}
         slug={`/tutorials${post.fields.slug}`}
         tags={post.frontmatter.tags}
       />
-    ));
+    )});
   }
 
   return (

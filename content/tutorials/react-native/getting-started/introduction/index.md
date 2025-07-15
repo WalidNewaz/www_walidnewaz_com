@@ -8,7 +8,7 @@ chapter: "1. Introduction to React Native"
 
 title: "Introduction to React Native"
 description: "You’re a web developer. You know React.js. You're used to building fast, component-driven web apps that run in browsers. React Native makes that possible."
-hero_image: "react-native-tutorial-banner-2.png"
+# hero_image: "react-native-tutorial-banner-2.png"
 tags: ["Getting Started", "React Native"]
 has_quiz: true
 ---
