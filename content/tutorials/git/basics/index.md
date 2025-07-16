@@ -8,7 +8,7 @@ chapter: "1. Git Basics — Understanding Version Control"
 
 title: "Understanding Version Control"
 description: "In this chapter, we'll cover what Git is, why developers and DevOps engineers need it, and how to start tracking code for a real project."
-# hero_image: "git-chapter-banner.png"
+hero_image: "hero-image.png"
 tags: ["basics", "git"]
 ---
 
