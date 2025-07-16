@@ -11,7 +11,7 @@ chapter: "4. Class and Functional React Components"
 # chapter: "2. Advanced React Features"
 title: "Class and Functional React Components"
 description: "Comparison of Class Components and Functional Components in React."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['components', 'react']
 read_time: 5 min
 related: 

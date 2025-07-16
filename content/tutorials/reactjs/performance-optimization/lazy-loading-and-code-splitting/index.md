@@ -8,7 +8,7 @@ chapter: "13. Lazy Loading and Code Splitting"
 
 title: "Lazy Loading and Code Splitting"
 description: "Lazy loading reduces the initial load time only loading critical code upfront, while dynamically loading rest when required. Code splitting enables code to be distributed among multiple files, rather than a single large application bundle."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['react', 'optimization']
 ---
 

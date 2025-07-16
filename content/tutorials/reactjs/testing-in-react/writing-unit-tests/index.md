@@ -8,7 +8,7 @@ chapter: "14. Writing unit tests with Jest and React Testing Library"
 
 title: "Writing unit tests"
 description: "Unit testing ensures that individual components and functions work as expected, providing confidence in code stability and maintainability. In this article we’ll focus on writing unit tests using Jest and React Testing Library (RTL)."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ["react", "testing"]
 ---
 

@@ -8,7 +8,7 @@ chapter: "1. Introduction to TypeScript"
 
 title: "Introduction to TypeScript"
 description: "Introduction to TypeScript: Why You Should Switch from JavaScript"
-hero_image: "typescript-banner.png"
+# hero_image: "typescript-banner.png"
 tags: ["beginner", "typescript"]
 read_time: 5 min
 related: 

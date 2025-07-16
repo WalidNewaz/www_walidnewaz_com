@@ -11,7 +11,7 @@ chapter: "5. React Hooks: A brief introduction"
 # chapter: "2. Advanced React Features"
 title: "React Hooks: A brief introduction"
 description: "React Hooks: A Deep Dive into useState, useEffect, and Custom Hooks, pitfalls and optimization."
-hero_image: "ferenc-almasi-tvHtIGbbjMo-unsplash.jpg"
+# hero_image: "ferenc-almasi-tvHtIGbbjMo-unsplash.jpg"
 tags: ['react hooks', 'react']
 read_time: 15 min
 related: 

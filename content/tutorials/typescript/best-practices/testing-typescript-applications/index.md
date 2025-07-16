@@ -11,7 +11,7 @@ chapter: "16. Testing TypeScript Applications"
 # chapter: "5. Best Practices and Patterns"
 title: "Testing TypeScript Applications"
 description: "With TypeScript, testing involves not just runtime behavior but also ensuring type correctness and application logic. This article discusses various types of tests applicable to TypeScript applications, tools that facilitate these tests, and best practices to keep in mind."
-hero_image: "developer-8829735_1920.jpg"
+# hero_image: "developer-8829735_1920.jpg"
 tags: ["testing", "typescript"]
 read_time: 10 min
 related:

@@ -129,6 +129,7 @@ const TutorialChapter: React.FC<any> = ({
     previous,
     next,
     markdownRemark: post,
+    allTutorialHeroes,
     heroImage,
     allSeriesPosts,
     relatedPosts,
@@ -136,6 +137,10 @@ const TutorialChapter: React.FC<any> = ({
   pageContext,
 }) => {
   const articleBody = useRef<HTMLDivElement>(null);
+  const seriesDir = post.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+  const heroImagePattern = post.frontmatter.hero_image || allTutorialHeroes.nodes.find((hero: any) => {
+    return hero.relativeDirectory === seriesDir;
+  });
   // console.log(pageContext);
   // console.log("Quiz:", pageContext?.quiz);
 
@@ -160,7 +165,7 @@ const TutorialChapter: React.FC<any> = ({
             {post.frontmatter.read_time} read
           </div>
         </ArticleHeader> */}
-        <HeroImage {...{ post, heroImage }} className="article-hero-img" />
+        <HeroImage {...{ post, heroImage: heroImagePattern }} className="article-hero-img" />
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
           <StyledArticleBody
@@ -228,6 +233,7 @@ export const pageQuery = graphql`
         read_time
         hero_image {
           id
+          base
           childImageSharp {
             gatsbyImageData
           }
@@ -238,6 +244,20 @@ export const pageQuery = graphql`
         value
         depth
         id
+      }
+      fields {
+        slug
+      }
+    }
+    allTutorialHeroes: allFile(
+      filter: { relativePath: { regex: ".*/hero-image.png$/" } }
+    ) {
+      nodes {
+        id
+        relativeDirectory
+        childImageSharp {
+          gatsbyImageData
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
@@ -298,6 +318,7 @@ export const pageQuery = graphql`
           description
           hero_image {
             id
+            base
             childImageSharp {
               gatsbyImageData
             }

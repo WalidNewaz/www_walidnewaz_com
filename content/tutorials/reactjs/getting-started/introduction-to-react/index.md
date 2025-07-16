@@ -8,7 +8,7 @@ chapter: "1. Introduction to React"
 
 title: "Introduction to React"
 description: "Introduction to React: Understanding components, props, and state"
-hero_image: "pexels-realtoughcandy-11035471.jpg"
+# hero_image: "pexels-realtoughcandy-11035471.jpg"
 tags: ['beginner', 'react']
 read_time: 10 min
 related: 

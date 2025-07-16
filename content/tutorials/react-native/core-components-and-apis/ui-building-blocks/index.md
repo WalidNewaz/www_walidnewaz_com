@@ -8,7 +8,7 @@ chapter: "3. UI Building Blocks"
 
 title: "UI Building Blocks"
 description: "Instead of using web components such as div and span, React Native uses its own components. In this chapter you'll learn about many such components such as View, Tex, and ScrollView"
-hero_image: "react-native-tutorial-banner-2.png"
+# hero_image: "react-native-tutorial-banner-2.png"
 tags: ["Core Components", "React Native"]
 has_quiz: true
 ---

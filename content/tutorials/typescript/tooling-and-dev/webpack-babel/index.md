@@ -11,7 +11,7 @@ chapter: "8. TypeScript with Webpack and Babel"
 # chapter: "3. Tooling and Development Environment"
 title: "TypeScript with Webpack and Babel"
 description: "Setting Up a TypeScript Project with Webpack and Babel"
-hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["Build tools", "typescript"]
 read_time: 12 min
 related:

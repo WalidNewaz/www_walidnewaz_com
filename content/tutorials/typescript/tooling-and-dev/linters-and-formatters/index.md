@@ -10,7 +10,7 @@ chapter: "10. TypeScript Linters and Formatters"
 # chapter: "3. Tooling and Development Environment"
 title: "TypeScript Linters and Formatters"
 description: "Enhancing Productivity with TypeScript Linters and Formatters"
-hero_image: "typescript-banner.png"
+# hero_image: "typescript-banner.png"
 tags: ["dev tools", "typescript"]
 read_time: 6 min
 related:

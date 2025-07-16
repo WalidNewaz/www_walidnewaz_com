@@ -11,7 +11,7 @@ chapter: "18. Monorepos and Module Federation"
 # chapter: "5. Best Practices and Patterns"
 title: "Monorepos and Module Federation"
 description: "This article explores two advanced architectural strategies — Monorepos and Module Federation — that can significantly enhance the scalability, maintainability, and development efficiency of large TypeScript projects."
-hero_image: "developer-8829735_1920.jpg"
+# hero_image: "developer-8829735_1920.jpg"
 tags: ["monorepos", "typescript"]
 read_time: 10 min
 related:

@@ -12,7 +12,7 @@ chapter: "12. TypeScript Decorators"
 slug: /decorators
 title: "TypeScript Decorators"
 description: "TypeScript decorators provide a powerful and expressive way to modify and annotate class declarations and members. Decorators can be attached to a class declaration, method, accessor, property, or parameter. In this article, we'll explore how decorators work, how to use them effectively, and real-world scenarios where they can significantly enhance your application's architecture."
-hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["decorators", "typescript"]
 read_time: 20 min
 related:
