@@ -155,11 +155,32 @@ const createTutorialChapterPages = async ({
   }
 };
 
-const createSchemaCustomization = ({
+export const createSchemaCustomization = ({
   actions,
 }: CreateSchemaCustomizationArgs) => {
   const { createTypes } = actions;
   createTypes(`
+    type MarkdownRemark implements Node {
+      id: ID!
+      frontmatter: Frontmatter
+      fields: Fields
+    }
+
+    type Frontmatter {
+      series: String
+      part: String
+      chapter: String
+      title: String
+      hero_image: File @fileByRelativePath
+      pathDate: Date @dateformat
+      related: [String]
+      has_quiz: Boolean
+    }
+
+    type Fields {
+      slug: String
+    }
+
     type MarkdownRemarkFrontmatter {
       has_quiz: Boolean
       hero_image: File @link(from: "hero_image")
