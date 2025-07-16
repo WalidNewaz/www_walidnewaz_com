@@ -52,13 +52,6 @@ const createTutorialChapterPages = async ({
             series
             part
             chapter
-            hero_image {
-              id
-              base
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
             pathDate: date(formatString: "/YYYY/MM/DD")
             related
             has_quiz
