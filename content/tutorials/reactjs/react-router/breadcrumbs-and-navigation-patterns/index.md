@@ -8,7 +8,7 @@ chapter: "11. Implementing breadcrumbs"
 
 title: "Implementing breadcrumbs"
 description: "Breadcrumbs provide users with contextual information about their current location within the app and allow them to navigate efficiently."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['react router', 'breadcrumb']
 read_time: 6 min
 related: 

@@ -8,7 +8,7 @@ chapter: "2. Setting Up Your First React Project"
 
 title: "Setting Up Your First React Project"
 description: "Introduction to React: Setting Up Your First React Project"
-hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
+# hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
 tags: ['beginner', 'react']
 read_time: 10 min
 related: 

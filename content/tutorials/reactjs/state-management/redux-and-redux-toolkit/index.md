@@ -11,7 +11,7 @@ chapter: "7. Redux and Redux Toolkit"
 # chapter: "3. State Management in React"
 title: "Redux and Redux Toolkit"
 description: "In the realm of React development, managing state effectively is crucial for building responsive and maintainable applications. Redux has long been a cornerstone of the React ecosystem, providing a predictable state container for JavaScript apps. The Redux Toolkit, introduced more recently, offers a more efficient, powerful way to write Redux logic."
-hero_image: "kelly-sikkema-gcHFXsdcmJE-unsplash.jpg"
+# hero_image: "kelly-sikkema-gcHFXsdcmJE-unsplash.jpg"
 tags: ['redux', 'react']
 read_time: 6 min
 related: 

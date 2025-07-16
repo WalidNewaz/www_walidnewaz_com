@@ -11,7 +11,7 @@ chapter: "11. TypeScript and VSCode"
 # chapter: "3. Tooling and Development Environment"
 title: "TypeScript and VSCode"
 description: "TypeScript and VSCode: Tips and Tricks for Efficient Development"
-hero_image: "typescript-banner.png"
+# hero_image: "typescript-banner.png"
 tags: ["dev tools", "typescript"]
 read_time: 5 min
 related:

@@ -11,7 +11,7 @@ chapter: "4. Classes, Interfaces, and Objects in TypeScript"
 # chapter: "2. Intermediate Topics"
 title: "Classes, Interfaces, and Objects in TypeScript"
 description: "Using classes, interfaces, and objects in TypeScript to build scalable applications."
-hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["object oriented", "typescript"]
 read_time: 15 min
 related: 

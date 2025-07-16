@@ -11,7 +11,7 @@ chapter: "15. Tips for Writing Clean Code"
 # chapter: "5. Best Practices and Patterns"
 title: "Tips for Writing Clean Code"
 description: "Writing clean, maintainable, and effective TypeScript requires understanding some best practices and principles. This article explores several important tips that can help you leverage TypeScript's capabilities to enhance your coding practices."
-hero_image: "developer-8829735_1920.jpg"
+# hero_image: "developer-8829735_1920.jpg"
 tags: ["modules", "namespaces", "typescript"]
 read_time: 15 min
 related:

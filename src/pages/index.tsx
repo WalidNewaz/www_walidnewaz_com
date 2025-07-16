@@ -88,6 +88,7 @@ export const pageQuery = graphql`
         frontmatter {
           image: hero_image {
             id
+            base
             childImageSharp {
               gatsbyImageData
             }
@@ -120,6 +121,7 @@ export const pageQuery = graphql`
           description
           hero_image {
             id
+            base
             childImageSharp {
               gatsbyImageData
             }
@@ -157,6 +159,7 @@ export const pageQuery = graphql`
           description
           hero_image {
             id
+            base
             childImageSharp {
               gatsbyImageData
             }

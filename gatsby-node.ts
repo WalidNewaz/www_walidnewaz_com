@@ -55,6 +55,9 @@ const createTutorialChapterPages = async ({
             hero_image {
               id
               base
+              childImageSharp {
+                gatsbyImageData
+              }
             }
             pathDate: date(formatString: "/YYYY/MM/DD")
             related
@@ -190,6 +193,9 @@ const createBlogPostPages = async ({
             hero_image {
               id
               base
+              childImageSharp {
+                gatsbyImageData
+              }
             }
             pathDate: date(formatString: "/YYYY/MM/DD")
             related

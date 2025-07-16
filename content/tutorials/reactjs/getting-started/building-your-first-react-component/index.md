@@ -8,7 +8,7 @@ chapter: "3. Building your first React component"
 
 title: "Building your first React component"
 description: "Introduction to React: Building your first React component"
-hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
+# hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
 tags: ['beginner', 'react']
 read_time: 10 min
 related: 

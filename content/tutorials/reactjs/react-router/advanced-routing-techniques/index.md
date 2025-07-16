@@ -8,7 +8,7 @@ chapter: "10. Advanced Routing Techniques: Nested Routes, Dynamic Routing, and R
 
 title: "Advanced Routing Techniques"
 description: "Advanced React routing techniques such as nested routes, dynamic routing, and route guards allow developers to create more complex and feature-rich applications."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['react router', 'nested route']
 read_time: 8 min
 related: 

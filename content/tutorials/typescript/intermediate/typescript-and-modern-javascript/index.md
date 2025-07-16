@@ -11,7 +11,7 @@ chapter: "6. TypeScript and Modern JavaScript"
 # chapter: "2. Intermediate Topics"
 title: "TypeScript and Modern JavaScript"
 description: "TypeScript and Modern JavaScript: Integrating ES6+ Features."
-hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["typescript"]
 read_time: 5 min
 related: 

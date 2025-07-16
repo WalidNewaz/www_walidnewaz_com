@@ -101,6 +101,7 @@ export const query = graphql`
           description
           hero_image {
             id
+            base
             childImageSharp {
               gatsbyImageData
             }

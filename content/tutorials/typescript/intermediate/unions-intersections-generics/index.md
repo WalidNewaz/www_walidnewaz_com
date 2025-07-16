@@ -12,7 +12,7 @@ chapter: "5. Unions, Intersections, and Generics"
 # chapter: "2. Intermediate Topics"
 title: "Unions, Intersections, and Generics"
 description: "Advanced TypeScript Types: Unions, Intersections, and Generics."
-hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["object oriented", "typescript"]
 read_time: 15 min
 related: 

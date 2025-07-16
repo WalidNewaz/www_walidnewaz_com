@@ -8,7 +8,7 @@ chapter: "18. Deploying React Applications on various Platforms"
 
 title: "Deploying React Applications on various Platforms"
 description: "Deploying a React application has never been easier, thanks to modern platforms like Vercel, Netlify, and AWS Amplify. These services offer continuous deployment (CI/CD), edge caching, custom domain management, HTTPS, and serverless functions — all out of the box."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ["react", "deployment"]
 ---
 

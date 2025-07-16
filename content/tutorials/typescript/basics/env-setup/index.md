@@ -8,7 +8,7 @@ chapter: "2. Environment setup for TypeScript"
 
 title: "Environment setup for TypeScript"
 description: "Setting Up Your TypeScript Environment: Tools and Best Practices"
-hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
 tags: ["beginner", "typescript"]
 read_time: 6 min
 related: 
