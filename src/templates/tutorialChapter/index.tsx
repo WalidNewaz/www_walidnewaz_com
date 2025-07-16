@@ -138,7 +138,7 @@ const TutorialChapter: React.FC<any> = ({
 }) => {
   const articleBody = useRef<HTMLDivElement>(null);
   const seriesDir = post.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
-  const heroImagePattern = post.frontmatter.hero_image || allTutorialHeroes.nodes.find((hero: any) => {
+  const heroImagePattern = allTutorialHeroes.nodes.find((hero: any) => {
     return hero.relativeDirectory === seriesDir;
   });
   // console.log(pageContext);
@@ -231,13 +231,6 @@ export const pageQuery = graphql`
         description
         date(formatString: "MMMM DD, YYYY")
         read_time
-        hero_image {
-          id
-          base
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
         tags
       }
       headings {
@@ -316,13 +309,6 @@ export const pageQuery = graphql`
           pathDate: date(formatString: "/YYYY/MM/DD")
           title
           description
-          hero_image {
-            id
-            base
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
           tags
           read_time
         }
