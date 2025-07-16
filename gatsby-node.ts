@@ -155,6 +155,18 @@ const createTutorialChapterPages = async ({
   }
 };
 
+const createSchemaCustomization = ({
+  actions,
+}: CreateSchemaCustomizationArgs) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type MarkdownRemarkFrontmatter {
+      has_quiz: Boolean
+      hero_image: File @link(from: "hero_image")
+    }
+  `);
+};
+
 /**
  * Creates static pages for individual blog posts
  */
