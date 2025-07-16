@@ -8,7 +8,7 @@ chapter: "5. Navigation and Routing"
 
 title: "Navigation and Routing"
 description: "This chapter will show you how to style React Native apps properly."
-hero_image: "react-native-tutorial-banner-2.png"
+# hero_image: "react-native-tutorial-banner-2.png"
 tags: ["Routing", "React Native"]
 has_quiz: true
 ---

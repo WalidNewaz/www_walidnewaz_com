@@ -11,7 +11,7 @@ chapter: "8. React Context API"
 # chapter: "3. State Management in React"
 title: "React Context API"
 description: "React Context API: Managing Global State Without Redux."
-hero_image: "kelly-sikkema-gcHFXsdcmJE-unsplash.jpg"
+# hero_image: "kelly-sikkema-gcHFXsdcmJE-unsplash.jpg"
 tags: ['context', 'react']
 read_time: 6 min
 related: 

@@ -10,7 +10,7 @@ chapter: "7. TypeScript in Node.js"
 # chapter: "3. Tooling and Development Environment"
 title: "TypeScript in Node.js"
 description: "TypeScript in Node.js: Writing Your First TypeScript Node Application"
-hero_image: "typescript-banner.png"
+# hero_image: "typescript-banner.png"
 tags: ["node.js", "typescript"]
 read_time: 15 min
 related:

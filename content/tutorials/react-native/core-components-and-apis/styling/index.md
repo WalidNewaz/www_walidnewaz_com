@@ -8,7 +8,7 @@ chapter: "4. Styling in React Native"
 
 title: "Styling in React Native"
 description: "This chapter will show you how to style React Native apps properly."
-hero_image: "react-native-tutorial-banner-2.png"
+# hero_image: "react-native-tutorial-banner-2.png"
 tags: ["Styling", "React Native"]
 has_quiz: true
 ---

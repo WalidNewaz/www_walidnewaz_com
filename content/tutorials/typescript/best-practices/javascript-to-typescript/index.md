@@ -11,7 +11,7 @@ chapter: "17. Refactoring JavaScript to TypeScript"
 # chapter: "5. Best Practices and Patterns"
 title: "Refactoring JavaScript to TypeScript"
 description: "Migrating a JavaScript codebase to TypeScript can significantly improve the maintainability and robustness of an application by introducing strong typing and catching errors at compile time."
-hero_image: "developer-8829735_1920.jpg"
+# hero_image: "developer-8829735_1920.jpg"
 tags: ["typescript"]
 read_time: 5 min
 related:

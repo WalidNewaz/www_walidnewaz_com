@@ -8,7 +8,7 @@ chapter: "15. Testing Hooks and Asynchronous Code in React"
 
 title: "Unit testing Hooks and Asynchronous Code in React"
 description: "In React, developers often need to test hooks, and other asynchronous code effectively to ensure their applications behave as expected. This article dives into techniques and tools for testing hooks, and asynchronous code using popular libraries like Jest and React Testing Library (RTL)."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ["react", "testing"]
 ---
 

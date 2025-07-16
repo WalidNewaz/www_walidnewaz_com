@@ -8,7 +8,7 @@ chapter: "19. CI/CD Pipelines for React Projects"
 
 title: "CI/CD Pipelines for React Projects"
 description: "Continuous Integration (CI) and Continuous Deployment (CD) pipelines are essential for modern web development workflows. In this article, we’ll explore how to set up CI/CD pipelines for React projects, with practical examples."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ["react", "deployment"]
 ---
 

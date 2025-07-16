@@ -11,7 +11,7 @@ chapter: "9. TypeScript with React, Vue, and Angular"
 # chapter: "3. Tooling and Development Environment"
 title: "TypeScript with React, Vue, and Angular"
 description: "Using TypeScript with Popular Frameworks: React, Vue, and Angular"
-hero_image: "typescript-banner.png"
+# hero_image: "typescript-banner.png"
 tags: ["react", "vue", "angular", "typescript"]
 read_time: 10 min
 related:

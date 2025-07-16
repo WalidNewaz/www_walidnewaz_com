@@ -8,7 +8,7 @@ chapter: "17. Best Practices for Building Production-Ready React Apps"
 
 title: "Best Practices for Building Production-Ready React Apps"
 description: "End-to-end (E2E) testing is a crucial aspect of modern web development, ensuring that applications function correctly from the user's perspective. Cypress is a powerful and user-friendly JavaScript testing framework that simplifies E2E testing for React applications."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ["react", "deployment"]
 ---
 

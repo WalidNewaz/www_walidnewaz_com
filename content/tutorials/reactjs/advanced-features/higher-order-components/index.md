@@ -11,7 +11,7 @@ chapter: "6. Higher-Order Components"
 # chapter: "2. Advanced React Features"
 title: "Higher-Order Components"
 description: "Higher-Order Components (HOCs) and Render Props are two advanced techniques that help in sharing behavior across React components."
-hero_image: "lautaro-andreani-UYsBCu9RP3Y-unsplash.jpg"
+# hero_image: "lautaro-andreani-UYsBCu9RP3Y-unsplash.jpg"
 tags: ['HOCs', 'render props', 'react']
 read_time: 7 min
 related:

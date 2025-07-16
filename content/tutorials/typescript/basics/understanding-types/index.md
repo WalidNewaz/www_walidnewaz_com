@@ -9,7 +9,7 @@ chapter: "3. Understanding TypeScript Types"
 
 title: "Understanding TypeScript Types"
 description: "TypeScript Fundamentals: Understanding Types and Interfaces. Learn how to write more type-safe and manageable code."
-hero_image: "typescript-banner.png"
+# hero_image: "typescript-banner.png"
 tags: ["beginner", "typescript"]
 read_time: 15 min
 related: 

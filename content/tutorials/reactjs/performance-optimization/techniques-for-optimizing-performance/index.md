@@ -8,7 +8,7 @@ chapter: "12. Optimizing Performance in React Applications"
 
 title: "Optimizing Performance in React Applications"
 description: "As React applications grow in size and complexity, ensuring they remain responsive and fast becomes increasingly challenging. This chapter explores techniques for optimizing the performance of React applications."
-hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
+# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
 tags: ['react', 'performance']
 ---
 
