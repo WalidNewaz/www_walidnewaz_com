@@ -1,0 +1,110 @@
+{
+  "topic": "Error Handling and Debugging",
+  "questions": [
+    {
+      "question": "Which Python exception is raised when dividing by zero?",
+      "options": [
+        {
+          "text": "ValueError",
+          "correct": false,
+          "explanation": "ValueError is raised for invalid values, not division by zero."
+        },
+        {
+          "text": "ZeroDivisionError",
+          "correct": true,
+          "explanation": "ZeroDivisionError is the correct built-in exception for this case."
+        },
+        {
+          "text": "ArithmeticError",
+          "correct": false,
+          "explanation": "ArithmeticError is a base class, but not specific enough."
+        },
+        {
+          "text": "OverflowError",
+          "correct": false,
+          "explanation": "OverflowError occurs when a number is too large, not on zero division."
+        }
+      ]
+    },
+    {
+      "question": "True or False: Logging is only useful during development.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "Logging is essential in production for monitoring and debugging."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "Logging helps track application behavior both in development and production."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following logging levels is the most severe?",
+      "options": [
+        {
+          "text": "DEBUG",
+          "correct": false,
+          "explanation": "DEBUG is the least severe level."
+        },
+        {
+          "text": "WARNING",
+          "correct": false,
+          "explanation": "WARNING is for minor issues, not the most severe."
+        },
+        {
+          "text": "ERROR",
+          "correct": false,
+          "explanation": "ERROR is serious, but CRITICAL is more severe."
+        },
+        {
+          "text": "CRITICAL",
+          "correct": true,
+          "explanation": "CRITICAL indicates the highest severity, often application failure."
+        }
+      ]
+    },
+    {
+      "question": "What Python command can you use to drop into the debugger?",
+      "options": [
+        {
+          "text": "import debug",
+          "correct": false,
+          "explanation": "`debug` is not a built-in module."
+        },
+        {
+          "text": "pdb.set_trace()",
+          "correct": true,
+          "explanation": "`pdb.set_trace()` is the standard way to enter the debugger."
+        },
+        {
+          "text": "breakpoint()",
+          "correct": true,
+          "explanation": "`breakpoint()` is also valid starting in Python 3.7+."
+        },
+        {
+          "text": "trace.debug()",
+          "correct": false,
+          "explanation": "This is not a valid way to start debugging in Python."
+        }
+      ]
+    },
+    {
+      "question": "True or False: You should use print statements for logging in production systems.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "Print statements are not configurable or structured like logging."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "Use the logging module in production instead of print."
+        }
+      ]
+    }
+  ]
+}
