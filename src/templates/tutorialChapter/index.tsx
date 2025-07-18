@@ -83,6 +83,31 @@ const StyledArticleBody = styled.section`
     margin-bottom: var(--spacing-6);
   }
 
+  h1 {
+    font-size: var(--fontSize-5);
+    margin-top: var(--spacing-8);
+  }
+
+  h2 {
+    font-size: var(--fontSize-4);
+    margin-top: var(--spacing-6);
+  }
+
+  h3 {
+    font-size: var(--fontSize-3);
+    margin-top: var(--spacing-5);
+  }
+
+  h4 {
+    font-size: var(--fontSize-2);
+    margin-top: var(--spacing-4);
+  }
+
+  h5 {
+    font-size: var(--fontSize-1);
+    margin-top: var(--spacing-3);
+  }
+
   @media screen and (min-width: 800px) and (max-width: 975px) {
     grid-column: span 8;
   }
