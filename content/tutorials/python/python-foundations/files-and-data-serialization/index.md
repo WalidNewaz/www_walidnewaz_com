@@ -7,7 +7,7 @@ part: "I. Python Foundations"
 chapter: "3. Working with Files and Data Serialization"
 
 title: "Files and Data Serialization"
-description: "Before diving into writing Python code, it’s essential to have a clean, efficient, and testable development environment. This chapter covers, Installing Python, Setting up virtual environments, Choosing the right IDE or editor, Creating your first Python script, Writing and running your first unit test."
+description: "This chapter demonstrates how Python applications read, write, and serialize data into and from files. We will handle text, binary, CSV, JSON, and other common file formats."
 # hero_image: "python-tutorial-banner.png"
 has_quiz: true
 tags: ["fundamentals", "Python"]
