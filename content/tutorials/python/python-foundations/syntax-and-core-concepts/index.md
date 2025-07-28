@@ -17,6 +17,7 @@ tags: ["fundamentals", "Python"]
 Now that your development environment is ready, it’s time to get hands-on with Python syntax and core programming concepts. In this chapter, we’ll cover:
 
 * Variables and Data Types
+* Operators
 * Conditional Statements
 * Loops
 * Functions and Modules
@@ -143,7 +144,136 @@ print(type(name))  # Output: <class 'str'>
 * **Further Reading:**
   [Python Standard Types - Official Docs](https://docs.python.org/3/library/stdtypes.html)
 
-## 2.2 Conditional Statements
+## 2.2 Operators
+
+Like all high level programming languages, Python comes with many operators of various kinds, to work with data of different types.
+
+### Categories of Python Operators
+
+| Category             | Description                         |
+| -------------------- | ----------------------------------- |
+| Arithmetic Operators | Perform mathematical calculations   |
+| Assignment Operators | Assign values to variables          |
+| Comparison Operators | Compare two values                  |
+| Logical Operators    | Combine conditional statements      |
+| Identity Operators   | Compare object identity (`is`)      |
+| Membership Operators | Check existence in sequences (`in`) |
+| Bitwise Operators    | Operate at the binary level         |
+
+### Arithmetic Operators
+
+| Operator | Description         | Example  | Result |
+| -------- | ------------------- | -------- | ------ |
+| `+`      | Addition            | `5 + 3`  | `8`    |
+| `-`      | Subtraction         | `5 - 3`  | `2`    |
+| `*`      | Multiplication      | `5 * 3`  | `15`   |
+| `/`      | Division            | `5 / 2`  | `2.5`  |
+| `//`     | Floor Division      | `5 // 2` | `2`    |
+| `%`      | Modulus (remainder) | `5 % 2`  | `1`    |
+| `**`     | Exponentiation      | `2 ** 3` | `8`    |
+
+### Assignment Operators
+
+Used to **assign and modify values**.
+
+| Operator | Example   | Equivalent to |
+| -------- | --------- | ------------- |
+| `=`      | `a = 5`   |               |
+| `+=`     | `a += 1`  | `a = a + 1`   |
+| `-=`     | `a -= 2`  | `a = a - 2`   |
+| `*=`     | `a *= 3`  | `a = a * 3`   |
+| `/=`     | `a /= 4`  | `a = a / 4`   |
+| `//=`    | `a //= 2` | `a = a // 2`  |
+| `%=`     | `a %= 3`  | `a = a % 3`   |
+| `**=`    | `a **= 2` | `a = a ** 2`  |
+
+### Comparison (Relational) Operators
+
+Return **Boolean values**.
+
+| Operator | Description           | Example  | Result  |
+| -------- | --------------------- | -------- | ------- |
+| `==`     | Equal                 | `3 == 3` | `True`  |
+| `!=`     | Not equal             | `4 != 5` | `True`  |
+| `>`      | Greater than          | `5 > 2`  | `True`  |
+| `<`      | Less than             | `3 < 1`  | `False` |
+| `>=`     | Greater than or equal | `5 >= 5` | `True`  |
+| `<=`     | Less than or equal    | `4 <= 5` | `True`  |
+
+### Logical Operators
+
+Used to **combine multiple conditions**.
+
+| Operator | Description       | Example            | Result     |
+| -------- | ----------------- | ------------------ | ---------- |
+| `and`    | True if both      | `x > 1 and x < 10` | True/False |
+| `or`     | True if either    | `x < 0 or x > 5`   | True/False |
+| `not`    | Negates condition | `not (x == 3)`     | True/False |
+
+### Identity Operators
+
+Used to **compare memory addresses**, not values.
+
+```python
+a = [1, 2, 3]
+b = a
+c = [1, 2, 3]
+
+print(a is b)  # True
+print(a is c)  # False
+print(a == c)  # True (values are equal)
+```
+
+| Operator | Description          |
+| -------- | -------------------- |
+| `is`     | True if same object  |
+| `is not` | True if not same obj |
+
+### Membership Operators
+
+Check whether a value is in a container.
+
+```python
+my_list = [1, 2, 3]
+
+print(2 in my_list)     # True
+print(4 not in my_list) # True
+```
+
+| Operator | Description             |
+| -------- | ----------------------- |
+| `in`     | True if found in object |
+| `not in` | True if not found       |
+
+### Bitwise Operators
+
+Operate at the **bit level**.
+
+| Operator    | Symbol | Use Case |
+| ----------- | ------ | -------- |
+| AND         | `&`    | `a & b`  |
+| OR          | `\|`   | `a \| b` |
+| XOR         | `^`    | `a ^ b`  |
+| NOT         | `~`    | `~a`     |
+| Left Shift  | `<<`   | `a << 2` |
+| Right Shift | `>>`   | `a >> 2` |
+
+### Operator Precedence
+
+Precedence determines **order of execution** in expressions.
+
+| Precedence Level | Operators                        |
+| ---------------- | -------------------------------- |
+| Highest          | `()` (Parentheses)               |
+|                  | `**` (Exponentiation)            |
+|                  | `+`, `-` (Unary)                 |
+|                  | `*`, `/`, `//`, `%`              |
+|                  | `+`, `-`                         |
+|                  | Comparison: `==`, `!=`, `<`, `>` |
+|                  | Logical: `not`, `and`, `or`      |
+| Lowest           | `=` (Assignment)                 |
+
+## 2.3 Conditional Statements
 
 Python uses indentation (not curly braces) for blocks of code.
 
@@ -158,7 +288,7 @@ else:
     print("x is less than 5")
 ```
 
-## 2.3 Loops
+## 2.4 Loops
 
 ### For Loop
 
@@ -184,7 +314,7 @@ while count < 3:
 * `break`: Exit the loop early
 * `continue`: Skip to the next iteration
 
-## 2.4 Functions and Modules
+## 2.5 Functions and Modules
 
 The `def` keyword is used to define a function in Python. Functions help **organize and reuse** your code.
 
@@ -213,6 +343,63 @@ from math_utils import multiply
 
 print(multiply(3, 4))  # Output: 12
 ```
+
+## 2.6 Comments
+
+Comments are **lines ignored by the Python interpreter**. They're used to explain what the code does, document tricky logic, or temporarily disable code.
+
+### Single-Line Comments
+
+Use the `#` symbol to start a single-line comment:
+
+```python
+# This is a single-line comment
+print("Hello, World!")  # This prints a greeting
+```
+
+Everything after the `#` is ignored by Python.
+
+### Multi-Line Comments (Convention)
+
+Python does not have a native multi-line comment syntax. Instead, we use multiple `#` lines:
+
+```python
+# This script calculates
+# the square of a number
+# and prints the result
+```
+
+Alternatively, you can use a triple-quoted string that isn’t assigned:
+
+```python
+"""
+This is not a true multi-line comment,
+but it behaves like one and is commonly used
+for documentation or disabling code temporarily.
+"""
+```
+
+However, triple quotes are typically reserved for **docstrings** (see below).
+
+### Docstrings: Comments for Documentation
+
+Python supports **inline documentation** using **docstrings**—strings enclosed in triple quotes at the start of a module, function, or class.
+
+```python
+def greet(name):
+    """
+    This function greets the user by name.
+    """
+    return f"Hello, {name}"
+```
+
+You can access docstrings using:
+
+```python
+print(greet.__doc__)
+```
+
+This is useful for auto-generating documentation with tools like Sphinx or IDE tooltips.
 
 ## Example Project: CLI-Based Calculator
 
@@ -282,7 +469,7 @@ Enter second number: 5
 Result: 15.0
 ```
 
-## 2.6 Writing Unit Tests for the Calculator
+## Writing Unit Tests for the Calculator
 
 Now, let's create a unit test file.
 

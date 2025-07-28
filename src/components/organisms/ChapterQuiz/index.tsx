@@ -10,13 +10,19 @@ const StyledQuiz = styled.div`
 
   h3 {
     font-size: 2rem;
-    padding-inline-start: 1.75rem;
     padding-inline-end: 1.75rem;
+  }
+
+  h6 {
+    font-size: 1.2rem;
+    color: #5f6368;
+    text-align: left;
+    margin: 0.5rem 0;
+    line-height: 1.5;
   }
 
   p {
     font-size: 1rem;
-    padding-inline-start: 1.75rem;
     padding-inline-end: 1.75rem;
   }
 
