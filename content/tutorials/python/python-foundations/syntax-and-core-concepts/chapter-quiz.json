@@ -27,6 +27,21 @@
       ]
     },
     {
+      "question": "True or False: `not` is a comparison operator.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "`not` is a logical operator, not a comparison operator."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "Correct. `not` is used to negate boolean expressions."
+        }
+      ]
+    },
+    {
       "question": "Which statement is true about Python's `if` statement?",
       "options": [
         {
