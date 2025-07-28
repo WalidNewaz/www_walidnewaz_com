@@ -1,0 +1,110 @@
+{
+  "topic": "Error Handling and Debugging",
+  "questions": [
+    {
+      "question": "What does the `__init__` method do in a Python class?",
+      "options": [
+        {
+          "text": "Initializes a new module",
+          "correct": false,
+          "explanation": "`__init__` is not related to modules; it's used to initialize objects."
+        },
+        {
+          "text": "Defines a method to print class attributes",
+          "correct": false,
+          "explanation": "`__init__` is used to initialize an object, not for printing."
+        },
+        {
+          "text": "Initializes the state of a new object when the class is instantiated",
+          "correct": true,
+          "explanation": "`__init__` is called automatically when a new object is created to set initial values."
+        },
+        {
+          "text": "Deletes an object’s memory",
+          "correct": false,
+          "explanation": "`__del__` is used for object deletion, not `__init__`."
+        }
+      ]
+    },
+    {
+      "question": "True or False: Inheritance allows a class to inherit both attributes and methods from another class.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "Inheritance enables a class to reuse code from a parent class, including both attributes and methods."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "This is incorrect—inheritance *does* include both attributes and methods."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following dunder methods is used to represent an object as a string for developers (e.g., in a debugger)?",
+      "options": [
+        {
+          "text": "__str__",
+          "correct": false,
+          "explanation": "`__str__` is used to produce a user-friendly string version of an object, like in `print()`."
+        },
+        {
+          "text": "__repr__",
+          "correct": true,
+          "explanation": "`__repr__` provides a detailed representation, often for debugging or logging."
+        },
+        {
+          "text": "__len__",
+          "correct": false,
+          "explanation": "`__len__` is used to implement the built-in `len()` function."
+        },
+        {
+          "text": "__call__",
+          "correct": false,
+          "explanation": "`__call__` allows instances to be called as if they were functions."
+        }
+      ]
+    },
+    {
+      "question": "True or False: Dunder methods must always be explicitly called by the user.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "Dunder methods are called automatically by Python under the hood (e.g., `len(obj)` calls `__len__`)."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "Dunder methods are invoked implicitly by built-in operations unless explicitly called."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following best describes the responsibility of the `TaskManager` class in the chapter's example?",
+      "options": [
+        {
+          "text": "It handles string formatting of tasks.",
+          "correct": false,
+          "explanation": "String formatting is handled by the `Task` class’s `__str__` method."
+        },
+        {
+          "text": "It stores and manages a list of tasks.",
+          "correct": true,
+          "explanation": "The `TaskManager` is responsible for adding, listing, and filtering tasks."
+        },
+        {
+          "text": "It marks individual tasks as complete.",
+          "correct": false,
+          "explanation": "That is handled by the `mark_done()` method within the `Task` class."
+        },
+        {
+          "text": "It converts tasks to JSON format.",
+          "correct": false,
+          "explanation": "No JSON handling was implemented in the chapter."
+        }
+      ]
+    }
+  ]
+}
