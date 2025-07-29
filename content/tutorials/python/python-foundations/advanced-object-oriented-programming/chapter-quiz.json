@@ -1,0 +1,110 @@
+{
+  "topic": "Advanced Object-Oriented Programming in Python",
+  "questions": [
+    {
+      "question": "What is the primary benefit of using inheritance in Python?",
+      "options": [
+        {
+          "text": "It allows classes to override Python’s core syntax.",
+          "correct": false,
+          "explanation": "Inheritance allows reuse of code between classes, not overriding core syntax."
+        },
+        {
+          "text": "It enables one class to reuse functionality defined in another.",
+          "correct": true,
+          "explanation": "Inheritance promotes code reuse by allowing subclasses to inherit methods and properties."
+        },
+        {
+          "text": "It creates private methods automatically.",
+          "correct": false,
+          "explanation": "Inheritance does not influence access modifiers or method visibility."
+        },
+        {
+          "text": "It converts functions into classes.",
+          "correct": false,
+          "explanation": "Inheritance does not convert functions into classes."
+        }
+      ]
+    },
+    {
+      "question": "True or False: Polymorphism in Python allows different classes to define methods with the same name that can be called interchangeably.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "Polymorphism allows different objects to respond to the same method call appropriately."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "This is exactly what polymorphism means in object-oriented programming."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following best describes duck typing?",
+      "options": [
+        {
+          "text": "A form of type checking at compile time.",
+          "correct": false,
+          "explanation": "Duck typing is checked at runtime, not compile time."
+        },
+        {
+          "text": "A concept where the method name must match the class name.",
+          "correct": false,
+          "explanation": "Duck typing has nothing to do with method or class name matching."
+        },
+        {
+          "text": "A runtime concept where behavior is validated by method availability rather than type.",
+          "correct": true,
+          "explanation": "Duck typing checks for methods/attributes at runtime, regardless of the object's class."
+        },
+        {
+          "text": "A way of creating new classes using decorators.",
+          "correct": false,
+          "explanation": "Duck typing is unrelated to decorators or class creation."
+        }
+      ]
+    },
+    {
+      "question": "What happens if a subclass does not implement an abstract method from its parent Abstract Base Class?",
+      "options": [
+        {
+          "text": "The subclass can still be instantiated with a warning.",
+          "correct": false,
+          "explanation": "Python prevents instantiation entirely if required abstract methods are not implemented."
+        },
+        {
+          "text": "The subclass becomes an interface.",
+          "correct": false,
+          "explanation": "Python doesn't use interfaces like Java or C#."
+        },
+        {
+          "text": "The subclass will raise a TypeError when instantiated.",
+          "correct": true,
+          "explanation": "Attempting to instantiate an incomplete ABC subclass raises a TypeError."
+        },
+        {
+          "text": "The subclass inherits the method implementation automatically.",
+          "correct": false,
+          "explanation": "Abstract methods have no implementation to inherit."
+        }
+      ]
+    },
+    {
+      "question": "True or False: Composition should be favored over inheritance when the relationship is 'has-a' rather than 'is-a'.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "Composition is ideal when one class contains another, i.e., 'has-a' relationships."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "Inheritance suits 'is-a' relationships; composition fits 'has-a'."
+        }
+      ]
+    }
+  ]
+}
