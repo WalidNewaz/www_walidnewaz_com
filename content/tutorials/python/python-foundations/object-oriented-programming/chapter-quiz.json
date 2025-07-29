@@ -1,5 +1,5 @@
 {
-  "topic": "Error Handling and Debugging",
+  "topic": "Object-Oriented Programming (OOP) in Python",
   "questions": [
     {
       "question": "What does the `__init__` method do in a Python class?",
