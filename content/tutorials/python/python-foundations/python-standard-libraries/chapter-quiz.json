@@ -1,0 +1,110 @@
+{
+  "topic": "Advanced Object-Oriented Programming in Python",
+  "questions": [
+    {
+      "question": "Which module is used for working with regular expressions in Python?",
+      "options": [
+        {
+          "text": "regexlib",
+          "correct": false,
+          "explanation": "`regexlib` is not a standard library module."
+        },
+        {
+          "text": "re",
+          "correct": true,
+          "explanation": "`re` is the correct module for regular expressions."
+        },
+        {
+          "text": "string",
+          "correct": false,
+          "explanation": "`string` handles string constants and utilities."
+        },
+        {
+          "text": "format",
+          "correct": false,
+          "explanation": "`format` is not a standalone module."
+        }
+      ]
+    },
+    {
+      "question": "True or False: The `json` module can be used to write and read CSV files.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "`json` handles JSON data, not CSV."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "The `csv` module is used for CSV files."
+        }
+      ]
+    },
+    {
+      "question": "Which module provides object-oriented path management?",
+      "options": [
+        {
+          "text": "os",
+          "correct": false,
+          "explanation": "`os` is procedural and lacks full OO path tools."
+        },
+        {
+          "text": "pathlib",
+          "correct": true,
+          "explanation": "`pathlib` provides a modern OO interface to paths."
+        },
+        {
+          "text": "shutil",
+          "correct": false,
+          "explanation": "`shutil` is for high-level file operations."
+        },
+        {
+          "text": "sys",
+          "correct": false,
+          "explanation": "`sys` deals with Python runtime config."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following is NOT part of Python’s standard library?",
+      "options": [
+        {
+          "text": "pickle",
+          "correct": false,
+          "explanation": "`pickle` is part of the standard library."
+        },
+        {
+          "text": "multiprocessing",
+          "correct": false,
+          "explanation": "`multiprocessing` is a standard module."
+        },
+        {
+          "text": "yaml",
+          "correct": true,
+          "explanation": "`yaml` requires the external `PyYAML` package."
+        },
+        {
+          "text": "collections",
+          "correct": false,
+          "explanation": "`collections` is part of the standard library."
+        }
+      ]
+    },
+    {
+      "question": "True or False: The `logging` module can only log messages to the terminal.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "`logging` can write to files, sockets, and more."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "`logging` supports file output, streams, and more."
+        }
+      ]
+    }
+  ]
+}
