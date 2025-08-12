@@ -268,7 +268,16 @@ header[class*="header"] nav ul a:hover {
 }
 
 header[class*="header"] nav .logo {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-family: var(--fontFamily-sans);
+  padding-left: 1.75rem;
+  color: var(--heading1);
+  font-family: var(--fontFamily-sans);
+  font-weight: var(--fontWeight-bold);
+  transition: color 300ms linear;
 }
 
 #ham-menu {
@@ -341,7 +350,8 @@ header[class*="header"] nav .logo {
   }
 
   header[class*="header"] nav {
-    max-width: var(--maxWidth-3xl);
+    /* max-width: var(--maxWidth-3xl); */
+    max-width: var(--maxWidth-full);
     padding-block: var(--spacing-1) !important;
     padding-inline-start: var(--spacing-1) !important;
   }

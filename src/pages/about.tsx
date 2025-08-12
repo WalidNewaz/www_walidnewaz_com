@@ -16,6 +16,7 @@ const StyledAboutSection = styled.section`
 
   h2 {
     margin: var(--spacing-0) var(--spacing-0) var(--spacing-6) var(--spacing-0);
+    font-size: var(--fontSize-4);
   }
 
   p {

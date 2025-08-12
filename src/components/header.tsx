@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 /** Components */
 import { FaBars, FaXmark } from "react-icons/fa6";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 /** Constants */
 const HEADER_CLASSES = `
@@ -18,7 +19,8 @@ const DESKTOP_MENU_CLASSES = `
   margin-block-2
   list-none
   flex
-  width-full`;
+  width-full
+  justify-end`;
 
 type clickHandler =
   | ((
@@ -50,11 +52,11 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
 
 const DesktopMenu: React.FC = () => (
   <ul className={DESKTOP_MENU_CLASSES}>
-    <li className="padding-inline-5">
+    {/* <li className="padding-inline-5">
       <a href="/" className="margin-5 text-decoration-none">
         Home
       </a>
-    </li>
+    </li> */}
     <li>
       <a href="/about/" className="margin-5 text-decoration-none">
         About
@@ -168,13 +170,16 @@ const Header: React.FC = () => {
   return (
     <header className={HEADER_CLASSES}>
       <nav className="flex justify-between margin-inline-auto">
-        <DesktopMenu />
+        
         {/* Mobile Menu */}
-        <div className="logo">
-          <a href="/" style={{ textDecoration: "none" }}>
-            WalidNewaz.com
+        <div className="logo w-full ">
+          <a href="/" className="flex gap-2">
+            {/* WalidNewaz.com */}
+            <HomeIcon className="icon w-[1.85rem] h-[1.85rem] mt-auto mb-auto" />
+            Walid's Blog
           </a>
         </div>
+        <DesktopMenu />
         <HamburgerMenu
           isOpen={mobileMenuIsOpen}
           onClick={handleMobileMenuToggle}
