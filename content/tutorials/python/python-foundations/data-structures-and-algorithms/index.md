@@ -13,6 +13,8 @@ has_quiz: true
 tags: ["DSA", "Python"]
 ---
 
+# Chapter 7: Data Structures and Algorithms
+
 This chapter introduces the fundamentals of **Data Structures and Algorithms (DSA)** using Python. Understanding DSA is essential for building efficient applications, preparing for technical interviews, and writing production-grade backend systems.
 
 We’ll cover:
