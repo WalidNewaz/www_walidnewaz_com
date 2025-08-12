@@ -6,6 +6,28 @@ import styled from "styled-components";
 import Seo from "../../components/seo";
 import ArticlePostCard from "../../components/molecules/articlePostCard";
 
+const StyledTutorialsContainer = styled.div`
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading2);
+    font-family: var(--fontFamily-sans);
+    font-weight: var(--fontWeight-bold);
+    transition: color 300ms linear;
+    line-height: var(--lineHeight-normal);
+  }
+
+  h1 {
+    font-size: var(--fontSize-5);
+  }
+
+  h2 {
+    font-size: var(--fontSize-4);
+  }
+
+  h3 {
+    font-size: var(--fontSize-2);
+  }
+`
+
 const TutorialsHeading = styled.h2`
   margin: 1rem 1.25rem 0.5rem;
   color: var(--heading2);
@@ -33,7 +55,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   }, []);
 
   return (
-    <>
+    <StyledTutorialsContainer>
       <section className="flex flex-column wrap flex-start">
         <TutorialsHeading>Tutorials</TutorialsHeading>
         <StyledParagraph className="text-2">
@@ -77,7 +99,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
           />
         )})}
       </section>
-    </>
+    </StyledTutorialsContainer>
   );
 };
 

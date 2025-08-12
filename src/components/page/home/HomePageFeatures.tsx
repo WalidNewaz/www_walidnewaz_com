@@ -16,6 +16,19 @@ const StyledHomePageFeaturesSection = styled.section`
     font-family: var(--fontFamily-sans);
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
+    line-height: var(--lineHeight-normal);
+  }
+  
+  h1 {
+    font-size: var(--fontSize-5);
+  }
+
+  h2 {
+    font-size: var(--fontSize-4);
+  }
+
+  h3 {
+    font-size: var(--fontSize-3);
   }
 
   .featured-posts.col {
