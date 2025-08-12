@@ -8,6 +8,26 @@ const StyledBlogPostsSection = styled.section`
   width: 100%;
   padding: var(--spacing-4) var(--spacing-2);
 
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading2);
+    font-family: var(--fontFamily-sans);
+    font-weight: var(--fontWeight-bold);
+    transition: color 300ms linear;
+    line-height: var(--lineHeight-normal);
+  }
+  
+  h1 {
+    font-size: var(--fontSize-5);
+  }
+
+  h2 {
+    font-size: var(--fontSize-4);
+  }
+
+  h3 {
+    font-size: var(--fontSize-2);
+  }
+
   section > h2 {
     margin: 0 1.25rem;
   }
@@ -73,7 +93,7 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
 
   return (
     <StyledBlogPostsSection>
-      <StyledHeading>{heading}:</StyledHeading>
+      <StyledHeading>{heading}</StyledHeading>
       <section className="col flex wrap my-6">{postsText}</section>
     </StyledBlogPostsSection>
   );
