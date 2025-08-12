@@ -13,6 +13,8 @@ has_quiz: true
 tags: ["libraries", "Python"]
 ---
 
+# Chapter 8: Python Standard Libraries
+
 Python's standard library is one of its greatest strengths. It provides a wide array of modules that cover everything from file handling and math to networking and concurrency. These libraries help developers avoid reinventing the wheel and build powerful applications quickly.
 
 In this chapter, you'll learn:

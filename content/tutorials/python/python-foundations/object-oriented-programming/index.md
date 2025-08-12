@@ -13,7 +13,7 @@ has_quiz: true
 tags: ["OOP", "Python"]
 ---
 
-# Chapter 5: Object-Oriented Programming (OOP) in Python
+# Chapter 5: Object-Oriented Programming (OOP)
 
 As applications grow, you’ll need ways to **organize code around data and behavior**. That’s where **Object-Oriented Programming (OOP)** comes in.
 
