@@ -23,7 +23,7 @@ This chapter explores advanced object-oriented programming (OOP) concepts in Pyt
 * Composition vs inheritance
 * Real-world example and test cases
 
-## 6.1 Inheritance in Python
+## 6.1 Inheritance
 
 Inheritance allows a class to reuse code from another class.
 
@@ -72,7 +72,7 @@ Meow!
 
 This is polymorphism: you call `speak()` on each object **without knowing or caring what their specific class is.**
 
-## 6.3 Duck Typing in Python
+## 6.3 Duck Typing
 
 Python uses **duck typing**: if an object has the expected method or behavior, it's valid — regardless of its actual type.
 
