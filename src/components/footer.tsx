@@ -18,6 +18,7 @@ const StyledFooterDiv = styled.div`
   max-width: var(--maxWidth-3xl);
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `;
 
@@ -31,13 +32,9 @@ const Footer: React.FC = () => {
       <HomePageNewsletter />
       <StyledFooter>
         <StyledFooterDiv>
-          <section className='flex gap-4'>
-            <StyledCopyRight className='copyright'>
-              Copyright © 2023 - {new Date().getFullYear()} by Walid Newaz
-            </StyledCopyRight>
-          </section>
+          
           <section className='social'>
-            <ul>
+            <ul className="gap-4">
               <li>
                 <a
                   href='https://github.com/WalidNewaz'
@@ -57,6 +54,12 @@ const Footer: React.FC = () => {
                 </a>
               </li>
             </ul>
+          </section>
+
+          <section className='gap-4'>
+            <StyledCopyRight className='copyright'>
+              Copyright © 2023 - {new Date().getFullYear()}
+            </StyledCopyRight>
           </section>
         </StyledFooterDiv>
       </StyledFooter>
