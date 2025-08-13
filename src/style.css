@@ -393,10 +393,6 @@ header[class*="header"] nav .logo {
     border-block-start: #4a4a4a5c solid 1px;
   }
 
-  footer section {
-    margin-block: var(--spacing-4) var(--spacing-0);
-  }
-
   footer .social ul {
     list-style: none;
     display: inline-flex;
@@ -459,10 +455,6 @@ header[class*="header"] nav .logo {
   footer {
     padding: var(--spacing-6) !important;
     border-block-start: #4a4a4a5c solid 1px;
-  }
-
-  footer section {
-    margin-block: var(--spacing-4) var(--spacing-0);
   }
 
   footer .social ul {
@@ -556,10 +548,6 @@ header[class*="header"] nav .logo {
   footer {
     padding: var(--spacing-6) !important;
     border-block-start: #4a4a4a5c solid 1px;
-  }
-
-  footer section {
-    margin-block: var(--spacing-4) var(--spacing-0);
   }
 
   footer .social ul {
@@ -688,10 +676,6 @@ header[class*="header"] nav .logo {
   footer {
     padding: var(--spacing-6) !important;
     border-block-start: #4a4a4a5c solid 1px;
-  }
-
-  footer section {
-    margin-block: var(--spacing-4) var(--spacing-0);
   }
 
   footer .social ul {
