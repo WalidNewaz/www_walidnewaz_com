@@ -81,11 +81,20 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
         plugins: [
+          // Add custom plugins here
           {
             resolve: `gatsby-remark-header-ids`,
             options: {
               // Options here
+            }
+          },
+          {
+            resolve: `gatsby-remark-wrap-tables`,
+            options: {
+              containerClass: "table-container"
             }
           },
           {

@@ -4,84 +4,84 @@
     "question": "Which component is performance-optimized for long lists?",
     "options": [
       {
-        "text": "ScrollView`",
+        "text": "`<ScrollView>`",
         "correct": false,
-        "explanation": "ScrollView renders all its children at once, which can lead to performance issues with large lists."
+        "explanation": "⚠️ `<ScrollView>` renders all its children at once, which can lead to performance issues with large lists."
       },
       {
-        "text": "FlatList",
+        "text": "`<FlatList>`",
         "correct": true,
-        "explanation": "🎉 FlatList is optimized for long lists by rendering only the visible items and recycling views."
+        "explanation": "🎉 `<FlatList>` is optimized for long lists by rendering only the visible items and recycling views."
       },
       {
-        "text": "View",
+        "text": "`<View>`",
         "correct": false,
-        "explanation": "View is a basic building block for UI in React Native."
+        "explanation": "⚠️ `<View>` is a basic building block for UI in React Native."
       },
       {
-        "text": "Text",
+        "text": "`<Text>`",
         "correct": false,
-        "explanation": "Text is used to display text content in React Native."
+        "explanation": "⚠️ `<Text>` is used to display text content in React Native."
       }
     ]
   }, {
     "question": "Which component should wrap all text in React Native?",
     "options": [
       {
-        "text": "View",
+        "text": "`<View>`",
         "correct": false,
-        "explanation": "View is a basic building block for UI in React Native."
+        "explanation": "⚠️ `<View>` is a basic building block for UI in React Native."
       },
       {
-        "text": "Text",
+        "text": "`<Text>`",
         "correct": true,
-        "explanation": "🎉 Text is used to display text content in React Native."
+        "explanation": "🎉 `<Text>` is used to display text content in React Native."
       },
       {
-        "text": "Div",
+        "text": "`<Div>`",
         "correct": false,
-        "explanation": "Div is not a component in React Native."
+        "explanation": "⚠️ `<Div>` is not a component in React Native."
       },
       {
-        "text": "Span",
+        "text": "`<Span>`",
         "correct": false,
-        "explanation": "Span is not a component in React Native."
+        "explanation": "⚠️ `<Span>` is not a component in React Native."
       }
     ]
   }, {
     "question": "Which of these lets you detect press states like onPressIn and onLongPress?",
     "options": [
       {
-        "text": "TouchableOpacity",
+        "text": "`<TouchableOpacity>`",
         "correct": false,
-        "explanation": "TouchableOpacity is used for opacity effects on press, but does not handle multiple press states."
+        "explanation": "⚠️ `<TouchableOpacity>` is used for opacity effects on press, but does not handle multiple press states."
       },
       {
-        "text": "Pressable",
+        "text": "`<Pressable>`",
         "correct": true,
-        "explanation": "Pressable is a wrapper that can detect various press states."
+        "explanation": "🎉 `<Pressable>` is a wrapper that can detect various press states."
       }, {
-        "text": "FlatList",
+        "text": "`<FlatList>`",
         "correct": false,
-        "explanation": "FlatList is optimized for long lists but does not handle press states."
+        "explanation": "⚠️ `<FlatList>` is optimized for long lists but does not handle press states."
       },
       {
-        "text": "View",
+        "text": "`<View>`",
         "correct": false,
-        "explanation": "View is a basic building block for UI in React Native."
+        "explanation": "⚠️ `<View>` is a basic building block for UI in React Native."
       }
     ]
   }, {
-    "question": "True or False: ScrollView renders all its children at once.",
+    "question": "True or False: `<ScrollView>` renders all its children at once.",
     "options": [
       {
         "text": "True",
         "correct": true,
-        "explanation": "🎉 ScrollView renders all its children at once."
+        "explanation": "🎉 `<ScrollView>` renders all its children at once."
       }, {
         "text": "False",
         "correct": false,
-        "explanation": "ScrollView renders all its children at once."
+        "explanation": "⚠️ `<ScrollView>` renders all its children at once."
       }
     ]
   }]

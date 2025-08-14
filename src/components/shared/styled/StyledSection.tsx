@@ -39,6 +39,24 @@ const StyledSection = css`
   img {
     border-radius: 0.25rem;
   }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Optional: force scroll if the table is wider than the viewport */
+    min-width: 600px;
+  }
+
+  .table-container th,
+  .table-container td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
 `;
 
 export default StyledSection;
