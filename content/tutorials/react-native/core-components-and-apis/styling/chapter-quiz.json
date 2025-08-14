@@ -4,9 +4,9 @@
     "question": "Which layout model does React Native use by default?",
     "options": [
       {
-        "text": "Grid`",
+        "text": "Grid",
         "correct": false,
-        "explanation": "Grid layout is not the default layout model in React Native."
+        "explanation": "⚠️ Grid layout is not the default layout model in React Native."
       },
       {
         "text": "Flexbox",
@@ -16,12 +16,12 @@
       {
         "text": "CSS Grid",
         "correct": false,
-        "explanation": "CSS Grid is not used in React Native."
+        "explanation": "⚠️ CSS Grid is not used in React Native."
       },
       {
         "text": "Absolute Positioning",
         "correct": false,
-        "explanation": "Absolute Positioning is a layout technique, that isn't the default in React Native."
+        "explanation": "⚠️ Absolute Positioning is a layout technique, that isn't the default in React Native."
       }
     ]
   }, {
@@ -30,7 +30,7 @@
       {
         "text": "True",
         "correct": false,
-        "explanation": "React Native uses a unit called 'density-independent pixels' (dp) for styling."
+        "explanation": "⚠️ React Native uses a unit called 'density-independent pixels' (dp) for styling."
       },
       {
         "text": "False",
@@ -44,21 +44,21 @@
       {
         "text": "Use string concatenation",
         "correct": false,
-        "explanation": "String concatenation is not a valid way to apply multiple styles in React Native."
+        "explanation": "⚠️ String concatenation is not a valid way to apply multiple styles in React Native."
       },
       {
         "text": "Use an array syntax",
         "correct": true,
-        "explanation": "Array syntax allows you to combine multiple styles into a single prop."
+        "explanation": "🎉 Array syntax allows you to combine multiple styles into a single prop."
       }, {
         "text": "Separate with commas",
         "correct": false,
-        "explanation": "Separating styles with commas is not a valid approach in React Native."
+        "explanation": "⚠️ Separating styles with commas is not a valid approach in React Native."
       },
       {
         "text": "Not possible",
         "correct": false,
-        "explanation": "Multiple style objects are applied using an array."
+        "explanation": "⚠️ Multiple style objects are applied using an array."
       }
     ]
   }, {
@@ -67,7 +67,7 @@
       {
         "text": "Inside each component",
         "correct": false,
-        "explanation": "App-wide colors and spacing values should be stored in a centralized location."
+        "explanation": "⚠️ App-wide colors and spacing values should be stored in a centralized location."
       }, {
         "text": "In a centralized constants file",
         "correct": true,
@@ -75,11 +75,11 @@
       }, {
         "text": "In HTML meta tags",
         "correct": false,
-        "explanation": "HTML meta tags are not used in React Native."
+        "explanation": "⚠️ HTML meta tags are not used in React Native."
       }, {
         "text": "In JSON files",
         "correct": false,
-        "explanation": "JSON files are not suitable for storing app-wide values."
+        "explanation": "⚠️ JSON files are not suitable for storing app-wide values."
       }
     ]
   }]

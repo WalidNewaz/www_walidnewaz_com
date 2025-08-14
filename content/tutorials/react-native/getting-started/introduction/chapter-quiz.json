@@ -6,7 +6,7 @@
       {
         "text": "WebView",
         "correct": false,
-        "explanation": "React Native uses native components, not WebViews."
+        "explanation": "⚠️ React Native uses native components, not WebViews."
       },
       {
         "text": "Native components",
@@ -16,12 +16,12 @@
       {
         "text": "HTML elements",
         "correct": false,
-        "explanation": "React Native does not render HTML elements."
+        "explanation": "⚠️ React Native does not render HTML elements."
       },
       {
         "text": "Canvas",
         "correct": false,
-        "explanation": "React Native does not use a canvas for rendering."
+        "explanation": "⚠️ React Native does not use a canvas for rendering."
       }
     ]
   }, {
@@ -35,46 +35,46 @@
       {
         "text": "To render UI components",
         "correct": false,
-        "explanation": "The Bridge is not responsible for rendering UI components."
+        "explanation": "⚠️ The Bridge is not responsible for rendering UI components."
       },
       {
         "text": "To manage application state",
         "correct": false,
-        "explanation": "State management is handled by React's state and props, not the Bridge."
+        "explanation": "⚠️ State management is handled by React's state and props, not the Bridge."
       },
       {
         "text": "To optimize performance",
         "correct": false,
-        "explanation": "While the Bridge can impact performance, its primary purpose is communication."
+        "explanation": "⚠️ While the Bridge can impact performance, its primary purpose is communication."
       }
     ]
   }, {
     "question": "Which of the following is **not** a React Native component?",
     "options": [
       {
-        "text": "<View>",
+        "text": "`<View>`",
         "correct": false,
-        "explanation": "🎉 <View> is a core component in React Native."
+        "explanation": "⚠️ `<View>` is a core component in React Native."
       },
       {
-        "text": "<Text>",
+        "text": "`<Text>`",
         "correct": false,
-        "explanation": "🎉 <Text> is a core component in React Native."
+        "explanation": "⚠️ `<Text>` is a core component in React Native."
       },
       {
-        "text": "<Image>",
+        "text": "`<Image>`",
         "correct": false,
-        "explanation": "🎉 <Image> is a core component in React Native."
+        "explanation": "⚠️ `<Image>` is a core component in React Native."
       },
       {
-        "text": "<ScrollView>",
+        "text": "`<ScrollView>`",
         "correct": false,
-        "explanation": "🎉 <ScrollView> is a core component in React Native."
+        "explanation": "⚠️ `<ScrollView>` is a core component in React Native."
       },
       {
-        "text": "<Div>",
+        "text": "`<Div>`",
         "correct": true,
-        "explanation": "🎉 <Div> is not a core component, it's a web component."
+        "explanation": "🎉 `<Div>` is not a core component, it's a web component."
       }
     ]
   }]
