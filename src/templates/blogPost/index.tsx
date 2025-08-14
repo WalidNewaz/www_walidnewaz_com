@@ -13,38 +13,14 @@ import RelatedPosts from "./RelatedPosts";
 
 /** Styles */
 import "./blog-post.css";
+import StyledSection from "../../components/shared/styled/StyledSection";
+import StyledAnchor from "../../components/shared/styled/StyledAnchor";
+import StyledList from "../../components/shared/styled/StyledList";
 
 const StyledArticleBody = styled.section`
-  p {
-    margin-bottom: var(--spacing-6);
-  }
-
-  a,
-  li {
-    color: var(--text1);
-    font-family: var(--fontFamily-sans);
-  }
-
-  img {
-    border-radius: 0.25rem;
-  }
-
-  li::before {
-    content: "";
-    margin-left: 0.25rem;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: var(--heading2);
-    font-family: var(--fontFamily-sans);
-    font-weight: var(--fontWeight-bold);
-    transition: color 300ms linear;
-  }
+  ${StyledSection}
+  ${StyledAnchor}
+  ${StyledList}
 `;
 
 const StyledBlogPostNav = styled.nav`

@@ -3,10 +3,13 @@ import styled from "styled-components";
 
 // Styles
 const StyledQuestion = styled.div`
-  font-size: 1.2rem;
+  color: var(--heading2);
+  font-size: var(--fontSize-1);
+  font-family: var(--fontFamily-sans);
+  font-weight: var(--fontWeight-normal);
+  line-height: var(--lineHeight-normal);
   padding: 1rem 0 1rem 1rem;
-  // background-color: #5f6368;
-  color: #fff;
+  text-align: left;
 `;
 
 const MultipleChoiceQuestion: React.FC<{ question: string }> = ({
@@ -14,7 +17,7 @@ const MultipleChoiceQuestion: React.FC<{ question: string }> = ({
 }) => {
   return (
     <StyledQuestion>
-      <h6 className="m-0">{question}</h6>
+      <span className="m-0">{question}</span>
     </StyledQuestion>
   );
 };

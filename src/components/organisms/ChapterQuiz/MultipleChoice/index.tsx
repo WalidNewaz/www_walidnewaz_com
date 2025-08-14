@@ -83,10 +83,12 @@ const MultipleChoice: React.FC<{
           <DisclosureButton className="group flex items-center gap-2 bg-surface-2 w-full justify-between">
             <MultipleChoiceQuestion question={cachedMultipleChoice.question} />
             {/* {cachedMultipleChoice.question} */}
-            <ChevronDownIcon
-              className={`size-8 mx-4 group-data-hover:fill-white/50 transition-all ${open && "rotate-180"}`}
-              style={{ color: "var(--text1)" }}
-            />
+            <div>
+              <ChevronDownIcon
+                className={`size-8 mx-4 group-data-hover:fill-white/50 transition-all ${open && "rotate-180"}`}
+                style={{ color: "var(--text1)" }}
+              />
+            </div>
           </DisclosureButton>
 
           <div className="overflow-hidden py-2">

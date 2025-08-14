@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { graphql, PageProps, navigate } from "gatsby";
+import { graphql, PageProps } from "gatsby";
+import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
@@ -14,6 +15,22 @@ import { useFetchNextPage } from "../../hooks/posts";
 
 /** Constants */
 import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
+
+/** Styles */
+import StyledSection from "../../components/shared/styled/StyledSection";
+
+const StyledBlogPage = styled.section`
+  ${StyledSection}
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  @media (max-width: 940px) {
+    padding: var(--spacing-4) var(--spacing-0);
+  }
+`;
 
 interface Topic {
   [key: string]: number;
@@ -96,7 +113,7 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   };
 
   return (
-    <section className="flex flex-column wrap flex-start">
+    <StyledBlogPage>
       <Topics topics={getTopics(allTopics)} />
       <PaginatedArticleCards
         posts={posts}
@@ -110,7 +127,7 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
         pathname={location.pathname}
         query={query}
       />
-    </section>
+    </StyledBlogPage>
   );
 };
 
