@@ -6,9 +6,19 @@ import Checkbox from "@mui/joy/Checkbox";
 import Done from "@mui/icons-material/Done";
 import NotInterested from "@mui/icons-material/NotInterested";
 
+/* Utils */
+import { wrapBackticksInCodeTags } from "../../../../utils/string";
+
 // Styles
 const StyledAnswer = styled.div`
   border-bottom: 1px solid #dadce0;
+
+  a {
+    text-decoration: none !important;
+    color: inherit;
+    white-space: break-spaces;
+    overflow-wrap: anywhere;
+  }
 
   a:not([clicked]):hover {
     cursor: pointer;
@@ -20,11 +30,14 @@ const StyledAnswer = styled.div`
     justify-content: space-between;
   }
 
-  code {
-    padding-top: 0.25rem;
-    font: 500 90% / 1em;
-    font-family: Roboto Mono, monospace;
-    color: #37474f;
+  .multiple-choice-option p {
+    color: var(--brand-text);
+    font-size: var(--fontSize-1);
+    font-family: var(--fontFamily-sans);
+    font-weight: var(--fontWeight-normal);
+    line-height: var(--lineHeight-normal);
+    margin: 0;
+    padding: 0;
   }
 
   .multiple-choice-explanation,
@@ -88,35 +101,69 @@ const MultipleChoiceAnswer: React.FC<{
     >
       <a onClick={toggleCheck} ref={anchorRef}>
         <div className="multiple-choice-option">
-          <code translate="no" dir="ltr">
-            {optionText}
-          </code>
+          <p translate="no" dir="ltr" dangerouslySetInnerHTML={{ __html: wrapBackticksInCodeTags(optionText) }} />
           <Checkbox
             checked={checked}
             disabled={disabled}
-            style={{ display: checked ? "none" : "block" }}
+            style={
+              checked
+                ? { display: "none" }
+                : {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }
+            }
           />
-          <Done
-            style={{
-              display: checked && correct ? "block" : "none",
-              color: "green",
-            }}
-          />
-          <NotInterested
-            style={{
-              display: checked && !correct ? "block" : "none",
-              color: "red",
-            }}
-          />
+          <div
+            style={
+              checked && correct
+                ? {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    color: "green",
+                  }
+                : {
+                    display: "none",
+                  }
+            }
+          >
+            <Done />
+          </div>
+          <div
+            style={
+              checked && !correct
+                ? {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    color: "red",
+                  }
+                : {
+                    display: "none",
+                  }
+            }
+          >
+            <NotInterested />
+          </div>
         </div>
       </a>
       <div style={{ display: checked ? "block" : "none" }}>
-        <p className="multiple-choice-explanation">{explanationText}</p>
-        <p className="multiple-choice-correctness"
+        <p
+          className="multiple-choice-explanation"
+          dangerouslySetInnerHTML={{
+            __html: wrapBackticksInCodeTags(explanationText),
+          }}
+        />
+        <p
+          className="multiple-choice-correctness"
           style={{
             color: correct ? "green" : "red",
           }}
-        >{correctnessText}</p>
+        >
+          {correctnessText}
+        </p>
       </div>
     </StyledAnswer>
   );

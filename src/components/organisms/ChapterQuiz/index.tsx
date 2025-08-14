@@ -22,7 +22,6 @@ const StyledQuiz = styled.div`
   }
 
   p {
-    font-size: 1rem;
     padding-inline-end: 1.75rem;
   }
 
@@ -58,7 +57,7 @@ const ChapterQuiz: React.FC<{ quiz: QuizType }> = ({ quiz }) => {
   return (
     <StyledQuiz>
       <h3>Check your understanding</h3>
-      <p>Test your knowledge of {quiz.topic}</p>
+      <p>Test your knowledge of <strong>{quiz.topic}</strong></p>
       <div className="chapter-assessment">
         {quiz.questions.map((question, index) => (
           <MultipleChoice index={index} key={index} multipleChoice={question} />
