@@ -1,5 +1,8 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
+
+/* Utils */
+import { wrapBackticksInCodeTags } from "../../../../utils/string";
 
 // Styles
 const StyledQuestion = styled.div`
@@ -10,15 +13,20 @@ const StyledQuestion = styled.div`
   line-height: var(--lineHeight-normal);
   padding: 1rem 0 1rem 1rem;
   text-align: left;
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
+
+  code {
+    white-space: break-spaces;
+    overflow-wrap: anywhere;
+  }
 `;
 
 const MultipleChoiceQuestion: React.FC<{ question: string }> = ({
   question,
 }) => {
   return (
-    <StyledQuestion>
-      <span className="m-0">{question}</span>
-    </StyledQuestion>
+    <StyledQuestion dangerouslySetInnerHTML={{ __html: wrapBackticksInCodeTags(question) }} />
   );
 };
 
