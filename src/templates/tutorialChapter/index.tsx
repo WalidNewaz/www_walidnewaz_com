@@ -22,6 +22,9 @@ import { QuizType } from "../../components/organisms/ChapterQuiz/";
 
 /** Styles */
 import "./tutorial-chapter.css";
+import StyledSection from "../../components/shared/styled/StyledSection";
+import StyledAnchor from "../../components/shared/styled/StyledAnchor";
+import StyledList from "../../components/shared/styled/StyledList";
 
 const StyledTutorialGrid = styled.div`
   display: grid;
@@ -33,30 +36,9 @@ const StyledTutorialGrid = styled.div`
 `;
 
 const StyledArticleBody = styled.section`
-  grid-column: span 9;
-
-  p {
-    margin-top: var(--spacing-2);
-    margin-bottom: var(--spacing-2);
-  }
-
-  a,
-  li {
-    color: var(--text1);
-    font-family: var(--fontFamily-sans);
-  }
-
-  img {
-    border-radius: 0.25rem;
-  }
-
-  ul {
-    list-style: disc;
-  }
-
-  ol {
-    list-style: decimal;
-  }
+  ${StyledSection}
+  ${StyledAnchor}
+  ${StyledList}
 
   ul, ol {
     list-style-position: inside;
@@ -64,49 +46,8 @@ const StyledArticleBody = styled.section`
     margin-bottom: var(--spacing-2);
     padding-left: var(--spacing-2);
   }
-
-  li::before {
-    content: "";
-    margin-left: 0.25rem;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: var(--heading2);
-    font-family: var(--fontFamily-sans);
-    font-weight: var(--fontWeight-bold);
-    transition: color 300ms linear;
-    margin-bottom: var(--spacing-6);
-  }
-
-  h1 {
-    font-size: var(--fontSize-5);
-    margin-top: var(--spacing-8);
-  }
-
-  h2 {
-    font-size: var(--fontSize-4);
-    margin-top: var(--spacing-6);
-  }
-
-  h3 {
-    font-size: var(--fontSize-3);
-    margin-top: var(--spacing-5);
-  }
-
-  h4 {
-    font-size: var(--fontSize-2);
-    margin-top: var(--spacing-4);
-  }
-
-  h5 {
-    font-size: var(--fontSize-1);
-    margin-top: var(--spacing-3);
-  }
+  
+  grid-column: span 9;
 
   @media screen and (min-width: 800px) and (max-width: 975px) {
     grid-column: span 8;
@@ -131,6 +72,7 @@ const StyledBlogPostNav = styled.nav`
 
 const StyledBlankDiv = styled.div`
   grid-column: span 3;
+  
   @media screen and (min-width: 800px) and (max-width: 975px) {
     grid-column: span 4;
   }
@@ -162,7 +104,9 @@ const TutorialChapter: React.FC<any> = ({
   pageContext,
 }) => {
   const articleBody = useRef<HTMLDivElement>(null);
-  const seriesDir = post.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+  const seriesDir = post.fields.slug
+    .split("/")
+    .filter((str: string) => str !== "")[0]; // e.g. react-native
   const heroImagePattern = allTutorialHeroes.nodes.find((hero: any) => {
     return hero.relativeDirectory === seriesDir;
   });
@@ -190,14 +134,16 @@ const TutorialChapter: React.FC<any> = ({
             {post.frontmatter.read_time} read
           </div>
         </ArticleHeader> */}
-        <HeroImage {...{ post, heroImage: heroImagePattern }} className="article-hero-img" />
+        <HeroImage
+          {...{ post, heroImage: heroImagePattern }}
+          className="article-hero-img"
+        />
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
           <StyledArticleBody
             dangerouslySetInnerHTML={{ __html: post.html }}
             itemProp="articleBody"
           />
-
         </StyledTutorialGrid>
         <StyledTutorialGrid>
           <StyledBlankDiv></StyledBlankDiv>

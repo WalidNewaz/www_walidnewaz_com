@@ -35,7 +35,7 @@ const Pill: React.FC<{
     >
       <a
         href={`/${section}/${topic !== "All" ? `${encodeURIComponent(topic)}/` : ""}`}
-        className="text-decoration-none"
+        style={{ textDecoration: "none" }}
       >
         {topicText}
       </a>
