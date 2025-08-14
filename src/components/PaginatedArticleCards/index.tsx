@@ -1,50 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 
 /** Component */
 import ArticlePostCardGroup from "../ArticlePostCardGroup";
 import Pagination from "../Pagination";
-
-const StyledBlogPostsSection = styled.section`
-  width: 100%;
-  padding: var(--spacing-4) var(--spacing-2);
-
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--heading2);
-    font-family: var(--fontFamily-sans);
-    font-weight: var(--fontWeight-bold);
-    transition: color 300ms linear;
-    line-height: var(--lineHeight-normal);
-  }
-
-  h1 {
-    font-size: var(--fontSize-5);
-  }
-
-  h2 {
-    font-size: var(--fontSize-4);
-  }
-
-  h3 {
-    font-size: var(--fontSize-2);
-  }
-
-  section > h2 {
-    margin: 0 1.25rem;
-  }
-
-  @media (max-width: 940px) {
-    padding: var(--spacing-4) var(--spacing-0);
-  }
-`;
-
-const StyledHeading = styled.h2`
-  margin: 0 1.25rem;
-  color: var(--heading2);
-  font-family: var(--fontFamily-sans);
-  font-weight: var(--fontWeight-bold);
-  transition: color 300ms linear;
-`;
 
 const PaginatedArticleCards: React.FC<{
   posts: any[];
@@ -86,8 +44,8 @@ const PaginatedArticleCards: React.FC<{
   );
 
   return (
-    <StyledBlogPostsSection>
-      <StyledHeading>{heading}</StyledHeading>
+    <section>
+      <h2>{heading}</h2>
       <Pagination
         items={currentItems}
         totalItemsCount={totalItemsCount}
@@ -99,7 +57,7 @@ const PaginatedArticleCards: React.FC<{
         pathname={pathname}
         query={query}
       />
-    </StyledBlogPostsSection>
+    </section>
   );
 };
 

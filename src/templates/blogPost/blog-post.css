@@ -31,17 +31,10 @@ h1 {
   margin-top: var(--spacing-0);
 }
 
-h2, h3, h4, h5, h6 {
-  margin-top: var(--spacing-6);
-}
-
 p {
   margin-bottom: var(--spacing-6);
   font-family: var(--fontFamily-sans);
 }
 
-/* img {
-  border-radius: 0.25rem;
-} */
 
 

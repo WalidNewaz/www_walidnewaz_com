@@ -35,6 +35,12 @@ const StyledAnswer = styled.div`
     padding-inline-start: 1.75rem;
     padding-inline-end: 1.75rem;
   }
+
+  .multiple-choice-explanation {
+    font-size: var(--fontSize-1);
+    line-height: var(--lineHeight-normal);
+    color: var(--brand-text);
+  }
 `;
 
 /**
