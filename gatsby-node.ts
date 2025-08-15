@@ -23,6 +23,83 @@ import { AggregatedTopic } from "./src/interfaces";
 /** Constants */
 import { ITEMS_PER_PAGE } from "./src/constants";
 
+const createTutorialIntroPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  // Get all tutorial series intros
+  const result = await graphql(`
+    {
+      allMarkdownRemark(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: { fileAbsolutePath: { regex: "/[\\/]content[\\/]tutorials[\\/][^\\/]+[\\/]index.mdx?$/" } }
+      ) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            series
+            hero_image {
+              id
+              base
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading the tutorial intros`,
+      result.errors
+    );
+    return;
+  }
+
+  const tutorials = result.data.allMarkdownRemark.nodes;
+  
+  if (tutorials.length === 0) {
+    reporter.info(`No tutorial intros found.`);
+    return;
+  }
+
+  const { createPage } = actions;
+
+  tutorials.forEach((tutorial: any, index: number) => {
+    reporter.info(`Creating page for tutorial intro: ${tutorial.frontmatter.series}`);
+    const seriesDir = tutorial.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+
+    const heroImagePattern = tutorial.frontmatter.hero_image
+      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
+      : `${seriesDir}/hero-image.png/`;
+
+    createPage({
+      path: `/tutorials${tutorial.fields.slug}`,
+      component: path.resolve(`./src/templates/tutorialIntro/index.tsx`),
+      context: {
+        id: tutorial.id,
+        series: tutorial.frontmatter.series,
+        heroImagePattern,
+      },
+    });
+  });  
+
+}
+
 /**
  * Creates static pages for individual tutorial chapters
  */
@@ -41,7 +118,7 @@ const createTutorialChapterPages = async ({
       allMarkdownRemark(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/^.*/content/tutorials/.*?$/" } }
+        filter: { fileAbsolutePath: { regex: "/[\\\\/]content[\\\\/]tutorials[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/" } }
       ) {
         nodes {
           id
@@ -69,7 +146,6 @@ const createTutorialChapterPages = async ({
     return;
   }
 
-  const { createPage } = actions;
   const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
     (acc: any, article: any) => {
       const { series } = article.frontmatter;
@@ -136,7 +212,7 @@ const createTutorialChapterPages = async ({
           }
         }
 
-
+        const { createPage } = actions;
         createPage({
           path: `/tutorials${chapter.fields.slug}`,
           component: path.resolve(`./src/templates/tutorialChapter/index.tsx`),
@@ -388,6 +464,7 @@ exports.createPages = async ({
   actions,
   reporter,
 }: CreatePagesArgs) => {
+  await createTutorialIntroPages({ graphql, actions, reporter });
   await createTutorialChapterPages({ graphql, actions, reporter });
   await createBlogPostPages({ graphql, actions, reporter });
   await createTopicsPages({ graphql, actions, reporter });
