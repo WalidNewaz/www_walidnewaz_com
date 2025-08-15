@@ -110,8 +110,10 @@ const TutorialChapter: React.FC<any> = ({
   const heroImagePattern = allTutorialHeroes.nodes.find((hero: any) => {
     return hero.relativeDirectory === seriesDir;
   });
-  // console.log(pageContext);
-  // console.log("Quiz:", pageContext?.quiz);
+
+  const filteredSeriesPosts = allSeriesPosts.nodes.filter((post: any) => {
+    return post.frontmatter.chapter !== null;
+  });
 
   // Scroll to top of article when navigating to a new page
   useEffect(() => {
@@ -155,7 +157,7 @@ const TutorialChapter: React.FC<any> = ({
         </StyledTutorialGrid>
         {/* <PostTags tags={post.frontmatter.tags} /> */}
       </article>
-      <TutorialTOC allSeriesPosts={allSeriesPosts} post={post} />
+      <TutorialTOC allSeriesPosts={{ nodes: filteredSeriesPosts }} post={post} />
       <StyledBlogPostNav>
         <ChronologicalNav previous={previous} next={next} />
       </StyledBlogPostNav>

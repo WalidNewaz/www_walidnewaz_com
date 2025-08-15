@@ -21,11 +21,6 @@ const StyledTutorialsContainer = styled.div`
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   const tutorials = data.allMarkdownRemark.nodes;
   const tutorialHeroes = data.allTutorialHeroes.nodes;
-  const firstTutorials = tutorials.reduce((acc: Array<any>, tutorial: any) => {
-    return tutorial?.frontmatter?.chapter?.startsWith("1. ")
-      ? [...acc, tutorial]
-      : acc;
-  }, []);
 
   return (
     <StyledTutorialsContainer>
@@ -52,7 +47,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
-        {firstTutorials.map((tutorial: any) => {
+        {tutorials.map((tutorial: any) => {
           const seriesDir = tutorial.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
           const heroImagePattern = tutorial.frontmatter.hero_image || tutorialHeroes.find((hero: any) => {
             return hero.relativeDirectory === seriesDir;
@@ -80,7 +75,7 @@ export const query = graphql`
   {
     allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
-      filter: { fileAbsolutePath: { regex: "/.*/content/tutorials/.*/" } }
+      filter: { fileAbsolutePath: { regex: "/[\\/]content[\\/]tutorials[\\/][^\\/]+[\\/]index.mdx?$/" } }
     ) {
       nodes {
         fields {
