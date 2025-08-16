@@ -93,7 +93,7 @@ const MoreTutorials: React.FC<{ posts: any; heroes: any; heading?: string }> = (
         }
         image={heroImagePattern}
         slug={`/tutorials${post.fields.slug}`}
-        tags={post.frontmatter.tags}
+        tags={[post.frontmatter.tags[0]]}
       />
     )});
   }
