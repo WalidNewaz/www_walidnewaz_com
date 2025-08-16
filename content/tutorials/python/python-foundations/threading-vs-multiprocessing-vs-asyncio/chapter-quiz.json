@@ -1,0 +1,110 @@
+{
+  "topic": "threading vs multiprocessing vs asyncio in Python",
+  "questions": [
+    {
+      "question": "Which statement about Python’s Global Interpreter Lock (GIL) is TRUE?",
+      "options": [
+        {
+          "text": "The GIL allows multiple Python threads to execute bytecode at the same time.",
+          "correct": false,
+          "explanation": "⚠️ In CPython, the GIL ensures only one thread executes Python bytecode at a time per process."
+        },
+        {
+          "text": "The GIL limits true parallelism for CPU-bound code when using threads.",
+          "correct": true,
+          "explanation": "🎉 Threads contend for the GIL, so CPU-bound workloads do not scale across cores with threading."
+        },
+        {
+          "text": "The GIL is only present on Windows builds of Python.",
+          "correct": false,
+          "explanation": "⚠️ The GIL is a CPython implementation detail present across platforms."
+        },
+        {
+          "text": "The GIL makes all I/O-bound programs slower than single-threaded code.",
+          "correct": false,
+          "explanation": "⚠️ I/O-bound threads often release the GIL while waiting, so threading can still improve throughput for I/O."
+        }
+      ]
+    },
+    {
+      "question": "True or False: `multiprocessing.Pool.map` preserves the order of results to match the input iterable.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "🎉 `Pool.map` collects results in the same order as inputs. Use `imap_unordered` for out-of-order completion."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "⚠️ Results are not returned arbitrarily; they are ordered to match the input sequence."
+        }
+      ]
+    },
+    {
+      "question": "You need to fetch 1,000 URLs concurrently where each task mostly waits on network responses. Which model is MOST appropriate?",
+      "options": [
+        {
+          "text": "threading",
+          "correct": false,
+          "explanation": "⚠️ Threading can work for I/O, but thousands of threads are heavy; context switches and overhead increase."
+        },
+        {
+          "text": "multiprocessing",
+          "correct": false,
+          "explanation": "⚠️ Processes are heavier and better for CPU-bound work rather than network-bound I/O."
+        },
+        {
+          "text": "asyncio",
+          "correct": true,
+          "explanation": "🎉 An event loop with `async`/`await` scales well to thousands of concurrent I/O-bound tasks."
+        },
+        {
+          "text": "No concurrency; run sequentially",
+          "correct": false,
+          "explanation": "⚠️ Sequential I/O will be significantly slower than an async/event-loop approach."
+        }
+      ]
+    },
+    {
+      "question": "In `asyncio`, which keywords pair together to define and suspend coroutines?",
+      "options": [
+        {
+          "text": "`async` defines a coroutine; `await` suspends until an awaitable completes.",
+          "correct": true,
+          "explanation": "🎉 `async def` declares a coroutine function; `await` yields control back to the event loop while waiting."
+        },
+        {
+          "text": "`await` defines a coroutine; `async` suspends execution.",
+          "correct": false,
+          "explanation": "⚠️ It's the opposite: `async def` defines, and `await` suspends."
+        },
+        {
+          "text": "`async` defines threads; `await` joins them.",
+          "correct": false,
+          "explanation": "⚠️ `asyncio` does not create OS threads when you use `async`/`await`."
+        },
+        {
+          "text": "`async`/`await` are aliases for `with`/context managers.",
+          "correct": false,
+          "explanation": "⚠️ Context managers use `with`; coroutines use `async`/`await`."
+        }
+      ]
+    },
+    {
+      "question": "True or False: For CPU-bound workloads on a multi-core machine, `threading` in CPython typically scales better than `multiprocessing`.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "⚠️ Due to the GIL, CPU-bound threads cannot run Python bytecode in parallel; `multiprocessing` is preferred."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "🎉 `multiprocessing` uses separate processes (and separate GILs) to achieve true parallelism across cores."
+        }
+      ]
+    }
+  ]
+}
