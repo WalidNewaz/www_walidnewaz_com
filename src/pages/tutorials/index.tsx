@@ -62,7 +62,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
             }
             image={heroImagePattern}
             slug={`/tutorials${tutorial.fields.slug}`}
-            tags={tutorial.frontmatter.tags}
+            tags={[tutorial.frontmatter.tags[tutorial.frontmatter.tags.length - 1]]}
             className="col-4"
           />
         )})}
