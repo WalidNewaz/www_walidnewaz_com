@@ -6,7 +6,13 @@ const StyledList = css`
     font-family: var(--fontFamily-sans);
   }
 
-  li::before {
+  ol {
+    list-style: decimal;
+    margin-bottom: 1em;
+    padding-left: 0.5em;
+  }
+
+  ul li::before {
     content: "";
     display: inline-block;
     width: 0;

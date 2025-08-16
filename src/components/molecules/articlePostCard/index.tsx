@@ -80,7 +80,7 @@ const ArticlePostCard: React.FC<{
           </h3>
         </div>
         <div className="tags">
-          <Tags tags={[tags[tags.length - 1]]} />
+          <Tags tags={tags} />
         </div>
       </StyledCardText>
       <a href={slug} itemProp="url">
