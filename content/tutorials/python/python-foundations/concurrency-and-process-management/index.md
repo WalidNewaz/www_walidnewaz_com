@@ -469,6 +469,6 @@ Rewrite the **Docker Container** example with the following changes:
 
 - Encapsulate the logic using OOP paradigms. The refactored code should use an Abstract Base Class (`AbstractDockerCodeRunner`). Extend the base class to be able to run both **Python** and **JavaScript** code.
 - Allow the user to run code within a `/scripts` directory **sequentially** or **simultaneously**.
-- Log all application and container outputs in a `/logs` directory. Each log file should be rotated every 24 hours (**hint:** Check out the <u>[previous](../python-standard-libraries/#heading-2-84-real-world-example-log-archiver-utility)</u> chaper on Python Standard LIbraries.
+- Log all application and container outputs in a `/logs` directory. Each log file should be rotated every 24 hours (**hint:** Check out the <u>[previous](../python-standard-libraries/#heading-2-84-real-world-example-log-archiver-utility)</u> chapter on Python Standard LIbraries.
 - Use proper error handling (e.g. if the code fails due to **syntax error**).
 - Ensure that your code is fully tested.
