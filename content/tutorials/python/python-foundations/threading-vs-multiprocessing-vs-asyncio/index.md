@@ -7,8 +7,7 @@ part: "I. Python Foundations"
 chapter: "10. Concurrency in Python – threading vs multiprocessing vs asyncio"
 
 title: "threading vs multiprocessing vs asyncio"
-description: "Python's standard library provides a wide array of modules that cover everything from file handling and math to networking and concurrency. These libraries help developers avoid reinventing the wheel and build powerful applications quickly."
-# hero_image: "python-tutorial-banner.png"
+description: "This chapter continues the discussion of concurrency in Python by introducing two additional concepts, threading and asyncio. After reading this chapter the reader should have basic, yet functional knowlege of the wide range of options available to developers when writing programs that execute concurrent tasks."
 has_quiz: true
 tags: ["Concurrency", "Python"]
 ---
