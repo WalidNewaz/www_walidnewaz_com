@@ -25,7 +25,15 @@ const StyledSection = css`
   }
 
   h3 {
+    font-size: var(--fontSize-3);
+  }
+
+  h4 {
     font-size: var(--fontSize-2);
+  }
+
+  h5 {
+    font-size: var(--fontSize-1);
   }
 
   pre[class*="grvsc-container"] {
