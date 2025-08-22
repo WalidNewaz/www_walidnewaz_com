@@ -1421,6 +1421,206 @@ State after undo: DONE
 Final state: {'task-1': 'DONE', 'job-100': 'DONE', 'job-101': 'DONE', 'job-0': 'DONE', 'job-1': 'DONE', 'job-2': 'DONE'}
 ```
 
+### Visitor Pattern
+
+The **Visitor Pattern** is a **behavioral design pattern** that allows you to add new operations to a group of related objects without modifying their classes.
+
+Instead of embedding multiple operations inside each class, you define a separate **visitor** object that "visits" elements of your object structure and performs actions on them.
+
+This pattern is especially useful when:
+
+* You have a complex **hierarchy of objects** (like AST nodes, file system objects, workflow steps).
+* You want to **separate algorithms from the object structure**.
+* You want to add new operations **without altering existing classes**.
+
+#### Structure
+
+1. **Element (interface/protocol)**
+   Defines an `accept(visitor)` method that accepts a visitor.
+2. **Concrete Elements**
+   Implement the `accept` method, passing themselves to the visitor.
+3. **Visitor (interface/protocol)**
+   Declares a set of visit methods for each element type.
+4. **Concrete Visitor**
+   Implements operations that should be applied to elements.
+
+#### Example: An Expression Tree (AST) with Multiple Visitors
+
+We’ll build a small arithmetic expression tree with nodes like `Number`, `Var`, `Add`, and `Mul`. Then we’ll write three visitors:
+
+1. **Evaluator**: computes the numeric result using a variable environment.
+2. **PrettyPrinter**: produces a human-readable string.
+3. **NodeCounter**: counts nodes for diagnostics.
+
+**1) Node hierarchy (the “elements”)**
+
+```python
+from dataclasses import dataclass
+from abc import ABC, abstractmethod
+from typing import Any, Dict
+
+# ----- Element interface ------------------------------------------------------
+class Expr(ABC):
+    @abstractmethod
+    def accept(self, visitor: "Visitor") -> Any:
+        ...
+
+# ----- Concrete nodes ---------------------------------------------------------
+@dataclass(frozen=True)
+class Number(Expr):
+    value: float
+    def accept(self, visitor: "Visitor") -> Any:
+        return visitor.visit_Number(self)
+
+@dataclass(frozen=True)
+class Var(Expr):
+    name: str
+    def accept(self, visitor: "Visitor") -> Any:
+        return visitor.visit_Var(self)
+
+@dataclass(frozen=True)
+class Add(Expr):
+    left: Expr
+    right: Expr
+    def accept(self, visitor: "Visitor") -> Any:
+        return visitor.visit_Add(self)
+
+@dataclass(frozen=True)
+class Mul(Expr):
+    left: Expr
+    right: Expr
+    def accept(self, visitor: "Visitor") -> Any:
+        return visitor.visit_Mul(self)
+```
+
+> Each node implements `accept(self, visitor)` and forwards control to a type-specific `visitor.visit_<ClassName>(self)` method. That’s the **double-dispatch**: the runtime type of the node picks which visitor method to run.
+
+**2) Visitor base class with safe fallback**
+
+```python
+class Visitor(ABC):
+    """Base visitor with a safe fallback."""
+    def generic_visit(self, node: Expr) -> Any:
+        raise NotImplementedError(f"No visit method for {type(node).__name__}")
+
+    # Optional: generic dispatcher if a node forgets to override accept()
+    def visit(self, node: Expr) -> Any:
+        meth_name = f"visit_{type(node).__name__}"
+        meth = getattr(self, meth_name, self.generic_visit)
+        return meth(node)
+```
+
+> Our nodes call `visit_*` directly. The `visit()` helper is handy if you have nodes that don’t implement `accept()` (or for internal recursion).
+
+**3) Concrete visitors**
+
+- **Evaluator**: compute value with variables
+
+```python
+class Evaluator(Visitor):
+    def __init__(self, env: Dict[str, float] | None = None):
+        self.env = env or {}
+
+    def visit_Number(self, node: Number) -> float:
+        return node.value
+
+    def visit_Var(self, node: Var) -> float:
+        if node.name not in self.env:
+            raise NameError(f"Undefined variable: {node.name}")
+        return self.env[node.name]
+
+    def visit_Add(self, node: Add) -> float:
+        return node.left.accept(self) + node.right.accept(self)
+
+    def visit_Mul(self, node: Mul) -> float:
+        return node.left.accept(self) * node.right.accept(self)
+```
+
+- **PrettyPrinter**: generate a readable string
+
+```python
+class PrettyPrinter(Visitor):
+    def visit_Number(self, node: Number) -> str:
+        # Render integers nicely (no trailing .0)
+        v = int(node.value) if node.value.is_integer() else node.value
+        return str(v)
+
+    def visit_Var(self, node: Var) -> str:
+        return node.name
+
+    def visit_Add(self, node: Add) -> str:
+        return f"({node.left.accept(self)} + {node.right.accept(self)})"
+
+    def visit_Mul(self, node: Mul) -> str:
+        # Multiplication binds tighter than addition, but we’re simple here
+        return f"({node.left.accept(self)} * {node.right.accept(self)})"
+```
+
+- **NodeCounter**: tally nodes (useful for diagnostics or cost models)
+
+```python
+class NodeCounter(Visitor):
+    def __init__(self):
+        self.counts: Dict[str, int] = {}
+
+    def _bump(self, cls_name: str):
+        self.counts[cls_name] = self.counts.get(cls_name, 0) + 1
+
+    def visit_Number(self, node: Number) -> int:
+        self._bump("Number")
+        return 1
+
+    def visit_Var(self, node: Var) -> int:
+        self._bump("Var")
+        return 1
+
+    def visit_Add(self, node: Add) -> int:
+        self._bump("Add")
+        return 1 + node.left.accept(self) + node.right.accept(self)
+
+    def visit_Mul(self, node: Mul) -> int:
+        self._bump("Mul")
+        return 1 + node.left.accept(self) + node.right.accept(self)
+```
+
+- Using the visitors on a nested structure
+
+Let’s build an expression:
+
+$(2 + x) \times (3 + 4)$
+
+```python
+# Build a nested AST
+ast = Mul(
+    Add(Number(2), Var("x")),
+    Add(Number(3), Number(4))
+)
+
+# Pretty print
+pp = PrettyPrinter()
+print("Expr:", ast.accept(pp))
+# -> Expr: ((2 + x) * (3 + 4))
+
+# Evaluate with a variable environment
+ev = Evaluator({"x": 10})
+print("Value:", ast.accept(ev))
+# -> Value: 2 + 10 = 12; 3 + 4 = 7; 12 * 7 = 84
+
+# Count nodes
+nc = NodeCounter()
+total = ast.accept(nc)
+print("Total nodes:", total, "| breakdown:", nc.counts)
+```
+
+**Variations & Pythonic Notes**
+
+* **Fallback dispatch**: Our `Visitor.generic_visit()` and `Visitor.visit()` give you a safe default and a reflective dispatcher.
+* **`functools.singledispatch` alternative**: You can implement visitor-like logic with `@singledispatch` functions on node types—handy when you don’t control the node classes, but you’ll lose the explicit `accept()` double dispatch.
+* **Immutability**: The example uses `@dataclass(frozen=True)` for nodes—this makes ASTs safer to share and reason about.
+* **Graphs vs Trees**: Visitor is simplest on trees. For DAGs, ensure you don’t **revisit** nodes accidentally (cache/memoize by node id) if that matters.
+
+
+
 ## 11.6 Conclusion
 
 In this chapter, you explored the three major families of design patterns — **Creational, Structural, and Behavioral** — and saw how they apply directly to real-world Python development.
@@ -1433,29 +1633,40 @@ Design patterns are not rigid “rules.” They are **guides** that help you rec
 
 ## 11.7 Chapter Assignment: Workflow Engine with Patterns
 
-Extend the workflow engine examples by combining **multiple design patterns** into a single coherent system.
+In this assignment you’ll extend your Docker runner into a **mini workflow engine** that demonstrates how multiple design patterns (Command, Strategy, Chain of Responsibility, Observer) fit together.
 
-### **Requirements**
+### Requirements
 
-1. **Task Definitions**
-   * Define at least three tasks (`FetchDataTask`, `ProcessDataTask`, `SaveResultsTask`).
-   * Each task should be implemented as a **Command**.
+1. **Tasks as Commands**
+   * Implement at least two tasks that wrap your existing Docker runners:
+     * `RunPythonTask` (runs a `.py` script inside a Python container).
+     * `RunJavaScriptTask` (runs a `.js` script inside a Node.js container).
+   * Each task should implement a common `Task` interface with an `execute(context)` method.
 2. **Execution Strategies (Strategy Pattern)**
-   * Allow tasks to be run **Sequentially** or **in Parallel** (asyncio).
-   * The workflow engine should choose the execution strategy at runtime.
-3. **Processing Pipeline (Chain of Responsibility)**
-   * Before executing tasks, requests must pass through a pipeline of handlers:
-     * **AuthHandler** → **ValidationHandler** → **LoggingHandler**.
-   * If any step fails, the pipeline should stop.
-4. **Observers (Observer Pattern)**
-   * Attach observers (e.g., `LoggerObserver`, `UIObserver`) that receive updates whenever a task starts or completes.
-5. **Undo Support (Command Pattern)**
-   * Implement undo for at least one command (e.g., `SaveResultsTask` can remove saved output).
-6. **Output**
-   * Logs should show:
-     * pipeline validation,
-     * chosen execution strategy,
-     * observer notifications,
-     * task execution results.
-   * State should be restorable via `undo_last()`.
+   * Implement two workflow execution strategies:
+     * **Sequential**: tasks run one after the other.
+     * **Parallel (asyncio)**: tasks run concurrently.
+   * Let the user choose the strategy when starting the workflow.
+3. **Pipeline (Chain of Responsibility)**
+   * Before running tasks, all requests should pass through a pipeline of handlers:
+     * **AuthHandler** (checks for an API key in the context).
+     * **ValidationHandler** (ensures script paths exist).
+     * **LoggingHandler** (logs before/after execution).
+   * If any handler fails, stop the workflow.
+4. **Observers**
+   * Implement observers such as:
+     * `LoggerObserver`: prints events to the console.
+     * `FileObserver`: writes task events to a log file.
+   * Observers should be notified whenever a task starts or completes.
+5. **Workflow Context**
+   * Store data (e.g. paths, environment vars, execution results) in a shared context dictionary.
+   * Ensure one task’s output can be added to the context and used by the next.
 
+### Hints
+
+* Start with a `Task` base class or ABC, then subclass it for Python/JS tasks.
+* Use `asyncio.gather()` for parallel execution.
+* Chain of Responsibility can be implemented by linking handlers together: each calls `next.handle(context)` if successful.
+* Observers are just listeners attached to the workflow engine. Call `observer.update(event)` whenever a task changes state.
+* Use your existing Docker runner code for the core `execute()` logic of each task.
+* Keep the workflow small (2–3 tasks) so you can run it end-to-end in under a minute.
