@@ -7,7 +7,7 @@ part: "I. Python Foundations"
 chapter: "11. Python Design Patterns"
 
 title: "Python Design Patterns"
-description: "Python's standard library provides a wide array of modules that cover everything from file handling and math to networking and concurrency. These libraries help developers avoid reinventing the wheel and build powerful applications quickly."
+description: "Design patterns are tried-and-tested solutions to common software design problems. This chapter introduces core design patterns in Python, with real-world examples and use cases for each."
 # hero_image: "python-tutorial-banner.png"
 has_quiz: true
 tags: ["Design Patterns", "Python"]
