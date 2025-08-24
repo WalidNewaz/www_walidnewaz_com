@@ -1,0 +1,100 @@
+{
+  "topic": "Python Type Hints and Generics",
+  "questions": [
+    {
+      "question": "What does `Optional[str]` mean in Python type hints?",
+      "options": [
+        {
+          "text": "The variable must always be a string.",
+          "correct": false,
+          "explanation": "⚠️ `Optional[str]` means the variable can be a `str` or `None`."
+        },
+        {
+          "text": "The variable can be a string or None.",
+          "correct": true,
+          "explanation": "🎉 `Optional[str]` is shorthand for `str | None`."
+        },
+        {
+          "text": "The variable can be any type.",
+          "correct": false,
+          "explanation": "⚠️ `Optional[str]` does not allow arbitrary types, only `str` or `None`."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following is a valid type alias?",
+      "options": [
+        {
+          "text": "User = dict[int]",
+          "correct": false,
+          "explanation": "⚠️ This is invalid; dict requires both key and value types."
+        },
+        {
+          "text": "User = dict[str, str]",
+          "correct": true,
+          "explanation": "🎉 This creates a valid alias for a dictionary with string keys and string values."
+        },
+        {
+          "text": "User = str | int",
+          "correct": true,
+          "explanation": "🎉 Type aliases can also represent unions of types."
+        }
+      ]
+    },
+    {
+      "question": "True or False: `mypy` enforces type hints at runtime.",
+      "options": [
+        {
+          "text": "True",
+          "correct": false,
+          "explanation": "⚠️ `mypy` is a static type checker; it does not affect runtime."
+        },
+        {
+          "text": "False",
+          "correct": true,
+          "explanation": "🎉 Type hints are not enforced at runtime; they are checked by tools like `mypy`."
+        }
+      ]
+    },
+    {
+      "question": "Which statement about Generics is TRUE?",
+      "options": [
+        {
+          "text": "They allow writing flexible, reusable code while preserving type safety.",
+          "correct": true,
+          "explanation": "🎉 Generics enable one implementation to work across multiple types safely."
+        },
+        {
+          "text": "They only exist in Python classes, not functions.",
+          "correct": false,
+          "explanation": "⚠️ Generics work with both functions and classes."
+        },
+        {
+          "text": "Using `Any` is the same as using Generics.",
+          "correct": false,
+          "explanation": "⚠️ `Any` disables type safety, while Generics preserve it."
+        }
+      ]
+    },
+    {
+      "question": "What does the following function return type mean? `Callable[[int, int], str]`",
+      "options": [
+        {
+          "text": "A function that takes two integers and returns a string.",
+          "correct": true,
+          "explanation": "🎉 `Callable[[int, int], str]` specifies the function signature: (int, int) → str."
+        },
+        {
+          "text": "Any callable object that returns an integer.",
+          "correct": false,
+          "explanation": "⚠️ The return type is explicitly `str`, not `int`."
+        },
+        {
+          "text": "A function that takes a list of integers and returns a string.",
+          "correct": false,
+          "explanation": "⚠️ The signature indicates two separate int parameters, not a list."
+        }
+      ]
+    }
+  ]
+}

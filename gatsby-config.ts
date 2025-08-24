@@ -97,6 +97,7 @@ module.exports = {
               containerClass: "table-container"
             }
           },
+          `gatsby-remark-katex`,
           {
             resolve: `gatsby-remark-images`,
             options: {

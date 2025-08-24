@@ -22,6 +22,7 @@ import { QuizType } from "../../components/organisms/ChapterQuiz/";
 
 /** Styles */
 import "./tutorial-chapter.css";
+import "katex/dist/katex.min.css"
 import StyledSection from "../../components/shared/styled/StyledSection";
 import StyledAnchor from "../../components/shared/styled/StyledAnchor";
 import StyledList from "../../components/shared/styled/StyledList";
