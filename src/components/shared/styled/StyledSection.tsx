@@ -18,18 +18,34 @@ const StyledSection = css`
 
   h1 {
     font-size: var(--fontSize-5);
+
+    code {
+      font-size: var(--fontSize-4);
+    }
   }
 
   h2 {
     font-size: var(--fontSize-4);
+
+    code {
+      font-size: var(--fontSize-3);
+    }
   }
 
   h3 {
     font-size: var(--fontSize-3);
+
+    code {
+      font-size: var(--fontSize-2);
+    }
   }
 
   h4 {
     font-size: var(--fontSize-2);
+
+    code {
+      font-size: var(--fontSize-1);
+    }
   }
 
   h5 {

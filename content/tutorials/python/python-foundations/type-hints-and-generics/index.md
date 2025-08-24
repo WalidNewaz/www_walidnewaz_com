@@ -1,0 +1,698 @@
+---
+featured: false
+date: "2023-11-18"
+
+series: "Python for Modern Developers"
+part: "I. Python Foundations"
+chapter: "12. Python Type Hints and Generics"
+
+title: "Python Type Hints and Generics"
+description: "Despite Python being a dynamically typed languege, it provides a flexible and powerful mechanism, and tools to make your code more versatile, and type safe at the same time."
+# hero_image: "python-tutorial-banner.png"
+has_quiz: true
+tags: ["Python Types", "Python"]
+---
+
+# Chapter 12: Python Type Hints and Generics
+
+Python is dynamically typed — variables don’t require explicit types. This flexibility is powerful, but as codebases grow, it can also become risky: errors may appear only at runtime, and function signatures may be ambiguous.
+
+To improve safety and readability, Python introduced **type hints** (PEP 484). These don’t enforce types at runtime but can be checked using external tools like **mypy**, IDEs, or runtime validators like **pydantic**.
+
+In this chapter, we’ll explore:
+
+* Basic and advanced type hints
+* The `typing` module and its constructs
+* Generics and reusable type-safe patterns
+* Advanced typing features (`Protocol`, `TypedDict`, `Literal`, `NewType`, etc.)
+* Practical examples in workflows and data validation
+
+## 12.1 Function and Variable Annotations
+
+### Function Annotations
+
+You can annotate **parameters** and the **return type** of a function.
+
+```python
+def greet(name: str, age: int) -> str:
+    return f"Hello, {name}. You are {age} years old."
+```
+
+* `name: str` → `name` must be a `str`.
+* `age: int` → `age` must be an `int`.
+* `-> str` → the function returns a `str`.
+
+If you call it incorrectly:
+
+```python
+greet("Alice", "thirty")  # mypy or IDE will warn: expected int, got str
+```
+
+Python won’t raise an error at runtime, but type checkers like `mypy` will flag it.
+
+> **Note:** `mypy` needs to be installed and run on your codebase to identify annotation errors. Visit the <a href="https://mypy-lang.org/" target="_blank">mypy</a> site for additional instructions.
+
+#### Default Values
+
+```python
+def increment(x: int, step: int = 1) -> int:
+    return x + step
+```
+
+#### Optional Parameters
+
+Use `Optional[type]` (or `Union[type, None]`) when a parameter can be `None`.
+
+```python
+from typing import Optional
+
+def find_user(user_id: Optional[int]) -> str:
+    if user_id is None:
+        return "Guest"
+    return f"User {user_id}"
+
+u_id = None
+print(find_user(u_id))
+```
+
+### Variable Annotations
+
+Variables can be annotated independently of assignment.
+
+```python
+no_value: int                     # `no_value` assigned a type but not initialized
+name: str = "Alice"               # `name` initialized to the value "Alice"
+age: int = 30                     # `age` initialized to 30
+scores: list[int] = [95, 88, 76]  # `scores` is a list of integers
+```
+
+#### Without Initialization
+
+You can annotate without assigning a value. Useful for class attributes:
+
+```python
+from typing import Optional
+
+class User:
+    id: int
+    name: str
+    email: Optional[str] = None   # This allows proper stringification
+
+    def __str__(self) -> str:
+      return f"User(id={self.id}, name={self.name}, email={self.email or 'N/A'})"
+
+    def __repr__(self) -> str:
+      return f"User(id={self.id!r}, name={self.name!r}, email={self.email!r})"
+```
+
+- Notice the `!r` → it calls `repr()` on each attribute, so strings are quoted properly.
+
+#### Forward References
+
+For recursive data structures, use strings as type hints:
+
+```python
+class Node:
+    value: int
+    next: "Node | None" = None  # quotes allow forward reference
+
+    def __str__(self) -> str:
+        return f"Node(value={self.value}, next={self.next})"
+
+node_1 = Node()
+node_1.value = 100
+
+node_2 = Node()
+node_2.value = 200
+node_1.next = node_2
+print(node_1)
+```
+
+**Output:**
+
+```bash
+Node(value=100, next=Node(value=200, next=None))
+```
+
+#### Introspection with `__annotations__`
+
+Python stores annotations in a special dictionary:
+
+```python
+def add(x: int, y: int) -> int:
+    return x + y
+
+print(add.__annotations__)
+# {'x': <class 'int'>, 'y': <class 'int'>, 'return': <class 'int'>}
+print(Node.__annotations__)
+# {'value': <class 'int'>, 'next': 'None | Node'}
+```
+
+> **Note:** Only things that are annotated are listed here. Un-annotated items are not listed within the dictionary.
+
+## 12.2 Collections and the `typing` Module
+
+Python’s collections give you fast, battle‑tested containers; the `typing` module (plus `collections.abc`) lets you **describe** those containers precisely so tools like `mypy` can catch bugs before runtime.
+
+### Core collections you’ll actually use
+
+* `list`: ordered, mutable sequence
+* `tuple`: fixed-size, immutable sequence
+* `set`, `frozenset`: unique items, fast membership tests
+* `dict`: key–value mapping
+* `deque` (`collections.deque`): fast appends/pops from both ends
+* `defaultdict` / `Counter` (`collections`): counting & grouped data
+
+```python
+from collections import deque, defaultdict, Counter
+
+dq = deque([1, 2, 3]); dq.appendleft(0)
+
+freq = Counter("bananas")        # Counter({'a': 3, 'n': 2, 'b': 1, 's': 1})
+group = defaultdict(list)
+group["errors"].append("E001")
+```
+
+### Type hinting collections (modern syntax)
+
+In Python 3.9+, use built‑in generics: `list[int]`, `dict[str, float]`, etc.
+Prefer **protocol/ABC** types for function parameters (accept more inputs), and **concrete** types for returns (promise what you return).
+
+```python
+# Good parameter types: accept any sequence/mapping; return concrete types.
+from collections.abc import Sequence, Mapping
+
+def average(nums: Sequence[float]) -> float:
+    return sum(nums) / len(nums)
+
+def invert(d: Mapping[str, int]) -> dict[int, str]:
+    return {v: k for k, v in d.items()}
+
+values: list[float] = [1.0, 2.0, 3.5]
+print(average(values))  # 2.166...
+```
+
+### Mutable vs. read‑only views
+
+Use abstract bases from `collections.abc` to communicate mutability expectations:
+
+* `Sequence[T]` (read‑only indexing/iterating) vs `MutableSequence[T]`
+* `Mapping[K, V]` (read‑only) vs `MutableMapping[K, V]`
+
+```python
+from collections.abc import MutableMapping
+
+def touch(cache: MutableMapping[str, int], key: str) -> None:
+    cache[key] = cache.get(key, 0) + 1
+```
+
+### Nested / compound types
+
+The following code defines type aliases using Python’s typing syntax.
+
+```python
+Matrix = list[list[float]]               # 2D list
+AdjList = dict[str, set[str]]            # graph adjacency list
+Records = list[tuple[int, str | None]]   # union in tuples (3.10+ `|` syntax)
+
+my_matrix: Matrix = [[1.2, 3.3, 9.5], [8.7, 4.5, 5.6]]
+adjacency: AdjList = { 'one': { '1', '2', '3'}, 'two': { '1', '2', '3'} }
+my_rec: Records = [(1, 'one'), (2, 'two'), (3, 'three')]
+```
+
+### Deques, default dicts, and typing
+
+Runtime types live in `collections`, but you annotate with built‑ins or `typing` aliases when needed:
+
+```python
+from collections import deque, defaultdict
+
+work: deque[str] = deque()
+index: dict[str, list[int]] = defaultdict(list)
+
+work.append("task-1")
+index["x"].append(42)
+```
+
+- `defaultdict`: A dictionary subclass that automatically provides a default value for missing keys.
+- Since `"x"` doesn’t exist yet, `defaultdict` creates `index["x"] = []` automatically.
+
+### Typed dictionaries and lightweight records
+
+When a dict has a **fixed shape**, use `TypedDict`. For tuple‑like records with names, use `NamedTuple` or `dataclass`.
+
+```python
+from typing import TypedDict, NamedTuple
+
+class UserTD(TypedDict):
+    id: int
+    name: str
+    email: str | None
+
+class Point(NamedTuple):
+    x: float
+    y: float
+
+def make_user() -> UserTD:
+    return {"id": 1, "name": "Alice", "email": None}
+```
+
+### Iterators, generators, and streams
+
+Use `Iterable[T]` when you only need to iterate, `Iterator[T]` when you also consume step‑by‑step, and `Generator[Y, S, R]` for full generator contracts.
+
+```python
+from collections.abc import Iterable, Iterator
+
+def only_ints(xs: Iterable[int]) -> list[int]:
+    return [x for x in xs if isinstance(x, int)]
+
+def countdown(n: int) -> Iterator[int]:
+    while n:
+        yield n
+        n -= 1
+
+for i in countdown(10):
+    print(i)              # Prints 10 → 0
+```
+
+### Validating with Pydantic
+
+When “dicts of stuff” come from the outside (JSON, APIs), use Pydantic to **validate** and **coerce**.
+
+```python
+from pydantic import BaseModel, EmailStr, ValidationError
+from typing import Optional
+
+class UserModel(BaseModel):
+    id: int
+    name: str
+    email: Optional[EmailStr] = None
+    tags: list[str] = []
+
+try:
+    u = UserModel(id="1", name="Alice", email="@example.com", tags=("a", "b"))
+    # id coerced to int; tags coerced to list
+except ValidationError as e:
+    print(e.json())
+```
+
+The above code raises a validation error because of the email address format.
+
+## 12.3 Callable and Type Aliases
+
+When building larger Python applications, two recurring challenges come up:
+
+1. **Functions as parameters**:
+   You may want to pass a function into another function (e.g., a strategy or callback).
+   How do you *type hint* such callables?
+2. **Repetitive, complex type hints**:
+   You may have a long, repeated type annotation like `dict[str, list[tuple[int, float]]]`.
+   How do you avoid clutter and improve readability?
+
+The solutions: **`Callable`** and **Type Aliases**.
+
+### Callable
+
+The `typing.Callable` type lets you describe a function’s **signature** — the shape of its parameters and its return type.
+
+#### Basic Example
+
+```python
+from typing import Callable
+
+def apply_twice(func: Callable[[int], int], x: int) -> int:
+    """Apply a function to a value twice."""
+    return func(func(x))
+
+def square(n: int) -> int:
+    return n * n
+
+print(apply_twice(square, 3))  # (3^2)^2 = 81
+```
+
+* `Callable[[int], int]` means:
+  * A function taking **one int** argument,
+  * Returning an **int**.
+
+#### With Multiple Parameters
+
+```python
+def operate(func: Callable[[int, int], float], a: int, b: int) -> float:
+    return func(a, b)
+
+def divide(a: int, b: int) -> float:
+    return a / b
+
+print(operate(divide, 10, 2))  # 5.0
+```
+
+#### Any Parameters (`...`)
+
+```python
+def run_any(func: Callable[..., str]) -> str:
+    """Callable with any number of arguments, but must return str."""
+    return func("Hello", "World")
+
+def join_strings(a: str, b: str) -> str:
+    return a + " " + b
+
+print(run_any(join_strings))  # Hello World
+```
+
+#### Using Callable in Classes (Strategy Pattern)
+
+You can use `Callable` for **strategies, hooks, and callbacks**.
+
+```python
+from typing import Callable
+
+class Calculator:
+    def __init__(self, operation: Callable[[int, int], int]):
+        self.operation = operation
+
+    def compute(self, a: int, b: int) -> int:
+        return self.operation(a, b)
+
+
+# Different strategies
+add = lambda x, y: x + y
+mul = lambda x, y: x * y
+
+calc_add = Calculator(add)
+calc_mul = Calculator(mul)
+
+print(calc_add.compute(2, 3))  # 5
+print(calc_mul.compute(2, 3))  # 6
+```
+
+Here `Callable[[int, int], int]` makes the class type-safe while still flexible.
+
+### Type Aliases
+
+Sometimes type annotations become **long and hard to read**. A type alias gives them a **readable name**.
+
+#### Simple Alias
+
+```python
+UserId = int
+Score = float
+
+def record_score(user: UserId, score: Score) -> None:
+    print(f"User {user} scored {score}")
+
+record_score(101, 9.5)
+```
+
+This improves readability, even though `UserId` is just an `int`.
+
+#### Complex Aliases
+
+```python
+from typing import Callable
+
+# Graph types
+Node = str
+AdjList = dict[Node, set[Node]]
+
+# Function type
+Transform = Callable[[str], str]
+
+def apply_pipeline(data: list[str], steps: list[Transform]) -> list[str]:
+    for step in steps:
+        data = [step(x) for x in data]
+    return data
+
+# Usage
+steps: list[Transform] = [str.strip, str.upper]
+print(apply_pipeline(["  hello ", " world "], steps))
+# ['HELLO', 'WORLD']
+```
+
+## 12.4 Generics
+
+Generics in Python allow us to write **flexible and type-safe code** that works across many types without duplicating logic. They’re the foundation for reusable data structures (lists, queues, trees), frameworks, and APIs.
+
+### Why Generics?
+
+Without generics, you either:
+
+1. Hard-code a specific type:
+   ```python
+   def first_str(items: list[str]) -> str:
+       return items[0]
+   ```
+   → Only works for `list[str]`.
+2. Use `Any`, which removes type safety:
+   ```python
+   from typing import Any
+
+   def first_any(items: list[Any]) -> Any:
+       return items[0]
+   ```
+
+With **Generics**, you can write **one function that works for all item types**, while keeping type safety.
+
+### Generic Functions
+
+```python
+from typing import TypeVar
+
+T = TypeVar("T")  # placeholder for any type
+
+def first(items: list[T]) -> T:
+    """Return the first element of a list."""
+    return items[0]
+
+print(first([1, 2, 3]))        # infers T=int → returns int
+print(first(["a", "b", "c"]))  # infers T=str → returns str
+```
+
+Here, `T` is a **type variable** that represents “the type of list elements.”
+`mypy` (or Pyright) checks that the return type matches the input type.
+
+### Generic Classes
+
+```python
+from typing import Generic
+
+class Box(Generic[T]):
+    """A generic container that holds one item of any type."""
+
+    def __init__(self, value: T):
+        self.value = value
+
+    def get(self) -> T:
+        return self.value
+
+
+int_box = Box(42)          # Box[int]
+str_box = Box("hello")     # Box[str]
+
+print(int_box.get())       # int
+print(str_box.get())       # str
+```
+
+* `Box[int]` → a box for integers.
+* `Box[str]` → a box for strings.
+
+Frameworks like **SQLAlchemy**, **Django ORM**, and **FastAPI** use similar patterns internally.
+
+### Bounded Type Variables
+
+You can restrict type variables to a base class.
+
+```python
+from typing import Protocol
+
+class Comparable(Protocol):
+    def __lt__(self, other: object) -> bool: ...
+
+U = TypeVar("U", bound=Comparable)
+
+def minimum(a: U, b: U) -> U:
+    return a if a < b else b
+
+print(minimum(3, 7))       # works (int is Comparable)
+print(minimum("a", "b"))   # works (str is Comparable)
+```
+
+This guarantees that `minimum` only accepts types that implement `<`.
+
+### Multiple TypeVars
+
+```python
+K = TypeVar("K")
+V = TypeVar("V")
+
+def get_or_default(d: dict[K, V], key: K, default: V) -> V:
+    return d.get(key, default)
+
+scores: dict[str, int] = {"alice": 90}
+print(get_or_default(scores, "bob", 0))  # returns int
+```
+
+### Aliases with Generics
+
+```python
+from typing import TypeVar
+
+T = TypeVar("T")
+Matrix = list[list[T]]
+
+def transpose(matrix: Matrix[T]) -> Matrix[T]:
+    return [list(row) for row in zip(*matrix)]
+
+print(transpose([[1, 2, 3], [4, 5, 6]]))
+# [[1, 4], [2, 5], [3, 6]]
+```
+
+### Using Generics with `mypy`
+
+Run type checks:
+
+```bash
+mypy your_file.py
+```
+
+Example file:
+
+```python
+nums = [1, 2, 3]
+print(first(nums))       # OK
+print(first("hello"))    # Error: str is not a list
+```
+
+Mypy enforces that only lists are passed.
+
+### Generics with Pydantic
+
+Pydantic models also support generics, useful for **API responses**.
+
+```python
+from typing import Generic, TypeVar, List
+from pydantic import BaseModel
+
+T = TypeVar("T")
+
+class ApiResponse(BaseModel, Generic[T]):
+    success: bool
+    data: list[T]
+
+class User(BaseModel):
+    id: int
+    name: str
+
+# Use generics in practice
+resp = ApiResponse[User](success=True, data=[User(id=1, name="Alice")])
+print(resp.json())
+```
+
+Output:
+
+```json
+{"success": true, "data": [{"id": 1, "name": "Alice"}]}
+```
+
+Frameworks like **FastAPI** leverage this to define **generic API response types**.
+
+## 12.5 Advanced Typing Patterns
+
+### Protocols: Structural Subtyping
+
+```python
+from typing import Protocol
+
+class Drivable(Protocol):
+    def drive(self) -> None: ...
+
+class Car:
+    def drive(self) -> None: print("Car driving")
+
+def start_journey(vehicle: Drivable):
+    vehicle.drive()
+
+car = Car()
+print(start_journey(car))
+```
+
+### TypedDict: JSON-like schemas
+
+It's a special construct that adds type hints to a dictionary.
+
+```python
+from typing import TypedDict
+
+class CarSpec(TypedDict):
+    make: str
+    model: str
+    year: int
+    electric: bool
+
+my_car: CarSpec = { "make": "Ford", "model": "Mustang", "year": 1967, "electric": False }
+```
+
+### Literal: Restricted values
+
+```python
+from typing import Literal
+
+def paint(color: Literal["red", "blue"]): ...
+```
+
+### NewType: Strong semantic types
+
+```python
+from typing import NewType
+
+UserId = NewType('UserId', int)
+Email = NewType('Email', str)
+
+class User:
+  id: UserId
+  email: Email
+```
+
+## 12.6 Tools
+
+So far we have talked about `mypy` and `pydantic` in this chapter:
+
+- Use `mypy` to type check your code statically.
+- Use `pydantic` to enforce data types **at runtime**, unlike type hints.
+
+## 12.7 Chapter Assignment
+
+In this assignment, you will **apply type hints, generics, and runtime validation** to a simple workflow.
+
+#### Requirements
+
+1. Define a **generic `Box[T]` class** that can hold any type (`int`, `str`, `dict`, etc.).
+2. Create a function `load_records(file: str) -> list[dict[str, str]]` that loads a CSV file and returns records. Add proper type hints.
+3. Define a **type alias** `Record = dict[str, str]`.
+4. Create a **callable pipeline**:
+
+   ```python
+   from typing import Callable
+   Transform = Callable[[Record], Record]
+   ```
+
+   Write two transforms:
+
+   * `strip_whitespace(record: Record) -> Record`
+   * `uppercase_name(record: Record) -> Record`
+5. Use `mypy` to check your code for type safety.
+6. Use **Pydantic** to validate a record schema:
+
+   ```python
+   class UserRecord(BaseModel):
+       id: int
+       name: str
+       email: EmailStr
+   ```
+
+#### Hints
+
+* Use `list[dict[str, str]]` for collections of records.
+* You can simulate CSV input with a list of dicts if you don’t want to read files.
+* `mypy file.py` will report any type mismatches.
+* Try invalid inputs (e.g., `{"id": "abc"}`) to see how Pydantic enforces runtime validation.
