@@ -15,14 +15,21 @@ const StyledTOC = styled.div`
   grid-column: span 3;
   position: sticky;
   top: 5rem;
-  max-height: fit-content;
+  max-height: calc(100vh - 7rem);
   border: 1px solid black var(--border);
-  padding: var(--spacing-6);
+  padding: var(--spacing-6) var(--spacing-1) var(--spacing-6) var(--spacing-4);
   margin-bottom: 6rem;
   border-radius: 0.75rem;
   border-color: hsl(var(--brand-text-hue) 0% 80%);
   border-style: solid;
   border-width: 2px;
+
+  nav {
+    max-height: calc(100vh - 12rem);
+    overflow: auto;
+    padding-right: 0.5rem;
+  }
+
 
   h1,
   h2,
@@ -70,10 +77,12 @@ const StyledTOC = styled.div`
     z-index: 2;
     top: 3.65rem;
     border-radius: 0;
+    padding: var(--spacing-6);
 
     h1 {
       margin: 0;
-    }
+      padding: 0;
+    }    
 
     @media screen and (prefers-color-scheme: dark) {
       background-color: rgb(16 23 34);
@@ -91,7 +100,12 @@ const StyledTOC = styled.div`
   }
 `;
 
-const StyledHanburgerMenu = styled.div`
+const StyledChapterOutline = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledHamburgerMenu = styled.div`
   display: none;
 
   button {
@@ -127,7 +141,7 @@ interface HamburgerMenuProps {
 }
 
 const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
-  <StyledHanburgerMenu id="chapter-ham-menu">
+  <StyledHamburgerMenu id="chapter-ham-menu">
     <button onClick={onClick} aria-label="Toggle menu">
       <span className="hamburger-label">Open main menu</span>
       <FaBars
@@ -136,7 +150,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
         aria-label="Toggle icon"
       />
     </button>
-  </StyledHanburgerMenu>
+  </StyledHamburgerMenu>
 );
 
 const StyledHeadings = styled.ul`
@@ -249,15 +263,17 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
 
   return (
     <StyledTOC>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h1>Chapter Outline</h1>
-        <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
-      </div>
-      <IndentedHeadings
-        headings={chapter.headings}
-        maxDeth={maxDeth}
-        isOpen={isOpen}
-      />
+        <StyledChapterOutline>
+          <h1 className="pb-4">Chapter Outline</h1>
+          <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
+        </StyledChapterOutline>
+      <nav>
+        <IndentedHeadings
+          headings={chapter.headings}
+          maxDeth={maxDeth}
+          isOpen={isOpen}
+        />
+      </nav>
     </StyledTOC>
   );
 };

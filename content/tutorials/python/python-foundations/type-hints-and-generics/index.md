@@ -660,7 +660,7 @@ So far we have talked about `mypy` and `pydantic` in this chapter:
 - Use `mypy` to type check your code statically.
 - Use `pydantic` to enforce data types **at runtime**, unlike type hints.
 
-## 12.7 Chapter Assignment
+## 12.7 Assignment
 
 In this assignment, you will **apply type hints, generics, and runtime validation** to a simple workflow.
 
@@ -670,19 +670,15 @@ In this assignment, you will **apply type hints, generics, and runtime validatio
 2. Create a function `load_records(file: str) -> list[dict[str, str]]` that loads a CSV file and returns records. Add proper type hints.
 3. Define a **type alias** `Record = dict[str, str]`.
 4. Create a **callable pipeline**:
-
    ```python
    from typing import Callable
    Transform = Callable[[Record], Record]
    ```
-
    Write two transforms:
-
    * `strip_whitespace(record: Record) -> Record`
    * `uppercase_name(record: Record) -> Record`
 5. Use `mypy` to check your code for type safety.
 6. Use **Pydantic** to validate a record schema:
-
    ```python
    class UserRecord(BaseModel):
        id: int
