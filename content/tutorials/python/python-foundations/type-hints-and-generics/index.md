@@ -7,7 +7,7 @@ part: "I. Python Foundations"
 chapter: "12. Python Type Hints and Generics"
 
 title: "Python Type Hints and Generics"
-description: "Despite Python being a dynamically typed languege, it provides a flexible and powerful mechanism, and tools to make your code more versatile, and type safe at the same time."
+description: "Despite Python being a dynamically typed language, it provides a flexible and powerful mechanism, and tools to make your code more versatile, and type safe at the same time."
 # hero_image: "python-tutorial-banner.png"
 has_quiz: true
 tags: ["Python Types", "Python"]
