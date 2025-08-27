@@ -19,4 +19,4 @@ tags: ["fundamentals", "Python"]
 
 The focus is on practical, applied knowledge. Rather than isolated snippets, each chapter ties into larger, functional projects — such as a Personal Finance App — that evolve alongside the material. This approach ensures that concepts like CLI application design, REST API development, asynchronous programming, and AI integration aren’t just explained, but demonstrated in working, testable code. By the conclusion of the series, readers will have both a deep understanding of Python and a portfolio of modern, production-ready applications that reflect industry best practices.
 
-The companion code and solutions for the tutorial series can be found <a href="https://github.com/WalidNewaz/python_tutorials" target="_blank">here</a>.
+The **companion code and solutions** for the tutorial series can be found <a href="https://github.com/WalidNewaz/python_tutorials" target="_blank">here</a>.
