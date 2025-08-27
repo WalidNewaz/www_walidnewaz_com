@@ -7,22 +7,22 @@
         {
           "text": "regexlib",
           "correct": false,
-          "explanation": "`regexlib` is not a standard library module."
+          "explanation": "⚠️ `regexlib` is not a standard library module."
         },
         {
           "text": "re",
           "correct": true,
-          "explanation": "`re` is the correct module for regular expressions."
+          "explanation": "🎉 `re` is the correct module for regular expressions."
         },
         {
           "text": "string",
           "correct": false,
-          "explanation": "`string` handles string constants and utilities."
+          "explanation": "⚠️ `string` handles string constants and utilities."
         },
         {
           "text": "format",
           "correct": false,
-          "explanation": "`format` is not a standalone module."
+          "explanation": "⚠️ `format` is not a standalone module."
         }
       ]
     },
@@ -32,12 +32,12 @@
         {
           "text": "True",
           "correct": false,
-          "explanation": "`json` handles JSON data, not CSV."
+          "explanation": "⚠️ `json` handles JSON data, not CSV."
         },
         {
           "text": "False",
           "correct": true,
-          "explanation": "The `csv` module is used for CSV files."
+          "explanation": "🎉 The `csv` module is used for CSV files."
         }
       ]
     },
@@ -47,22 +47,22 @@
         {
           "text": "os",
           "correct": false,
-          "explanation": "`os` is procedural and lacks full OO path tools."
+          "explanation": "⚠️ `os` is procedural and lacks full OO path tools."
         },
         {
           "text": "pathlib",
           "correct": true,
-          "explanation": "`pathlib` provides a modern OO interface to paths."
+          "explanation": "🎉 `pathlib` provides a modern OO interface to paths."
         },
         {
           "text": "shutil",
           "correct": false,
-          "explanation": "`shutil` is for high-level file operations."
+          "explanation": "⚠️ `shutil` is for high-level file operations."
         },
         {
           "text": "sys",
           "correct": false,
-          "explanation": "`sys` deals with Python runtime config."
+          "explanation": "⚠️ `sys` deals with Python runtime config."
         }
       ]
     },
@@ -72,22 +72,22 @@
         {
           "text": "pickle",
           "correct": false,
-          "explanation": "`pickle` is part of the standard library."
+          "explanation": "⚠️ `pickle` is part of the standard library."
         },
         {
           "text": "multiprocessing",
           "correct": false,
-          "explanation": "`multiprocessing` is a standard module."
+          "explanation": "⚠️ `multiprocessing` is a standard module."
         },
         {
           "text": "yaml",
           "correct": true,
-          "explanation": "`yaml` requires the external `PyYAML` package."
+          "explanation": "🎉 `yaml` requires the external `PyYAML` package."
         },
         {
           "text": "collections",
           "correct": false,
-          "explanation": "`collections` is part of the standard library."
+          "explanation": "⚠️ `collections` is part of the standard library."
         }
       ]
     },
@@ -97,12 +97,12 @@
         {
           "text": "True",
           "correct": false,
-          "explanation": "`logging` can write to files, sockets, and more."
+          "explanation": "⚠️ `logging` can write to files, sockets, and more."
         },
         {
           "text": "False",
           "correct": true,
-          "explanation": "`logging` supports file output, streams, and more."
+          "explanation": "🎉 `logging` supports file output, streams, and more."
         }
       ]
     }

@@ -7,22 +7,22 @@
         {
           "text": "It captures stdout and stderr automatically.",
           "correct": false,
-          "explanation": "`check=True` does not capture output. Use `capture_output=True` or specify `stdout`/`stderr` pipes for that."
+          "explanation": "⚠️ `check=True` does not capture output. Use `capture_output=True` or specify `stdout`/`stderr` pipes for that."
         },
         {
           "text": "It raises a CalledProcessError if the process exits with a non-zero code.",
           "correct": true,
-          "explanation": "With `check=True`, a non-zero return code causes `subprocess.CalledProcessError` to be raised."
+          "explanation": "🎉 With `check=True`, a non-zero return code causes `subprocess.CalledProcessError` to be raised."
         },
         {
           "text": "It runs the command through the system shell by default.",
           "correct": false,
-          "explanation": "Shell execution requires `shell=True`. `check=True` is unrelated to shell usage."
+          "explanation": "⚠️ Shell execution requires `shell=True`. `check=True` is unrelated to shell usage."
         },
         {
           "text": "It decodes bytes to text in the returned output.",
           "correct": false,
-          "explanation": "Decoding is controlled by `text=True` (or `encoding=`)."
+          "explanation": "⚠️ Decoding is controlled by `text=True` (or `encoding=`)."
         }
       ]
     },
@@ -32,12 +32,12 @@
         {
           "text": "True",
           "correct": false,
-          "explanation": "`Popen` is a lower-level API for starting and interacting with a process; `run` is a convenience wrapper that waits for completion and returns a `CompletedProcess`."
+          "explanation": "⚠️ `Popen` is a lower-level API for starting and interacting with a process; `run` is a convenience wrapper that waits for completion and returns a `CompletedProcess`."
         },
         {
           "text": "False",
           "correct": true,
-          "explanation": "They are not identical. `run` starts a process, waits for it, and returns results; `Popen` allows more flexible, incremental interaction (streams, polling, manual wait)."
+          "explanation": "🎉 They are not identical. `run` starts a process, waits for it, and returns results; `Popen` allows more flexible, incremental interaction (streams, polling, manual wait)."
         }
       ]
     },
@@ -47,22 +47,22 @@
         {
           "text": "It returns results in an arbitrary order, depending on which worker finishes first.",
           "correct": false,
-          "explanation": "`Pool.map` preserves input order. Use `imap_unordered` for out-of-order results."
+          "explanation": "⚠️ `Pool.map` preserves input order. Use `imap_unordered` for out-of-order results."
         },
         {
           "text": "It preserves the order of the input iterable in the returned list.",
           "correct": true,
-          "explanation": "`Pool.map(func, iterable)` collects results in the same order as the input."
+          "explanation": "🎉 `Pool.map(func, iterable)` collects results in the same order as the input."
         },
         {
           "text": "It cannot accept more tasks than the number of worker processes.",
           "correct": false,
-          "explanation": "It can queue many tasks; the pool schedules them to workers as they become free."
+          "explanation": "⚠️ It can queue many tasks; the pool schedules them to workers as they become free."
         },
         {
           "text": "It automatically shares Python objects by reference between processes.",
           "correct": false,
-          "explanation": "Processes do not share memory by default; arguments/results are pickled and sent between processes."
+          "explanation": "⚠️ Processes do not share memory by default; arguments/results are pickled and sent between processes."
         }
       ]
     },
@@ -72,12 +72,12 @@
         {
           "text": "True",
           "correct": false,
-          "explanation": "A Manager returns a proxy to an object stored in a manager server process. Operations are proxied via IPC to a single shared object."
+          "explanation": "⚠️ A Manager returns a proxy to an object stored in a manager server process. Operations are proxied via IPC to a single shared object."
         },
         {
           "text": "False",
           "correct": true,
-          "explanation": "It returns a proxy object; the actual list lives in the manager server process and is shared across processes via IPC."
+          "explanation": "🎉 It returns a proxy object; the actual list lives in the manager server process and is shared across processes via IPC."
         }
       ]
     },
@@ -87,22 +87,22 @@
         {
           "text": "Increment the counter without any synchronization for best performance.",
           "correct": false,
-          "explanation": "Without synchronization, increments are not atomic and can be lost due to race conditions."
+          "explanation": "⚠️ Without synchronization, increments are not atomic and can be lost due to race conditions."
         },
         {
           "text": "Wrap each increment in `with counter.get_lock(): ...` or batch increments locally and add once under the lock.",
           "correct": true,
-          "explanation": "Using the Value's lock (or batching plus a single locked update) prevents race conditions while balancing correctness and performance."
+          "explanation": "🎉 Using the Value's lock (or batching plus a single locked update) prevents race conditions while balancing correctness and performance."
         },
         {
           "text": "Use `Pool.map` which automatically synchronizes shared state updates.",
           "correct": false,
-          "explanation": "`Pool.map` doesn’t synchronize arbitrary shared state; it just distributes function calls and gathers results."
+          "explanation": "⚠️ `Pool.map` doesn’t synchronize arbitrary shared state; it just distributes function calls and gathers results."
         },
         {
           "text": "Switch to threads; the GIL prevents all race conditions.",
           "correct": false,
-          "explanation": "The GIL does not prevent logical race conditions; shared mutations still need synchronization even with threads."
+          "explanation": "⚠️ The GIL does not prevent logical race conditions; shared mutations still need synchronization even with threads."
         }
       ]
     }

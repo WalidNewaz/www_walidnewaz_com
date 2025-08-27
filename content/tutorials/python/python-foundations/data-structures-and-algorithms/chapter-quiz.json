@@ -7,22 +7,22 @@
         {
           "text": "tuple",
           "correct": false,
-          "explanation": "Tuples are immutable and do not support item assignment."
+          "explanation": "⚠️ Tuples are immutable and do not support item assignment."
         },
         {
           "text": "list",
           "correct": true,
-          "explanation": "Lists are ordered, mutable collections in Python."
+          "explanation": "🎉 Lists are ordered, mutable collections in Python."
         },
         {
           "text": "set",
           "correct": false,
-          "explanation": "Sets do not guarantee insertion order prior to Python 3.7 and are unordered by design."
+          "explanation": "⚠️ Sets do not guarantee insertion order prior to Python 3.7 and are unordered by design."
         },
         {
           "text": "frozenset",
           "correct": false,
-          "explanation": "Frozensets are immutable and unordered."
+          "explanation": "⚠️ Frozensets are immutable and unordered."
         }
       ]
     },
@@ -32,12 +32,12 @@
         {
           "text": "O(n)",
           "correct": false,
-          "explanation": "O(n) would imply linear search, which does not apply to direct indexing."
+          "explanation": "⚠️ O(n) would imply linear search, which does not apply to direct indexing."
         },
         {
           "text": "O(log n)",
           "correct": false,
-          "explanation": "Binary search takes O(log n), not simple indexing."
+          "explanation": "⚠️ Binary search takes O(log n), not simple indexing."
         },
         {
           "text": "O(1)",
@@ -47,7 +47,7 @@
         {
           "text": "O(n^2)",
           "correct": false,
-          "explanation": "Quadratic time would apply to nested loops, not indexing."
+          "explanation": "⚠️ Quadratic time would apply to nested loops, not indexing."
         }
       ]
     },
@@ -57,12 +57,12 @@
         {
           "text": "True",
           "correct": false,
-          "explanation": "Bubble sort has average and worst-case time complexity of O(n²), which is inefficient for large datasets."
+          "explanation": "⚠️ Bubble sort has average and worst-case time complexity of O(n²), which is inefficient for large datasets."
         },
         {
           "text": "False",
           "correct": true,
-          "explanation": "Bubble sort is generally inefficient for large datasets due to its O(n²) time complexity."
+          "explanation": "🎉 Bubble sort is generally inefficient for large datasets due to its O(n²) time complexity."
         }
       ]
     },
@@ -72,22 +72,22 @@
         {
           "text": "It requires the input list to be sorted.",
           "correct": false,
-          "explanation": "This is true. Binary search only works on sorted data."
+          "explanation": "⚠️ This is true. Binary search only works on sorted data."
         },
         {
           "text": "Its worst-case time complexity is O(log n).",
           "correct": false,
-          "explanation": "This is correct; each step halves the search space."
+          "explanation": "⚠️ This is correct; each step halves the search space."
         },
         {
           "text": "It always checks every element in the list.",
           "correct": true,
-          "explanation": "False. Binary search checks a logarithmic number of elements, not all."
+          "explanation": "🎉 False. Binary search checks a logarithmic number of elements, not all."
         },
         {
           "text": "Its space complexity is O(1) if implemented iteratively.",
           "correct": false,
-          "explanation": "This is true for the iterative version."
+          "explanation": "⚠️ This is true for the iterative version."
         }
       ]
     },
@@ -97,22 +97,22 @@
         {
           "text": "deque",
           "correct": false,
-          "explanation": "`deque` is efficient and supports FIFO operations but is not thread-safe by default."
+          "explanation": "⚠️ `deque` is efficient and supports FIFO operations but is not thread-safe by default."
         },
         {
           "text": "list",
           "correct": false,
-          "explanation": "`list` is not thread-safe and can be inefficient for queue operations."
+          "explanation": "⚠️ `list` is not thread-safe and can be inefficient for queue operations."
         },
         {
           "text": "queue.Queue",
           "correct": true,
-          "explanation": "`queue.Queue` is a thread-safe FIFO queue implementation provided by the `queue` module."
+          "explanation": "🎉 `queue.Queue` is a thread-safe FIFO queue implementation provided by the `queue` module."
         },
         {
           "text": "heapq",
           "correct": false,
-          "explanation": "`heapq` is for priority queues, not FIFO, and is not thread-safe."
+          "explanation": "⚠️ `heapq` is for priority queues, not FIFO, and is not thread-safe."
         }
       ]
     }
