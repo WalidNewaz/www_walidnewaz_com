@@ -5,8 +5,14 @@
  * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
  */
 
+// import * as dotenv from 'dotenv';
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+
+// dotenv.config();
+
+/** Constants */
+const ALGOLIA_SITE_VERIFICATION = process.env.GATSBY_ALGOLIA_SITE_VERIFICATION || '';
 
 const Seo: React.FC<{
   description?: string,
@@ -51,6 +57,7 @@ const Seo: React.FC<{
       />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
+      <meta name="algolia-site-verification"  content={`${ALGOLIA_SITE_VERIFICATION}`} />
 
       <link rel="icon" href="/favicon.ico" sizes="any"></link>
       <link rel="icon" href="/favicon.svg" type="image/svg+xml"></link>
