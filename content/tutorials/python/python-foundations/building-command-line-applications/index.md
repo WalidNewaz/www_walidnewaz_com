@@ -63,3 +63,33 @@ Run it like:
 python calc.py 5 3 --operation sub
 ```
 
+## 14.3 A More Ergonomic CLI with Click
+
+For more ergonomic CLI apps, use <a href="https://click.palletsprojects.com/" target="_blank">click</a>, which supports nested commands, colorful help, and validation.
+
+### Example: Greet
+
+```python
+import click
+
+@click.command()
+@click.option('--name', prompt='Your name', help='The person to greet.')
+def hello(name):
+    click.echo(f'Hello, {name}!')
+
+if __name__ == '__main__':
+    hello()
+```
+
+Install with:
+
+```bash
+pip install click
+```
+
+## 14.4 Design Patterns in CLI Apps
+
+Let’s explore [Command](../design-patterns/#heading-3-command-pattern) and [Strategy](../design-patterns/#heading-3-strategy-pattern) patterns through practical CLI apps.
+
+
+
