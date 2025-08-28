@@ -8,6 +8,13 @@ const StyledAnchor = css`
     text-underline-offset: 2px;
     transition: color 300ms linear;
   }
+  a:hover {
+    color: var(--brand-primary);
+    text-decoration: none;
+    transition: color 200ms linear,
+      text-decoration 200ms linear;
+    transition-delay: 100ms;
+  }
 `;
 
 export default StyledAnchor;

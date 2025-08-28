@@ -7,22 +7,22 @@
         {
           "text": "'wb'",
           "correct": true,
-          "explanation": "'wb' opens the file in write-binary mode."
+          "explanation": "🎉 'wb' opens the file in write-binary mode."
         },
         {
           "text": "'rb'",
           "correct": false,
-          "explanation": "'rb' is read-binary mode."
+          "explanation": "⚠️ 'rb' is read-binary mode."
         },
         {
           "text": "'ab'",
           "correct": false,
-          "explanation": "'ab' is append-binary mode."
+          "explanation": "⚠️ 'ab' is append-binary mode."
         },
         {
           "text": "'wt'",
           "correct": false,
-          "explanation": "'wt' is not a valid file mode."
+          "explanation": "⚠️ 'wt' is not a valid file mode."
         }
       ]
     },
@@ -32,12 +32,12 @@
         {
           "text": "True",
           "correct": false,
-          "explanation": "Pickle can execute arbitrary code when loading data."
+          "explanation": "⚠️ Pickle can execute arbitrary code when loading data."
         },
         {
           "text": "False",
           "correct": true,
-          "explanation": "Correct. Never unpickle data from untrusted sources."
+          "explanation": "🎉 Correct. Never unpickle data from untrusted sources."
         }
       ]
     },
@@ -47,22 +47,22 @@
         {
           "text": "pyyaml",
           "correct": true,
-          "explanation": "pyyaml is the standard Python YAML parser."
+          "explanation": "🎉 pyyaml is the standard Python YAML parser."
         },
         {
           "text": "csv",
           "correct": false,
-          "explanation": "csv is for comma-separated files."
+          "explanation": "⚠️ csv is for comma-separated files."
         },
         {
           "text": "json",
           "correct": false,
-          "explanation": "json is for JSON files, not YAML."
+          "explanation": "⚠️ json is for JSON files, not YAML."
         },
         {
           "text": "configparser",
           "correct": false,
-          "explanation": "configparser is used for .ini files."
+          "explanation": "⚠️ configparser is used for .ini files."
         }
       ]
     },
@@ -72,12 +72,12 @@
         {
           "text": "True",
           "correct": true,
-          "explanation": "Correct. It creates nested directories recursively."
+          "explanation": "🎉 Correct. It creates nested directories recursively."
         },
         {
           "text": "False",
           "correct": false,
-          "explanation": "Incorrect. It does create intermediate directories."
+          "explanation": "⚠️ Incorrect. It does create intermediate directories."
         }
       ]
     },
@@ -87,22 +87,22 @@
         {
           "text": "file.readlines()",
           "correct": false,
-          "explanation": "`readlines()` returns a list of lines."
+          "explanation": "⚠️ `readlines()` returns a list of lines."
         },
         {
           "text": "file.read()",
           "correct": true,
-          "explanation": "`read()` reads the entire file into a single string."
+          "explanation": "🎉 `read()` reads the entire file into a single string."
         },
         {
           "text": "file.readline()",
           "correct": false,
-          "explanation": "`readline()` returns only the next line."
+          "explanation": "⚠️ `readline()` returns only the next line."
         },
         {
           "text": "file.get()",
           "correct": false,
-          "explanation": "`get()` is not a valid file method."
+          "explanation": "⚠️ `get()` is not a valid file method."
         }
       ]
     }
