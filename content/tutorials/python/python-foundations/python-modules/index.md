@@ -139,7 +139,7 @@ Traditionally, Python projects used `requirements.txt` for dependency management
 
 #### Example: Pipfile
 
-```toml
+```cs
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -194,7 +194,7 @@ deactivate
 
 #### Example: pyproject.toml with Poetry
 
-```toml
+```cs
 [tool.poetry]
 name = "myapp"
 version = "0.1.0"
@@ -258,7 +258,7 @@ PEP 518 introduced **`pyproject.toml`** as the **unified build system config fil
 
 #### Example: `pyproject.toml`
 
-```toml
+```cs
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
@@ -353,7 +353,7 @@ Copy `mathutils.py` into your new project’s folder. This works for quick exper
 
 Create a **package structure**:
 
-```
+```bash
 mathutils/
     mathutils/
         __init__.py
@@ -397,7 +397,7 @@ To share your module with the world, you need to publish it to **PyPI** (Python 
 
 Create a `pyproject.toml` file at the root of your package:
 
-```toml
+```cs
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
@@ -424,7 +424,7 @@ python -m build
 
 This creates:
 
-```
+```bash
 dist/
   mathutils_walid-0.1.0.tar.gz
   mathutils_walid-0.1.0-py3-none-any.whl

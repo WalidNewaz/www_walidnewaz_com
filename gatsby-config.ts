@@ -114,8 +114,8 @@ module.exports = {
             resolve: `gatsby-remark-vscode`,
             options: {
               theme: {
-                default: 'Monokai Dimmed',
-                dark: 'Monokai Dimmed'
+                default: 'Solarized Light',
+                dark: 'Solarized Dark'
               }
             }
           },
