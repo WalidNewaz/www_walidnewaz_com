@@ -1,128 +1,193 @@
 {
-  "topic": "Python Design Patterns",
+  "topic": "Building Command-Line Applications with Python",
   "questions": [
     {
-      "question": "Which category of design patterns focuses on object creation?",
+      "question": "What does defining an entry point in `[project.scripts]` inside `pyproject.toml` achieve for a CLI tool?",
       "options": [
         {
-          "text": "Structural",
+          "text": "It automatically adds your package to the system PATH.",
           "correct": false,
-          "explanation": "⚠️ Structural patterns are about composing objects and classes into larger structures, not object creation."
+          "explanation": "⚠️ PATH is not modified directly; packaging tools create a console script that launches your function."
         },
         {
-          "text": "Creational",
+          "text": "It creates a console script so users can run your tool by name (e.g., `mycli`) after installation.",
           "correct": true,
-          "explanation": "🎉 Creational patterns abstract and encapsulate the process of object creation, making systems more flexible in deciding what, how, and when objects are created."
+          "explanation": "🎉 The `[project.scripts]` table maps a command name to `module:function`, generating an executable on install."
         },
         {
-          "text": "Behavioral",
+          "text": "It enables automatic dependency resolution for development-only packages.",
           "correct": false,
-          "explanation": "⚠️ Behavioral patterns define how objects interact and communicate, not how they are created."
+          "explanation": "⚠️ Dependency resolution is handled by the `dependencies` section or your build backend, not by `[project.scripts]`."
         },
         {
-          "text": "Interactional",
+          "text": "It compiles your app to a native binary.",
           "correct": false,
-          "explanation": "⚠️ There is no official 'Interactional' pattern category; this is a distractor."
+          "explanation": "⚠️ Packaging creates a small launcher script, not a native binary."
         }
       ]
     },
     {
-      "question": "The Adapter Pattern is most useful when:",
+      "question": "Which statement best describes why logging is preferred over `print` in CLI apps?",
       "options": [
         {
-          "text": "You want to enforce one global instance of a class.",
+          "text": "`print` is slower than the logging module.",
           "correct": false,
-          "explanation": "⚠️ That describes the Singleton Pattern, not Adapter."
+          "explanation": "⚠️ Speed is not the main reason; configurability and levels are."
         },
         {
-          "text": "You need incompatible APIs to work with a common interface.",
+          "text": "Logging supports levels, handlers (console/file), and configurable verbosity.",
           "correct": true,
-          "explanation": "🎉 The Adapter Pattern allows incompatible classes to work together by translating one interface into another expected by the client."
+          "explanation": "🎉 Logging lets users control output with levels and handlers; this is a best practice for real tools."
         },
         {
-          "text": "You want to queue commands for later execution.",
+          "text": "Logging is required for packaging to work properly.",
           "correct": false,
-          "explanation": "⚠️ That is the purpose of the Command Pattern."
+          "explanation": "⚠️ Packaging is unrelated to the logging choice."
         },
         {
-          "text": "You need to define multiple execution strategies.",
+          "text": "`print` cannot output to stderr.",
           "correct": false,
-          "explanation": "⚠️ That use case fits the Strategy Pattern, not Adapter."
+          "explanation": "⚠️ You can write to stderr with `print(..., file=sys.stderr)`; logging is chosen for richer control."
         }
       ]
     },
     {
-      "question": "Which pattern allows dynamic subscription and notification of events between objects?",
+      "question": "In your chapter's examples, which libraries are shown for parsing CLI arguments?",
       "options": [
         {
-          "text": "Observer",
+          "text": "`argparse` and `click`",
           "correct": true,
-          "explanation": "🎉 The Observer Pattern defines a one-to-many dependency, allowing observers to subscribe and receive notifications automatically when the subject changes state."
+          "explanation": "🎉 Both `argparse` (stdlib) and `click` (third-party) are demonstrated for argument parsing."
         },
         {
-          "text": "Proxy",
+          "text": "`optparse` and `docopt`",
           "correct": false,
-          "explanation": "⚠️ Proxy provides a placeholder for another object to control access, not event subscriptions."
+          "explanation": "⚠️ `optparse` is deprecated; `docopt` isn’t shown in the chapter."
         },
         {
-          "text": "Chain of Responsibility",
+          "text": "`fire` and `typer`",
           "correct": false,
-          "explanation": "⚠️ Chain of Responsibility passes a request along a chain of handlers until one handles it, not notifications."
+          "explanation": "⚠️ They are popular, but the chapter examples focus on `argparse` and `click`."
         },
         {
-          "text": "Factory Method",
+          "text": "`getopt` and `click`",
           "correct": false,
-          "explanation": "⚠️ Factory Method is about object creation, not subscriptions or notifications."
+          "explanation": "⚠️ `getopt` is low level and not used in the examples."
         }
       ]
     },
     {
-      "question": "In the Strategy Pattern, algorithms are:",
+      "question": "What is the primary benefit of the Command pattern when building a CLI like 'task manager'?",
       "options": [
         {
-          "text": "Hardcoded into the client class.",
+          "text": "It improves numeric performance of math operations.",
           "correct": false,
-          "explanation": "⚠️ The point of Strategy is to decouple algorithms from clients so they aren’t hardcoded."
+          "explanation": "⚠️ Command is about encapsulating actions, not math performance."
         },
         {
-          "text": "Defined as interchangeable objects implementing a common interface.",
+          "text": "It encapsulates requests (actions) as objects, enabling undo, logging, and queueing.",
           "correct": true,
-          "explanation": "🎉 The Strategy Pattern encapsulates algorithms in separate classes so they can be swapped at runtime without modifying the client."
+          "explanation": "🎉 Commands make actions first-class objects, which is ideal for CLIs that add/list/do/undo operations."
         },
         {
-          "text": "Only executed sequentially.",
+          "text": "It automatically generates help text for your CLI.",
           "correct": false,
-          "explanation": "⚠️ The Strategy Pattern does not restrict execution to sequential order; strategies can encapsulate parallelism too."
+          "explanation": "⚠️ Help text is handled by arg parsing libraries, not the Command pattern."
         },
         {
-          "text": "Always executed asynchronously.",
+          "text": "It eliminates the need for argument parsing.",
           "correct": false,
-          "explanation": "⚠️ Execution mode depends on the strategy implementation; Strategy doesn’t enforce async behavior."
+          "explanation": "⚠️ You still need `argparse`/`click` for parsing CLI inputs."
         }
       ]
     },
     {
-      "question": "The Command Pattern helps with:",
+      "question": "Why map `mycli = \"mycli.cli:main\"` in `pyproject.toml` instead of telling users to run `python -m mycli.cli`?",
       "options": [
         {
-          "text": "Object creation without specifying concrete classes.",
+          "text": "It enforces virtualenv usage.",
           "correct": false,
-          "explanation": "⚠️ That describes the Factory Method or Abstract Factory, not Command."
+          "explanation": "⚠️ Entry points do not enforce environments; they just create a convenient launcher."
         },
         {
-          "text": "Logging, undo/redo, and queuing actions.",
+          "text": "It provides a polished UX: users type `mycli` anywhere after installation.",
           "correct": true,
-          "explanation": "🎉 The Command Pattern encapsulates requests as objects, making it easy to log, queue, and support undo/redo operations."
+          "explanation": "🎉 Console scripts make your CLI feel like `git` or `pytest`, no path spelunking needed."
         },
         {
-          "text": "Translating one interface into another.",
+          "text": "It compiles Python code to C for speed.",
           "correct": false,
-          "explanation": "⚠️ That is the Adapter Pattern, not Command."
+          "explanation": "⚠️ No compilation is involved."
         },
         {
-          "text": "Structuring objects into trees.",
+          "text": "It disables `__main__` module execution.",
           "correct": false,
-          "explanation": "⚠️ That is the Composite Pattern, not Command."
+          "explanation": "⚠️ You can still run modules with `python -m`; entry points are an additional convenience."
+        }
+      ]
+    },
+    {
+      "question": "What's a simple, test-friendly way to run end-to-end tests for a CLI tool?",
+      "options": [
+        {
+          "text": "Call internal functions directly to avoid process creation.",
+          "correct": false,
+          "explanation": "⚠️ That tests internals; E2E should exercise the CLI boundary."
+        },
+        {
+          "text": "Use `pytest` and `subprocess.run([...], capture_output=True, text=True)` to invoke commands.",
+          "correct": true,
+          "explanation": "🎉 Spawning the CLI binary/script simulates real user usage and lets you assert on stdout/stderr/exit codes."
+        },
+        {
+          "text": "Edit the PATH during tests to point to your source directories.",
+          "correct": false,
+          "explanation": "⚠️ Not necessary; prefer `pip install -e .` and call the console script."
+        },
+        {
+          "text": "Mock out `argparse` so tests don’t need to pass arguments.",
+          "correct": false,
+          "explanation": "⚠️ You want to test argument parsing too in E2E."
+        }
+      ]
+    },
+    {
+      "question": "True or False: A single `pyproject.toml` can define multiple console scripts for separate CLIs in the same package.",
+      "options": [
+        {
+          "text": "True",
+          "correct": true,
+          "explanation": "🎉 You can have many entries under `[project.scripts]`, each mapping a name to `module:function`."
+        },
+        {
+          "text": "False",
+          "correct": false,
+          "explanation": "⚠️ The table accepts multiple entries, enabling multiple commands from one distribution."
+        }
+      ]
+    },
+    {
+      "question": "Which is a good default behavior for a daemon-like CLI loop (e.g., `wf-queue listen`)?",
+      "options": [
+        {
+          "text": "Run endlessly without any way to stop it.",
+          "correct": false,
+          "explanation": "⚠️ Always support `Ctrl+C` (SIGINT) and graceful shutdown."
+        },
+        {
+          "text": "Process items in a loop with small sleeps, handle SIGINT to exit cleanly, and log progress.",
+          "correct": true,
+          "explanation": "🎉 Graceful exits and observable logs are essential for ops and tests."
+        },
+        {
+          "text": "Flush all logs only at process exit for performance.",
+          "correct": false,
+          "explanation": "⚠️ Buffering everything is risky; prefer normal logging handlers and levels."
+        },
+        {
+          "text": "Use random backoffs so behavior is non-deterministic in tests.",
+          "correct": false,
+          "explanation": "⚠️ Avoid flakiness; keep loops deterministic for local dev."
         }
       ]
     }
