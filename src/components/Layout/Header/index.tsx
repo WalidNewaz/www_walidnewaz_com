@@ -3,6 +3,11 @@ import React, { useState } from "react";
 /** Components */
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { HamburgerMenu } from "./HamburgerMenu";
+import { DesktopMenu } from "./DesktopMenu";
+
+/** Types */
+import { clickHandler } from "../../../types";
 
 /** Constants */
 const HEADER_CLASSES = `
@@ -11,69 +16,39 @@ const HEADER_CLASSES = `
   width-full
   z-3
   position-fixed`;
-const HAMBURGER_MENU_CLASSES = `
-  ham-menu
-  flex visible md:hidden`;
-const DESKTOP_MENU_CLASSES = `
-  desktop-menu
-  margin-block-2
-  list-none
-  flex
-  width-full
-  justify-end`;
 
-type clickHandler =
-  | ((
-      event: React.MouseEvent<
-        HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
-      >
-    ) => void)
-  | (() => Promise<void>)
-  | (() => void)
-  | undefined;
+// const DESKTOP_MENU_CLASSES = `
+//   desktop-menu
+//   margin-block-2
+//   list-none
+//   flex
+//   width-full
+//   justify-end`;
 
-interface HamburgerMenuProps {
-  isOpen: boolean;
-  onClick: clickHandler;
-}
-
-const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClick }) => (
-  <div id="ham-menu" className={HAMBURGER_MENU_CLASSES}>
-    <button onClick={onClick} aria-label="Toggle menu">
-      <span className="hamburger-label">Open main menu</span>
-      <FaBars
-        // className={`icon ${isOpen ? "text-indigo-600" : "text-slate-100"}`}
-        style={{ color: "var(--text1)" }}
-        aria-label="Toggle icon"
-      />
-    </button>
-  </div>
-);
-
-const DesktopMenu: React.FC = () => (
-  <ul className={DESKTOP_MENU_CLASSES}>
-    {/* <li className="padding-inline-5">
-      <a href="/" className="margin-5 text-decoration-none">
-        Home
-      </a>
-    </li> */}
-    <li>
-      <a href="/blog/" className="margin-5 text-decoration-none">
-        Blog
-      </a>
-    </li>
-    <li>
-      <a href="/tutorials/" className="margin-5 text-decoration-none">
-        Tutorials
-      </a>
-    </li>
-    <li>
-      <a href="/about/" className="margin-5 text-decoration-none">
-        About
-      </a>
-    </li>
-  </ul>
-);
+// const DesktopMenu: React.FC = () => (
+//   <ul className={DESKTOP_MENU_CLASSES}>
+//     {/* <li className="padding-inline-5">
+//       <a href="/" className="margin-5 text-decoration-none">
+//         Home
+//       </a>
+//     </li> */}
+//     <li>
+//       <a href="/blog/" className="margin-5 text-decoration-none">
+//         Blog
+//       </a>
+//     </li>
+//     <li>
+//       <a href="/tutorials/" className="margin-5 text-decoration-none">
+//         Tutorials
+//       </a>
+//     </li>
+//     <li>
+//       <a href="/about/" className="margin-5 text-decoration-none">
+//         About
+//       </a>
+//     </li>
+//   </ul>
+// );
 
 const MobileMenu: React.FC<{ isOpen: boolean; onClick: clickHandler }> = ({
   isOpen,

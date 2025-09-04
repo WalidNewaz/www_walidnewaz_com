@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 /** Components */
-import { FaBars, FaXmark } from "react-icons/fa6";
+import { FaBars } from "react-icons/fa6";
 
 /** Types */
-type ChapterHeading = {
-  value: string;
-  depth: number;
-  id: string;
-};
+import { clickHandler, ChapterHeading } from "../../types";
 
 const StyledTOC = styled.div`
   grid-column: span 3;
@@ -122,18 +118,6 @@ const StyledHamburgerMenu = styled.div`
     display: block;
   }
 `;
-
-/** Styles */
-
-type clickHandler =
-  | ((
-      event: React.MouseEvent<
-        HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
-      >
-    ) => void)
-  | (() => Promise<void>)
-  | (() => void)
-  | undefined;
 
 interface HamburgerMenuProps {
   isOpen: boolean;

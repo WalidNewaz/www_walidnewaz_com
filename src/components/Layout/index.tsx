@@ -1,6 +1,6 @@
 import * as React from "react"
-import Header from "./header"
-import Footer from "./footer"
+import Header from "./Header"
+import Footer from "./Footer"
 
 declare let __PATH_PREFIX__: string
 

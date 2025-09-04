@@ -2,9 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 /** Components */
-import GithubIcon from './atoms/icons/github';
-import LinkedInIcon from './atoms/icons/linkedin';
-import HomePageNewsletter from '../components/page/home/Newsletter';
+import GithubIcon from '../../atoms/icons/github';
+import LinkedInIcon from '../../atoms/icons/linkedin';
+import HomePageNewsletter from '../../page/home/Newsletter';
 
 const StyledFooter = styled.footer`
   text-align: center;
