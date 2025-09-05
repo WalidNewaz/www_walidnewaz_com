@@ -1,0 +1,26 @@
+[
+  {
+    "lable": "Home",
+    "link": "/"
+  },
+  {
+    "lable": "Learn",
+    "link": "/tutorials/"
+  },
+  {
+    "lable": "Build",
+    "link": "/build/"
+  },
+  {
+    "lable": "Grow",
+    "link": "/grow/"
+  },
+  {
+    "lable": "Journal",
+    "link": "/blog/"
+  },
+  {
+    "lable": "About",
+    "link": "/about/"
+  }
+]

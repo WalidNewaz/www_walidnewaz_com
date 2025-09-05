@@ -25,14 +25,13 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   return (
     <StyledTutorialsContainer>
       <section className="flex flex-column wrap flex-start">
-        <h2>Learn</h2>
+        <h2>Grow</h2>
         <p className="text-2">
-          In this section you'll find step-by-step guides to mastering modern
-          programming languages and frameworks. These tutorials are designed for
-          developers who already know how to code, but want to level up in
-          Python, JavaScript, TypeScript, or Rust. Each series focuses on
-          practical, project-driven learning, helping you get productive quickly
-          while also filling in conceptual gaps.
+          This section is focused on evergreen skills that help developers
+          transition into senior and architect roles. These guides cover
+          computer science fundamentals, design patterns, debugging, testing,
+          and developer career growth. The content here is language-agnostic and
+          intended to give you tools you can use for the rest of your career.
         </p>
         <p className="text-2">
           These tutorials are written from the perspective of a fellow learner,

@@ -1,6 +1,7 @@
 import React from "react";
 
 /** Constants */
+import menuItems from "./menu_items.json";
 const DESKTOP_MENU_CLASSES = `
   desktop-menu
   margin-block-2
@@ -11,35 +12,14 @@ const DESKTOP_MENU_CLASSES = `
 
 export const DesktopMenu: React.FC = () => (
   <ul className={DESKTOP_MENU_CLASSES}>
-    <li className="padding-inline-5">
-      <a href="/tutorials/" className="text-decoration-none">
-        Learn
-      </a>
-    </li>
-    <li className="padding-inline-5">
-      <a href="/tutorials/" className="text-decoration-none">
-        Build
-      </a>
-    </li>
-    <li className="padding-inline-5">
-      <a href="/tutorials/" className="text-decoration-none">
-        Grow
-      </a>
-    </li>
-    <li>
-      <a href="/blog/" className="text-decoration-none">
-        Journal
-      </a>
-    </li>
-    {/* <li>
-      <a href="/tutorials/" className="text-decoration-none">
-        Tutorials
-      </a>
-    </li> */}
-    <li>
-      <a href="/about/" className="text-decoration-none">
-        About
-      </a>
-    </li>
+    {menuItems
+      .filter((item) => item.lable !== "Home")
+      .map((item) => (
+        <li key={item.lable} className="padding-inline-5">
+          <a href={item.link} className="text-decoration-none">
+            {item.lable}
+          </a>
+        </li>
+      ))}
   </ul>
 );

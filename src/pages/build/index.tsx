@@ -25,14 +25,13 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   return (
     <StyledTutorialsContainer>
       <section className="flex flex-column wrap flex-start">
-        <h2>Learn</h2>
+        <h2>Build</h2>
         <p className="text-2">
-          In this section you'll find step-by-step guides to mastering modern
-          programming languages and frameworks. These tutorials are designed for
-          developers who already know how to code, but want to level up in
-          Python, JavaScript, TypeScript, or Rust. Each series focuses on
-          practical, project-driven learning, helping you get productive quickly
-          while also filling in conceptual gaps.
+          Build section of this site is about creating software that lasts. Here
+          you'll find tutorials and essays on workflow engines, system design,
+          distributed systems, and architectural patterns. The goal is to move
+          beyond syntax and into design: how to structure systems that are
+          reliable, scalable, and maintainable.
         </p>
         <p className="text-2">
           These tutorials are written from the perspective of a fellow learner,

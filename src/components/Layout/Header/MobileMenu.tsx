@@ -6,6 +6,9 @@ import { FaXmark } from "react-icons/fa6";
 /** Types */
 import { clickHandler } from "../../../types";
 
+/** Constants */
+import menuItems from "./menu_items.json";
+
 export const MobileMenu: React.FC<{
   isOpen: boolean;
   onClick: clickHandler;
@@ -56,55 +59,16 @@ export const MobileMenu: React.FC<{
               gap: "4.5rem",
             }}
           >
-            <div style={{ textAlign: "left" }}>
-              <a
-                href="/"
-                className="margin-6 text-decoration-none header-link-home"
-              >
-                HOME
-              </a>
-            </div>
-
-            <div style={{ textAlign: "left" }}>
-              <a
-                href="/tutorials/"
-                className="margin-6 text-decoration-none header-link-home"
-              >
-                LEARN
-              </a>
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <a
-                href="/tutorials/"
-                className="margin-6 text-decoration-none header-link-home"
-              >
-                BUILD
-              </a>
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <a
-                href="/tutorials/"
-                className="margin-6 text-decoration-none header-link-home"
-              >
-                GROW
-              </a>
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <a
-                href="/blog/"
-                className="margin-6 text-decoration-none header-link-home"
-              >
-                JOURNAL
-              </a>
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <a
-                href="/about/"
-                className="margin-6 text-decoration-none header-link-home"
-              >
-                ABOUT
-              </a>
-            </div>
+            {menuItems.map((item) => (
+              <div style={{ textAlign: "left" }} key={item.lable}>
+                <a
+                  href={item.link}
+                  className="margin-6 text-decoration-none header-link-home"
+                >
+                  {item.lable}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
