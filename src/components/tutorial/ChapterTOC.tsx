@@ -171,10 +171,10 @@ const IndentedHeadings: React.FC<{
   return (
     isOpen && (
       <StyledHeadings>
-        {headings.map((heading: ChapterHeading) => {
+        {headings.map((heading: ChapterHeading, index: number) => {
           return (
             heading.depth <= maxDeth && (
-              <li key={heading.id}>
+              <li key={index}>
                 <a
                   href={`#${heading.id}`}
                   onClick={handleTOCClick}
