@@ -5,6 +5,10 @@ import styled from "styled-components";
 /** Components */
 import Seo from "../../components/seo";
 import ArticlePostCard from "../../components/molecules/articlePostCard";
+import Topics from "../../components/Topics";
+
+/** Utils */
+import { getTopics } from "../../utils/posts";
 
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
@@ -19,8 +23,8 @@ const StyledTutorialsContainer = styled.div`
  * @returns
  */
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
-  const tutorials = data.allMarkdownRemark.nodes;
-  const tutorialHeroes = data.allTutorialHeroes.nodes;
+  const { tutorials, allTopics } = data.allMarkdownRemark;
+  const { tutorialHeroes } = data.allFile;
 
   return (
     <StyledTutorialsContainer>
@@ -44,6 +48,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
 
       <section className="blog-posts col flex wrap">
         <h2>Topics:</h2>
+        <Topics topics={getTopics(allTopics)} section="learn" />
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
@@ -86,7 +91,7 @@ export const query = graphql`
         }
       }
     ) {
-      nodes {
+      tutorials: nodes {
         fields {
           slug
         }
@@ -113,11 +118,13 @@ export const query = graphql`
         }
         id
       }
+      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
+      }
     }
-    allTutorialHeroes: allFile(
-      filter: { relativePath: { regex: ".*/hero-image.png$/" } }
-    ) {
-      nodes {
+    allFile(filter: { relativePath: { regex: ".*/hero-image.png$/" } }) {
+      tutorialHeroes: nodes {
         id
         relativeDirectory
         childImageSharp {

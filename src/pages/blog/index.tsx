@@ -32,10 +32,6 @@ const StyledBlogPage = styled.section`
   }
 `;
 
-interface Topic {
-  [key: string]: number;
-}
-
 interface Image {
   id: string;
   childImageSharp: {
@@ -68,18 +64,12 @@ interface AggregatedTopic {
   totalCount: number;
 }
 
-interface AllTopics {
-  group: AggregatedTopic[];
-}
-
 interface AllPosts {
   allMarkdownRemark: {
-    nodes: Post[];
+    posts: Post[];
+    postCount: number;
+    allTopics: AggregatedTopic[];
   };
-  postCount: {
-    totalCount: number;
-  };
-  allTopics: AllTopics;
 }
 
 type PageContext = {
@@ -101,10 +91,7 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   uri,
   location,
 }) => {
-  const posts = data.allMarkdownRemark.nodes;
-  const postCount = data.postCount.totalCount;
-  const allTopics = data.allTopics.group;
-
+  const { posts, postCount, allTopics } = data.allMarkdownRemark;
   const [currentPage, setCurrentPage] = useState(pageContext.currentPage || 1);
   const fetchNextPage = useFetchNextPage();
   const query = {
@@ -140,7 +127,7 @@ export const query = graphql`
       limit: 9
       filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
     ) {
-      nodes {
+      posts: nodes {
         excerpt
         fields {
           slug
@@ -164,16 +151,8 @@ export const query = graphql`
         }
         id
       }
-    }
-    postCount: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
-    ) {
-      totalCount
-    }
-    allTopics: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
-    ) {
-      group(field: { frontmatter: { tags: SELECT } }) {
+      postCount: totalCount
+      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
       }
