@@ -101,7 +101,7 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
 
   return (
     <StyledBlogPage>
-      <Topics topics={getTopics(allTopics)} />
+      <Topics topics={getTopics(allTopics)} section="blog/f" />
       <PaginatedArticleCards
         posts={posts}
         currentPage={currentPage}

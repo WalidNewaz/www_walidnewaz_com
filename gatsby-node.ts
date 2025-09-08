@@ -17,6 +17,9 @@ import * as fs from "fs";
 import { createFilePath } from "gatsby-source-filesystem";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
+/** Utility Functions */
+import { createSectionTopicsPages, createPageTopics, createTopicsPagesWithTopicFilter } from "./src/utils/ssg";
+
 /** Interfaces */
 import { AggregatedTopic } from "./src/interfaces";
 
@@ -525,66 +528,66 @@ const createBlogPostPages = async ({
  * Creates a single posts page based on the topic and index
  * @param params
  */
-const createPageTopics = async ({
-  topic,
-  index,
-  postsPerPage,
-  actions,
-}: {
-  topic: string | null;
-  index: number;
-  postsPerPage: number;
-  actions: Actions;
-}) => {
-  const { createPage } = actions;
-  const topicPathStr = topic ? `${topic}/` : "";
-  const currentPage = index + 1;
-  const pagePath =
-    index === 0
-      ? `/blog/${topicPathStr}`
-      : `/blog/${topicPathStr}${currentPage}`;
-  createPage({
-    path: pagePath,
-    component: path.resolve(`./src/templates/blogTopics/index.tsx`),
-    context: {
-      ...(topic && { topic }),
-      currentPage,
-      limit: postsPerPage,
-      skip: index * postsPerPage,
-    },
-  });
-};
+// const createPageTopics = async ({
+//   topic,
+//   index,
+//   postsPerPage,
+//   actions,
+// }: {
+//   topic: string | null;
+//   index: number;
+//   postsPerPage: number;
+//   actions: Actions;
+// }) => {
+//   const { createPage } = actions;
+//   const topicPathStr = topic ? `${topic}/` : "";
+//   const currentPage = index + 1;
+//   const pagePath =
+//     index === 0
+//       ? `/blog/${topicPathStr}`
+//       : `/blog/${topicPathStr}${currentPage}`;
+//   createPage({
+//     path: pagePath,
+//     component: path.resolve(`./src/templates/blogTopics/index.tsx`),
+//     context: {
+//       ...(topic && { topic }),
+//       currentPage,
+//       limit: postsPerPage,
+//       skip: index * postsPerPage,
+//     },
+//   });
+// };
 
 // Create paginated topic pages
-const createTopicsPagesWithToicFilter = async ({
-  topic,
-  numPages,
-  postsPerPage,
-  actions,
-}: {
-  topic: string;
-  numPages: number;
-  postsPerPage: number;
-  actions: Actions;
-}) => {
-  if (numPages > 1) {
-    Array.from({ length: numPages }).forEach((_, i) => {
-      createPageTopics({
-        topic,
-        index: i,
-        postsPerPage,
-        actions,
-      });
-    });
-  } else {
-    createPageTopics({
-      topic,
-      index: 0,
-      postsPerPage,
-      actions,
-    });
-  }
-};
+// const createTopicsPagesWithToicFilter = async ({
+//   topic,
+//   numPages,
+//   postsPerPage,
+//   actions,
+// }: {
+//   topic: string;
+//   numPages: number;
+//   postsPerPage: number;
+//   actions: Actions;
+// }) => {
+//   if (numPages > 1) {
+//     Array.from({ length: numPages }).forEach((_, i) => {
+//       createPageTopics({
+//         topic,
+//         index: i,
+//         postsPerPage,
+//         actions,
+//       });
+//     });
+//   } else {
+//     createPageTopics({
+//       topic,
+//       index: 0,
+//       postsPerPage,
+//       actions,
+//     });
+//   }
+// };
 
 /**
  * Creates a list of pages that filter blog posts based on topics
@@ -647,11 +650,83 @@ const createBlogTopicsPages = async ({
   // Create paginated topic pages
   allTopics.forEach((topic) => {
     const numPages = Math.ceil(topic.totalCount / postsPerPage);
-    createTopicsPagesWithToicFilter({
+    createTopicsPagesWithTopicFilter({
       topic: topic.fieldValue,
       numPages,
       postsPerPage,
       actions,
+    });
+  });
+};
+
+/**
+ * Creates a list of pages that filter learn posts based on topics
+ * @param params
+ */
+const createLearnTopicsPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  // Get all posts and their listed topics
+  const result = await graphql(`
+    {
+      postSummary: allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/^.*/content/learn/.*?$/" } }
+      ) {
+        totalCount
+        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+          fieldValue
+          totalCount
+        }
+        blogPosts: nodes {
+          frontmatter {
+            tags
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog posts`,
+      result.errors
+    );
+    return;
+  }
+
+  const postCount = result.data.postSummary.totalCount;
+  const postsPerPage = ITEMS_PER_PAGE;
+  const numPages = Math.ceil(postCount / postsPerPage);
+  const allTopics: AggregatedTopic[] = result.data.postSummary.allTopics;
+
+  // Create paginated pages for all posts
+  if (numPages > 1) {
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPageTopics({
+        topic: null,
+        index: i,
+        postsPerPage,
+        actions,
+        section: "learn",
+      });
+    });
+  }
+
+  // Create paginated topic pages
+  allTopics.forEach((topic) => {
+    const numPages = Math.ceil(topic.totalCount / postsPerPage);
+    createTopicsPagesWithTopicFilter({
+      topic: topic.fieldValue,
+      numPages,
+      postsPerPage,
+      actions,
+      section: "learn",
     });
   });
 };
@@ -670,6 +745,7 @@ exports.createPages = async ({
   // Learn Section
   await createLearnTutorialIntroPages({ graphql, actions, reporter });
   await createLearnTutorialChapterPages({ graphql, actions, reporter });
+  await createLearnTopicsPages({ graphql, actions, reporter });
 
   await createBlogPostPages({ graphql, actions, reporter });
   await createBlogTopicsPages({ graphql, actions, reporter });

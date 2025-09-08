@@ -1,21 +1,92 @@
-import React from "react";
+/**
+ * This file contains all logic to render individual pages
+ * that filter based on the selected topic. The URL path
+ * to this page follows the following pattern:
+ *
+ * /learn/{topic}
+ *
+ * Currently there is no pagination support.
+ */
+
+import React, { useState } from "react";
 import { graphql, PageProps } from "gatsby";
 import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import ArticlePostCard from "../../components/molecules/articlePostCard";
+import PaginatedArticleCards from "../../components/PaginatedArticleCards";
 import Topics from "../../components/Topics";
+import ArticlePostCard from "../../components/molecules/articlePostCard";
+
+/** Interfaces */
+import { AllTopics } from "../../interfaces";
+
+/** Hooks */
+import { useFetchNextPage } from "../../hooks/posts";
 
 /** Utils */
 import { getTopics } from "../../utils/posts";
 
+/** Constants */
+import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
+
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
+const BlogPostContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`;
 
 const StyledTutorialsContainer = styled.div`
   ${StyledSection}
 `;
+
+type PostTopic = {
+  frontmatter: {
+    tags: string[];
+  };
+};
+
+type AllPosts = {
+  allPosts: {
+    posts: {
+      excerpt: string;
+      fields: {
+        slug: string;
+      };
+      frontmatter: {
+        date: string;
+        pathDate: string;
+        title: string;
+        description: string;
+        hero_image: {
+          id: string;
+          childImageSharp: {
+            gatsbyImageData: any;
+          };
+        };
+        tags: string[];
+        read_time: string;
+      };
+      headings: {
+        value: string;
+      }[];
+      id: string;
+    }[];
+    totalCount: number;
+  };
+  postTopics: AllTopics;
+  allFile: {
+    tutorialHeroes: {
+      id: string;
+      relativeDirectory: string;
+      childImageSharp: {
+        gatsbyImageData: any;
+      };
+    }[];
+  };
+};
 
 type PageContext = {
   topic: string;
@@ -23,13 +94,17 @@ type PageContext = {
 };
 
 /**
- *
- * @param props
+ * Page template for displaying all posts for a selected topic
+ * @param params
  * @returns
  */
-const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContext }) => {
+const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
+  data,
+  pageContext,
+}) => {
   const { tutorials, allTopics } = data.allMarkdownRemark;
   const { tutorialHeroes } = data.allFile;
+  const { topic: currentTopic } = pageContext || { topic: "" };
 
   return (
     <StyledTutorialsContainer>
@@ -53,7 +128,7 @@ const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContex
 
       <section className="blog-posts col flex wrap">
         <h2>Topics:</h2>
-        <Topics topics={getTopics(allTopics)} section="learn/f" />
+        <Topics topics={getTopics(allTopics)} currentTopic={currentTopic} section="learn/f" />
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
@@ -86,15 +161,17 @@ const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContex
   );
 };
 
-export const query = graphql`
-  {
+// Queries the learn directory for selected topics
+export const pageQuery = graphql`
+  query ($topic: String, $skip: Int, $limit: Int) {
     allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
       filter: {
-        fileAbsolutePath: {
-          regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
-        }
+        frontmatter: { tags: { eq: $topic } }
+        fileAbsolutePath: { regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/" }
       }
+      limit: $limit
+      skip: $skip
     ) {
       tutorials: nodes {
         fields {
@@ -136,10 +213,10 @@ export const query = graphql`
           gatsbyImageData
         }
       }
-    }
+    }      
   }
 `;
 
-export default TutorialsPage;
+export default BlogTopicPage;
 
-export const Head: React.FC = () => <Seo title="Learn" />;
+export const Head: React.FC = () => <Seo title="All posts" />;
