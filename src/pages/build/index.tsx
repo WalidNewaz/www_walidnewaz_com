@@ -33,17 +33,19 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
           beyond syntax and into design: how to structure systems that are
           reliable, scalable, and maintainable.
         </p>
-        <p className="text-2">
-          These tutorials are written from the perspective of a fellow learner,
-          and I hope they serve as helpful stepping stones for anyone on a
-          similar path. A basic understanding of programming — preferably with
-          JavaScript or Python — will be useful as you follow along.
-        </p>
       </section>
 
-      <section className="blog-posts col flex wrap">
-        <h2>Topics:</h2>
-      </section>
+      {
+        tutorials.length === 0 && (
+          <section className="blog-posts col flex wrap">
+            <h2>No tutorials found.</h2>
+            <p className="text-2">
+              It seems we couldn't find any tutorials at the moment. Please
+              check back later for updates!
+            </p>
+          </section>
+        )
+      }
 
       <section className="blog-posts col flex wrap pb-12">
         {tutorials.map((tutorial: any) => {

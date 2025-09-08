@@ -9,7 +9,7 @@ series: "Modern React.js"
 title: "Introduction to React"
 description: "Introduction to React: Understanding components, props, and state"
 # hero_image: "pexels-realtoughcandy-11035471.jpg"
-tags: ['beginner', 'react']
+tags: ['React']
 read_time: 10 min
 related: 
   - "Building your first React component"

@@ -10,7 +10,7 @@ title: "Development Environment Setup"
 description: "Python for Modern Developers: From Basics to AI-Driven Applications is designed as a complete, end-to-end resource for building modern, real-world applications with Python."
 # hero_image: "python-tutorial-banner.png"
 has_quiz: true
-tags: ["fundamentals", "Python"]
+tags: ["Python"]
 ---
 
 # Python for Modern Developers

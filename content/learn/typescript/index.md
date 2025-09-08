@@ -9,7 +9,7 @@ series: "Mastering TypeScript"
 title: "Introduction to TypeScript"
 description: "Introduction to TypeScript: Why You Should Switch from JavaScript"
 # hero_image: "typescript-banner.png"
-tags: ["beginner", "typescript"]
+tags: ["TypeScript"]
 read_time: 5 min
 related: 
   - "Environment setup for TypeScript"

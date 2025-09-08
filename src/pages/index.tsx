@@ -39,7 +39,7 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
           </div>
         )}
       </>
-      <>
+      {/* <>
         <HomePageMoreTutorials posts={tutorials} heroes={tutorialHeroes} heading="Tutorials" />
         {tutorialsCount > 9 && (
           <div
@@ -51,7 +51,7 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
             </a>
           </div>
         )}
-      </>
+      </> */}
     </>
   );
 };

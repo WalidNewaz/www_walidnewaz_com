@@ -9,7 +9,7 @@ series: "Git Mastery Series"
 title: "Understanding Version Control"
 description: "In this chapter, we'll cover what Git is, why developers and DevOps engineers need it, and how to start tracking code for a real project."
 hero_image: "hero-image.png"
-tags: ["basics", "git"]
+tags: ["git"]
 ---
 
 # Git Mastery Series

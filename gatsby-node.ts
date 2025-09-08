@@ -5,7 +5,6 @@
  */
 import {
   GatsbyNode,
-  WebpackPlugins,
   CreatePagesArgs,
   CreateNodeArgs,
   CreateSchemaCustomizationArgs,
@@ -18,7 +17,10 @@ import { createFilePath } from "gatsby-source-filesystem";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 /** Utility Functions */
-import { createSectionTopicsPages, createPageTopics, createTopicsPagesWithTopicFilter } from "./src/utils/ssg";
+import {
+  createPageTopics,
+  createTopicsPagesWithTopicFilter,
+} from "./src/utils/ssg";
 
 /** Interfaces */
 import { AggregatedTopic } from "./src/interfaces";
@@ -41,7 +43,11 @@ const createTutorialIntroPages = async ({
       allMarkdownRemark(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/[\\/]content[\\/]tutorials[\\/][^\\/]+[\\/]index.mdx?$/" } }
+        filter: {
+          fileAbsolutePath: {
+            regex: "/[/]content[/]tutorials[/][^/]+[/]index.mdx?$/"
+          }
+        }
       ) {
         nodes {
           id
@@ -74,7 +80,7 @@ const createTutorialIntroPages = async ({
   }
 
   const tutorials = result.data.allMarkdownRemark.nodes;
-  
+
   if (tutorials.length === 0) {
     reporter.info(`No tutorial intros found.`);
     return;
@@ -83,8 +89,12 @@ const createTutorialIntroPages = async ({
   const { createPage } = actions;
 
   tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(`Creating page for tutorial intro: ${tutorial.frontmatter.series}`);
-    const seriesDir = tutorial.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+    reporter.info(
+      `Creating page for tutorial intro: ${tutorial.frontmatter.series}`
+    );
+    const seriesDir = tutorial.fields.slug
+      .split("/")
+      .filter((str: string) => str !== "")[0]; // e.g. react-native
 
     const heroImagePattern = tutorial.frontmatter.hero_image
       ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
@@ -99,9 +109,8 @@ const createTutorialIntroPages = async ({
         heroImagePattern,
       },
     });
-  });  
-
-}
+  });
+};
 
 const createLearnTutorialIntroPages = async ({
   graphql,
@@ -118,7 +127,11 @@ const createLearnTutorialIntroPages = async ({
       allMarkdownRemark(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/[\\/]content[\\/]learn[\\/][^\\/]+[\\/]index.mdx?$/" } }
+        filter: {
+          fileAbsolutePath: {
+            regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+          }
+        }
       ) {
         nodes {
           id
@@ -151,7 +164,7 @@ const createLearnTutorialIntroPages = async ({
   }
 
   const tutorials = result.data.allMarkdownRemark.nodes;
-  
+
   if (tutorials.length === 0) {
     reporter.info(`No tutorial intros found.`);
     return;
@@ -160,8 +173,12 @@ const createLearnTutorialIntroPages = async ({
   const { createPage } = actions;
 
   tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(`Creating page for tutorial intro: ${tutorial.frontmatter.series}`);
-    const seriesDir = tutorial.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+    reporter.info(
+      `Creating page for tutorial intro: ${tutorial.frontmatter.series}`
+    );
+    const seriesDir = tutorial.fields.slug
+      .split("/")
+      .filter((str: string) => str !== "")[0]; // e.g. react-native
 
     const heroImagePattern = tutorial.frontmatter.hero_image
       ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
@@ -176,10 +193,8 @@ const createLearnTutorialIntroPages = async ({
         heroImagePattern,
       },
     });
-  });  
-
-}
-
+  });
+};
 
 /**
  * Creates static pages for individual tutorial chapters
@@ -199,7 +214,11 @@ const createTutorialChapterPages = async ({
       allMarkdownRemark(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/[\\\\/]content[\\\\/]tutorials[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/" } }
+        filter: {
+          fileAbsolutePath: {
+            regex: "/[\\\\/]content[\\\\/]tutorials[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
+          }
+        }
       ) {
         nodes {
           id
@@ -257,7 +276,9 @@ const createTutorialChapterPages = async ({
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
 
-        const seriesDir = chapter.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+        const seriesDir = chapter.fields.slug
+          .split("/")
+          .filter((str: string) => str !== "")[0]; // e.g. react-native
 
         // TODO: Use hero image file from the main series folder
         // e.g. /content/tutorials/react-native/hero_image.png
@@ -330,7 +351,11 @@ const createLearnTutorialChapterPages = async ({
       allMarkdownRemark(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/[\\\\/]content[\\\\/]learn[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/" } }
+        filter: {
+          fileAbsolutePath: {
+            regex: "/[\\\\/]content[\\\\/]learn[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
+          }
+        }
       ) {
         nodes {
           id
@@ -388,7 +413,9 @@ const createLearnTutorialChapterPages = async ({
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
 
-        const seriesDir = chapter.fields.slug.split("/").filter((str: string) => str !== "")[0]; // e.g. react-native
+        const seriesDir = chapter.fields.slug
+          .split("/")
+          .filter((str: string) => str !== "")[0]; // e.g. react-native
 
         // TODO: Use hero image file from the main series folder
         // e.g. /content/tutorials/react-native/hero_image.png
@@ -427,7 +454,9 @@ const createLearnTutorialChapterPages = async ({
         const { createPage } = actions;
         createPage({
           path: `/learn${chapter.fields.slug}`,
-          component: path.resolve(`./src/templates/learnTutorialChapter/index.tsx`),
+          component: path.resolve(
+            `./src/templates/learnTutorialChapter/index.tsx`
+          ),
           context: {
             id: chapter.id,
             previousPostId,
@@ -523,71 +552,6 @@ const createBlogPostPages = async ({
     });
   }
 };
-
-/**
- * Creates a single posts page based on the topic and index
- * @param params
- */
-// const createPageTopics = async ({
-//   topic,
-//   index,
-//   postsPerPage,
-//   actions,
-// }: {
-//   topic: string | null;
-//   index: number;
-//   postsPerPage: number;
-//   actions: Actions;
-// }) => {
-//   const { createPage } = actions;
-//   const topicPathStr = topic ? `${topic}/` : "";
-//   const currentPage = index + 1;
-//   const pagePath =
-//     index === 0
-//       ? `/blog/${topicPathStr}`
-//       : `/blog/${topicPathStr}${currentPage}`;
-//   createPage({
-//     path: pagePath,
-//     component: path.resolve(`./src/templates/blogTopics/index.tsx`),
-//     context: {
-//       ...(topic && { topic }),
-//       currentPage,
-//       limit: postsPerPage,
-//       skip: index * postsPerPage,
-//     },
-//   });
-// };
-
-// Create paginated topic pages
-// const createTopicsPagesWithToicFilter = async ({
-//   topic,
-//   numPages,
-//   postsPerPage,
-//   actions,
-// }: {
-//   topic: string;
-//   numPages: number;
-//   postsPerPage: number;
-//   actions: Actions;
-// }) => {
-//   if (numPages > 1) {
-//     Array.from({ length: numPages }).forEach((_, i) => {
-//       createPageTopics({
-//         topic,
-//         index: i,
-//         postsPerPage,
-//         actions,
-//       });
-//     });
-//   } else {
-//     createPageTopics({
-//       topic,
-//       index: 0,
-//       postsPerPage,
-//       actions,
-//     });
-//   }
-// };
 
 /**
  * Creates a list of pages that filter blog posts based on topics
