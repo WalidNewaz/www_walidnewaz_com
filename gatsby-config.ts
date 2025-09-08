@@ -85,13 +85,13 @@ module.exports = {
     //     path: `${__dirname}/content/grow`,
     //   },
     // },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `journal`,
-        path: `${__dirname}/content/journal`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `journal`,
+    //     path: `${__dirname}/content/journal`,
+    //   },
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
