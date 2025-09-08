@@ -1,0 +1,87 @@
+ol,
+ul {
+  list-style-position: inside;
+}
+
+code.grvsc-code,
+code[class*='language-'],
+pre[class*='language-'] {
+  font-size: 0.95rem;
+}
+
+pre[class*='language-'] {
+  border-radius: 0.25rem;
+  margin: 0;
+}
+
+:not(pre) > code[class*='language-'] {
+  padding-inline: 0.35rem;
+  background-color: #e6e6fa;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  background: none;
+}
+
+h1 {
+  margin-top: var(--spacing-0);
+}
+
+h2, h3, h4, h5, h6 {
+  margin-top: var(--spacing-6);
+}
+
+/* p {
+  margin-bottom: var(--spacing-6);
+} */
+
+/* img {
+  border-radius: 0.25rem;
+} */
+
+table {
+  border-collapse: collapse;
+  border: 2px solid var(--color-border);
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+  font-weight: bold;
+}
+
+thead,
+tfoot {
+  background-color: var(--surface4);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
+
+td:first-of-type {
+  /* text-align: center; */
+  font-weight: bold;
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: var(--surface2);
+}
+
+tfoot th {
+  text-align: right;
+}
+
+tfoot td {
+  font-weight: bold;
+}
+

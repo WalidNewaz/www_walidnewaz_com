@@ -30,8 +30,8 @@ const StyledSpan = styled.span`
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   align-items: center;
-  border-top-left-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
   box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width))
     var(--tw-ring-color);
   --tw-ring-inset: inset;

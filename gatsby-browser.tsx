@@ -13,7 +13,7 @@ import "./src/styles/index.css";
 // Highlighting for code blocks
 import "prismjs/themes/prism.css";
 
-import Layout from "./src/components/layout";
+import Layout from "./src/components/Layout";
 
 type onRouteUpdateParams = {
   location;

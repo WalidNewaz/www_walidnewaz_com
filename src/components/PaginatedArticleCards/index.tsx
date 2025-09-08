@@ -16,6 +16,7 @@ const PaginatedArticleCards: React.FC<{
   // sortOptions: SortItemType[];
   showContent: boolean;
   pathname: string;
+  postHeroes?: any[];
   query?: any; // Query passed to the search
 }> = ({
   posts,
@@ -29,6 +30,7 @@ const PaginatedArticleCards: React.FC<{
   // sortOptions,
   showContent,
   pathname,
+  postHeroes,
   query,
 }) => {
   // Generate content for the current page
@@ -39,6 +41,7 @@ const PaginatedArticleCards: React.FC<{
         className={`transition-opacity duration-500 ${
           showContent ? "opacity-100" : "opacity-0"
         }`}
+        postHeroes={postHeroes}
       />
     </section>
   );

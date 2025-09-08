@@ -1,0 +1,85 @@
+{
+  "topic": "Advanced Object-Oriented Programming in Python",
+  "questions": [
+    {
+      "question": "What does it mean that Python functions are 'first-class citizens'?",
+      "options": [
+        {
+          "text": "Functions must always be defined inside classes",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Functions can exist outside classes."
+        },
+        {
+          "text": "Functions can be assigned to variables, passed as arguments, and returned from other functions",
+          "correct": true,
+          "explanation": "🎉 Correct. First-class functions can be treated like any other object."
+        },
+        {
+          "text": "Functions can only return other functions",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. They can return any value, not just functions."
+        }
+      ]
+    },
+    {
+      "question": "Which built-in function applies another function to every element of an iterable?",
+      "options": [
+        {
+          "text": "map()",
+          "correct": true,
+          "explanation": "🎉 Correct. map() applies a function to all elements."
+        },
+        {
+          "text": "filter()",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. filter() selects elements based on a condition."
+        },
+        {
+          "text": "reduce()",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. reduce() collapses an iterable into a single value."
+        }
+      ]
+    },
+    {
+      "question": "What is a closure in Python?",
+      "options": [
+        {
+          "text": "A function that deletes variables from memory",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Closures don’t delete variables."
+        },
+        {
+          "text": "A function that retains access to variables from its defining scope even after that scope has finished",
+          "correct": true,
+          "explanation": "🎉 Correct. Closures capture their environment."
+        },
+        {
+          "text": "A function that always returns another function",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. While closures can return functions, that’s not the definition."
+        }
+      ]
+    },
+    {
+      "question": "What does functools.wraps do in a decorator?",
+      "options": [
+        {
+          "text": "It automatically logs function calls",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. wraps doesn’t log—it preserves metadata."
+        },
+        {
+          "text": "It preserves the original function’s metadata like __name__ and docstring",
+          "correct": true,
+          "explanation": "🎉 Correct. wraps keeps the decorated function’s identity intact."
+        },
+        {
+          "text": "It prevents recursion in decorators",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. wraps doesn’t affect recursion."
+        }
+      ]
+    }
+  ]
+}

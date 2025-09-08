@@ -13,11 +13,6 @@ import TutorialTOC from "../../components/tutorial/TutorialTOC";
 import ChapterQuiz from "../../components/organisms/ChapterQuiz";
 
 /** Types */
-type ChapterHeading = {
-  value: string;
-  depth: number;
-  id: string;
-};
 import { QuizType } from "../../components/organisms/ChapterQuiz/";
 
 /** Styles */
