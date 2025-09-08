@@ -71,20 +71,20 @@ module.exports = {
         path: `${__dirname}/content/learn`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `build`,
-        path: `${__dirname}/content/build`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `grow`,
-        path: `${__dirname}/content/grow`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `build`,
+    //     path: `${__dirname}/content/build`,
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `grow`,
+    //     path: `${__dirname}/content/grow`,
+    //   },
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
