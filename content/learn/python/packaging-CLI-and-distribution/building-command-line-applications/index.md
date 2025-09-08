@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-11-22"
+date: "2023-11-24"
 
 series: "Python Foundations"
 part: "VI. Packaging, CLI, and Distribution"
