@@ -3,7 +3,7 @@ featured: false
 date: "2023-10-18"
 
 series: "Python for Modern Developers"
-part: "I. Python Foundations"
+part: "I. Core Python Language"
 chapter: "2. Python Syntax and Core Concepts"
 
 title: "Syntax and Core Concepts"

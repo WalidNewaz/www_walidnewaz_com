@@ -1,0 +1,190 @@
+---
+featured: false
+date: "2023-10-20"
+
+series: "Python for Modern Developers"
+part: "I. Core Python Language"
+chapter: "3. Data Handling in Python"
+
+title: "Data Handling in Python"
+description: "This chapter discusses hands-on Python syntax and core programming concepts."
+has_quiz: true
+tags: ["fundamentals", "Python"]
+---
+
+# Chapter 3: Data Handling in Python
+
+In this chapter, we explore Python’s core data types and collections. Understanding how Python represents and manipulates data is essential before moving into more advanced programming. We’ll cover:
+
+* Primitive data types: strings, numbers, booleans
+* Built-in collections: lists, tuples, sets, dictionaries
+* Iterators and comprehensions for concise, efficient data processing
+* A practical project: **Contact Book**, applying everything together
+
+## 3.1 Primitive Data Types
+
+### Strings
+
+```python
+name = "Walid"
+greeting = f"Hello, {name}!"
+print(greeting)  # Hello, Walid
+```
+
+Strings are immutable sequences of characters. Common operations:
+
+```python
+s = "Python"
+print(len(s))        # 6
+print(s.upper())     # "PYTHON"
+print(s[0:3])        # "Pyt"
+```
+
+### Numbers
+
+```python
+# Integers
+x = 42  
+# Floats
+y = 3.14  
+# Complex numbers
+z = 2 + 3j
+```
+
+Python supports **arbitrary-precision integers**, so no overflow like in C or Java.
+
+### Booleans
+
+```python
+is_valid = True
+print(is_valid and False)  # False
+```
+
+## 3.2 Collections
+
+### Lists
+
+Mutable, ordered, allow duplicates.
+
+```python
+fruits = ["apple", "banana", "cherry"]
+fruits.append("orange")
+print(fruits)  # ['apple', 'banana', 'cherry', 'orange']
+```
+
+### Tuples
+
+Immutable, ordered.
+
+```python
+point = (10, 20)
+x, y = point  # unpacking
+```
+
+### Sets
+
+Unordered, unique items.
+
+```python
+nums = {1, 2, 3, 3}
+print(nums)  # {1, 2, 3}
+```
+
+### Dictionaries
+
+Key-value mappings.
+
+```python
+person = {"name": "Alice", "age": 30}
+print(person["name"])  # Alice
+```
+
+## 3.3 Iterators and Comprehensions
+
+### Iterators
+
+Any object that implements `__iter__` and `__next__`.
+
+```python
+nums = [1, 2, 3]
+it = iter(nums)
+print(next(it))  # 1
+print(next(it))  # 2
+```
+
+### List Comprehensions
+
+Concise way to build lists.
+
+```python
+squares = [x**2 for x in range(5)]
+print(squares)  # [0, 1, 4, 9, 16]
+```
+
+### Set & Dict Comprehensions
+
+```python
+unique_lengths = {len(w) for w in ["hi", "hello", "hi"]}
+print(unique_lengths)  # {2, 5}
+
+word_map = {w: len(w) for w in ["hi", "hello"]}
+print(word_map)  # {'hi': 2, 'hello': 5}
+```
+
+## 3.4 Project: Contact Book
+
+We’ll build a simple CLI-based **Contact Book** that demonstrates strings, dicts, lists, and comprehensions.
+
+### contact\_book.py
+
+```python
+"""A simple Contact Book project demonstrating Python data handling."""
+
+def add_contact(contacts: dict, name: str, phone: str, email: str) -> None:
+    """Add a new contact to the dictionary."""
+    contacts[name] = {"phone": phone, "email": email}
+
+
+def search_contact(contacts: dict, name: str) -> dict | None:
+    """Search for a contact by name."""
+    return contacts.get(name)
+
+
+def list_contacts(contacts: dict) -> list[str]:
+    """Return a formatted list of all contacts."""
+    return [f"{name}: {info['phone']} / {info['email']}" for name, info in contacts.items()]
+
+
+if __name__ == "__main__":
+    contacts: dict[str, dict[str, str]] = {}
+
+    add_contact(contacts, "Alice", "123-456", "alice@example.com")
+    add_contact(contacts, "Bob", "555-555", "bob@example.com")
+
+    print("All contacts:")
+    for line in list_contacts(contacts):
+        print(" ", line)
+
+    print("\nSearch result:")
+    result = search_contact(contacts, "Alice")
+    print(result if result else "Not found")
+```
+
+### Output
+
+```
+All contacts:
+  Alice: 123-456 / alice@example.com
+  Bob: 555-555 / bob@example.com
+
+Search result:
+{'phone': '123-456', 'email': 'alice@example.com'}
+```
+
+## Summary
+
+* Strings, numbers, and booleans form the **primitive building blocks** of Python programs.
+* Lists, tuples, sets, and dictionaries are **core data structures**.
+* Iterators and comprehensions make code **concise and expressive**.
+* Practical application: the **Contact Book** combines multiple data structures for a real-world use case.
+
