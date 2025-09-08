@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-12"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "IV. Python’s Built-in Tools"
 chapter: "13. Type Hints and Generics"
 

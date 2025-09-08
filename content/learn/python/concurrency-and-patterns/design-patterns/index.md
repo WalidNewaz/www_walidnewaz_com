@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-16"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "V. Concurrency and Patterns"
 chapter: "16. Python Design Patterns"
 

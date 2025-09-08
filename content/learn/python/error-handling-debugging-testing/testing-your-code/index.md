@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-05"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "II. Error Handling, Debugging and Testing"
 chapter: "7. Testing Your Code"
 
