@@ -1,0 +1,85 @@
+{
+  "topic": "Testing in Python",
+  "questions": [
+    {
+      "question": "What is the main difference between unittest and pytest?",
+      "options": [
+        {
+          "text": "unittest requires classes while pytest allows simple functions",
+          "correct": true,
+          "explanation": "🎉 Correct. unittest is class-based, pytest allows function-based tests."
+        },
+        {
+          "text": "pytest is built-in to Python, unittest must be installed separately",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. unittest is built-in, pytest is third-party."
+        },
+        {
+          "text": "pytest cannot run unittest tests",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. pytest can discover and run unittest tests too."
+        }
+      ]
+    },
+    {
+      "question": "What does a pytest fixture do?",
+      "options": [
+        {
+          "text": "Provides reusable setup/teardown logic for tests",
+          "correct": true,
+          "explanation": "🎉 Correct. Fixtures prepare resources that tests need."
+        },
+        {
+          "text": "Runs the same test multiple times with different inputs",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That's parameterization, not fixtures."
+        },
+        {
+          "text": "Mocks out dependencies",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Mocks replace functions/objects, not fixtures."
+        }
+      ]
+    },
+    {
+      "question": "Which tool would you use to replace a real function with a fake one during tests?",
+      "options": [
+        {
+          "text": "Fixture",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Fixtures are for setup/teardown, not mocking."
+        },
+        {
+          "text": "Patch from unittest.mock",
+          "correct": true,
+          "explanation": "🎉 Correct. patch allows replacing functions with mocks."
+        },
+        {
+          "text": "pytest.mark.parametrize",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That's for running the same test with multiple inputs."
+        }
+      ]
+    },
+    {
+      "question": "What is the first step in the TDD workflow?",
+      "options": [
+        {
+          "text": "Implement the feature directly",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. You start with a failing test, not implementation."
+        },
+        {
+          "text": "Write a failing test",
+          "correct": true,
+          "explanation": "🎉 Correct. TDD begins with writing a failing test."
+        },
+        {
+          "text": "Refactor the existing code",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Refactoring comes last in the cycle."
+        }
+      ]
+    }
+  ]
+}

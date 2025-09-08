@@ -1,0 +1,105 @@
+{
+  "topic": "Using Third-Party Modules",
+  "questions": [
+    {
+      "question": "What is the main purpose of PyPI in the Python ecosystem?",
+      "options": [
+        {
+          "text": "It is Python's official debugger",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The Python debugger is pdb, not PyPI."
+        },
+        {
+          "text": "It is the official package index where third-party libraries are published",
+          "correct": true,
+          "explanation": "🎉 Correct. PyPI (Python Package Index) hosts and distributes Python packages."
+        },
+        {
+          "text": "It automatically manages virtual environments",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Virtual environments are managed with venv, pipenv, or poetry."
+        }
+      ]
+    },
+    {
+      "question": "Why should you specify dependency versions (e.g., requests==2.28.1) when installing with pip?",
+      "options": [
+        {
+          "text": "To always install the newest version",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Pinning locks you to a specific version, not the newest."
+        },
+        {
+          "text": "To ensure reproducibility and prevent conflicts across environments",
+          "correct": true,
+          "explanation": "🎉 Correct. Pinning versions makes builds reproducible and prevents breaking changes."
+        },
+        {
+          "text": "To speed up the installation process",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Version pinning has no effect on speed."
+        }
+      ]
+    },
+    {
+      "question": "What problem do virtual environments solve?",
+      "options": [
+        {
+          "text": "They make Python run faster",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Virtual environments don't affect performance."
+        },
+        {
+          "text": "They isolate dependencies so projects don't conflict with each other",
+          "correct": true,
+          "explanation": "🎉 Correct. Virtual environments let different projects have different dependency versions."
+        },
+        {
+          "text": "They automatically publish code to PyPI",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Publishing is handled separately by tools like twine or poetry."
+        }
+      ]
+    },
+    {
+      "question": "Which of the following correctly describes Poetry?",
+      "options": [
+        {
+          "text": "A tool that manages dependencies, virtual environments, and publishing using pyproject.toml",
+          "correct": true,
+          "explanation": "🎉 Correct. Poetry is an all-in-one modern Python dependency and packaging manager."
+        },
+        {
+          "text": "A Python testing framework",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. pytest is a testing framework, not Poetry."
+        },
+        {
+          "text": "A replacement for Python's logging library",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Poetry is not related to logging."
+        }
+      ]
+    },
+    {
+      "question": "What is the purpose of `pyproject.toml` introduced in PEP 518?",
+      "options": [
+        {
+          "text": "To configure only the Python logging module",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. `pyproject.toml` is not related to logging specifically."
+        },
+        {
+          "text": "To serve as a unified configuration file for builds, dependencies, and tool settings",
+          "correct": true,
+          "explanation": "🎉 Correct. `pyproject.toml` standardizes project metadata and tool configuration."
+        },
+        {
+          "text": "To replace Python's exception handling system",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. `pyproject.toml` has nothing to do with exceptions."
+        }
+      ]
+    }
+  ]
+}

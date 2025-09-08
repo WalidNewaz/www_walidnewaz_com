@@ -1,0 +1,105 @@
+{
+  "topic": "Publishing your Own Modules",
+  "questions": [
+    {
+      "question": "What is the main difference between a Python module and a Python package?",
+      "options": [
+        {
+          "text": "A module is a single .py file, while a package is a directory containing __init__.py",
+          "correct": true,
+          "explanation": "🎉 Correct. A module is one file; a package is a collection of modules with an __init__.py file."
+        },
+        {
+          "text": "A module is always built into Python, while a package must come from PyPI",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Both modules and packages can be created locally or installed from PyPI."
+        },
+        {
+          "text": "There is no real difference; the terms are interchangeable",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Module and package are distinct concepts in Python."
+        }
+      ]
+    },
+    {
+      "question": "What does the command `pip install -e .` do when run in a package directory?",
+      "options": [
+        {
+          "text": "Installs the package globally for all users",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. It does not install globally, it links the local code."
+        },
+        {
+          "text": "Installs the package in editable mode so changes to the source reflect immediately",
+          "correct": true,
+          "explanation": "🎉 Correct. Editable mode links the source code to your environment."
+        },
+        {
+          "text": "Uploads the package to PyPI",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. pip install -e . installs locally, it does not publish."
+        }
+      ]
+    },
+    {
+      "question": "Which file contains metadata such as project name, version, description, and dependencies?",
+      "options": [
+        {
+          "text": "requirements.txt",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. requirements.txt lists dependencies but not project metadata."
+        },
+        {
+          "text": "pyproject.toml",
+          "correct": true,
+          "explanation": "🎉 Correct. pyproject.toml defines metadata, dependencies, and build system information."
+        },
+        {
+          "text": "setup.cfg",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. setup.cfg can contain metadata, but modern packaging standard is pyproject.toml."
+        }
+      ]
+    },
+    {
+      "question": "Why should you publish your package to TestPyPI before publishing to PyPI?",
+      "options": [
+        {
+          "text": "To make your package faster",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. TestPyPI is not about speed."
+        },
+        {
+          "text": "To verify the build and upload process in a safe environment",
+          "correct": true,
+          "explanation": "🎉 Correct. TestPyPI allows testing packaging and distribution without affecting the real PyPI index."
+        },
+        {
+          "text": "Because PyPI does not allow first-time uploads",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. PyPI allows uploads, but TestPyPI is recommended for testing."
+        }
+      ]
+    },
+    {
+      "question": "After building a package, what directory contains the .tar.gz and .whl distribution files?",
+      "options": [
+        {
+          "text": "build/",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The build/ directory may be created during builds, but distribution files go elsewhere."
+        },
+        {
+          "text": "dist/",
+          "correct": true,
+          "explanation": "🎉 Correct. The dist/ directory contains source and wheel distribution files ready for upload."
+        },
+        {
+          "text": "site-packages/",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. site-packages/ is where installed libraries go, not your built distributions."
+        }
+      ]
+    }
+  ]
+}
