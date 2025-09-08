@@ -2,7 +2,7 @@
 featured: false
 date: "2023-10-16"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "I. Core Python Language"
 chapter: "1. Setting Up Your Python Development Environment"
 

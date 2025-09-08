@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-07"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "III. Object-Oriented and Functional Python"
 chapter: "9. Advanced Object-Oriented Programming"
 

@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-14"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "V. Concurrency and Patterns"
 chapter: "15. Concurrency in Python – threading vs multiprocessing vs asyncio"
 

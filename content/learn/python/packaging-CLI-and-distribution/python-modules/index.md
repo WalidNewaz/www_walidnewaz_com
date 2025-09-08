@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-20"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "VI. Packaging, CLI, and Distribution"
 chapter: "17. Using Third-Party Modules"
 

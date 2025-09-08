@@ -2,7 +2,7 @@
 featured: false
 date: "2023-11-22"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "VI. Packaging, CLI, and Distribution"
 chapter: "19. Building Command-Line Applications with Python"
 
