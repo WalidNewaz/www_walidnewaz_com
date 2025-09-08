@@ -42,15 +42,16 @@ const StyledSeriesNav = styled.nav`
  * @param params
  * @returns
  */
-const TutorialToc: React.FC<{ post: any; allSeriesPosts: any }> = ({
+const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }> = ({
   post,
   allSeriesPosts,
+  section = "tutorials",
 }) => {
   const chapters = useMemo(
     () =>
       allSeriesPosts.nodes.reduce((acc: any, article: any) => {
         const { part, chapter, pathDate } = article.frontmatter;
-        const articlePath = `/tutorials${article.fields?.slug}`;
+        const articlePath = `/${section}${article.fields?.slug}`;
         if (Object.hasOwn(acc, part)) {
           const currChapter = [
             ...acc[part],

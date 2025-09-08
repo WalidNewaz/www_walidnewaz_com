@@ -9,9 +9,10 @@ import ContentRibbon from "../ContentRibbon/ContentRibbon";
  * @param params
  * @returns 
  */
-const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
+const Topics: React.FC<{ topics: any; currentTopic?: string; section?: string }> = ({
   topics,
   currentTopic,
+  section = "blog",
 }) => {
   const topicList = Object.keys(topics);
   const linksText = topicList
@@ -22,6 +23,7 @@ const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
         topic={topic}
         count={topics[topic]}
         currentTopic={currentTopic}
+        section={section}
         style={{
           margin: "0.25rem",
           padding: "0.5rem 1.5rem",
@@ -45,6 +47,7 @@ const Topics: React.FC<{ topics: any; currentTopic?: string }> = ({
       >
         <Pill
           topic="All"
+          section={section}
           style={{
             margin: "0.25rem",
             padding: "0.5rem 1.5rem",

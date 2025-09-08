@@ -2,7 +2,7 @@ import * as React from "react";
 import { RenderBodyArgs } from "gatsby";
 
 /** Components */
-import Layout from "./src/components/layout";
+import Layout from "./src/components/Layout";
 
 /** Styles */
 import "./src/styles/index.css";

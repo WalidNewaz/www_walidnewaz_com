@@ -89,8 +89,7 @@ const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
 }) => {
   const { posts, totalCount } = data.allPosts;
   const postTopics = data.postTopics.group;
-  const { topic } = pageContext;
-  const currentTopic = topic || "";
+  const { topic: currentTopic } = pageContext || { topic: "" };
 
   const [currentPage, setCurrentPage] = useState(pageContext.currentPage || 1);
   const fetchNextPage = useFetchNextPage();
@@ -101,7 +100,7 @@ const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
 
   return (
     <BlogPostContainer>
-      <Topics topics={getTopics(postTopics)} currentTopic={currentTopic} />
+      <Topics topics={getTopics(postTopics)} currentTopic={currentTopic} section="blog/f" />
       <PaginatedArticleCards
         posts={posts}
         currentPage={currentPage}

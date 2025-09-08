@@ -1,0 +1,85 @@
+{
+  "topic": "Data Handling in Python",
+  "questions": [
+    {
+      "question": "Which of the following is TRUE about Python lists?",
+      "options": [
+        {
+          "text": "They are immutable and cannot be changed after creation.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Lists are mutable and allow adding/removing elements."
+        },
+        {
+          "text": "They can contain elements of different data types.",
+          "correct": true,
+          "explanation": "🎉 Correct. Lists in Python can hold mixed data types (e.g., int, str, dict)."
+        },
+        {
+          "text": "They are implemented as linked lists internally.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Python lists are implemented as dynamic arrays, not linked lists."
+        }
+      ]
+    },
+    {
+      "question": "Which collection ensures unique elements only?",
+      "options": [
+        {
+          "text": "List",
+          "correct": false,
+          "explanation": "⚠️ Lists allow duplicates."
+        },
+        {
+          "text": "Tuple",
+          "correct": false,
+          "explanation": "⚠️ Tuples can contain duplicates, they are just immutable."
+        },
+        {
+          "text": "Set",
+          "correct": true,
+          "explanation": "🎉 Sets automatically remove duplicates and only store unique values."
+        }
+      ]
+    },
+    {
+      "question": "What will the following code print?\n\nnums = [1, 2, 3]\nit = iter(nums)\nprint(next(it))",
+      "options": [
+        {
+          "text": "1",
+          "correct": true,
+          "explanation": "🎉 Correct. The first call to next(it) returns the first element of the list: 1."
+        },
+        {
+          "text": "2",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. 2 would be returned on the second call to next(it)."
+        },
+        {
+          "text": "Error",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. No error occurs until you exhaust the iterator."
+        }
+      ]
+    },
+    {
+      "question": "Which of these comprehensions produces a dictionary mapping numbers to their squares?",
+      "options": [
+        {
+          "text": "{n: n**2 for n in range(5)}",
+          "correct": true,
+          "explanation": "🎉 Correct. This creates a dictionary with keys 0–4 and values as their squares."
+        },
+        {
+          "text": "[n: n**2 for n in range(5)]",
+          "correct": false,
+          "explanation": "⚠️ Incorrect syntax. Lists use square brackets but don't support key:value pairs."
+        },
+        {
+          "text": "{n**2 for n in range(5)}",
+          "correct": false,
+          "explanation": "⚠️ This creates a set of squared values, not a dictionary."
+        }
+      ]
+    }
+  ]
+}

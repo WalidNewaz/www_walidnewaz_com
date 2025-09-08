@@ -34,7 +34,7 @@ const Pill: React.FC<{
       style={style}
     >
       <a
-        href={`/${section}/${topic !== "All" ? `${encodeURIComponent(topic)}/` : ""}`}
+        href={`${topic !== "All" ? `/${section}/${encodeURIComponent(topic)}/` : `/${section.substring(0, section.length - 2)}/`}`}
         style={{ textDecoration: "none" }}
       >
         {topicText}

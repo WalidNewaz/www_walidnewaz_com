@@ -1,13 +1,13 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
-import styled from "styled-components"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
+import styled from "styled-components";
 
-import Seo from "../components/seo"
+import Seo from "../components/seo";
 
 const StyledAboutSection = styled.section`
   padding: var(--spacing-4);
-  
+
   img {
     width: 1112px;
     margin: 0;
@@ -25,14 +25,28 @@ const StyledAboutSection = styled.section`
   }
 
   ul {
-    margin-left: var(--spacing-12);
+    margin-left: var(--spacing-1);
   }
 
   li {
     color: var(--text1);
     font-family: var(--fontFamily-sans);
   }
-`
+
+  ul li::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid var(--text1); /* Color of your triangle */
+    border-radius: 3px; /* Adjust for desired rounding */
+    margin-right: 0.5em;
+    margin-top: -0.25em; /* Adjust to align with text */
+    vertical-align: middle; /* Align with text */
+  }
+`;
 
 // Create a styled component
 const StyledImage = styled(GatsbyImage)`
@@ -56,57 +70,76 @@ const About: React.FC<{ data }> = ({ data }) => {
           image={banner.childImageSharp.gatsbyImageData}
           alt="Walid Newaz"
         />
-        <h2>Welcome! Thanks for visiting.</h2>
+        <h2>Welcome — I'm Walid Newaz</h2>
 
-        <p>Hello and welcome to my page! My name is Walid Newaz.
-          I am a software engineer who loves learning, and sharing my thoughts about software
-          and the world.</p>
-
-        <p>My fascination with programming started with BASIC in 6th grade.
-          I was fascinated with the small programs that we were able to create even with such a simple language,
-          that a 6th grader could understand. Later on I picked up Pascal and C which allowed me to write
-          programs to record interesting data as files in my computer. I knew that I&apos;d barely scratched the surface.</p>
-
-        <p>In college I learned more about computer systems and programming. I was exposed to many tools
-          and practices in the world of software engineering.</p>
-
-        <p>I have spent my career delivering fast, reliable, and maintainable software applications. As
-          a programmer I have primarily worked on JavaScript, Java, and Python. I am focused on maintainability,
-          flexibility of software architecture, and providing a cutting endge user experience.
+        <p>
+          I'm a <strong>software engineer and builder</strong> with 15+ years of
+          experience creating applications across the web stack. My journey
+          started back in 6th grade with BASIC, where even the smallest programs
+          felt like magic. From there I picked up Pascal and C, writing programs
+          to capture and store data, and I knew I had only scratched the surface
+          of what software could do.
         </p>
 
-        <p>Some of the notable things I&apos;ve worked on over the years include:</p>
+        <p>
+          Over the years I've delivered fast, reliable, and maintainable
+          applications for web, backend, and API-driven platforms. My core
+          experience has been in
+          <strong>JavaScript/TypeScript (React, Node.js)</strong> and expanded
+          into
+          <strong>Python</strong> for backend services, automation, and AI
+          projects. I care deeply about{" "}
+          <strong>architecture, maintainability, and user experience</strong>.
+        </p>
+
+        <p>Some of the systems I've built include:</p>
         <ul>
-          <li>Lead capture system</li>
-          <li>User survey capture system</li>
-          <li>User portal</li>
-          <li>Static websites</li>
-          <li>Coupon management system</li>
-          <li>API workflow management system</li>
-          <li>Team travel app</li>
+          <li>Lead capture and survey systems</li>
+          <li>User portals and static websites</li>
+          <li>Coupon and promotions management</li>
+          <li>Workflow and API orchestration platforms</li>
+          <li>Team travel planning applications</li>
         </ul>
 
-        <p>My current interests are in program comprehension, software portability, and A.I. driven software
-          development. I am also interested in developing user-friendly applications that scale.
+        <p>
+          Today, my focus is shifting toward{" "}
+          <strong>AI application engineering</strong>: building with{" "}
+          <strong>Python, FastAPI, LangChain, and custom GPTs</strong> to create
+          workflow engines, RAG chatbots, and agentic systems. I'm especially
+          interested in{" "}
+          <strong>
+            program comprehension, software portability, and AI-driven
+            development workflows
+          </strong>{" "}
+          that help engineers and organizations scale.
         </p>
 
-        <p>When I&apos;m not writing code you can often find me cooking, hiking in the Colorado Front Range with my dog, or traveling.
-          I love music, art, books and podcasts.</p>
+        <p>
+          Outside of code, I'm usually{" "}
+          <strong>hiking the Colorado Front Range with my dog</strong>,
+          experimenting in the kitchen, or exploring new places. I'm a big fan
+          of music, art, books, and podcasts that expand perspective.
+        </p>
 
-        <p>Feel free to reach out to me if you&apos;d like to share ideas, collaborate, or go on adventures together.</p>
+        <p>
+          This site documents how I <em>learn</em>, <em>build</em>, and{" "}
+          <em>grow</em> as I transition deeper into AI and workflow platforms.
+          If you'd like to share ideas, collaborate on projects, or just
+          connect, I'd love to hear from you.
+        </p>
       </article>
     </StyledAboutSection>
-  )
-}
+  );
+};
 
-export default About
+export default About;
 
 /**
  * Head export to define metadata for the page
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head: React.FC = () => <Seo title="About Walid" />
+export const Head: React.FC = () => <Seo title="About Walid" />;
 
 export const pageQuery = graphql`
   {
@@ -115,10 +148,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    bannerFile: file(relativePath: {regex: "/about_banner.jpeg/"}) {
+    bannerFile: file(relativePath: { regex: "/about_banner.jpeg/" }) {
       childImageSharp {
         gatsbyImageData
       }
     }
   }
-`
+`;

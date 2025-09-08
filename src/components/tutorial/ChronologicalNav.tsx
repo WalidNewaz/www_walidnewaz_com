@@ -41,15 +41,16 @@ const StyledList = styled.ul`
  * @param params
  * @returns
  */
-const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
+const ChronologicalNav: React.FC<{ previous: any; next: any; section?: string }> = ({
   previous,
   next,
+  section = "tutorials",
 }) => (
   <StyledList>
     {previous && (
       <li>
         <a
-          href={`/tutorials${previous.fields.slug}`}
+          href={`/${section}${previous.fields.slug}`}
           rel="prev"
         >
           <div
@@ -88,7 +89,7 @@ const ChronologicalNav: React.FC<{ previous: any; next: any }> = ({
     {next && (
       <li>
         <a
-          href={`/tutorials${next.fields.slug}`}
+          href={`/${section}${next.fields.slug}`}
           rel="next"
         >
           <div

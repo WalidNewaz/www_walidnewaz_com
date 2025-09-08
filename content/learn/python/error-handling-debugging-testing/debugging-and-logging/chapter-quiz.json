@@ -1,0 +1,105 @@
+{
+  "topic": "Debugging and Logging in Python",
+  "questions": [
+    {
+      "question": "What does pdb.set_trace() do in Python?",
+      "options": [
+        {
+          "text": "It prints the current value of all variables",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Variables are printed with the 'p var' command while inside pdb."
+        },
+        {
+          "text": "It pauses program execution and starts the debugger",
+          "correct": true,
+          "explanation": "🎉 Correct. pdb.set_trace() interrupts execution and launches the Python debugger."
+        },
+        {
+          "text": "It logs the program state to a file",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. pdb is for interactive debugging, not logging."
+        }
+      ]
+    },
+    {
+      "question": "Which log level should you use to record that the application started successfully?",
+      "options": [
+        {
+          "text": "DEBUG",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. DEBUG is for detailed developer information, not general events."
+        },
+        {
+          "text": "INFO",
+          "correct": true,
+          "explanation": "🎉 Correct. INFO is appropriate for successful operations like startup messages."
+        },
+        {
+          "text": "ERROR",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. ERROR is used when something goes wrong."
+        }
+      ]
+    },
+    {
+      "question": "What happens when logging.exception() is used inside an except block?",
+      "options": [
+        {
+          "text": "It suppresses the exception",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The exception is not suppressed; it is logged."
+        },
+        {
+          "text": "It logs the error message along with the full traceback",
+          "correct": true,
+          "explanation": "🎉 Correct. logging.exception() records the message and stack trace, which is useful for debugging."
+        },
+        {
+          "text": "It raises a new exception",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. It logs the existing exception; it does not create a new one."
+        }
+      ]
+    },
+    {
+      "question": "If the calculator receives an invalid operation string, how does the program respond?",
+      "options": [
+        {
+          "text": "It logs a WARNING and ignores the input",
+          "correct": true,
+          "explanation": "🎉 Correct. The program logs a warning and skips processing invalid operations."
+        },
+        {
+          "text": "It raises a ValueError",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. ValueError is raised only in specific cases like division by zero."
+        },
+        {
+          "text": "It crashes without logging",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Invalid operations are handled gracefully and logged."
+        }
+      ]
+    },
+    {
+      "question": "Which argument in logging.basicConfig controls whether logs are written to a file?",
+      "options": [
+        {
+          "text": "filename",
+          "correct": true,
+          "explanation": "🎉 Correct. Passing a filename argument writes logs to that file instead of the console."
+        },
+        {
+          "text": "level",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. level controls the severity threshold, not the destination."
+        },
+        {
+          "text": "format",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. format controls the log output structure, not where it's written."
+        }
+      ]
+    }
+  ]
+}

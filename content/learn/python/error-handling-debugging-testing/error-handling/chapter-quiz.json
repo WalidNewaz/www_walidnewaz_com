@@ -1,0 +1,105 @@
+{
+  "topic": "Error Handling in Python",
+  "questions": [
+    {
+      "question": "What happens if you attempt to divide by zero in Python without handling the error?",
+      "options": [
+        {
+          "text": "The program prints 0 as the result",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Division by zero is not defined and cannot produce a result."
+        },
+        {
+          "text": "The program raises a ZeroDivisionError exception",
+          "correct": true,
+          "explanation": "🎉 Correct. Python raises a ZeroDivisionError when division by zero is attempted."
+        },
+        {
+          "text": "The program exits silently",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Python does not fail silently—it raises an exception."
+        }
+      ]
+    },
+    {
+      "question": "What is the correct way to create a custom exception in Python?",
+      "options": [
+        {
+          "text": "Define a class that inherits from Exception",
+          "correct": true,
+          "explanation": "🎉 Correct. Custom exceptions are classes that inherit from Exception or one of its subclasses."
+        },
+        {
+          "text": "Use the raise keyword without defining a class",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. raise requires a valid exception class or instance."
+        },
+        {
+          "text": "Redefine a built-in exception like ValueError",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. You should not overwrite built-in exceptions; instead, subclass Exception."
+        }
+      ]
+    },
+    {
+      "question": "Which exception is raised when trying to access a dictionary key that does not exist?",
+      "options": [
+        {
+          "text": "IndexError",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. IndexError applies to lists when accessing an invalid index."
+        },
+        {
+          "text": "KeyError",
+          "correct": true,
+          "explanation": "🎉 Correct. Accessing a non-existent key in a dictionary raises KeyError."
+        },
+        {
+          "text": "ValueError",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. ValueError occurs when a function receives an invalid value, not a missing key."
+        }
+      ]
+    },
+    {
+      "question": "In the fault-tolerant calculator, what happens if the user enters 'divide' and provides 10 and 0 as inputs?",
+      "options": [
+        {
+          "text": "It prints 'Result: 0'",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The program does not calculate with 0 as denominator."
+        },
+        {
+          "text": "It raises a ValueError with the message 'Cannot divide by zero.'",
+          "correct": true,
+          "explanation": "🎉 Correct. The divide function explicitly raises ValueError for division by zero."
+        },
+        {
+          "text": "It crashes with an unhandled ZeroDivisionError",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The custom ValueError is raised and caught by the error handling block."
+        }
+      ]
+    },
+    {
+      "question": "Which pytest feature is used to check that a function raises an expected exception?",
+      "options": [
+        {
+          "text": "pytest.raises",
+          "correct": true,
+          "explanation": "🎉 Correct. pytest.raises is used in a with-block to check for expected exceptions."
+        },
+        {
+          "text": "pytest.fixture",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. pytest.fixture is for reusable setup code, not exception testing."
+        },
+        {
+          "text": "pytest.mark.parametrize",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Parameterize is for running the same test with multiple inputs."
+        }
+      ]
+    }
+  ]
+}
