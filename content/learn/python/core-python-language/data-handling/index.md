@@ -2,7 +2,7 @@
 featured: false
 date: "2023-10-20"
 
-series: "Python for Modern Developers"
+series: "Python Foundations"
 part: "I. Core Python Language"
 chapter: "3. Data Handling in Python"
 
