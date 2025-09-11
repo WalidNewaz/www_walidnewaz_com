@@ -275,6 +275,8 @@ Precedence determines **order of execution** in expressions.
 
 ## 2.3 Conditional Statements
 
+### `if/elif/else` statements
+
 Python uses indentation (not curly braces) for blocks of code.
 
 ```python
@@ -287,6 +289,105 @@ elif x == 5:
 else:
     print("x is less than 5")
 ```
+
+### `match/case` statements
+
+Python's `match` statement, introduced in Python 3.10, provides structural pattern matching, offering a more concise and readable alternative to multiple `if/elif/else` statements for certain scenarios.
+
+Here are examples illustrating various uses of the match statement:
+
+1. **Simple Value Matching:**
+```python
+status_code = 200
+
+match status_code:
+    case 200:
+        print("OK")
+    case 404:
+        print("Not Found")
+    case 500:
+        print("Internal Server Error")
+    case _:  # Default case, matches anything not previously matched
+        print("Unknown Status")
+```
+2. **Matching Multiple Values with `|` (OR operator):**
+```python
+day = "Saturday"
+
+match day:
+    case "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday":
+        print("It's a weekday.")
+    case "Saturday" | "Sunday":
+        print("It's the weekend!")
+    case _:
+        print("Invalid day.")
+```
+3. **Matching with Guards (Conditional Cases):**
+```python
+score = 85
+subject = "Math"
+
+match subject:
+    case "Math" if score >= 90:
+        print("Excellent in Math!")
+    case "Math" if score >= 70:
+        print("Good in Math.")
+    case "Science" if score >= 80:
+        print("Great in Science!")
+    case _:
+        print("Needs improvement or unknown subject.")
+```
+4. **Matching Sequences (Lists and Tuples):**
+
+Here we're using structural pattern matching, introduced in Python 3.10.
+
+```python
+command = ["move", "north"]
+
+match command:
+    case ["move", direction]:
+        print(f"Moving in direction: {direction}")
+    case ["attack", target, weapon]:
+        print(f"Attacking {target} with {weapon}")
+    case _:
+        print("Unknown command.")
+```
+5. **Matching Objects (Class Instances):**
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(5, 0)
+
+match p:
+    case Point(x=0, y=0):
+        print("Origin")
+    case Point(x=x_val, y=0):
+        print(f"On X-axis at x={x_val}")
+    case Point(x=0, y=y_val):
+        print(f"On Y-axis at y={y_val}")
+    case Point(x=x_val, y=y_val):
+        print(f"Point at ({x_val}, {y_val})")
+```
+6. **Capturing Sub-patterns and Wildcards:**
+```python
+data = ("error", 401, "Unauthorized")
+
+match data:
+    case ("success", value):
+        print(f"Operation successful with value: {value}")
+    case ("error", code, message):
+        print(f"Error {code}: {message}")
+    case _:
+        print("Unrecognized data format.")
+```
+
+
+
+
+
 
 ## 2.4 Loops
 
