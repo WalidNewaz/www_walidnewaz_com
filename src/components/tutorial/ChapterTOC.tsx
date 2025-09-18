@@ -248,7 +248,7 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
   return (
     <StyledTOC>
         <StyledChapterOutline>
-          <h1 className="pb-4">Chapter Outline</h1>
+          <p className="pb-4 m-0 text-2xl font-extrabold">Chapter Outline</p>
           <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
         </StyledChapterOutline>
       <nav>
