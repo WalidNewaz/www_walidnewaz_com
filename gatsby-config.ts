@@ -5,15 +5,15 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
  */
 
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 
 /** Utils */
-import { getGtagForEnv } from './src/utils/gtag';
+import { getGtagForEnv } from "./src/utils/gtag";
 
 dotenv.config();
 
 /** Constants */
-const GATSBY_ACTIVE_ENV = process.env.GATSBY_ACTIVE_ENV || 'development';
+const GATSBY_ACTIVE_ENV = process.env.GATSBY_ACTIVE_ENV || "development";
 
 /**
  * @type {import('gatsby').GatsbyConfig}
@@ -37,7 +37,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        excludes: ['/confirm-subscription/'],
+        excludes: ["/confirm-subscription/"],
       },
     },
     `gatsby-plugin-image`,
@@ -110,12 +110,20 @@ module.exports = {
             resolve: `gatsby-remark-header-ids`,
             options: {
               // Options here
-            }
+            },
           },
           {
             resolve: `gatsby-remark-wrap-tables`,
             options: {
-              containerClass: "table-container"
+              containerClass: "table-container",
+            },
+          },
+          {
+            resolve: 'gatsby-remark-graph',
+            options: {
+              // this is the language in your code-block that triggers mermaid parsing
+              language: 'mermaid', // default
+              theme: 'default' // could also be dark, forest, or neutral
             }
           },
           `gatsby-remark-katex`,
@@ -135,10 +143,10 @@ module.exports = {
             resolve: `gatsby-remark-vscode`,
             options: {
               theme: {
-                default: 'Solarized Light',
-                dark: 'Solarized Dark'
-              }
-            }
+                default: "Solarized Light",
+                dark: "Solarized Dark",
+              },
+            },
           },
           `gatsby-remark-prismjs`,
         ],
@@ -208,18 +216,19 @@ module.exports = {
       options: {
         name: `Walid's Blog`,
         short_name: `Walid Newaz`,
-        "description": "Personal blog and technical documentation for web application development.",
+        description:
+          "Personal blog and technical documentation for web application development.",
         start_url: `/`,
         background_color: `#ffffff`,
-        "categories": ["Personal Blog", "Tech blog"],
+        categories: ["Personal Blog", "Tech blog"],
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
         theme_color: `#ffd900`,
         display: `minimal-ui`,
-        "orientation": "portrait",
+        orientation: "portrait",
         icon: `src/images/android-chrome-512x512.png`, // This path is relative to the root of the site.
       },
     },
     // `gatsby-plugin-offline`
   ],
-}
+};
