@@ -85,8 +85,9 @@ Each chapter includes:
 ## Next Steps
 
 * Begin with **Chapter 1: Introduction to FastAPI**.
-* Clone the series starter repository (if available).
+* Clone the series starter repository.
 * Work through each section progressively.
 
 You are now ready to start your journey into **Python Web Development**. This series is structured as a **guided bootcamp**, taking you from fundamentals to advanced, cloud-ready applications — and ending with a **production-quality capstone project** you can showcase.
 
+The **companion code and solutions** for the tutorial series can be found <a href="https://github.com/WalidNewaz/python-web-dev" target="_blank">here</a>.
