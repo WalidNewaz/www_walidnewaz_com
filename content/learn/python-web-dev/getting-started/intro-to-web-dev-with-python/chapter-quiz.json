@@ -1,0 +1,85 @@
+{
+  "topic": "Building Command-Line Applications with Python",
+  "questions": [
+    {
+      "question": "What does the FastAPI `@app.get('/')` decorator do?",
+      "options": [
+        {
+          "text": "Registers a GET endpoint at '/'",
+          "correct": true,
+          "explanation": "🎉 Correct. It binds the function to the '/' path for GET requests."
+        },
+        {
+          "text": "Registers a POST endpoint at '/'",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. POST would require @app.post('/')."
+        },
+        {
+          "text": "Starts the FastAPI server",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Uvicorn is used to start the server, not decorators."
+        }
+      ]
+    },
+    {
+      "question": "Which tool checks Python type hints at compile time?",
+      "options": [
+        {
+          "text": "Pytest",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Pytest is for testing, not type checking."
+        },
+        {
+          "text": "MyPy",
+          "correct": true,
+          "explanation": "🎉 Correct. MyPy analyzes static type hints."
+        },
+        {
+          "text": "Uvicorn",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Uvicorn is an ASGI server."
+        }
+      ]
+    },
+    {
+      "question": "Which command runs the FastAPI server with auto-reload in Poetry?",
+      "options": [
+        {
+          "text": "poetry run uvicorn fastapi_todo.main:app --reload",
+          "correct": true,
+          "explanation": "🎉 Correct. This starts Uvicorn with FastAPI and enables auto-reload."
+        },
+        {
+          "text": "poetry run pytest",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. This runs tests, not the server."
+        },
+        {
+          "text": "poetry add uvicorn",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. This installs Uvicorn as a dependency."
+        }
+      ]
+    },
+    {
+      "question": "What is the purpose of Pytest in this project?",
+      "options": [
+        {
+          "text": "To check types",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Type checking is handled by MyPy."
+        },
+        {
+          "text": "To run automated tests",
+          "correct": true,
+          "explanation": "🎉 Correct. Pytest is the testing framework."
+        },
+        {
+          "text": "To run the web server",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The web server is run with Uvicorn."
+        }
+      ]
+    }
+  ]
+}
