@@ -6,7 +6,7 @@ series: "Python Web Development"
 part: "I. Getting Started"
 chapter: "1. Introduction to Web Development with Python"
 
-title: "Python Web Development Tutorial Series"
+title: "Introduction to Web Development with Python"
 description: "In this chapter, we set the stage for building modern web applications with Python."
 # hero_image: "python-tutorial-banner.png"
 has_quiz: true
