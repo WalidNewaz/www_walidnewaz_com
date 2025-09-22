@@ -3,7 +3,7 @@ featured: false
 date: "2023-12-02"
 
 series: "Python Web Development"
-part: "I. Getting Started"
+part: "II. FastAPI for Web APIs"
 chapter: "2. Building Your First API with FastAPI"
 
 title: "Building Your First API with FastAPI"
