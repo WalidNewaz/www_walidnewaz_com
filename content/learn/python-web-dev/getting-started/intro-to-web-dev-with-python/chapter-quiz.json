@@ -1,5 +1,5 @@
 {
-  "topic": "Building Command-Line Applications with Python",
+  "topic": "Introduction to Web Development with Python",
   "questions": [
     {
       "question": "What does the FastAPI `@app.get('/')` decorator do?",
