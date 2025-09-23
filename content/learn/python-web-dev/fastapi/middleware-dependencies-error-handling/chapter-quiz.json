@@ -1,0 +1,85 @@
+{
+  "topic": "Middleware, Dependencies, and Error Handling",
+  "questions": [
+    {
+      "question": "What is middleware in FastAPI?",
+      "options": [
+        {
+          "text": "A function that runs before and after each request",
+          "correct": true,
+          "explanation": "🎉 Correct. Middleware wraps requests to add cross-cutting logic."
+        },
+        {
+          "text": "A database connection manager",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That would be handled with dependencies."
+        },
+        {
+          "text": "A way to define models",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Models are defined with Pydantic."
+        }
+      ]
+    },
+    {
+      "question": "How do you enforce an API key on a route?",
+      "options": [
+        {
+          "text": "By using Depends(get_api_key) in the route",
+          "correct": true,
+          "explanation": "🎉 Correct. Dependencies enforce authentication logic."
+        },
+        {
+          "text": "By hardcoding API key checks inside every route",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That would duplicate code unnecessarily."
+        },
+        {
+          "text": "By using response_model",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. response_model shapes outputs, not authentication."
+        }
+      ]
+    },
+    {
+      "question": "What happens if a request body fails validation?",
+      "options": [
+        {
+          "text": "FastAPI raises RequestValidationError",
+          "correct": true,
+          "explanation": "🎉 Correct. Validation errors are caught as RequestValidationError."
+        },
+        {
+          "text": "The server crashes",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. FastAPI handles errors gracefully."
+        },
+        {
+          "text": "It returns an empty response",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. An explicit error response is returned."
+        }
+      ]
+    },
+    {
+      "question": "What is the role of HTTPException in FastAPI?",
+      "options": [
+        {
+          "text": "To raise structured HTTP errors with status codes",
+          "correct": true,
+          "explanation": "🎉 Correct. HTTPException is FastAPI's way to send proper error responses."
+        },
+        {
+          "text": "To log middleware calls",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Logging is middleware's job."
+        },
+        {
+          "text": "To validate headers",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Dependencies validate headers, not HTTPException."
+        }
+      ]
+    }
+  ]
+}
