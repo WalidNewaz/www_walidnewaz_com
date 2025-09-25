@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-12-04"
+date: "2023-12-06"
 
 series: "Python Web Development"
 part: "II. FastAPI for Web APIs"
