@@ -7,7 +7,7 @@ part: "II. FastAPI for Web APIs"
 chapter: "3. Middleware, Dependencies, and Error Handling"
 
 title: "Middleware, Dependencies, and Error Handling"
-description: "In this chapter, we go beyond \"Hello World\" and build a Todo List REST API."
+description: "In this chapter, we will examine the middleware pattern, applying dependencies, and handling errors and exceptions."
 # hero_image: "python-tutorial-banner.png"
 has_quiz: true
 tags: ["FastAPI", "Python", "Web Dev"]

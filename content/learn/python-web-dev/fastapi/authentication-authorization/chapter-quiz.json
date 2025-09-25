@@ -1,0 +1,85 @@
+{
+  "topic": "Authentication and Authorization in FastAPI",
+  "questions": [
+    {
+      "question": "What is the difference between authentication and authorization?",
+      "options": [
+        {
+          "text": "Authentication verifies identity, authorization checks permissions",
+          "correct": true,
+          "explanation": "🎉 Correct. AuthN = who you are, AuthZ = what you can do."
+        },
+        {
+          "text": "Authentication checks permissions, authorization verifies identity",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The two concepts are reversed here."
+        },
+        {
+          "text": "They mean the same thing",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. They are distinct security concepts."
+        }
+      ]
+    },
+    {
+      "question": "Which header carries the JWT token in secured routes?",
+      "options": [
+        {
+          "text": "Authorization: Bearer <token>",
+          "correct": true,
+          "explanation": "🎉 Correct. This is the standard OAuth2 mechanism."
+        },
+        {
+          "text": "X-API-Key",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That's a custom header, not JWT standard."
+        },
+        {
+          "text": "Cookie: jwt=<token>",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. While cookies can carry tokens, here we use Authorization header."
+        }
+      ]
+    },
+    {
+      "question": "How are passwords stored in this example?",
+      "options": [
+        {
+          "text": "As plain text",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Passwords are hashed."
+        },
+        {
+          "text": "Using bcrypt hashing with Passlib",
+          "correct": true,
+          "explanation": "🎉 Correct. Passlib handles hashing securely."
+        },
+        {
+          "text": "Encoded in JWT tokens",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. JWT only stores identity, not raw passwords."
+        }
+      ]
+    },
+    {
+      "question": "What happens if an invalid or expired token is provided?",
+      "options": [
+        {
+          "text": "FastAPI returns a 401 Unauthorized error",
+          "correct": true,
+          "explanation": "🎉 Correct. Invalid tokens trigger HTTP 401."
+        },
+        {
+          "text": "The server crashes",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Proper error handling prevents crashes."
+        },
+        {
+          "text": "The server ignores the token",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Tokens must always be validated."
+        }
+      ]
+    }
+  ]
+}
