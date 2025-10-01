@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 date: "2023-05-16"
 title: "Hello World!"
 description: Why I decided to create a personal blog.
