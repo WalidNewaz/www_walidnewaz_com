@@ -64,7 +64,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
               // readTime={tutorial.frontmatter.read_time}
               title={tutorial.frontmatter.series}
               image={heroImagePattern}
-              slug={`/tutorials${tutorial.fields.slug}`}
+              slug={`/build${tutorial.fields.slug}`}
               tags={[
                 tutorial.frontmatter.tags[tutorial.frontmatter.tags.length - 1],
               ]}
@@ -83,7 +83,7 @@ export const query = graphql`
       sort: { frontmatter: { date: DESC } }
       filter: {
         fileAbsolutePath: {
-          regex: "/[/]content[/]tutorials[/][^/]+[/]index.mdx?$/"
+          regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
         }
       }
     ) {
@@ -131,4 +131,4 @@ export const query = graphql`
 
 export default TutorialsPage;
 
-export const Head: React.FC = () => <Seo title="Tutorials" />;
+export const Head: React.FC = () => <Seo title="Build Tutorials" />;
