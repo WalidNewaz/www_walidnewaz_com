@@ -105,6 +105,14 @@ module.exports = {
         // GitHub Flavored Markdown mode (default: true)
         gfm: true,
         plugins: [
+          {
+            resolve: 'gatsby-remark-graph',
+            options: {
+              // this is the language in your code-block that triggers mermaid parsing
+              language: 'mermaid', // default
+              theme: 'default', // could also be dark, forest, or neutral
+            }
+          },
           // Add custom plugins here
           {
             resolve: `gatsby-remark-header-ids`,
@@ -117,14 +125,6 @@ module.exports = {
             options: {
               containerClass: "table-container",
             },
-          },
-          {
-            resolve: 'gatsby-remark-graph',
-            options: {
-              // this is the language in your code-block that triggers mermaid parsing
-              language: 'mermaid', // default
-              theme: 'default' // could also be dark, forest, or neutral
-            }
           },
           `gatsby-remark-katex`,
           {
