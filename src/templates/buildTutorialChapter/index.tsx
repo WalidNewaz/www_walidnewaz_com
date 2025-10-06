@@ -11,13 +11,14 @@ import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
 import ChapterTOC from "../../components/tutorial/ChapterTOC";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
 import ChapterQuiz from "../../components/organisms/ChapterQuiz";
+import Helpful from "../../components/molecules/Feedback/Helpful";
 
 /** Types */
 import { QuizType } from "../../components/organisms/ChapterQuiz/";
 
 /** Styles */
 import "./tutorial-chapter.css";
-import "katex/dist/katex.min.css"
+import "katex/dist/katex.min.css";
 import StyledSection from "../../components/shared/styled/StyledSection";
 import StyledAnchor from "../../components/shared/styled/StyledAnchor";
 import StyledList from "../../components/shared/styled/StyledList";
@@ -42,7 +43,7 @@ const StyledArticleBody = styled.section`
     margin-bottom: var(--spacing-2);
     padding-left: var(--spacing-2);
   }
-  
+
   grid-column: span 9;
 
   @media screen and (min-width: 800px) and (max-width: 975px) {
@@ -68,7 +69,7 @@ const StyledBlogPostNav = styled.nav`
 
 const StyledBlankDiv = styled.div`
   grid-column: span 3;
-  
+
   @media screen and (min-width: 800px) and (max-width: 975px) {
     grid-column: span 4;
   }
@@ -118,6 +119,21 @@ const TutorialChapter: React.FC<any> = ({
     }
   }, [post.id]);
 
+  /** Feedback: Helpful */
+  const airtableFormBaseURL = `https://airtable.com/app6W5gCSxMtwUmNK/pagCIcpvTJ7efFcKw/form`;
+  const postFormattedTitle = encodeURIComponent(post.frontmatter.title);
+  const yesHandler = () => {
+    const url = `${airtableFormBaseURL}?prefill_Post=${postFormattedTitle}&prefill_Helpful=Yes`;
+    window.open(url, "_blank");
+  };
+  const noHandler = () => {
+    const url = `${airtableFormBaseURL}?prefill_Post=${postFormattedTitle}&prefill_Helpful=No`;
+    window.open(url, "_blank");
+  };
+
+  // State to track if feedback was given
+  const [feedbackGiven, setFeedbackGiven] = useState(false);
+
   return (
     <>
       <article
@@ -152,8 +168,27 @@ const TutorialChapter: React.FC<any> = ({
           )}
         </StyledTutorialGrid>
         {/* <PostTags tags={post.frontmatter.tags} /> */}
+
+        <div className="text-right" style={{ marginTop: "2rem", textAlign: "right" }}>
+          <Helpful
+            helpfulText="Was this chapter helpful?"
+            onYes={() => {
+              yesHandler();
+              setFeedbackGiven(true);
+            }}
+            onNo={() => {
+              noHandler();
+              setFeedbackGiven(true);
+            }}
+            feedbackGiven={feedbackGiven}
+          />
+        </div>
       </article>
-      <TutorialTOC allSeriesPosts={{ nodes: filteredSeriesPosts }} post={post} section="build" />
+      <TutorialTOC
+        allSeriesPosts={{ nodes: filteredSeriesPosts }}
+        post={post}
+        section="build"
+      />
       <StyledBlogPostNav>
         <ChronologicalNav previous={previous} next={next} section="build" />
       </StyledBlogPostNav>

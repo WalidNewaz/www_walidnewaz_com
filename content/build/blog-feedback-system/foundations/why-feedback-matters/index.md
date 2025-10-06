@@ -8,7 +8,6 @@ chapter: "1. Introduction — Why Feedback Matters"
 
 title: "Introduction — Why Feedback Matters"
 description: "Every blog, technical article, or app feature benefits from feedback loops. Without them, you’re publishing in a vacuum—you don’t know whether your content helped, confused, or even frustrated your readers."
-# hero_image: "python-tutorial-banner.png"
 has_quiz: true
 tags: ["Feedback", "Blog", "Web Dev"]
 ---
