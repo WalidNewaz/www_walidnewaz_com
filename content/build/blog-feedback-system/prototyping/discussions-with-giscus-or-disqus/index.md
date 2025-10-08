@@ -76,3 +76,91 @@ Add this snippet to your blog post template (Markdown allows raw HTML):
 
 > **Note**: Giscus will fill in the correct values for the variables, and generate the appropriate source. However, we will be using the <a href="https://github.com/giscus/giscus-component" target="_blank">pre-built Giscus components</a> within our React site.
 
+#### Giscus React Component
+
+Install the component:
+
+```bash
+npm i @giscus/react
+```
+
+Import the default export from the package:
+
+```javascript
+import Giscus from '@giscus/react';
+
+export default function MyApp() {
+  return (
+    <Giscus
+      id="comments"
+      repo="giscus/giscus-component"
+      repoId="MDEwOlJlcG9zaXRvcnkzOTEzMTMwMjA="
+      category="Announcements"
+      categoryId="DIC_kwDOF1L2fM4B-hVS"
+      mapping="specific"
+      term="Welcome to @giscus/react component!"
+      reactionsEnabled="1"
+      emitMetadata="0"
+      inputPosition="top"
+      theme="light"
+      lang="en"
+      loading="lazy"
+    />
+  );
+}
+```
+
+Replace the prop values using the values from the earlier example.
+
+### Disqus Embed
+
+Sign up with Disqus. From the main menu, click `Add Disqus To Site`. Select the platform. For now we're going to select the `Universal Code`.
+
+Disqus works with a `<div>` + script:
+
+```html
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+  this.page.url = window.location.href;
+  this.page.identifier = document.title;
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+```
+
+Replace `YOUR_DISQUS_SHORTNAME` with the value from your Disqus dashboard.
+
+#### Disqus React Component
+
+Install the component:
+
+```bash
+$ npm install --save disqus-react
+```
+
+Import the component on your page:
+
+```javascript
+import { DiscussionEmbed } from 'disqus-react';
+
+<DiscussionEmbed
+    shortname='YOUR_DISQUS_SHORTNAME'
+    config={
+        {
+            url: this.props.article.url,
+            identifier: this.props.article.id,
+            title: this.props.article.title,
+            language: 'zh_TW' //e.g. for Traditional Chinese (Taiwan)
+        }
+    }
+/>
+```
+
+`Disqus` is more feature reach compared to `Giscus`, however it doesn't generally offer a free tier without ads.
