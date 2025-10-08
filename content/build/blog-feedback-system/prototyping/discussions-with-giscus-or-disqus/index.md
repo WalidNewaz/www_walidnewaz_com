@@ -38,7 +38,7 @@ In this chapter, we’ll:
 * If your audience already uses GitHub → use **Giscus**.
 * If you want universal login (Google, Facebook, etc.) → use **Disqus**.
 
-## 2.2 Markdown & HTML Embed
+## 3.2 Markdown & HTML Embed
 
 ### Giscus Embed
 
@@ -164,3 +164,32 @@ import { DiscussionEmbed } from 'disqus-react';
 ```
 
 `Disqus` is more feature reach compared to `Giscus`, however it doesn't generally offer a free tier without ads.
+
+## 3.3 Case Study Example
+
+* A developer blog about **“Database Sharding”** now includes a Giscus thread tied to the post’s `pathname`.
+* A non-technical blog about **“Photography Tips”** instead embeds Disqus for broader login support.
+
+Both are ready in **minutes**, without building any backend.
+
+## 3.4 Summary
+
+In this chapter, you:
+
+* Learned the pros/cons of **Giscus vs. Disqus**.
+* Added discussion threads using **Markdown HTML embeds**.
+* Grew into a reusable **Gatsby component**.
+
+## 3.5 Exercise
+
+1. Add **Giscus** to one blog post (if your audience is developers).
+2. Add **Disqus** to another (if you want broader access).
+3. Test by leaving comments and checking whether they map to the correct page.
+
+## 3.6 Next Step
+
+In the next chapter, we’ll **combine both systems** into a **hybrid feedback system**:
+
+* A quick Airtable vote **and** a discussion thread on the same page.
+* Best of both worlds — low friction + rich engagement.
+
