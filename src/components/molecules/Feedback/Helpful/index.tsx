@@ -44,15 +44,15 @@ const StyledHelpful = styled.div`
 
 export type HelpfulProps = {
   helpfulText?: string;
-  onYes: () => void;
-  onNo: () => void;
+  onYes?: () => void;
+  onNo?: () => void;
   feedbackGiven?: boolean;
 };
 
 const Helpful: React.FunctionComponent<HelpfulProps> = ({
   helpfulText,
-  onYes,
-  onNo,
+  onYes = () => {},
+  onNo = () => {},
   feedbackGiven = false,
 }) => {
   return !feedbackGiven ? (

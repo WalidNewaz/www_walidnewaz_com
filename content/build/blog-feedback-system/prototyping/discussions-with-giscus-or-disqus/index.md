@@ -7,7 +7,7 @@ part: "II. No-Code and Low-Code Prototyping"
 chapter: "3. Adding Discussions with Giscus or Disqus"
 
 title: "Adding Discussions with Giscus or Disqus"
-description: "No-code prototype using Airtable gives you a fast feedback loop without writing a single line of backend code."
+description: "In this chapter, we’ll learn the differences between Giscus and Disqus, add adding them to a blog."
 has_quiz: true
 tags: ["Discussions", "Blog", "Web Dev"]
 ---
@@ -20,7 +20,7 @@ In this chapter, we’ll:
 
 * Learn the differences between **Giscus** and **Disqus**.
 * Build a working integration using **Markdown HTML embeds**.
-* Grow by adding a **Gatsby component** for React-based blogs.
+* Grow by adding a **React component** for React-based blogs.
 
 ## 3.1 Giscus vs. Disqus
 
