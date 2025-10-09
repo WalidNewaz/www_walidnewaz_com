@@ -11,14 +11,13 @@ import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
 import ChapterTOC from "../../components/tutorial/ChapterTOC";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
 import ChapterQuiz from "../../components/organisms/ChapterQuiz";
-import Helpful from "../../components/molecules/Feedback/Helpful";
-import Giscus, {
+import {
   Mapping,
   BooleanString,
   InputPosition,
   Loading,
 } from "@giscus/react";
-import { DiscussionEmbed } from "disqus-react";
+import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
 
 /** Types */
 import { QuizType } from "../../components/organisms/ChapterQuiz/";
@@ -146,17 +145,22 @@ const TutorialChapter: React.FC<any> = ({
   /** Feedback: Helpful */
   const airtableFormBaseURL = `https://airtable.com/app6W5gCSxMtwUmNK/pagCIcpvTJ7efFcKw/form`;
   const postFormattedTitle = encodeURIComponent(post.frontmatter.title);
+  // State to track if feedback was given
+  const [feedbackGiven, setFeedbackGiven] = useState(false);
+  const helpfulText = "Was this chapter helpful?";
+
   const yesHandler = () => {
     const url = `${airtableFormBaseURL}?prefill_Post=${postFormattedTitle}&prefill_Helpful=Yes`;
     window.open(url, "_blank");
+    setFeedbackGiven(true);
   };
   const noHandler = () => {
     const url = `${airtableFormBaseURL}?prefill_Post=${postFormattedTitle}&prefill_Helpful=No`;
     window.open(url, "_blank");
+    setFeedbackGiven(true);
   };
 
-  // State to track if feedback was given
-  const [feedbackGiven, setFeedbackGiven] = useState(false);
+  
 
   return (
     <>
@@ -193,50 +197,35 @@ const TutorialChapter: React.FC<any> = ({
         </StyledTutorialGrid>
         {/* <PostTags tags={post.frontmatter.tags} /> */}
 
-        <div
-          className="text-right"
-          style={{ marginTop: "2rem", textAlign: "right" }}
-        >
-          <Helpful
-            helpfulText="Was this chapter helpful?"
-            onYes={() => {
-              yesHandler();
-              setFeedbackGiven(true);
-            }}
-            onNo={() => {
-              noHandler();
-              setFeedbackGiven(true);
-            }}
-            feedbackGiven={feedbackGiven}
-          />
-        </div>
-        <div>
-          {/* <Giscus
-            id="comments"
-            repo={`${GISCUS_USERNAME}/${GISCUS_REPO}`}
-            repoId={GISCUS_REPO_ID}
-            category={GISCUS_CATEGORY}
-            categoryId={GISCUS_CATEGORY_ID}
-            mapping={GISCUS_MAPPING as Mapping}
-            strict={GISCUS_STRICT as BooleanString}
-            term={GISCUS_TERM as string}
-            reactionsEnabled={GISCUS_REACTIONS_ENABLED as BooleanString}
-            emitMetadata={GISCUS_EMIT_METADATA as BooleanString}
-            inputPosition={GISCUS_INPUT_POSITION as InputPosition}
-            theme={GISCUS_THEME}
-            lang={GISCUS_LANG}
-            loading={GISCUS_LOADING as Loading}
-          /> */}
-          <DiscussionEmbed
-            shortname="walidnewaz"
-            config={{
-              url: `https://www.walidnewaz.com${post.fields.slug}`,
-              identifier: post.id,
-              title: post.title,
-              language: "en_US",
-            }}
-          />
-        </div>
+        <BlogFeedbackSection
+          post={post}
+          helpfulConfig={{
+            helpfulText,
+            onYes: yesHandler,
+            onNo: noHandler,
+            feedbackGiven,
+          }}
+          giscusConfig={{
+            username: GISCUS_USERNAME,
+            repo: GISCUS_REPO,
+            repoId: GISCUS_REPO_ID,
+            category: GISCUS_CATEGORY,
+            categoryId: GISCUS_CATEGORY_ID,
+            mapping: GISCUS_MAPPING as Mapping,
+            strict: GISCUS_STRICT as BooleanString,
+            term: GISCUS_TERM,
+            reactionsEnabled: GISCUS_REACTIONS_ENABLED as BooleanString,
+            emitMetadata: GISCUS_EMIT_METADATA as BooleanString,
+            inputPosition: GISCUS_INPUT_POSITION as InputPosition,
+            theme: GISCUS_THEME,
+            lang: GISCUS_LANG,
+            loading: GISCUS_LOADING as Loading,
+          }}
+          // disqusConfig={{
+          //   shortname: DISQUS_SHORTNAME,
+          //   config: { identifier: post.id, title: post.frontmatter.title },
+          // }} --- IGNORE ---
+        />
       </article>
       <TutorialTOC
         allSeriesPosts={{ nodes: filteredSeriesPosts }}
