@@ -128,7 +128,7 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
 
       <section className="blog-posts col flex wrap">
         <h2>Topics:</h2>
-        <Topics topics={getTopics(allTopics)} currentTopic={currentTopic} section="build" />
+        <Topics topics={getTopics(allTopics)} currentTopic={currentTopic} section="build/f" />
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
