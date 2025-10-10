@@ -5,6 +5,10 @@ import styled from "styled-components";
 /** Components */
 import Seo from "../../components/seo";
 import ArticlePostCard from "../../components/molecules/articlePostCard";
+import Topics from "../../components/Topics";
+
+/** Utils */
+import { getTopics } from "../../utils/posts";
 
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
@@ -20,6 +24,7 @@ const StyledTutorialsContainer = styled.div`
  */
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   const tutorials = data.allMarkdownRemark.nodes;
+  const { allTopics } = data.allMarkdownRemark;
   const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
@@ -46,6 +51,11 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
           </section>
         )
       }
+
+      <section className="blog-posts col flex wrap">
+        <h2>Topics:</h2>
+        <Topics topics={getTopics(allTopics)} section="build/f" />
+      </section>
 
       <section className="blog-posts col flex wrap pb-12">
         {tutorials.map((tutorial: any) => {
@@ -113,6 +123,10 @@ export const query = graphql`
           value
         }
         id
+      }
+      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
       }
     }
     allTutorialHeroes: allFile(
