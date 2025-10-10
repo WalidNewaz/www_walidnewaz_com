@@ -7,7 +7,7 @@ part: "III. Custom Full-Stack Feedback System"
 chapter: "5. Building Your Own Feedback API"
 
 title: "Building Your Own Feedback API"
-description: "No-code prototype using Airtable gives you a fast feedback loop without writing a single line of backend code."
+description: "In this chapter we create our own feedback API along with a new React component to interact with the API."
 has_quiz: true
 tags: ["Feedback", "API", "Web Dev"]
 ---
