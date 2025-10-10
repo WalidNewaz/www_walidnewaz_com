@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 /** Components */
 import Helpful from "../../molecules/Feedback/Helpful";
+import FeedbackWidget from "../../molecules/Feedback/HelpfulApiWidget";
 import Giscus, {
   Mapping,
   BooleanString,
@@ -81,6 +82,28 @@ const HelpfulBlock: React.FC<{ helpfulConfig?: HelpfulConfig }> = ({
   );
 };
 
+interface HelpfulBlockApiProps {
+  postSlug: string;
+  apiUrl: string;
+}
+
+const HelpfulBlockApi: React.FC<HelpfulBlockApiProps> = ({
+  postSlug,
+  apiUrl,
+}) => {
+  return (
+    <div
+      className="text-right"
+      style={{ marginTop: "2rem", textAlign: "right" }}
+    >
+      <FeedbackWidget
+        postSlug={postSlug}
+        apiUrl={apiUrl}
+      />
+    </div>
+  );
+};
+
 const GiscusBlock: React.FC<{ giscusConfig?: GiscusConfig }> = ({
   giscusConfig,
 }) => {
@@ -129,6 +152,7 @@ const BlogFeedbackSection: React.FC<BlogFeedbackSectionProps> = ({
     <StyledBlogFeedbackSection>
       <h2>Feedback</h2>
       <HelpfulBlock helpfulConfig={helpfulConfig} />
+      {/* <HelpfulBlockApi postSlug={post.fields.slug} apiUrl="http://127.0.0.1:8000" /> */}
       <GiscusBlock giscusConfig={giscusConfig} />
       <DisqusBlock disqusConfig={disqusConfig} />
     </StyledBlogFeedbackSection>
