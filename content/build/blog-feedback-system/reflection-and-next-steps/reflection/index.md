@@ -7,7 +7,7 @@ part: "V. Reflection and Next Steps"
 chapter: "8. Reflection — Lessons Learned & Production Readiness"
 
 title: "Reflection — Lessons Learned & Production Readiness"
-description: "In this chapter we will incorporate sentiment analysis to our feedback system, using FuggingFace Transformers, and PyTorch framework."
+description: "We’ve reached the end of our journey. In this chapter we're going to reflect on our process, summarize lessons learned and present a checklist to make our solution production ready for the real world."
 has_quiz: true
 tags: ["Reflections", "Production Readiness", "Web Dev"]
 ---
