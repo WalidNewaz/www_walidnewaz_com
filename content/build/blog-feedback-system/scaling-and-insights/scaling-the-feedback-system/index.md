@@ -4,9 +4,9 @@ date: "2024-01-06"
 
 series: "Building a Blog Feedback System"
 part: "IV. Scaling and Insights"
-chapter: "6. Scaling the Feedback System"
+chapter: "6. Scaling the Feedback System — Analytics"
 
-title: "Scaling the Feedback System"
+title: "Scaling the Feedback System — Analytics"
 description: "In this chapter we create our own feedback API along with a new React component to interact with the API."
 has_quiz: true
 tags: ["Scaling", "API", "Web Dev"]
