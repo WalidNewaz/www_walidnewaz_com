@@ -669,7 +669,7 @@ const createBuildTutorialChapterPages = async ({
         limit: 1000
         filter: {
           fileAbsolutePath: {
-            regex: "/[\\\\/]content[\\\\/]build[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
+            regex: "/.*?/content/build/.*?/index.md$/"
           }
         }
       ) {
@@ -682,8 +682,6 @@ const createBuildTutorialChapterPages = async ({
             series
             part
             chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
             has_quiz
           }
           internal {
@@ -709,7 +707,6 @@ const createBuildTutorialChapterPages = async ({
             series
             part
             chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
             has_quiz
           }
           internal {
@@ -749,7 +746,7 @@ const createBuildTutorialChapterPages = async ({
     },
     {}
   );
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+  reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
@@ -767,12 +764,6 @@ const createBuildTutorialChapterPages = async ({
           .split("/")
           .filter((str: string) => str !== "")[0]; // e.g. react-native
 
-        // TODO: Use hero image file from the main series folder
-        // e.g. /content/tutorials/react-native/hero_image.png
-        // Currently, it uses the hero image from the chapter folder
-        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
-        // This is to ensure that the hero image is always available
-        // for the chapter page, even if the series folder doesn't have a hero image
         const heroImagePattern = chapter.frontmatter.hero_image
           ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
           : `${seriesDir}/hero-image.png/`;
@@ -782,18 +773,12 @@ const createBuildTutorialChapterPages = async ({
           ? `./content/build${chapter.fields.slug}chapter-quiz.json`
           : null;
 
-        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
-
         // Load the quiz data if it exists
         let quizData = null;
         if (quizFilePath && fs.existsSync(quizFilePath)) {
           try {
             const quizContent = fs.readFileSync(quizFilePath, "utf-8");
             quizData = JSON.parse(quizContent);
-            // reporter.info(
-            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
-            // );
-            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
           } catch (error) {
             reporter.warn(
               `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`

@@ -113,13 +113,14 @@ const StyledBlankDiv = styled.div`
  */
 const TutorialChapter: React.FC<any> = ({
   data: {
-    previous,
-    next,
+    previousMarkdownRemark,
+    previousMdx,
+    nextMarkdownRemark,
+    nextMdx,
     markdownRemark: post,
     allTutorialHeroes,
     heroImage,
     allSeriesPosts,
-    relatedPosts,
   },
   pageContext,
 }) => {
@@ -233,7 +234,11 @@ const TutorialChapter: React.FC<any> = ({
         section="build"
       />
       <StyledBlogPostNav>
-        <ChronologicalNav previous={previous} next={next} section="build" />
+        <ChronologicalNav
+          previous={previousMarkdownRemark || previousMdx}
+          next={nextMarkdownRemark || nextMdx}
+          section="build"
+        />
       </StyledBlogPostNav>
     </>
   );
@@ -259,7 +264,6 @@ export const pageQuery = graphql`
     $nextPostId: String
     $series: String
     $heroImagePattern: String
-    $related: [String]
   ) {
     site {
       siteMetadata {
@@ -289,6 +293,38 @@ export const pageQuery = graphql`
         slug
       }
     }
+    previousMarkdownRemark: markdownRemark(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
+    previousMdx: mdx(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
+    nextMarkdownRemark: markdownRemark(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
+    nextMdx: mdx(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
     allTutorialHeroes: allFile(
       filter: { relativePath: { regex: ".*/hero-image.png$/" } }
     ) {
@@ -298,24 +334,6 @@ export const pageQuery = graphql`
         childImageSharp {
           gatsbyImageData
         }
-      }
-    }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        chapter
-        pathDate: date(formatString: "/YYYY/MM/DD")
-      }
-    }
-    next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        chapter
-        pathDate: date(formatString: "/YYYY/MM/DD")
       }
     }
     heroImage: file(relativePath: { regex: $heroImagePattern }) {
@@ -340,29 +358,6 @@ export const pageQuery = graphql`
         fields {
           slug
         }
-      }
-    }
-    relatedPosts: allMarkdownRemark(
-      filter: { frontmatter: { title: { in: $related } } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      posts: nodes {
-        excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          pathDate: date(formatString: "/YYYY/MM/DD")
-          title
-          description
-          tags
-          read_time
-        }
-        headings(depth: h1) {
-          value
-        }
-        id
       }
     }
   }
