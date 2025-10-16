@@ -42,7 +42,58 @@ module.exports = {
     },
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
-    // `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`],
+      },
+      gatsbyRemarkPlugins: [
+        {
+          resolve: "gatsby-remark-graph",
+          options: {
+            // this is the language in your code-block that triggers mermaid parsing
+            language: "mermaid", // default
+            theme: "default", // could also be dark, forest, or neutral
+          },
+        },
+        // Add custom plugins here
+        {
+          resolve: `gatsby-remark-header-ids`,
+          options: {
+            // Options here
+          },
+        },
+        {
+          resolve: `gatsby-remark-wrap-tables`,
+          options: {
+            containerClass: "table-container",
+          },
+        },
+        `gatsby-remark-katex`,
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            maxWidth: 630,
+          },
+        },
+        {
+          resolve: `gatsby-remark-responsive-iframe`,
+          options: {
+            wrapperStyle: `margin-bottom: 1.0725rem`,
+          },
+        },
+        {
+          resolve: `gatsby-remark-vscode`,
+          options: {
+            theme: {
+              default: "Solarized Light",
+              dark: "Solarized Dark",
+            },
+          },
+        },
+        `gatsby-remark-prismjs`,
+      ],
+    },
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
@@ -106,12 +157,12 @@ module.exports = {
         gfm: true,
         plugins: [
           {
-            resolve: 'gatsby-remark-graph',
+            resolve: "gatsby-remark-graph",
             options: {
               // this is the language in your code-block that triggers mermaid parsing
-              language: 'mermaid', // default
-              theme: 'default', // could also be dark, forest, or neutral
-            }
+              language: "mermaid", // default
+              theme: "default", // could also be dark, forest, or neutral
+            },
           },
           // Add custom plugins here
           {

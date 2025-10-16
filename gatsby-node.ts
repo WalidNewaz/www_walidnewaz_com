@@ -661,7 +661,7 @@ const createBuildTutorialChapterPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all markdown tutorial chapters sorted by date
+  // Get all build tutorial chapters sorted by date
   const result = await graphql(`
     {
       allMarkdownRemark(
@@ -686,6 +686,35 @@ const createBuildTutorialChapterPages = async ({
             related
             has_quiz
           }
+          internal {
+            type
+          }
+        }
+      }
+      allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: { regex: "/.*?/content/build/.*?/index.mdx$/" }
+          }
+        }
+      ) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            series
+            part
+            chapter
+            pathDate: date(formatString: "/YYYY/MM/DD")
+            has_quiz
+          }
+          internal {
+            type
+          }
         }
       }
     }
@@ -699,7 +728,12 @@ const createBuildTutorialChapterPages = async ({
     return;
   }
 
-  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
+  const allNodes = [
+    ...result.data.allMarkdownRemark.nodes,
+    ...result.data.allMdx.nodes,
+  ];
+
+  const seriesChapters = allNodes.reduce(
     (acc: any, article: any) => {
       const { series } = article.frontmatter;
       if (Object.hasOwn(acc, series)) {
@@ -768,21 +802,24 @@ const createBuildTutorialChapterPages = async ({
         }
 
         const { createPage } = actions;
-        createPage({
-          path: `/build${chapter.fields.slug}`,
-          component: path.resolve(
-            `./src/templates/buildTutorialChapter/index.tsx`
-          ),
-          context: {
-            id: chapter.id,
-            previousPostId,
-            nextPostId,
-            series: chapter.frontmatter.series,
-            heroImagePattern,
-            related: chapter.frontmatter.related || [],
-            ...(quizData && { quiz: quizData }),
-          },
-        });
+        if (chapter.internal.type === "MarkdownRemark") {
+          createPage({
+            path: `/build${chapter.fields.slug}`,
+            component: path.resolve(
+              `./src/templates/buildTutorialChapter/MarkdownRemark.tsx`
+              //`./src/templates/buildTutorialChapter/${chapter.internal.type}.tsx`
+            ),
+            context: {
+              id: chapter.id,
+              previousPostId,
+              nextPostId,
+              series: chapter.frontmatter.series,
+              heroImagePattern,
+              related: chapter.frontmatter.related || [],
+              ...(quizData && { quiz: quizData }),
+            },
+          });
+        }
       });
     });
   }
@@ -1040,12 +1077,14 @@ exports.createPages = async ({
 };
 
 /**
+ * Add custom fields to GraphQL nodes
+ * 
  * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
 exports.onCreateNode = ({ node, actions, getNode }: CreateNodeArgs) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode });
 
     createNodeField({
@@ -1133,6 +1172,12 @@ export const createSchemaCustomization = ({
   const { createTypes } = actions;
   createTypes(`
     type MarkdownRemark implements Node {
+      id: ID!
+      frontmatter: Frontmatter
+      fields: Fields
+    }
+
+    type Mdx implements Node {
       id: ID!
       frontmatter: Frontmatter
       fields: Fields

@@ -20,7 +20,7 @@ import {
 import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
 
 /** Types */
-import { QuizType } from "../../components/organisms/ChapterQuiz/";
+import { QuizType } from "../../components/organisms/ChapterQuiz";
 
 /** Constants */
 const GISCUS_USERNAME = process.env.GATSBY_GISCUS_USERNAME || "";
