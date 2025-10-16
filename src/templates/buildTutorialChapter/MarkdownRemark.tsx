@@ -120,7 +120,8 @@ const TutorialChapter: React.FC<any> = ({
     markdownRemark: post,
     allTutorialHeroes,
     heroImage,
-    allSeriesPosts,
+    allSeriesPostsMarkdownRemark,
+    allSeriesPostsMdx,
   },
   pageContext,
 }) => {
@@ -132,7 +133,10 @@ const TutorialChapter: React.FC<any> = ({
     return hero.relativeDirectory === seriesDir;
   });
 
-  const filteredSeriesPosts = allSeriesPosts.nodes.filter((post: any) => {
+  const filteredSeriesPosts = [
+    ...allSeriesPostsMarkdownRemark.nodes,
+    ...allSeriesPostsMdx.nodes,
+  ].filter((post: any) => {
     return post.frontmatter.chapter !== null;
   });
 
@@ -341,7 +345,7 @@ export const pageQuery = graphql`
         gatsbyImageData
       }
     }
-    allSeriesPosts: allMarkdownRemark(
+    allSeriesPostsMarkdownRemark: allMarkdownRemark(
       sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { series: { eq: $series } } }
     ) {
@@ -353,7 +357,24 @@ export const pageQuery = graphql`
           tags
           title
           description
-          pathDate: date(formatString: "/YYYY/MM/DD")
+        }
+        fields {
+          slug
+        }
+      }
+    }
+    allSeriesPostsMdx: allMdx(
+      sort: { frontmatter: { date: ASC } }
+      filter: { frontmatter: { series: { eq: $series } } }
+    ) {
+      nodes {
+        frontmatter {
+          series
+          part
+          chapter
+          tags
+          title
+          description
         }
         fields {
           slug

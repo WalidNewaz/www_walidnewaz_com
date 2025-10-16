@@ -50,7 +50,7 @@ const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }
   const chapters = useMemo(
     () =>
       allSeriesPosts.nodes.reduce((acc: any, article: any) => {
-        const { part, chapter, pathDate } = article.frontmatter;
+        const { part, chapter } = article.frontmatter;
         const articlePath = `/${section}${article.fields?.slug}`;
         if (Object.hasOwn(acc, part)) {
           const currChapter = [

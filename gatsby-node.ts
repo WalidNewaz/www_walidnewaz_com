@@ -800,7 +800,6 @@ const createBuildTutorialChapterPages = async ({
               nextPostId,
               series: chapter.frontmatter.series,
               heroImagePattern,
-              related: chapter.frontmatter.related || [],
               ...(quizData && { quiz: quizData }),
             },
           });
