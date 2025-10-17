@@ -711,6 +711,7 @@ const createBuildTutorialChapterPages = async ({
           }
           internal {
             type
+            contentFilePath
           }
         }
       }
@@ -746,7 +747,7 @@ const createBuildTutorialChapterPages = async ({
     },
     {}
   );
-  reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
@@ -786,24 +787,27 @@ const createBuildTutorialChapterPages = async ({
           }
         }
 
+        const postTemplate = path.resolve(
+          `./src/templates/buildTutorialChapter/${chapter.internal.type}.tsx`
+        );
+        const postComponent =
+          chapter.internal.type === "Mdx"
+            ? `${postTemplate}?__contentFilePath=${chapter.internal.contentFilePath}`
+            : postTemplate;
+
         const { createPage } = actions;
-        if (chapter.internal.type === "MarkdownRemark") {
-          createPage({
-            path: `/build${chapter.fields.slug}`,
-            component: path.resolve(
-              `./src/templates/buildTutorialChapter/MarkdownRemark.tsx`
-              //`./src/templates/buildTutorialChapter/${chapter.internal.type}.tsx`
-            ),
-            context: {
-              id: chapter.id,
-              previousPostId,
-              nextPostId,
-              series: chapter.frontmatter.series,
-              heroImagePattern,
-              ...(quizData && { quiz: quizData }),
-            },
-          });
-        }
+        createPage({
+          path: `/build${chapter.fields.slug}`,
+          component: postComponent,
+          context: {
+            id: chapter.id,
+            previousPostId,
+            nextPostId,
+            series: chapter.frontmatter.series,
+            heroImagePattern,
+            ...(quizData && { quiz: quizData }),
+          },
+        });
       });
     });
   }

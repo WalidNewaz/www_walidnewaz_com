@@ -9,7 +9,7 @@ chapter: "7. Scaling the Feedback System — Sentiment Analysis"
 title: "Scaling the Feedback System — Sentiment Analysis"
 description: "In this chapter we will incorporate sentiment analysis to our feedback system, using FuggingFace Transformers, and PyTorch framework."
 has_quiz: true
-tags: ["Scaling", "AI", "Web Dev"]
+tags: ["AI", "Web Dev"]
 ---
 
 # Chapter 7: Scaling the Feedback System — Sentiment Analysis

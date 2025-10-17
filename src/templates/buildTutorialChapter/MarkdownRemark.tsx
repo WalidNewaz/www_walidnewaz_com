@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import ArticleHeader from "../../components/article/ArticleHeader";
 import HeroImage from "../../components/article/HeroImage";
 import PostTags from "../../components/article/PostTags";
 import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
@@ -117,7 +116,7 @@ const TutorialChapter: React.FC<any> = ({
     previousMdx,
     nextMarkdownRemark,
     nextMdx,
-    markdownRemark: post,
+    post,
     allTutorialHeroes,
     heroImage,
     allSeriesPostsMarkdownRemark,
@@ -175,12 +174,6 @@ const TutorialChapter: React.FC<any> = ({
         itemType="http://schema.org/Article"
         ref={articleBody}
       >
-        {/* <ArticleHeader>
-          <div className="article-post-date">{post.frontmatter.date}</div>
-          <div className="article-read-time">
-            {post.frontmatter.read_time} read
-          </div>
-        </ArticleHeader> */}
         <HeroImage
           {...{ post, heroImage: heroImagePattern }}
           className="article-hero-img"
@@ -200,7 +193,7 @@ const TutorialChapter: React.FC<any> = ({
             </StyledArticleBody>
           )}
         </StyledTutorialGrid>
-        {/* <PostTags tags={post.frontmatter.tags} /> */}
+        <PostTags tags={post.frontmatter.tags} section="build/f" />
 
         <BlogFeedbackSection
           post={post}
@@ -249,7 +242,7 @@ const TutorialChapter: React.FC<any> = ({
 };
 
 export const Head: React.FC<{ data: any }> = ({
-  data: { markdownRemark: post },
+  data: { post },
 }) => {
   return (
     <Seo
@@ -274,7 +267,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    post: markdownRemark(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
       html

@@ -8,7 +8,7 @@ title: "Building a Blog Feedback System"
 description: "This series shows you how to add feedback mechanisms to your blog or app in small, incremental steps."
 # hero_image: "python-tutorial-banner.png"
 # has_quiz: true
-tags: ["Blog", "Web Dev"]
+tags: ["API", "AI", "Web Dev", "Blog", "Feedback"]
 ---
 
 # Building a Blog Feedback System - From Prototype to Full-Stack

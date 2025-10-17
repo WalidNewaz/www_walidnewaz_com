@@ -6,6 +6,8 @@
  */
 
 import * as dotenv from "dotenv";
+import rehypeSlug from "rehype-slug"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 
 /** Utils */
 import { getGtagForEnv } from "./src/utils/gtag";
@@ -46,6 +48,12 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`],
+        mdxOptions: {
+          rehypePlugins: [
+            // rehypeSlug,
+            // [rehypeAutolinkHeadings, { behavior: `wrap` }],
+          ],
+        },
       },
       gatsbyRemarkPlugins: [
         {

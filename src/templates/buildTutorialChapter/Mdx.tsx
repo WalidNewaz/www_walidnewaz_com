@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import ArticleHeader from "../../components/article/ArticleHeader";
 import HeroImage from "../../components/article/HeroImage";
 import PostTags from "../../components/article/PostTags";
 import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
@@ -17,6 +16,8 @@ import {
   InputPosition,
   Loading,
 } from "@giscus/react";
+import { MDXProvider } from '@mdx-js/react';
+// import { MDXRenderer } from "gatsby-plugin-mdx"
 import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
 
 /** Types */
@@ -107,21 +108,61 @@ const StyledBlankDiv = styled.div`
 `;
 
 /**
+ * Recursively flattens a nested "items" JSON into a flat heading list.
+ * @param {Object} toc - The root TOC JSON object containing "items".
+ * @returns {Array} - Flattened list of heading objects with depth, id, and value.
+ */
+function flattenToc(toc) {
+  const result = [];
+
+  function traverse(items, depth = 1) {
+    for (const item of items) {
+      // Extract a normalized ID from the URL (remove leading #, replace non-alphanumerics)
+      const id = item.url
+        ? `heading-${depth}-${item.url.replace(/^#/, '').replace(/[^\w-]+/g, '-').toLowerCase()}`
+        : null;
+
+      // Push the current item
+      result.push({
+        depth,
+        id,
+        value: item.title
+      });
+
+      // Recursively process children
+      if (item.items && item.items.length > 0) {
+        traverse(item.items, depth + 1);
+      }
+    }
+  }
+
+  if (toc.items) {
+    traverse(toc.items);
+  }
+
+  return result;
+}
+
+
+/**
  * Component used to display a tutorial chapter
  * @param params
  * @returns
  */
 const TutorialChapter: React.FC<any> = ({
   data: {
-    previous,
-    next,
-    markdownRemark: post,
+    previousMarkdownRemark,
+    previousMdx,
+    nextMarkdownRemark,
+    nextMdx,
+    post,
     allTutorialHeroes,
     heroImage,
-    allSeriesPosts,
-    relatedPosts,
+    allSeriesPostsMarkdownRemark,
+    allSeriesPostsMdx,
   },
   pageContext,
+  children,
 }) => {
   const articleBody = useRef<HTMLDivElement>(null);
   const seriesDir = post.fields.slug
@@ -131,7 +172,10 @@ const TutorialChapter: React.FC<any> = ({
     return hero.relativeDirectory === seriesDir;
   });
 
-  const filteredSeriesPosts = allSeriesPosts.nodes.filter((post: any) => {
+  const filteredSeriesPosts = [
+    ...allSeriesPostsMarkdownRemark.nodes,
+    ...allSeriesPostsMdx.nodes,
+  ].filter((post: any) => {
     return post.frontmatter.chapter !== null;
   });
 
@@ -160,7 +204,8 @@ const TutorialChapter: React.FC<any> = ({
     setFeedbackGiven(true);
   };
 
-  
+  const headings = flattenToc(post.tableOfContents || {});
+  post.headings = headings;  
 
   return (
     <>
@@ -170,22 +215,22 @@ const TutorialChapter: React.FC<any> = ({
         itemType="http://schema.org/Article"
         ref={articleBody}
       >
-        {/* <ArticleHeader>
-          <div className="article-post-date">{post.frontmatter.date}</div>
-          <div className="article-read-time">
-            {post.frontmatter.read_time} read
-          </div>
-        </ArticleHeader> */}
         <HeroImage
           {...{ post, heroImage: heroImagePattern }}
           className="article-hero-img"
         />
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
-          <StyledArticleBody
+          {/* <StyledArticleBody
             dangerouslySetInnerHTML={{ __html: post.html }}
             itemProp="articleBody"
-          />
+          /> */}
+          {/* <MDXProvider>
+            <MDXRenderer>{post.body}</MDXRenderer>
+          </MDXProvider> */}
+          <StyledArticleBody>
+            {children}
+          </StyledArticleBody>
         </StyledTutorialGrid>
         <StyledTutorialGrid>
           <StyledBlankDiv></StyledBlankDiv>
@@ -233,14 +278,18 @@ const TutorialChapter: React.FC<any> = ({
         section="build"
       />
       <StyledBlogPostNav>
-        <ChronologicalNav previous={previous} next={next} section="build" />
+        <ChronologicalNav
+          previous={previousMarkdownRemark || previousMdx}
+          next={nextMarkdownRemark || nextMdx}
+          section="build"
+        />
       </StyledBlogPostNav>
     </>
   );
 };
 
 export const Head: React.FC<{ data: any }> = ({
-  data: { markdownRemark: post },
+  data: { post },
 }) => {
   return (
     <Seo
@@ -259,17 +308,16 @@ export const pageQuery = graphql`
     $nextPostId: String
     $series: String
     $heroImagePattern: String
-    $related: [String]
   ) {
     site {
       siteMetadata {
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    post: mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         series
@@ -280,13 +328,41 @@ export const pageQuery = graphql`
         read_time
         tags
       }
-      headings {
-        value
-        depth
-        id
-      }
+      tableOfContents
       fields {
         slug
+      }
+    }
+    previousMarkdownRemark: markdownRemark(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
+    previousMdx: mdx(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
+    nextMarkdownRemark: markdownRemark(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
+      }
+    }
+    nextMdx: mdx(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        chapter
       }
     }
     allTutorialHeroes: allFile(
@@ -300,30 +376,12 @@ export const pageQuery = graphql`
         }
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        chapter
-        pathDate: date(formatString: "/YYYY/MM/DD")
-      }
-    }
-    next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        chapter
-        pathDate: date(formatString: "/YYYY/MM/DD")
-      }
-    }
     heroImage: file(relativePath: { regex: $heroImagePattern }) {
       childImageSharp {
         gatsbyImageData
       }
     }
-    allSeriesPosts: allMarkdownRemark(
+    allSeriesPostsMarkdownRemark: allMarkdownRemark(
       sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { series: { eq: $series } } }
     ) {
@@ -335,34 +393,28 @@ export const pageQuery = graphql`
           tags
           title
           description
-          pathDate: date(formatString: "/YYYY/MM/DD")
         }
         fields {
           slug
         }
       }
     }
-    relatedPosts: allMarkdownRemark(
-      filter: { frontmatter: { title: { in: $related } } }
-      sort: { frontmatter: { date: DESC } }
+    allSeriesPostsMdx: allMdx(
+      sort: { frontmatter: { date: ASC } }
+      filter: { frontmatter: { series: { eq: $series } } }
     ) {
-      posts: nodes {
-        excerpt
+      nodes {
+        frontmatter {
+          series
+          part
+          chapter
+          tags
+          title
+          description
+        }
         fields {
           slug
         }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          pathDate: date(formatString: "/YYYY/MM/DD")
-          title
-          description
-          tags
-          read_time
-        }
-        headings(depth: h1) {
-          value
-        }
-        id
       }
     }
   }
