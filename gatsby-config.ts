@@ -6,11 +6,10 @@
  */
 
 import * as dotenv from "dotenv";
-import rehypeSlug from "rehype-slug"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
 
 /** Utils */
 import { getGtagForEnv } from "./src/utils/gtag";
+import { remark } from "remark";
 
 dotenv.config();
 
@@ -49,10 +48,19 @@ module.exports = {
       options: {
         extensions: [`.mdx`],
         mdxOptions: {
-          rehypePlugins: [
-            // rehypeSlug,
-            // [rehypeAutolinkHeadings, { behavior: `wrap` }],
+          remarkPlugins: [
+            {
+              resolve: `gatsby-remark-vscode`,
+              options: {
+                theme: {
+                  default: "Solarized Light",
+                  dark: "Solarized Dark",
+                },
+              },
+            },
+            // `gatsby-remark-prismjs`,
           ],
+          rehypePlugins: [],
         },
       },
       gatsbyRemarkPlugins: [

@@ -197,12 +197,6 @@ const TutorialChapter: React.FC<any> = ({
 
         <BlogFeedbackSection
           post={post}
-          helpfulConfig={{
-            helpfulText,
-            onYes: yesHandler,
-            onNo: noHandler,
-            feedbackGiven,
-          }}
           giscusConfig={{
             username: GISCUS_USERNAME,
             repo: GISCUS_REPO,

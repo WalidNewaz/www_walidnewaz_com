@@ -59,6 +59,12 @@ const StyledBlogFeedbackSection = styled.section`
     font-size: var(--fontSize-4);
     font-weight: 600;
     color: var(--heading2);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid black var(--border);
+    border-color: hsl(var(--brand-text-hue) 0% 80%);
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    padding-bottom: 0.5rem;
   }
 `;
 

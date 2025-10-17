@@ -1127,6 +1127,11 @@ exports.createSchemaCustomization = ({
     type Fields {
       slug: String
     }
+
+    type File implements Node @dontInfer {
+      absolutePath: String
+      childImageSharp: ImageSharp
+    }
   `);
 };
 
@@ -1172,14 +1177,22 @@ export const createSchemaCustomization = ({
     }
 
     type Frontmatter {
+      featured: Boolean
+      date: Date @dateformat
+      
       series: String
       part: String
       chapter: String
+
       title: String
+      description: String
+
+      has_quiz: Boolean
+      tags: [String]
       hero_image: File @fileByRelativePath
+
       pathDate: Date @dateformat
       related: [String]
-      has_quiz: Boolean
     }
 
     type Fields {
