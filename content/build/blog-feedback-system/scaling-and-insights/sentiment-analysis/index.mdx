@@ -119,7 +119,10 @@ npm install axios
 ### 7.3.2 Sentiment Service (Hugging Face API)
 
 ```ts
-// filename: src/feedback/feedback.sentiment.service.ts
+/**
+ * @file: src/feedback/feedback.sentiment.service.ts
+ * @showLineNumbers
+ */
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -162,7 +165,10 @@ export class FeedbackSentimentService {
 ### 7.3.3 Sentiment Controller
 
 ```ts
-// filename: src/feedback/feedback.sentiment.controller.ts
+/**
+ * @file: src/feedback/feedback.sentiment.controller.ts
+ * @showLineNumbers
+ */
 import { Controller, Get } from '@nestjs/common';
 import { FeedbackSentimentService } from './feedback.sentiment.service';
 
@@ -182,7 +188,11 @@ export class FeedbackSentimentController {
 We’ll extend our React dashboard (from Chapter 6) to visualize sentiment.
 
 ```tsx
-// filename: src/components/SentimentChart.tsx
+/**
+ * @file: src/components/SentimentChart.tsx
+ * @showLineNumbers
+ */
+
 import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 

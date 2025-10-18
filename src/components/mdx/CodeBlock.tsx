@@ -12,30 +12,59 @@ const StyledPre = styled.pre`
   background: #1e1e1e;
   color: #f8f8f2;
   font-family: var(--font-mono, "Fira Code", monospace);
+  background: #f5f5f7;
+  color: #222;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 0.95rem;
 
+  /* === DARK MODE === */
+  @media (prefers-color-scheme: dark) {
+    background: #1e1e1e;
+    color: #f8f8f2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  /* === HEADER === */
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #2d2d2d;
-    border-bottom: 1px solid #444;
-    padding: 0.6rem 1rem;
+    background: #eaeaea;
+    border-bottom: 1px solid #ccc;
+    padding: 0.65rem 1rem;
     font-size: 0.95rem;
     font-weight: 500;
-    color: #e6e6e6;
+    color: #333;
     letter-spacing: 0.02em;
+
+    @media (prefers-color-scheme: dark) {
+      background: #2b2b2b;
+      border-bottom: 1px solid #444;
+      color: #e6e6e6;
+    }
   }
 
   .header span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     font-family: var(--font-mono, "Fira Code", monospace);
     font-size: 0.9rem;
     opacity: 0.95;
+    overflow-x: auto;
   }
 
+  .header span::before {
+    content: "📄";
+    opacity: 0.8;
+    font-size: 1.1rem;
+  }
+
+  /* === COPY BUTTON === */
   button.copy {
     background: transparent;
     border: none;
-    color: #ccc;
+    color: #666;
     cursor: pointer;
     font-size: 1.1rem;
     padding: 0.25rem;
@@ -43,18 +72,26 @@ const StyledPre = styled.pre`
     align-items: center;
     justify-content: center;
     transition: color 0.2s ease, transform 0.1s ease;
+
+    @media (prefers-color-scheme: dark) {
+      color: #bbb;
+    }
   }
 
   button.copy:hover {
     color: #fff;
     transform: scale(1.1);
+
+    @media (prefers-color-scheme: dark) {
+      color: #fff;
+    }
   }
 
   button.copy svg {
     stroke-width: 2.25;
   }
 
-  /* Code body */
+  /* === CODE BODY === */
   .code-content-wrapper {
     overflow: hidden;
     padding: 1rem;
@@ -71,21 +108,18 @@ const StyledPre = styled.pre`
     line-height: 1.55;
   }
 
+  /* === LINE LAYOUT === */
   .line {
-    display: block;
-    white-space: pre;
-  }
-
-  .highlight-line {
-    background: rgba(255, 255, 255, 0.12);
-    border-left: 3px solid #50fa7b;
+    display: flex;            /* allows line number + code alignment */
+    align-items: baseline;
+    min-width: 100%;          /* ensures line background stretches full width */
   }
 
   .line span {
     transition: background 0.2s ease;
   }
 
-  /* Line numbers */
+  /* === LINE NUMBERS === */
   .line-number {
     display: inline-block;
     width: 2em;
@@ -95,13 +129,38 @@ const StyledPre = styled.pre`
     user-select: none;
     color: #888;
   }
+
+  /* === HIGHLIGHTED LINES === */
+  .highlight-line {
+    background: rgba(255, 255, 255, 0.12);
+    border-left: 3px solid #50fa7b;
+    width: 100%;              /* extra safeguard */
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgba(255, 255, 255, 0.12);
+      border-left: 3px solid #50fa7b;
+    }
+  }
+
+  /* === SCROLLBAR === */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+
+    @media (prefers-color-scheme: dark) {
+      background: #444;
+    }
+  }
 `;
 
 
 export const CodeBlock: React.FC<any> = ({ className, children }) => {
   const language = className?.replace(/language-/, "") || "text";
   const { meta, cleanCode } = useCodeMeta(children);
-  // console.log('children', children, 'meta', meta);
 
   const highlighted = parseHighlightRanges(meta.highlight);
 
@@ -119,7 +178,7 @@ export const CodeBlock: React.FC<any> = ({ className, children }) => {
         <StyledPre style={style}>
           <div className="header">
             <span>{meta.file || language}</span>
-            {meta.copy && (
+            {meta.copy !== false && (
               <button className="copy" onClick={handleCopy}>
                 {copied ? <FiCheck /> : <FiCopy />}
               </button>

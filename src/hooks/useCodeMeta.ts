@@ -24,7 +24,10 @@ export interface CodeMeta {
 /**
  * Extracts @key: value directives from the first comment block.
  */
-export function useCodeMeta(rawCode: string): { meta: CodeMeta; cleanCode: string } {
+export function useCodeMeta(rawCode: string): {
+  meta: CodeMeta;
+  cleanCode: string;
+} {
   if (!rawCode) return { meta: {}, cleanCode: "" };
 
   const meta: CodeMeta = {};
@@ -33,15 +36,15 @@ export function useCodeMeta(rawCode: string): { meta: CodeMeta; cleanCode: strin
 
   // Common top-comment regex patterns
   const patterns: { type: string; regex: RegExp }[] = [
-    { type: "jsdoc", regex: /^\/\*\*([\s\S]*?)\*\/\n?/ },     // /** ... */
-    { type: "css", regex: /^\/\*([\s\S]*?)\*\/\n?/ },         /* ... */
-    { type: "py-doc", regex: /^"""\s*([\s\S]*?)\s*"""\n?/ },  // """ ... """
+    { type: "jsdoc", regex: /^\/\*\*([\s\S]*?)\*\/\n?/ }, // /** ... */
+    { type: "css", regex: /^\/\*([\s\S]*?)\*\/\n?/ } /* ... */,
+    { type: "py-doc", regex: /^"""\s*([\s\S]*?)\s*"""\n?/ }, // """ ... """
     { type: "py-doc-alt", regex: /^'''\s*([\s\S]*?)\s*'''\n?/ }, // ''' ... '''
-    { type: "hash", regex: /^(#.*\n)+/ },                     // # ...
-    { type: "sql", regex: /^(--.*\n)+/ },                     // -- ...
-    { type: "html", regex: /^<!--([\s\S]*?)-->\n?/ },         // <!-- ... -->
-    { type: "triple-slash", regex: /^(\/\/\/.*\n)+/ },        // /// ...
-    { type: "slash", regex: /^(\/\/.*\n)+/ },                 // // ...
+    { type: "hash", regex: /^(#.*\n)+/ }, // # ...
+    { type: "sql", regex: /^(--.*\n)+/ }, // -- ...
+    { type: "html", regex: /^<!--([\s\S]*?)-->\n?/ }, // <!-- ... -->
+    { type: "triple-slash", regex: /^(\/\/\/.*\n)+/ }, // /// ...
+    { type: "slash", regex: /^(\/\/.*\n)+/ }, // // ...
   ];
 
   // Try matching the first recognized comment pattern
@@ -50,7 +53,12 @@ export function useCodeMeta(rawCode: string): { meta: CodeMeta; cleanCode: strin
     if (!match) continue;
 
     // Extract the inner content (for block comments)
-    if (type === "hash" || type === "sql" || type === "slash" || type === "triple-slash") {
+    if (
+      type === "hash" ||
+      type === "sql" ||
+      type === "slash" ||
+      type === "triple-slash"
+    ) {
       header = match[0];
     } else {
       header = match[1] || "";
@@ -94,8 +102,6 @@ export function useCodeMeta(rawCode: string): { meta: CodeMeta; cleanCode: strin
       }
     }
   }
-
-  console.log("rawCode", rawCode, "meta", meta, "cleanCode", cleanCode);
 
   return { meta, cleanCode };
 }
