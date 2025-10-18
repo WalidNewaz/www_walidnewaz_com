@@ -1,7 +1,0 @@
-pre {
-  border-radius: var(--grvsc-border-radius, 8px);
-  padding: var(--grvsc-padding, 12px);
-  background-color: var(--grvsc-background-color, #1e1e1e);
-  color: var(--grvsc-color, #d4d4d4);
-  overflow-x: auto;
-}

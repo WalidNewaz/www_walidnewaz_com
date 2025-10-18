@@ -11,7 +11,7 @@ import Topics from "../../components/Topics";
 import { getTopics } from "../../utils/posts";
 
 /** Hooks */
-import { useFetchNextPage } from "../../hooks/posts";
+import { useFetchNextPage } from "../../hooks/useFetchNextPage";
 
 /** Constants */
 import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";

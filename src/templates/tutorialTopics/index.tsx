@@ -21,7 +21,7 @@ import Topics from "../../components/Topics";
 import { AllTopics } from "../../interfaces";
 
 /** Hooks */
-import { useFetchNextPage } from "../../hooks/posts";
+import { useFetchNextPage } from "../../hooks/useFetchNextPage";
 
 /** Utils */
 import { getTopics } from "../../utils/posts";

@@ -20,6 +20,7 @@ import { MDXProvider } from '@mdx-js/react';
 import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
 import { HeadingWithId } from "../../components/mdx/HeadingWithId";
 import { CodeBlock } from "../../components/mdx/CodeBlock";
+import { MDXComponents } from "../../components/mdx/MDXComponents";
 
 /** Utilities */
 import { makeHeadingId } from "../../utils/posts";
@@ -235,11 +236,7 @@ const TutorialChapter: React.FC<any> = ({
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
           <StyledArticleBody>
-            <MDXProvider
-              components={{ ...HeadingWithIdComponents, code: CodeBlock }}
-            >
-              {children}
-            </MDXProvider>
+            <MDXProvider components={MDXComponents}>{children}</MDXProvider>
           </StyledArticleBody>
         </StyledTutorialGrid>
         <StyledTutorialGrid>

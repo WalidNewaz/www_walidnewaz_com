@@ -9,7 +9,6 @@ import * as dotenv from "dotenv";
 
 /** Utils */
 import { getGtagForEnv } from "./src/utils/gtag";
-import { remark } from "remark";
 
 dotenv.config();
 
@@ -48,18 +47,7 @@ module.exports = {
       options: {
         extensions: [`.mdx`],
         mdxOptions: {
-          remarkPlugins: [
-            {
-              resolve: `gatsby-remark-vscode`,
-              options: {
-                theme: {
-                  default: "Solarized Light",
-                  dark: "Solarized Dark",
-                },
-              },
-            },
-            // `gatsby-remark-prismjs`,
-          ],
+          remarkPlugins: [],
           rehypePlugins: [],
         },
       },
@@ -107,7 +95,7 @@ module.exports = {
             },
           },
         },
-        `gatsby-remark-prismjs`,
+        // `gatsby-remark-prismjs`,
       ],
     },
     {
