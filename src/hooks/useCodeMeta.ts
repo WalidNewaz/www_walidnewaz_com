@@ -77,7 +77,6 @@ export function useCodeMeta(rawCode: string): { meta: CodeMeta; cleanCode: strin
   if (header) {
     const lines = header.split("\n").map((l) => l.trim());
     for (const line of lines) {
-      console.log('line', line);
       if (!line.startsWith("@")) continue;
       const [, key, value] = line.match(/^@([\w-]+)\s*:? ?(.+)?$/) || [];
       if (key) {
@@ -95,6 +94,8 @@ export function useCodeMeta(rawCode: string): { meta: CodeMeta; cleanCode: strin
       }
     }
   }
+
+  console.log("rawCode", rawCode, "meta", meta, "cleanCode", cleanCode);
 
   return { meta, cleanCode };
 }
