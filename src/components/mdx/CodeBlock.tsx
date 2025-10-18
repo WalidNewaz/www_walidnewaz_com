@@ -56,8 +56,14 @@ const StyledPre = styled.pre`
 
   .header span::before {
     content: "📄";
-    opacity: 0.8;
+    opacity: 0.9;
     font-size: 1.1rem;
+    filter: brightness(0.4); /* makes emoji darker in light mode */
+    margin-right: 0.3em;
+
+    @media (prefers-color-scheme: dark) {
+      filter: brightness(1.5); /* lightens emoji for dark backgrounds */
+    }
   }
 
   /* === COPY BUTTON === */

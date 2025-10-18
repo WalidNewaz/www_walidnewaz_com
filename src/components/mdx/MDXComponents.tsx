@@ -1,6 +1,7 @@
 import React from "react";
 import { CodeBlock } from "./CodeBlock";
 import { HeadingWithId } from "./HeadingWithId";
+import { InlineCode } from "./InlineCode";
 
 /**
  * MDXComponents — custom renderers for MDX elements
@@ -40,4 +41,5 @@ export const MDXComponents = {
     // Otherwise, render <pre> normally
     return <pre {...rest}>{children}</pre>;
   },
+  code: (props: any) => <InlineCode {...props} />,
 };
