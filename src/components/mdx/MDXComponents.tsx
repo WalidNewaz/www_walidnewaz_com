@@ -2,6 +2,8 @@ import React from "react";
 import { CodeBlock } from "./CodeBlock";
 import { HeadingWithId } from "./HeadingWithId";
 import { InlineCode } from "./InlineCode";
+import { MdxTable } from "./MdxTable";
+import { MdxUl } from "./MdxList";
 
 /**
  * MDXComponents — custom renderers for MDX elements
@@ -42,4 +44,6 @@ export const MDXComponents = {
     return <pre {...rest}>{children}</pre>;
   },
   code: (props: any) => <InlineCode {...props} />,
+  MdxTable,
+  ul: (props: any) => <MdxUl {...props} />,
 };

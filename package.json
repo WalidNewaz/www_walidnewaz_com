@@ -50,6 +50,7 @@
     "gatsby-transformer-sharp": "5.13.1",
     "joi": "17.13.3",
     "katex": "0.13.24",
+    "marked": "^16.4.1",
     "mdast-util-to-string": "4.0.0",
     "prism-react-renderer": "^2.4.1",
     "prismjs": "1.29.0",

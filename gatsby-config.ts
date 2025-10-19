@@ -7,6 +7,7 @@
 
 import * as dotenv from "dotenv";
 
+
 /** Utils */
 import { getGtagForEnv } from "./src/utils/gtag";
 
@@ -66,12 +67,12 @@ module.exports = {
               // Options here
             },
           },
-          {
-            resolve: `gatsby-remark-wrap-tables`,
-            options: {
-              containerClass: "table-container",
-            },
-          },
+          // {
+          //   resolve: `gatsby-remark-wrap-tables`,
+          //   options: {
+          //     containerClass: "table-container",
+          //   },
+          // },
           `gatsby-remark-katex`,
           {
             resolve: `gatsby-remark-images`,
@@ -197,8 +198,8 @@ module.exports = {
         ],
       },
     },
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {

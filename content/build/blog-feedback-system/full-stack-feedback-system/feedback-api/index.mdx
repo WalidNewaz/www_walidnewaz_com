@@ -31,6 +31,7 @@ In this chapter, we’ll:
 
 We’ll keep the schema minimal but extensible:
 
+<MdxTable>
 | Field      | Type          | Description                            |
 | ---------- | ------------- | -------------------------------------- |
 | id         | UUID / int    | Unique identifier                      |
@@ -38,8 +39,10 @@ We’ll keep the schema minimal but extensible:
 | helpful    | boolean/null  | Yes/No vote (optional if only comment) |
 | comment    | string (text) | Optional reader comment                |
 | created_at | timestamp     | Auto-generated                         |
+</MdxTable>
 
 Later, we can extend with user info, sentiment, moderation flags, etc.
+
 
 ## 5.2 FastAPI Implementation
 

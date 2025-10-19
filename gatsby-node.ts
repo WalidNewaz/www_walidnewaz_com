@@ -1083,57 +1083,57 @@ exports.onCreateNode = ({ node, actions, getNode }: CreateNodeArgs) => {
   }
 };
 
-/**
- * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
- */
-exports.createSchemaCustomization = ({
-  actions,
-}: CreateSchemaCustomizationArgs) => {
-  const { createTypes } = actions;
+// /**
+//  * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
+//  */
+// exports.createSchemaCustomization = ({
+//   actions,
+// }: CreateSchemaCustomizationArgs) => {
+//   const { createTypes } = actions;
 
-  // Explicitly define the siteMetadata {} object
-  // This way those will always be defined even if removed from gatsby-config.js
+//   // Explicitly define the siteMetadata {} object
+//   // This way those will always be defined even if removed from gatsby-config.js
 
-  // Also explicitly define the Markdown frontmatter
-  // This way the "MarkdownRemark" queries will return `null` even when no
-  // blog posts are stored inside "content/blog" instead of returning an error
-  createTypes(`
-    type SiteSiteMetadata {
-      author: Author
-      siteUrl: String
-      social: Social
-    }
+//   // Also explicitly define the Markdown frontmatter
+//   // This way the "MarkdownRemark" queries will return `null` even when no
+//   // blog posts are stored inside "content/blog" instead of returning an error
+//   createTypes(`
+//     type SiteSiteMetadata {
+//       author: Author
+//       siteUrl: String
+//       social: Social
+//     }
 
-    type Social {
-      linkedin: String
-    }
+//     type Social {
+//       linkedin: String
+//     }
 
-    type Author {
-      name: String
-      summary: String
-    }
+//     type Author {
+//       name: String
+//       summary: String
+//     }
 
-    type MarkdownRemark implements Node {
-      frontmatter: Frontmatter
-      fields: Fields
-    }
+//     type MarkdownRemark implements Node {
+//       frontmatter: Frontmatter
+//       fields: Fields
+//     }
 
-    type Frontmatter {
-      title: String
-      description: String
-      date: Date @dateformat
-    }
+//     type Frontmatter {
+//       title: String
+//       description: String
+//       date: Date @dateformat
+//     }
 
-    type Fields {
-      slug: String
-    }
+//     type Fields {
+//       slug: String
+//     }
 
-    type File implements Node @dontInfer {
-      absolutePath: String
-      childImageSharp: ImageSharp
-    }
-  `);
-};
+//     type File implements Node @dontInfer {
+//       absolutePath: String
+//       childImageSharp: ImageSharp
+//     }
+//   `);
+// };
 
 /**
  * Webpack configuration for Gatsby
@@ -1163,15 +1163,35 @@ export const createSchemaCustomization = ({
   actions,
 }: CreateSchemaCustomizationArgs) => {
   const { createTypes } = actions;
+  
   createTypes(`
-    type MarkdownRemark implements Node {
+    type SiteSiteMetadata {
+      author: Author
+      siteUrl: String
+      social: Social
+    }
+
+    type Social {
+      linkedin: String
+    }
+
+    type Author {
+      name: String
+      summary: String
+    }
+
+    interface MarkdownOrMdx @nodeInterface {
       id: ID!
       frontmatter: Frontmatter
       fields: Fields
     }
 
-    type Mdx implements Node {
-      id: ID!
+    type MarkdownRemark implements Node & MarkdownOrMdx {
+      frontmatter: Frontmatter
+      fields: Fields
+    }
+
+    type Mdx implements Node & MarkdownOrMdx {
       frontmatter: Frontmatter
       fields: Fields
     }
@@ -1179,18 +1199,14 @@ export const createSchemaCustomization = ({
     type Frontmatter {
       featured: Boolean
       date: Date @dateformat
-      
       series: String
       part: String
       chapter: String
-
       title: String
       description: String
-
       has_quiz: Boolean
       tags: [String]
       hero_image: File @fileByRelativePath
-
       pathDate: Date @dateformat
       related: [String]
     }
@@ -1199,9 +1215,9 @@ export const createSchemaCustomization = ({
       slug: String
     }
 
-    type MarkdownRemarkFrontmatter {
-      has_quiz: Boolean
-      hero_image: File @link(from: "hero_image")
+    type File implements Node {
+      absolutePath: String
+      childImageSharp: ImageSharp
     }
   `);
 };
