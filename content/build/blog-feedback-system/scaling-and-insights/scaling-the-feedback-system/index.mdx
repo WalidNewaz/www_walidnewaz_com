@@ -41,7 +41,11 @@ Without analytics, feedback stays as isolated records. With analytics, you get *
 ### FastAPI — Aggregated Stats
 
 ```python
-# filename: app/analytics.py
+"""
+@file: app/analytics.py
+@showLineNumbers
+@copy
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -83,7 +87,10 @@ app.include_router(analytics.router)
 ### NestJS — Aggregated Stats
 
 ```ts
-// filename: src/feedback/feedback.analytics.controller.ts
+/**
+ * @file: src/feedback/feedback.analytics.controller.ts
+ * @showLineNumbers
+ */
 import { Controller, Get } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -143,7 +150,10 @@ We are going to setup a new analytics dashboard application. We're going to setu
 Once the application is created, add the following component:
 
 ```tsx
-// filename: src/components/AnalyticsDashboard.tsx
+/**
+ * @file: src/components/AnalyticsDashboard.tsx
+ * @showLineNumbers
+ */
 import React, { useEffect, useState } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import {

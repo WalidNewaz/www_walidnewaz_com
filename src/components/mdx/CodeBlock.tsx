@@ -6,7 +6,7 @@ import { useCodeMeta, parseHighlightRanges } from "../../hooks/useCodeMeta";
 
 const StyledPre = styled.pre`
   position: relative;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem 0.5rem 0 0;
   overflow: hidden;
   margin: 1.25rem 0;
   background: #1e1e1e;
@@ -55,14 +55,14 @@ const StyledPre = styled.pre`
   }
 
   .header span::before {
-    content: "📄";
-    opacity: 0.9;
+    content: "📜";
+    // opacity: 0.9;
     font-size: 1.1rem;
-    filter: brightness(0.4); /* makes emoji darker in light mode */
+    // filter: brightness(0.4); /* makes emoji darker in light mode */
     margin-right: 0.3em;
 
     @media (prefers-color-scheme: dark) {
-      filter: brightness(1.5); /* lightens emoji for dark backgrounds */
+      filter: brightness(1.2); /* lightens emoji for dark backgrounds */
     }
   }
 
@@ -99,12 +99,15 @@ const StyledPre = styled.pre`
 
   /* === CODE BODY === */
   .code-content-wrapper {
-    overflow: hidden;
+    // overflow: hidden;
     padding: 1rem;
+    max-height: 24rem;
+    overflow: auto;
   }
 
   .code-body {
-    overflow-x: auto;
+    // overflow-x: auto;
+    // overflow-y: auto;
   }
 
   code {

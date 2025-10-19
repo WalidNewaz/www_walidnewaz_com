@@ -58,7 +58,11 @@ pip install fastapi uvicorn sqlalchemy pydantic[dotenv] pytest
 ### 5.2.2 Database Schema (SQLite for dev)
 
 ```python
-# filename: app/models.py
+"""
+@file: app/models.py
+@showLineNumbers
+@copy
+"""
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -78,7 +82,11 @@ class Feedback(Base):
 ### 5.2.3 FastAPI App
 
 ```python
-# filename: app/main.py
+"""
+@file: app/main.py
+@showLineNumbers
+@copy
+"""
 from fastapi import FastAPI, Depends
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
@@ -153,7 +161,10 @@ npm install @nestjs/typeorm typeorm sqlite3
 ### 5.3.2 Feedback Entity
 
 ```ts
-// filename: src/feedback/feedback.entity.ts
+/**
+ * @file: src/feedback/feedback.entity.ts
+ * @showLineNumbers
+ */
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
@@ -178,7 +189,10 @@ export class Feedback {
 ### 5.3.3 Service &#10010; Controller
 
 ```ts
-// filename: src/feedback/feedback.service.ts
+/**
+ * @file: src/feedback/feedback.service.ts
+ * @showLineNumbers
+ */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -202,7 +216,10 @@ export class FeedbackService {
 ```
 
 ```ts
-// filename: src/feedback/feedback.controller.ts
+/**
+ * @file: src/feedback/feedback.controller.ts
+ * @showLineNumbers
+ */
 import { Controller, Post, Get, Param, Body } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback.entity';
@@ -226,7 +243,10 @@ export class FeedbackController {
 ### 5.3.4 Module Setup
 
 ```ts
-// filename: src/feedback/feedback.module.ts
+/**
+ * @file: src/feedback/feedback.module.ts
+ * @showLineNumbers
+ */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Feedback } from './feedback.entity';
@@ -266,7 +286,10 @@ npm run start:dev
 A simple drop-in widget for either API:
 
 ```tsx
-// filename: src/components/FeedbackWidget.tsx
+/**
+ * @file: src/components/FeedbackWidget.tsx
+ * @showLineNumbers
+ */
 import React, { useState } from 'react';
 
 export const FeedbackWidget: React.FC<{ postSlug: string; apiUrl: string }> = ({

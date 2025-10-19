@@ -4,6 +4,7 @@ import { HeadingWithId } from "./HeadingWithId";
 import { InlineCode } from "./InlineCode";
 import { MdxTable } from "./MdxTable";
 import { MdxUl } from "./MdxList";
+import { MdxBlockquote } from "./MdxBlockquote";
 
 /**
  * MDXComponents — custom renderers for MDX elements
@@ -46,4 +47,5 @@ export const MDXComponents = {
   code: (props: any) => <InlineCode {...props} />,
   MdxTable,
   ul: (props: any) => <MdxUl {...props} />,
+  blockquote: (props: any) => <MdxBlockquote {...props} />,
 };
