@@ -24,6 +24,7 @@ In this chapter, we’ll:
 
 ## 3.1 Giscus vs. Disqus
 
+<MdxTable>
 | Feature    | Giscus (GitHub Discussions)      | Disqus (Hosted)                |
 | ---------- | -------------------------------- | ------------------------------ |
 | Ownership  | GitHub Discussions in your repo  | Disqus (external service)      |
@@ -32,6 +33,7 @@ In this chapter, we’ll:
 | SEO        | Indexed by GitHub                | SEO-friendly (hosted pages)    |
 | Embedding  | Lightweight JS script            | Embed `<div>` + script         |
 | Best for   | Dev blogs with technical readers | General blogs, wider audiences |
+</MdxTable>
 
 **Rule of thumb:**
 
@@ -86,7 +88,7 @@ npm i @giscus/react
 
 Import the default export from the package:
 
-```javascript
+```jsx
 import Giscus from '@giscus/react';
 
 export default function MyApp() {
@@ -147,7 +149,7 @@ $ npm install --save disqus-react
 
 Import the component on your page:
 
-```javascript
+```jsx
 import { DiscussionEmbed } from 'disqus-react';
 
 <DiscussionEmbed

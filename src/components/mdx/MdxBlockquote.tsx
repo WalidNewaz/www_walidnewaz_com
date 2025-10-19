@@ -25,9 +25,9 @@ const StyledBlockquote = styled.blockquote<{ $type: CalloutType }>`
       border-radius: 1rem;
       overflow: hidden;
       background: none;
+      background: ${colors.bg};
 
       p {
-        background: ${colors.bg};
         padding: 1rem 1.2rem;
         border-radius: 1rem;
         margin: 0;
@@ -41,13 +41,14 @@ const StyledBlockquote = styled.blockquote<{ $type: CalloutType }>`
           margin-right: 0.5rem;
           display: inline-block;
         }
+
+        @media (prefers-color-scheme: dark) {
+          color: var(--text-dark, #eee);
+        }
       }
 
       @media (prefers-color-scheme: dark) {
-        p {
-          background: color-mix(in srgb, ${colors.bg} 70%, #111);
-          color: var(--text-dark, #eee);
-        }
+        background: color-mix(in srgb, ${colors.bg} 70%, #111);
       }
     `;
   }}

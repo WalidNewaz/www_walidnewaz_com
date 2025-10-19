@@ -40,7 +40,11 @@ We’ll create:
 ### AirtableVoteButton Component
 
 ```tsx
-// filename: src/components/AirtableVoteButton.tsx
+/**
+ * @file: src/components/AirtableVoteButton.tsx
+ * @showLineNumbers
+ */
+
 import React from 'react';
 
 interface AirtableVoteButtonProps {
@@ -74,7 +78,11 @@ export const AirtableVoteButton: React.FC<AirtableVoteButtonProps> = ({ postSlug
 ### BlogFeedbackSection Component (with Giscus)
 
 ```tsx
-// filename: src/components/BlogFeedbackSection.tsx
+/**
+ * @file: src/components/BlogFeedbackSection.tsx
+ * @showLineNumbers
+ */
+
 import React from 'react';
 import { AirtableVoteButton } from './AirtableVoteButton';
 import { GiscusComments } from './GiscusComments'; // from Chapter 3
@@ -102,7 +110,11 @@ export const BlogFeedbackSection: React.FC<BlogFeedbackSectionProps> = ({ postSl
 ### Usage in Gatsby Blog Post Template
 
 ```javascript
-// filename: src/templates/BlogPostTemplate.tsx
+/**
+ * @file: src/templates/BlogPostTemplate.tsx
+ * @showLineNumbers
+ */
+
 import React from 'react';
 import { BlogFeedbackSection } from '../components/BlogFeedbackSection';
 
