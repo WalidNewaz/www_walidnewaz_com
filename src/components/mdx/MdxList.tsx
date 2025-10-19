@@ -36,11 +36,6 @@ export const MdxUl: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     if (!React.isValidElement(child)) return child;
 
     const inner = child.props.children;
-    console.log("Processing list item:", inner);
-    let textContent = "";
-    if (!inner[0].startsWith("[") || !inner[0].endsWith("] ")) {
-      return child;
-    }
 
     // Normalize to array for consistent handling
     const innerArray = React.Children.toArray(inner);
