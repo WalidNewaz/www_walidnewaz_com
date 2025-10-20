@@ -23,8 +23,8 @@ const StyledTutorialsContainer = styled.div`
  * @returns
  */
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
-  const tutorials = data.allMarkdownRemark.nodes;
-  const { allTopics } = data.allMarkdownRemark;
+  const tutorials = data.allMdx.nodes;
+  const { allTopics } = data.allMdx;
   const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
@@ -89,13 +89,15 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
 
 export const query = graphql`
   {
-    allMarkdownRemark(
+    allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: {
-        fileAbsolutePath: {
-          regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+            }
+          }
         }
-      }
     ) {
       nodes {
         fields {
@@ -118,9 +120,6 @@ export const query = graphql`
           }
           tags
           read_time
-        }
-        headings(depth: h1) {
-          value
         }
         id
       }

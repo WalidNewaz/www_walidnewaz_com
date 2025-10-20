@@ -18,8 +18,6 @@ import {
 } from "@giscus/react";
 import { MDXProvider } from '@mdx-js/react';
 import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
-import { HeadingWithId } from "../../components/mdx/HeadingWithId";
-import { CodeBlock } from "../../components/mdx/CodeBlock";
 import { MDXComponents } from "../../components/mdx/MDXComponents";
 
 /** Utilities */
@@ -112,14 +110,6 @@ const StyledBlankDiv = styled.div`
   }
 `;
 
-const HeadingWithIdComponents = {
-  h1: (props: any) => <HeadingWithId as="h1" {...props} />,
-  h2: (props: any) => <HeadingWithId as="h2" {...props} />,
-  h3: (props: any) => <HeadingWithId as="h3" {...props} />,
-  h4: (props: any) => <HeadingWithId as="h4" {...props} />,
-  h5: (props: any) => <HeadingWithId as="h5" {...props} />,
-  h6: (props: any) => <HeadingWithId as="h6" {...props} />,
-};
 
 /**
  * Recursively flattens a nested "items" JSON into a flat heading list.

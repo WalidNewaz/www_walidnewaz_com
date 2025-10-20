@@ -42,11 +42,12 @@ const StyledSeriesNav = styled.nav`
  * @param params
  * @returns
  */
-const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }> = ({
-  post,
-  allSeriesPosts,
-  section = "tutorials",
-}) => {
+const TutorialToc: React.FC<{
+  post: any;
+  allSeriesPosts: any;
+  seriesIntro?: any;
+  section?: string;
+}> = ({ post, allSeriesPosts, seriesIntro, section = "tutorials" }) => {
   const chapters = useMemo(
     () =>
       allSeriesPosts.nodes.reduce((acc: any, article: any) => {
@@ -78,6 +79,9 @@ const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }
   );
 
   const seriesName = allSeriesPosts.nodes[0].frontmatter.series;
+  const seriesIntroLink = seriesIntro
+    ? `/${section}${seriesIntro.fields?.slug}`
+    : null;
 
   return (
     seriesName &&
@@ -86,10 +90,16 @@ const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }
         <div className="block-header">
           {allSeriesPosts && allSeriesPosts.nodes[0].frontmatter.series}
         </div>
-        {/* <h3 className="series-title">
-        {allSeriesPosts && allSeriesPosts.nodes[0].frontmatter.series}
-      </h3> */}
-        {/* <pre>{JSON.stringify(allSeriesPosts, null, 2)}</pre> */}
+
+        {seriesIntro && (
+          <div className="series-intro">
+            <a href={seriesIntroLink!}>
+              <h4 style={{ marginTop: "1rem", marginBottom: "1rem", fontSize: "1.5rem" }}>
+                Introduction
+              </h4>
+            </a>
+          </div>
+        )}
 
         <div>
           {chapters && (

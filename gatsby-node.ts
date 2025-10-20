@@ -577,12 +577,14 @@ const createBuildTutorialIntroPages = async ({
   // Get all tutorial series intros
   const result = await graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
         filter: {
-          fileAbsolutePath: {
-            regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+            }
           }
         }
       ) {
@@ -603,6 +605,10 @@ const createBuildTutorialIntroPages = async ({
               }
             }
           }
+          internal {
+            type
+            contentFilePath
+          }
         }
       }
     }
@@ -616,7 +622,7 @@ const createBuildTutorialIntroPages = async ({
     return;
   }
 
-  const tutorials = result.data.allMarkdownRemark.nodes;
+  const tutorials = result.data.allMdx.nodes;
 
   if (tutorials.length === 0) {
     reporter.info(`No build tutorial intros found.`);
@@ -637,9 +643,17 @@ const createBuildTutorialIntroPages = async ({
       ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
       : `${seriesDir}/hero-image.png/`;
 
+    const postTemplate = path.resolve(
+      `./src/templates/buildTutorialIntro/${tutorial.internal.type}.tsx`
+    );
+    const postComponent =
+      tutorial.internal.type === "Mdx"
+        ? `${postTemplate}?__contentFilePath=${tutorial.internal.contentFilePath}`
+        : postTemplate;
+
     createPage({
       path: `/build${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/buildTutorialIntro/index.tsx`),
+      component: postComponent,
       context: {
         id: tutorial.id,
         series: tutorial.frontmatter.series,
@@ -669,7 +683,7 @@ const createBuildTutorialChapterPages = async ({
         limit: 1000
         filter: {
           fileAbsolutePath: {
-            regex: "/.*?/content/build/.*?/index.md$/"
+            regex: "/.*?/content/build/(?![^\/]+[\/]index.mdx?$).+\\\\.md$/"
           }
         }
       ) {
@@ -694,7 +708,7 @@ const createBuildTutorialChapterPages = async ({
         limit: 1000
         filter: {
           internal: {
-            contentFilePath: { regex: "/.*?/content/build/.*?/index.mdx$/" }
+            contentFilePath: { regex: "/.*?/content/build/(?![^\/]+[\/]index.mdx?$).+\\\\.mdx$/" }
           }
         }
       ) {
@@ -755,7 +769,7 @@ const createBuildTutorialChapterPages = async ({
       const chapters = seriesChapters[series];
       return chapters.map((chapter: any, index: number) => {
         reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
+          `Creating page for build chapter: ${chapter.frontmatter.chapter}`
         );
         const previousPostId = index === 0 ? null : chapters[index - 1].id;
         const nextPostId =
@@ -794,10 +808,16 @@ const createBuildTutorialChapterPages = async ({
           chapter.internal.type === "Mdx"
             ? `${postTemplate}?__contentFilePath=${chapter.internal.contentFilePath}`
             : postTemplate;
+        reporter.info(`Post Component for chapter ${chapter.frontmatter.chapter}: ${postComponent}`);
+
+        const pagePath = `/build${chapter.fields.slug}`;
+        reporter.info(
+          `Creating page at path: ${pagePath} for chapter: ${chapter.frontmatter.chapter}`
+        );
 
         const { createPage } = actions;
         createPage({
-          path: `/build${chapter.fields.slug}`,
+          path: pagePath,
           component: postComponent,
           context: {
             id: chapter.id,
@@ -1209,6 +1229,11 @@ export const createSchemaCustomization = ({
       hero_image: File @fileByRelativePath
       pathDate: Date @dateformat
       related: [String]
+      collections: [String]
+      required_courses: [String]
+      difficulty: String
+      audience: String
+      series: String
     }
 
     type Fields {
