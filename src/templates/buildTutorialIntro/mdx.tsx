@@ -86,13 +86,14 @@ const DetailItem = styled.div`
   gap: 0.25rem;
 
   span.label {
-    font-size: 0.85rem;
+    font-size: var(--fontSize-0);
     color: var(--text-muted, #6c757d);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   span.value {
+    font-size: var(--fontSize-1);
     font-weight: 500;
     color: var(--text, #222);
     text-transform: capitalize;

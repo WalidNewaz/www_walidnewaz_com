@@ -663,6 +663,150 @@ const createBuildTutorialIntroPages = async ({
   });
 };
 
+const getChaptersBySeries = (nodes: any[]) =>
+  nodes.reduce((acc: any, chapter: any) => {
+    const { series } = chapter.frontmatter;
+    if (Object.hasOwn(acc, series)) {
+      const currChapters = [...acc[series], chapter];
+      return {
+        ...acc,
+        [series]: currChapters,
+      };
+    } else {
+      acc[series] = [chapter];
+    }
+    return acc;
+  }, {});
+
+const getChapterHeroImagePattern = (chapter: any, reporter: Reporter) => {
+  const seriesDir = chapter.fields.slug
+    .split("/")
+    .filter((str: string) => str !== "")[0]; // e.g. react-native
+
+  let heroImagePattern = "";
+  if (chapter.frontmatter.hero_image) {
+    heroImagePattern = `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`;
+  } else {
+    heroImagePattern = `${seriesDir}/hero-image.png/`;
+  }
+  reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
+  return heroImagePattern;
+};
+
+const getPrevPostId = (currIndex: number, chapters: any[]) => {
+  if (currIndex === 0) {
+    return null;
+  }
+  return chapters[currIndex - 1].id;
+};
+
+const getNextPostId = (currIndex: number, chapters: any[]) => {
+  if (currIndex === chapters.length - 1) {
+    return null;
+  }
+  return chapters[currIndex + 1].id;
+};
+
+const getTemplateComponent = (templateType: string, chapter: any) => {
+  const getTemplatePath = (templateType: string, srcType: string) => {
+    return path.resolve(`./src/templates/${templateType}/${srcType}.tsx`);
+  };
+  const postTemplate = getTemplatePath(templateType, chapter.internal.type);
+  return chapter.internal.type === "Mdx"
+    ? `${postTemplate}?__contentFilePath=${chapter.internal.contentFilePath}`
+    : postTemplate;
+};
+
+const getQuizData = (chapter: any, section: string, reporter: Reporter) => {
+  const quizFilePath = chapter.frontmatter.has_quiz
+    ? `./content/${section}${chapter.fields.slug}chapter-quiz.json`
+    : null;
+
+  // Load the quiz data if it exists
+  let quizData = null;
+  if (quizFilePath && fs.existsSync(quizFilePath)) {
+    try {
+      const quizContent = fs.readFileSync(quizFilePath, "utf-8");
+      quizData = JSON.parse(quizContent);
+    } catch (error) {
+      reporter.warn(
+        `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
+      );
+    }
+  }
+  return quizData;
+};
+
+export const CHAPTER_FIELDS = `
+  id
+  fields {
+    slug
+  }
+  frontmatter {
+    series
+    part
+    chapter
+    has_quiz
+  }
+  internal {
+    type
+    contentFilePath
+  }
+`;
+
+export const INDEX_FIELDS = `
+  id
+  fields {
+    slug
+  }
+  frontmatter {
+    date(formatString: "MMMM DD, YYYY")
+    title
+    series
+  }
+  internal {
+    type
+    contentFilePath
+  }
+`;
+
+
+const getAllChapters = (siteSection: string) => `
+  allChapters: allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: {
+              regex: "/.*?/content/${siteSection}/(?![^/]+[/]index.mdx$).+.mdx$/"
+            }
+          }
+        }
+      ) {
+        nodes {
+          ${CHAPTER_FIELDS}
+        }
+      }
+`;
+const getAllIndexes = (siteSection: string) => `
+  allIndexes: allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]${siteSection}[/][^/]+[/]index.mdx$/"
+            }
+          }
+        }
+      ) {
+        nodes {
+          ${INDEX_FIELDS}
+        }
+      }
+`;
+
+
 /**
  * Creates static pages for individual build tutorial chapters
  */
@@ -678,57 +822,8 @@ const createBuildTutorialChapterPages = async ({
   // Get all build tutorial chapters sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/.*?/content/build/(?![^\/]+[\/]index.mdx?$).+\\\\.md$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            has_quiz
-          }
-          internal {
-            type
-          }
-        }
-      }
-      allMdx(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          internal: {
-            contentFilePath: { regex: "/.*?/content/build/(?![^\/]+[\/]index.mdx?$).+\\\\.mdx$/" }
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            has_quiz
-          }
-          internal {
-            type
-            contentFilePath
-          }
-        }
-      }
+      ${getAllChapters("build")}
+      ${getAllIndexes("build")}
     }
   `);
 
@@ -740,28 +835,8 @@ const createBuildTutorialChapterPages = async ({
     return;
   }
 
-  const allNodes = [
-    ...result.data.allMarkdownRemark.nodes,
-    ...result.data.allMdx.nodes,
-  ];
-
-  const seriesChapters = allNodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+  const { nodes: allNodes } = result.data.allChapters;
+  const seriesChapters = getChaptersBySeries(allNodes);
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
@@ -771,60 +846,26 @@ const createBuildTutorialChapterPages = async ({
         reporter.info(
           `Creating page for build chapter: ${chapter.frontmatter.chapter}`
         );
-        const previousPostId = index === 0 ? null : chapters[index - 1].id;
-        const nextPostId =
-          index === chapters.length - 1 ? null : chapters[index + 1].id;
-
-        const seriesDir = chapter.fields.slug
-          .split("/")
-          .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-        const heroImagePattern = chapter.frontmatter.hero_image
-          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
-          : `${seriesDir}/hero-image.png/`;
-        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
-
-        const quizFilePath = chapter.frontmatter.has_quiz
-          ? `./content/build${chapter.fields.slug}chapter-quiz.json`
-          : null;
-
-        // Load the quiz data if it exists
-        let quizData = null;
-        if (quizFilePath && fs.existsSync(quizFilePath)) {
-          try {
-            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
-            quizData = JSON.parse(quizContent);
-          } catch (error) {
-            reporter.warn(
-              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
-            );
-          }
-        }
-
-        const postTemplate = path.resolve(
-          `./src/templates/buildTutorialChapter/${chapter.internal.type}.tsx`
-        );
-        const postComponent =
-          chapter.internal.type === "Mdx"
-            ? `${postTemplate}?__contentFilePath=${chapter.internal.contentFilePath}`
-            : postTemplate;
-        reporter.info(`Post Component for chapter ${chapter.frontmatter.chapter}: ${postComponent}`);
 
         const pagePath = `/build${chapter.fields.slug}`;
-        reporter.info(
-          `Creating page at path: ${pagePath} for chapter: ${chapter.frontmatter.chapter}`
-        );
+        const postComponent = getTemplateComponent("buildTutorialChapter", chapter);
+        const chapterId = chapter.id;
+        const previousPostId = getPrevPostId(index, chapters);
+        const nextPostId = getNextPostId(index, chapters);
+        const series = chapter.frontmatter.series;
+        const heroImagePattern = getChapterHeroImagePattern(chapter, reporter);
+        const quizData = getQuizData(chapter, "build", reporter);
 
         const { createPage } = actions;
         createPage({
           path: pagePath,
           component: postComponent,
           context: {
-            id: chapter.id,
-            previousPostId,
-            nextPostId,
-            series: chapter.frontmatter.series,
-            heroImagePattern,
+            id: chapterId,
+            previousPostId: previousPostId,
+            nextPostId: nextPostId,
+            series: series,
+            heroImagePattern: heroImagePattern,
             ...(quizData && { quiz: quizData }),
           },
         });

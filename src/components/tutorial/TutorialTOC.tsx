@@ -34,6 +34,14 @@ const StyledSeriesNav = styled.nav`
   }
   a {
     color: var(--heading1);
+    underline-offset: 2px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--heading1);
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--heading1);
   }
 `;
 
@@ -94,7 +102,13 @@ const TutorialToc: React.FC<{
         {seriesIntro && (
           <div className="series-intro">
             <a href={seriesIntroLink!}>
-              <h4 style={{ marginTop: "1rem", marginBottom: "1rem", fontSize: "1.5rem" }}>
+              <h4
+                style={{
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
+                  fontSize: "1.5rem",
+                }}
+              >
                 Introduction
               </h4>
             </a>
@@ -108,14 +122,14 @@ const TutorialToc: React.FC<{
                 <li key={partIndex}>
                   <span className="part-name">{part}</span>
                   <ol style={{ listStyle: "none" }} className="chapters">
-                    {chapters[part].map(
-                      (chapter: any, chapterIndex: number) => (
+                    {chapters[part].map((chapter: any, chapterIndex: number) =>
+                      post.frontmatter.chapter === chapter.title ? (
+                        <li key={chapterIndex} style={{ fontWeight: "bold", backgroundColor: "var(--surface3)", padding: "0.25rem 0.5rem", borderRadius: "0.25rem" }}>
+                          <span>{chapter.title}</span>
+                        </li>
+                      ) : (
                         <li key={chapterIndex}>
-                          {post.frontmatter.chapter === chapter.title ? (
-                            <span>{chapter.title}</span>
-                          ) : (
-                            <a href={chapter.articlePath}>{chapter.title}</a>
-                          )}
+                          <a href={chapter.articlePath}>{chapter.title}</a>
                         </li>
                       )
                     )}
