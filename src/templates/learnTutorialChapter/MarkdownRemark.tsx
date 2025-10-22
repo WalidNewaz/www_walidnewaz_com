@@ -13,7 +13,7 @@ import TutorialTOC from "../../components/tutorial/TutorialTOC";
 import ChapterQuiz from "../../components/organisms/ChapterQuiz";
 
 /** Types */
-import { QuizType } from "../../components/organisms/ChapterQuiz/";
+import { QuizType } from "../../components/organisms/ChapterQuiz";
 
 /** Styles */
 import "./tutorial-chapter.css";
@@ -153,9 +153,9 @@ const TutorialChapter: React.FC<any> = ({
         </StyledTutorialGrid>
         {/* <PostTags tags={post.frontmatter.tags} /> */}
       </article>
-      <TutorialTOC allSeriesPosts={{ nodes: filteredSeriesPosts }} post={post} />
+      <TutorialTOC allSeriesPosts={{ nodes: filteredSeriesPosts }} post={post} section="learn" />
       <StyledBlogPostNav>
-        <ChronologicalNav previous={previous} next={next} />
+        <ChronologicalNav previous={previous} next={next} section="learn" />
       </StyledBlogPostNav>
     </>
   );

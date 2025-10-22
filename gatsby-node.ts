@@ -109,7 +109,7 @@ const createTutorialIntroPages = async ({
 
     createPage({
       path: `/tutorials${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/tutorialIntro/index.tsx`),
+      component: path.resolve(`./src/templates/tutorialIntro/MarkdownRemark.tsx`),
       context: {
         id: tutorial.id,
         series: tutorial.frontmatter.series,
@@ -240,7 +240,7 @@ const createTutorialChapterPages = async ({
         const { createPage } = actions;
         createPage({
           path: `/tutorials${chapter.fields.slug}`,
-          component: path.resolve(`./src/templates/tutorialChapter/index.tsx`),
+          component: path.resolve(`./src/templates/tutorialChapter/MarkdownRemark.tsx`),
           context: {
             id: chapter.id,
             previousPostId,
@@ -337,7 +337,7 @@ const createLearnTutorialIntroPages = async ({
 
     createPage({
       path: `/learn${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/learnTutorialIntro/index.tsx`),
+      component: path.resolve(`./src/templates/learnTutorialIntro/MarkdownRemark.tsx`),
       context: {
         id: tutorial.id,
         series: tutorial.frontmatter.series,
@@ -469,7 +469,7 @@ const createLearnTutorialChapterPages = async ({
         createPage({
           path: `/learn${chapter.fields.slug}`,
           component: path.resolve(
-            `./src/templates/learnTutorialChapter/index.tsx`
+            `./src/templates/learnTutorialChapter/MarkdownRemark.tsx`
           ),
           context: {
             id: chapter.id,
