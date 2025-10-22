@@ -3,7 +3,7 @@
  * that filter based on the selected topic. The URL path
  * to this page follows the following pattern:
  *
- * /build/{topic}
+ * /learn/{topic}
  *
  * Currently there is no pagination support.
  */
@@ -24,8 +24,7 @@ import { AllTopics } from "../../interfaces";
 /** Hooks */
 import { useFetchNextPage } from "../../hooks/useFetchNextPage";
 
-/** Utilities */
-import { flattenToc } from "../../utils/templates/flattenToc";
+/** Utils */
 import { getTopics } from "../../utils/posts";
 
 /** Constants */
@@ -103,14 +102,14 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
   data,
   pageContext,
 }) => {
-  const { tutorials, allTopics } = data.allMdx;
+  const { tutorials, allTopics } = data.allMarkdownRemark;
   const { tutorialHeroes } = data.allFile;
   const { topic: currentTopic } = pageContext || { topic: "" };
 
   return (
     <StyledTutorialsContainer>
       <section className="flex flex-column wrap flex-start">
-        <h2>Build</h2>
+        <h2>Learn</h2>
         <p className="text-2">
           In this section you'll find step-by-step guides to mastering modern
           programming languages and frameworks. These tutorials are designed for
@@ -129,7 +128,7 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
 
       <section className="blog-posts col flex wrap">
         <h2>Topics:</h2>
-        <Topics topics={getTopics(allTopics)} currentTopic={currentTopic} section="build/f" />
+        <Topics topics={getTopics(allTopics)} currentTopic={currentTopic} section="learn/f" />
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
@@ -149,7 +148,7 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
               // readTime={tutorial.frontmatter.read_time}
               title={tutorial.frontmatter.series}
               image={heroImagePattern}
-              slug={`/build${tutorial.fields.slug}`}
+              slug={`/learn${tutorial.fields.slug}`}
               tags={[
                 tutorial.frontmatter.tags[tutorial.frontmatter.tags.length - 1],
               ]}
@@ -162,18 +161,14 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
   );
 };
 
-// Queries the build directory for selected topics
+// Queries the learn directory for selected topics
 export const pageQuery = graphql`
   query ($topic: String, $skip: Int, $limit: Int) {
-    allMdx(
+    allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
       filter: {
         frontmatter: { tags: { eq: $topic } }
-        internal: {
-          contentFilePath: {
-            regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
-          }
-        }
+        fileAbsolutePath: { regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/" }
       }
       limit: $limit
       skip: $skip
@@ -200,6 +195,9 @@ export const pageQuery = graphql`
           tags
           read_time
         }
+        headings(depth: h1) {
+          value
+        }
         id
       }
       allTopics: group(field: { frontmatter: { tags: SELECT } }) {
@@ -221,4 +219,4 @@ export const pageQuery = graphql`
 
 export default BlogTopicPage;
 
-export const Head: React.FC = () => <Seo title="All build posts" />;
+export const Head: React.FC = () => <Seo title="All posts" />;

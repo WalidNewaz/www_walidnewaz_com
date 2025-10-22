@@ -541,6 +541,8 @@ const createLearnTopicsPages = async ({
         postsPerPage,
         actions,
         section: "learn",
+        templateType: `learnTopics`,
+        srcType: "MarkdownRemark",
       });
     });
   }
@@ -554,6 +556,7 @@ const createLearnTopicsPages = async ({
       postsPerPage,
       actions,
       section: "learn",
+      srcType: "MarkdownRemark",
     });
   });
 };
@@ -707,10 +710,11 @@ const getNextPostId = (currIndex: number, chapters: any[]) => {
   return chapters[currIndex + 1].id;
 };
 
+const getTemplatePath = (templateType: string, srcType: string) => {
+  return path.resolve(`./src/templates/${templateType}/${srcType}.tsx`);
+};
+
 const getTemplateComponent = (templateType: string, chapter: any) => {
-  const getTemplatePath = (templateType: string, srcType: string) => {
-    return path.resolve(`./src/templates/${templateType}/${srcType}.tsx`);
-  };
   const postTemplate = getTemplatePath(templateType, chapter.internal.type);
   return chapter.internal.type === "Mdx"
     ? `${postTemplate}?__contentFilePath=${chapter.internal.contentFilePath}`
@@ -874,6 +878,29 @@ const createBuildTutorialChapterPages = async ({
   }
 };
 
+const getAllTopicsPages = (siteSection: string) => `
+  postSummary: allMdx(
+      filter: {
+        internal: {
+          contentFilePath: {
+            regex: "/^.*/content/${siteSection}/.*?$/"
+          }
+        }
+      }
+    ) {
+      totalCount
+      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
+      }
+      blogPosts: nodes {
+        frontmatter {
+          tags
+        }
+      }
+    }
+`;
+
 /**
  * Creates a list of pages that filter build posts based on topics
  * @param params
@@ -890,20 +917,7 @@ const createBuildTopicsPages = async ({
   // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postSummary: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/^.*/content/build/.*?$/" } }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
+      ${getAllTopicsPages("build")}
     }
   `);
 
@@ -929,6 +943,8 @@ const createBuildTopicsPages = async ({
         postsPerPage,
         actions,
         section: "build",
+        templateType: `buildTopics`,
+        srcType: "Mdx",
       });
     });
   }
@@ -942,6 +958,7 @@ const createBuildTopicsPages = async ({
       postsPerPage,
       actions,
       section: "build",
+      srcType: "Mdx",
     });
   });
 };
@@ -1015,7 +1032,7 @@ const createBlogPostPages = async ({
 
       createPage({
         path: `/blog${pathDate}${post.fields.slug}`,
-        component: path.resolve(`./src/templates/blogPost/index.tsx`),
+        component: path.resolve(`./src/templates/blogPost/MarkdownRemark.tsx`),
         context: {
           id: post.id,
           previousPostId,
@@ -1095,6 +1112,8 @@ const createBlogTopicsPages = async ({
       numPages,
       postsPerPage,
       actions,
+      section: "blog",
+      srcType: "MarkdownRemark",
     });
   });
 };
