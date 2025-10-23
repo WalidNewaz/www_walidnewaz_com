@@ -230,6 +230,7 @@ const TutorialChapter: React.FC<any> = ({
       <TutorialTOC
         allSeriesPosts={{ nodes: filteredSeriesPosts }}
         post={post}
+        seriesIntro={pageContext?.seriesIntro}
         section="build"
       />
       <StyledBlogPostNav>

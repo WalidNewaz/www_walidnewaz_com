@@ -229,6 +229,7 @@ const TutorialIntroTemplate: React.FC<{
         post={seriesIntro}
         allSeriesPosts={{ nodes: filteredSeriesPosts }}
         seriesIntro={seriesIntro}
+        isIntro={true}
         section="build"
       />
     </>

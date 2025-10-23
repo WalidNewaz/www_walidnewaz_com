@@ -839,12 +839,18 @@ const createBuildTutorialChapterPages = async ({
     return;
   }
 
-  const { nodes: allNodes } = result.data.allChapters;
-  const seriesChapters = getChaptersBySeries(allNodes);
+  const { nodes: allChapters } = result.data.allChapters;
+  const seriesChapters = getChaptersBySeries(allChapters);
+  const { nodes: allIndexes } = result.data.allIndexes;
+
+  reporter.info(`All Indexes: ${JSON.stringify(allIndexes)}`);
+  reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
       reporter.info(`Creating pages for series: ${series}`);
+      const seriesIntro = allIndexes.find((index: any) => index.frontmatter.series === series) || {};
+      reporter.info(`Series Index Slug for ${series}: ${JSON.stringify(seriesIntro)}`);
       const chapters = seriesChapters[series];
       return chapters.map((chapter: any, index: number) => {
         reporter.info(
@@ -871,6 +877,7 @@ const createBuildTutorialChapterPages = async ({
             series: series,
             heroImagePattern: heroImagePattern,
             ...(quizData && { quiz: quizData }),
+            seriesIntro: seriesIntro,
           },
         });
       });

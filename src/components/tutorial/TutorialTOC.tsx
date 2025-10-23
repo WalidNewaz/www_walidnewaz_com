@@ -54,8 +54,15 @@ const TutorialToc: React.FC<{
   post: any;
   allSeriesPosts: any;
   seriesIntro?: any;
+  isIntro?: boolean;
   section?: string;
-}> = ({ post, allSeriesPosts, seriesIntro, section = "tutorials" }) => {
+}> = ({
+  post,
+  allSeriesPosts,
+  seriesIntro,
+  isIntro,
+  section = "tutorials",
+}) => {
   const chapters = useMemo(
     () =>
       allSeriesPosts.nodes.reduce((acc: any, article: any) => {
@@ -107,6 +114,10 @@ const TutorialToc: React.FC<{
                   marginTop: "1rem",
                   marginBottom: "1rem",
                   fontSize: "1.5rem",
+                  fontWeight: isIntro ? "bold" : "normal",
+                  backgroundColor: isIntro ? "var(--surface3)" : "transparent",
+                  borderRadius: isIntro ? "0.25rem" : "none",
+                  padding: isIntro ? "0.25rem 0.5rem" : "0",
                 }}
               >
                 Introduction
@@ -124,7 +135,15 @@ const TutorialToc: React.FC<{
                   <ol style={{ listStyle: "none" }} className="chapters">
                     {chapters[part].map((chapter: any, chapterIndex: number) =>
                       post.frontmatter.chapter === chapter.title ? (
-                        <li key={chapterIndex} style={{ fontWeight: "bold", backgroundColor: "var(--surface3)", padding: "0.25rem 0.5rem", borderRadius: "0.25rem" }}>
+                        <li
+                          key={chapterIndex}
+                          style={{
+                            fontWeight: "bold",
+                            backgroundColor: "var(--surface3)",
+                            padding: "0.25rem 0.5rem",
+                            borderRadius: "0.25rem",
+                          }}
+                        >
                           <span>{chapter.title}</span>
                         </li>
                       ) : (

@@ -73,12 +73,19 @@ const StyledTOC = styled.div`
     z-index: 2;
     top: 3.65rem;
     border-radius: 0;
-    padding: var(--spacing-6);
+    padding: var(--spacing-3) var(--spacing-5);
+
+    width: 100vw;
+    margin-left: -1.5rem;
+
+    p {
+      padding: 0;
+    }
 
     h1 {
       margin: 0;
       padding: 0;
-    }    
+    }
 
     @media screen and (prefers-color-scheme: dark) {
       background-color: rgb(16 23 34);
