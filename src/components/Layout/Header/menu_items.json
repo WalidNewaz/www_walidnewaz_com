@@ -1,22 +1,22 @@
 [
   {
-    "lable": "Home",
+    "label": "Home",
     "link": "/"
   },
   {
-    "lable": "Learn",
+    "label": "Learn",
     "link": "/learn/"
   },
   {
-    "lable": "Build",
+    "label": "Build",
     "link": "/build/"
   },
   {
-    "lable": "Journal",
+    "label": "Blog",
     "link": "/blog/"
   },
   {
-    "lable": "About",
+    "label": "About",
     "link": "/about/"
   }
 ]

@@ -628,16 +628,16 @@ const createBuildTutorialIntroPages = async ({
   const tutorials = result.data.allMdx.nodes;
 
   if (tutorials.length === 0) {
-    reporter.info(`No build tutorial intros found.`);
+    reporter.warn(`No build tutorial intros found.`);
     return;
   }
 
   const { createPage } = actions;
 
   tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(
-      `Creating page for build tutorial intro: ${tutorial.frontmatter.series}`
-    );
+    // reporter.info(
+    //   `Creating page for build tutorial intro: ${tutorial.frontmatter.series}`
+    // );
     const seriesDir = tutorial.fields.slug
       .split("/")
       .filter((str: string) => str !== "")[0]; // e.g. react-native
@@ -692,7 +692,7 @@ const getChapterHeroImagePattern = (chapter: any, reporter: Reporter) => {
   } else {
     heroImagePattern = `${seriesDir}/hero-image.png/`;
   }
-  reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
+  // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
   return heroImagePattern;
 };
 
@@ -843,19 +843,19 @@ const createBuildTutorialChapterPages = async ({
   const seriesChapters = getChaptersBySeries(allChapters);
   const { nodes: allIndexes } = result.data.allIndexes;
 
-  reporter.info(`All Indexes: ${JSON.stringify(allIndexes)}`);
-  reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+  // reporter.info(`All Indexes: ${JSON.stringify(allIndexes)}`);
+  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
       reporter.info(`Creating pages for series: ${series}`);
       const seriesIntro = allIndexes.find((index: any) => index.frontmatter.series === series) || {};
-      reporter.info(`Series Index Slug for ${series}: ${JSON.stringify(seriesIntro)}`);
+      // reporter.info(`Series Index Slug for ${series}: ${JSON.stringify(seriesIntro)}`);
       const chapters = seriesChapters[series];
       return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for build chapter: ${chapter.frontmatter.chapter}`
-        );
+        // reporter.info(
+        //   `Creating page for build chapter: ${chapter.frontmatter.chapter}`
+        // );
 
         const pagePath = `/build${chapter.fields.slug}`;
         const postComponent = getTemplateComponent("buildTutorialChapter", chapter);

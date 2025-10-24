@@ -60,12 +60,12 @@ export const MobileMenu: React.FC<{
             }}
           >
             {menuItems.map((item) => (
-              <div style={{ textAlign: "left" }} key={item.lable}>
+              <div style={{ textAlign: "left" }} key={item.label}>
                 <a
                   href={item.link}
                   className="margin-6 text-decoration-none header-link-home"
                 >
-                  {item.lable}
+                  {item.label}
                 </a>
               </div>
             ))}
