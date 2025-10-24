@@ -113,7 +113,7 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
 
       <section className="blog-posts col flex wrap">
         <h2>Topics:</h2>
-        <Topics topics={getTopics(allTopics)} section="build/f" />
+        <Topics topics={getTopics(allTopics)} section="blog/f" />
       </section>
 
       <PaginatedArticleCards

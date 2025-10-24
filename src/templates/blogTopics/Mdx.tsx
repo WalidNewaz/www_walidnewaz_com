@@ -30,10 +30,10 @@ import { getTopics } from "../../utils/posts";
 import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
 
 /** Styles */
-const BlogPostContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+import StyledSection from "../../components/shared/styled/StyledSection";
+
+const StyledPageContentContainer = styled.div`
+  ${StyledSection}
 `;
 
 type PostTopic = {
@@ -69,6 +69,10 @@ type AllPosts = {
       id: string;
     }[];
     totalCount: number;
+    allTopics: {
+      fieldValue: string;
+      totalCount: number;
+    }[];
   };
   postTopics: AllTopics;
 };
@@ -87,7 +91,7 @@ const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   data,
   pageContext,
 }) => {
-  const { posts, totalCount } = data.allPosts;
+  const { posts, totalCount, allTopics } = data.allPosts;
   const postTopics = data.postTopics.group;
   const { topic: currentTopic } = pageContext || { topic: "" };
 
@@ -99,8 +103,35 @@ const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   };
 
   return (
-    <BlogPostContainer>
-      <Topics topics={getTopics(postTopics)} currentTopic={currentTopic} section="blog/f" />
+    <StyledPageContentContainer>
+      <section className="flex flex-column wrap flex-start">
+        <h2>Blog</h2>
+        <p className="text-2">
+          This section contains my personal blog posts on software development,
+          and other topics, sometimes even outside of tech. Feel free to explore
+          the articles and share your thoughts in the comments!
+        </p>
+      </section>
+
+      {posts.length === 0 && (
+        <section className="blog-posts flex flex-column wrap flex-start">
+          <h2>No posts found.</h2>
+          <p className="text-2">
+            It seems we couldn't find any posts at the moment. Please check back
+            later for updates!
+          </p>
+        </section>
+      )}
+
+      <section className="blog-posts col flex wrap">
+        <h2>Topics:</h2>
+        <Topics
+          topics={getTopics(allTopics)}
+          currentTopic={currentTopic}
+          section="blog/f"
+        />
+      </section>
+
       <PaginatedArticleCards
         posts={posts}
         currentPage={currentPage}
@@ -113,14 +144,14 @@ const BlogTopicPage: React.FC<PageProps<AllPosts, PageContext>> = ({
         pathname={`/blog/${currentTopic}/`}
         query={query}
       />
-    </BlogPostContainer>
+    </StyledPageContentContainer>
   );
 };
 
 // Queries the blog directory for selected topics
 export const pageQuery = graphql`
   query ($topic: String, $skip: Int, $limit: Int) {
-    allPosts: allMarkdownRemark(
+    allPosts: allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: {
         frontmatter: { tags: { eq: $topic } }
@@ -153,18 +184,23 @@ export const pageQuery = graphql`
           tags
           read_time
         }
-        headings(depth: h1) {
-          value
-        }
         id
       }
       totalCount
+      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
+      }
     }
-    postTopics: allMarkdownRemark(
+    postTopics: allMdx(
       limit: 1000
       filter: {
         frontmatter: { tags: { eq: $topic } }
-        fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" }
+        internal: {
+          contentFilePath: {
+            regex: "/^.*/content/blog/.*?$/"
+          }
+        }
       }
     ) {
       group(field: { frontmatter: { tags: SELECT } }) {

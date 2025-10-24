@@ -1069,20 +1069,7 @@ const createBlogTopicsPages = async ({
   // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postSummary: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
+      ${getAllTopicsPages("blog")}
     }
   `);
 
@@ -1107,6 +1094,9 @@ const createBlogTopicsPages = async ({
         index: i,
         postsPerPage,
         actions,
+        section: "blog",
+        templateType: `blogTopics`,
+        srcType: "Mdx",
       });
     });
   }
@@ -1120,7 +1110,7 @@ const createBlogTopicsPages = async ({
       postsPerPage,
       actions,
       section: "blog",
-      srcType: "MarkdownRemark",
+      srcType: "Mdx",
     });
   });
 };
