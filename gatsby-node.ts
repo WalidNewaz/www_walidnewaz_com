@@ -714,10 +714,10 @@ const getTemplatePath = (templateType: string, srcType: string) => {
   return path.resolve(`./src/templates/${templateType}/${srcType}.tsx`);
 };
 
-const getTemplateComponent = (templateType: string, chapter: any) => {
-  const postTemplate = getTemplatePath(templateType, chapter.internal.type);
-  return chapter.internal.type === "Mdx"
-    ? `${postTemplate}?__contentFilePath=${chapter.internal.contentFilePath}`
+const getTemplateComponent = (templateType: string, post: any) => {
+  const postTemplate = getTemplatePath(templateType, post.internal.type);
+  return post.internal.type === "Mdx"
+    ? `${postTemplate}?__contentFilePath=${post.internal.contentFilePath}`
     : postTemplate;
 };
 
@@ -843,19 +843,13 @@ const createBuildTutorialChapterPages = async ({
   const seriesChapters = getChaptersBySeries(allChapters);
   const { nodes: allIndexes } = result.data.allIndexes;
 
-  // reporter.info(`All Indexes: ${JSON.stringify(allIndexes)}`);
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
-
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
       reporter.info(`Creating pages for series: ${series}`);
       const seriesIntro = allIndexes.find((index: any) => index.frontmatter.series === series) || {};
-      // reporter.info(`Series Index Slug for ${series}: ${JSON.stringify(seriesIntro)}`);
       const chapters = seriesChapters[series];
+
       return chapters.map((chapter: any, index: number) => {
-        // reporter.info(
-        //   `Creating page for build chapter: ${chapter.frontmatter.chapter}`
-        // );
 
         const pagePath = `/build${chapter.fields.slug}`;
         const postComponent = getTemplateComponent("buildTutorialChapter", chapter);
@@ -984,13 +978,14 @@ const createBlogPostPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+        filter: {
+          internal: { contentFilePath: { regex: "/.*?/content/blog/.+.mdx$/" } }
+        }
       ) {
         nodes {
           id
@@ -1010,6 +1005,10 @@ const createBlogPostPages = async ({
             pathDate: date(formatString: "/YYYY/MM/DD")
             related
           }
+          internal {
+            type
+            contentFilePath
+          }
         }
       }
     }
@@ -1024,7 +1023,7 @@ const createBlogPostPages = async ({
   }
 
   const { createPage } = actions;
-  const posts = result.data.allMarkdownRemark.nodes;
+  const posts = result.data.allMdx.nodes;
 
   if (posts.length > 0) {
     posts.forEach((post: any, index: number) => {
@@ -1039,7 +1038,7 @@ const createBlogPostPages = async ({
 
       createPage({
         path: `/blog${pathDate}${post.fields.slug}`,
-        component: path.resolve(`./src/templates/blogPost/MarkdownRemark.tsx`),
+        component: getTemplateComponent("blogPost", post),
         context: {
           id: post.id,
           previousPostId,
@@ -1066,7 +1065,6 @@ const createBlogTopicsPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all posts and their listed topics
   const result = await graphql(`
     {
       ${getAllTopicsPages("blog")}

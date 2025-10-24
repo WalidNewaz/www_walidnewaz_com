@@ -16,8 +16,8 @@ import {
   InputPosition,
   Loading,
 } from "@giscus/react";
-import { MDXProvider } from '@mdx-js/react';
 import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
+import { MDXProvider } from '@mdx-js/react';
 import { MDXComponents } from "../../components/mdx/MDXComponents";
 
 /** Utilities */
@@ -153,24 +153,6 @@ const TutorialChapter: React.FC<any> = ({
       articleBody.current.scrollIntoView();
     }
   }, [post.id]);
-
-  /** Feedback: Helpful */
-  const airtableFormBaseURL = `https://airtable.com/app6W5gCSxMtwUmNK/pagCIcpvTJ7efFcKw/form`;
-  const postFormattedTitle = encodeURIComponent(post.frontmatter.title);
-  // State to track if feedback was given
-  const [feedbackGiven, setFeedbackGiven] = useState(false);
-  const helpfulText = "Was this chapter helpful?";
-
-  const yesHandler = () => {
-    const url = `${airtableFormBaseURL}?prefill_Post=${postFormattedTitle}&prefill_Helpful=Yes`;
-    window.open(url, "_blank");
-    setFeedbackGiven(true);
-  };
-  const noHandler = () => {
-    const url = `${airtableFormBaseURL}?prefill_Post=${postFormattedTitle}&prefill_Helpful=No`;
-    window.open(url, "_blank");
-    setFeedbackGiven(true);
-  };
 
   const headings = flattenToc(post.tableOfContents || {});
   post.headings = headings;  

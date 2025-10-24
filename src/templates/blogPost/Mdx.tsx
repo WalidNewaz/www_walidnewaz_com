@@ -10,6 +10,8 @@ import ChronologicalNav from "../../components/article/ChronologicalNav";
 import PostTags from "../../components/article/PostTags";
 import SeriesNav from "../../components/article/SeriesNav";
 import RelatedPosts from "./RelatedPosts";
+import { MDXProvider } from '@mdx-js/react';
+import { MDXComponents } from "../../components/mdx/MDXComponents";
 
 /** Styles */
 import "./blog-post.css";
@@ -36,17 +38,21 @@ const StyledBlogPostNav = styled.nav`
  * @param params
  * @returns
  */
-const BlogPostTemplate: React.FC<{ data: any }> = ({
+const BlogPostTemplate: React.FC<any> = ({
   data: {
     previous,
     next,
-    markdownRemark: post,
+    post,
     heroImage,
     allSeriesPosts,
     relatedPosts,
   },
+  pageContext,
+  children,
 }) => {
-  const { posts } = relatedPosts;
+  // const { posts } = relatedPosts;
+
+  console.log("children:", children);
 
   return (
     <>
@@ -77,23 +83,26 @@ const BlogPostTemplate: React.FC<{ data: any }> = ({
           </div>
         </ArticleHeader>
         <HeroImage {...{ post, heroImage }} className="article-hero-img" />
-        <StyledArticleBody
+        <StyledArticleBody>
+          <MDXProvider components={MDXComponents}>{children}</MDXProvider>
+        </StyledArticleBody>
+        {/* <StyledArticleBody
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
-        />
-        <PostTags tags={post.frontmatter.tags} />
+        /> */}
+        {/* <PostTags tags={post.frontmatter.tags} /> */}
       </article>
-      <SeriesNav allSeriesPosts={allSeriesPosts} post={post} />
+      {/* <SeriesNav allSeriesPosts={allSeriesPosts} post={post} /> */}
       <StyledBlogPostNav>
         <ChronologicalNav previous={previous} next={next} />
-        <RelatedPosts posts={posts} />
+        {/* <RelatedPosts posts={posts} /> */}
       </StyledBlogPostNav>
     </>
   );
 };
 
 export const Head: React.FC<{ data: any }> = ({
-  data: { markdownRemark: post },
+  data: { post },
 }) => {
   return (
     <Seo
@@ -110,19 +119,17 @@ export const pageQuery = graphql`
     $id: String!
     $previousPostId: String
     $nextPostId: String
-    $series: String
     $heroImagePattern: String
-    $related: [String]
   ) {
     site {
       siteMetadata {
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    post: mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         series
         chapter
@@ -140,7 +147,7 @@ export const pageQuery = graphql`
         tags
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
+    previous: mdx(id: { eq: $previousPostId }) {
       fields {
         slug
       }
@@ -149,7 +156,7 @@ export const pageQuery = graphql`
         pathDate: date(formatString: "/YYYY/MM/DD")
       }
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
+    next: mdx(id: { eq: $nextPostId }) {
       fields {
         slug
       }
@@ -161,54 +168,6 @@ export const pageQuery = graphql`
     heroImage: file(relativePath: { regex: $heroImagePattern }) {
       childImageSharp {
         gatsbyImageData
-      }
-    }
-    allSeriesPosts: allMarkdownRemark(
-      sort: { frontmatter: { date: ASC } }
-      filter: { frontmatter: { series: { eq: $series } } }
-    ) {
-      nodes {
-        frontmatter {
-          series
-          chapter
-          tags
-          title
-          description
-          pathDate: date(formatString: "/YYYY/MM/DD")
-        }
-        fields {
-          slug
-        }
-      }
-    }
-    relatedPosts: allMarkdownRemark(
-      filter: { frontmatter: { title: { in: $related } } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      posts: nodes {
-        excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          pathDate: date(formatString: "/YYYY/MM/DD")
-          title
-          description
-          hero_image {
-            id
-            base
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-          tags
-          read_time
-        }
-        headings(depth: h1) {
-          value
-        }
-        id
       }
     }
   }
