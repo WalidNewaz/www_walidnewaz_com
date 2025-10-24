@@ -13,7 +13,7 @@ import { getTopics } from "../../utils/posts";
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
 
-const StyledTutorialsContainer = styled.div`
+const StyledPageContentContainer = styled.div`
   ${StyledSection}
 `;
 
@@ -28,7 +28,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
   const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
-    <StyledTutorialsContainer>
+    <StyledPageContentContainer>
       <section className="flex flex-column wrap flex-start">
         <h2>Build</h2>
         <p className="text-2">
@@ -83,7 +83,7 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
           );
         })}
       </section>
-    </StyledTutorialsContainer>
+    </StyledPageContentContainer>
   );
 };
 
