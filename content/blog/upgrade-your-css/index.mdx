@@ -139,7 +139,8 @@ When it comes to theming, a simple yet effective approach is to select a few col
 
 To create a comprehensive color palette, I've converted the primary colors into the HSL (`hue`, `saturation`, `lightness`) format. By doing so, I can maintain a consistent hue while adjusting the saturation and lightness values to generate intermediate colors for different elements. The following is an example of how the primary brand color (Dark Green) is altered for “dark mode” presentation.
 
-```css {numberLines}
+```css
+/* */
 --brand-dark: hsl(var(--brand-primary-hue) calc(var(--brand-primary-saturation) / 2) calc(var(--brand-primary-lightness) / 1.5));
 ```
 
