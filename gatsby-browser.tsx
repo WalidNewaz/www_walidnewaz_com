@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import * as React from "react";
+import { Provider } from "./src/components/ui/provider"
 
 // custom typefaces
 import "@fontsource/montserrat"; // Defaults to weight 400
@@ -30,14 +31,14 @@ export const onRouteUpdate = ({
 };
 
 type wrapPageElementParams = {
-  element;
-  props;
+  element: React.ReactNode;
+  props: any;
 };
 
 // Wraps every page in a component
-export const wrapPageElement: React.FC<{ element; props }> = ({
+export const wrapPageElement: React.FC<wrapPageElementParams> = ({
   element,
   props,
-}: wrapPageElementParams): React.ReactElement => {
-  return <Layout {...props}>{element}</Layout>;
+}): React.ReactElement => {
+  return <Provider><Layout {...props}>{element}</Layout></Provider>;
 };

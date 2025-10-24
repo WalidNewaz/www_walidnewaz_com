@@ -30,7 +30,7 @@ export const DesktopMenu: React.FC = () => {
               href={item.link}
               className={`text-decoration-none ${
                 isActive(item.link)
-                  ? "text-primary font-bold border-b-2 border-primary"
+                  ? "text-primary font-bold border-b-2 border-[var(--brand-primary)]"
                   : "text-muted hover:text-primary transition-colors"
               }`}
             >

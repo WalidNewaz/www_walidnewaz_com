@@ -12,6 +12,9 @@ import ChapterTOC from "../../components/tutorial/ChapterTOC";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
 import ChapterQuiz from "../../components/organisms/ChapterQuiz";
 
+/** Utilities */
+import { flattenToc } from "../../utils/templates/flattenToc";
+
 /** Types */
 import { QuizType } from "../../components/organisms/ChapterQuiz";
 
@@ -91,7 +94,7 @@ const TutorialChapter: React.FC<any> = ({
   data: {
     previous,
     next,
-    markdownRemark: post,
+    post,
     allTutorialHeroes,
     heroImage,
     allSeriesPosts,
@@ -117,6 +120,9 @@ const TutorialChapter: React.FC<any> = ({
       articleBody.current.scrollIntoView();
     }
   }, [post.id]);
+
+  const headings = flattenToc(post.tableOfContents || {});
+  post.headings = headings;
 
   return (
     <>
@@ -153,7 +159,12 @@ const TutorialChapter: React.FC<any> = ({
         </StyledTutorialGrid>
         {/* <PostTags tags={post.frontmatter.tags} /> */}
       </article>
-      <TutorialTOC allSeriesPosts={{ nodes: filteredSeriesPosts }} post={post} section="learn" />
+      <TutorialTOC
+        allSeriesPosts={{ nodes: filteredSeriesPosts }}
+        post={post}
+        seriesIntro={pageContext?.seriesIntro}
+        section="learn"
+      />
       <StyledBlogPostNav>
         <ChronologicalNav previous={previous} next={next} section="learn" />
       </StyledBlogPostNav>
@@ -162,7 +173,7 @@ const TutorialChapter: React.FC<any> = ({
 };
 
 export const Head: React.FC<{ data: any }> = ({
-  data: { markdownRemark: post },
+  data: { post },
 }) => {
   return (
     <Seo
@@ -188,10 +199,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    post: mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         series
@@ -202,11 +213,7 @@ export const pageQuery = graphql`
         read_time
         tags
       }
-      headings {
-        value
-        depth
-        id
-      }
+      tableOfContents
       fields {
         slug
       }
@@ -222,7 +229,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
+    previous: mdx(id: { eq: $previousPostId }) {
       fields {
         slug
       }
@@ -231,7 +238,7 @@ export const pageQuery = graphql`
         pathDate: date(formatString: "/YYYY/MM/DD")
       }
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
+    next: mdx(id: { eq: $nextPostId }) {
       fields {
         slug
       }
@@ -245,7 +252,7 @@ export const pageQuery = graphql`
         gatsbyImageData
       }
     }
-    allSeriesPosts: allMarkdownRemark(
+    allSeriesPosts: allMdx(
       sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { series: { eq: $series } } }
     ) {
@@ -264,7 +271,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    relatedPosts: allMarkdownRemark(
+    relatedPosts: allMdx(
       filter: { frontmatter: { title: { in: $related } } }
       sort: { frontmatter: { date: DESC } }
     ) {
@@ -280,9 +287,6 @@ export const pageQuery = graphql`
           description
           tags
           read_time
-        }
-        headings(depth: h1) {
-          value
         }
         id
       }

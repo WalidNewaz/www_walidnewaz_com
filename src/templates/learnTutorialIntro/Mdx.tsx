@@ -6,6 +6,13 @@ import styled from "styled-components";
 import Seo from "../../components/seo";
 import HeroImage from "../../components/article/HeroImage";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
+import CourseDetailsSection from "../../components/tutorial/CourseDetailsSection";
+import PublishedInfo from "../../components/tutorial/PublishedInfo";
+import { MDXProvider } from "@mdx-js/react";
+import { MDXComponents } from "../../components/mdx/MDXComponents";
+
+/** Utils */
+import { formatPublishedDate } from "../../utils/dates";
 
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
@@ -48,8 +55,9 @@ const StyledArticleBody = styled.section`
   }
 `;
 
-const TutorialIntroTemplate: React.FC<{ data: any }> = ({
+const TutorialIntroTemplate: React.FC<any> = ({
   data: { seriesIntro, allSeriesPosts, allTutorialHeroes },
+  children,
 }) => {
   const seriesDir = seriesIntro.fields.slug
     .split("/")
@@ -73,20 +81,39 @@ const TutorialIntroTemplate: React.FC<{ data: any }> = ({
           className="article-hero-img"
         />
         <StyledTutorialGrid>
-          <StyledArticleBody
-            dangerouslySetInnerHTML={{ __html: seriesIntro.html }}
-            itemProp="articleBody"
-          />
+          <StyledArticleBody>
+            <h1
+              style={{
+                borderBottom: "1px solid #a0a0a0",
+                paddingBottom: "1rem",
+              }}
+            >
+              {seriesIntro.frontmatter.title}
+            </h1>
+            <CourseDetailsSection course={seriesIntro} />
+            <PublishedInfo
+              publishedDate={formatPublishedDate(seriesIntro.frontmatter.date)}
+            />
+
+            <h3>Course Overview</h3>
+            <MDXProvider components={MDXComponents}>{children}</MDXProvider>
+
+            <h3>Course Contents</h3>
+          </StyledArticleBody>
         </StyledTutorialGrid>
       </article>
-      <TutorialTOC allSeriesPosts={{ nodes: filteredSeriesPosts }} post={seriesIntro} section="learn" />
+      <TutorialTOC
+        post={seriesIntro}
+        allSeriesPosts={{ nodes: filteredSeriesPosts }}
+        seriesIntro={seriesIntro}
+        isIntro={true}
+        section="learn"
+      />
     </>
   );
 };
 
-export const Head: React.FC<{ data: any }> = ({
-  data: { seriesIntro },
-}) => {
+export const Head: React.FC<{ data: any }> = ({ data: { seriesIntro } }) => {
   return (
     <Seo
       title={seriesIntro.frontmatter.title}
@@ -108,10 +135,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    seriesIntro: markdownRemark(id: { eq: $id }) {
+    seriesIntro: mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         series
@@ -120,13 +147,15 @@ export const pageQuery = graphql`
         description
         date(formatString: "MMMM DD, YYYY")
         read_time
+        collections
+        required_courses
+        difficulty
+        audience
+        featured
         tags
+        draft
       }
-      headings {
-        value
-        depth
-        id
-      }
+      tableOfContents
       fields {
         slug
       }
@@ -147,7 +176,7 @@ export const pageQuery = graphql`
         gatsbyImageData
       }
     }
-    allSeriesPosts: allMarkdownRemark(
+    allSeriesPosts: allMdx(
       sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { series: { eq: $series } } }
     ) {
