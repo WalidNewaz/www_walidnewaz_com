@@ -2,26 +2,17 @@
 featured: false
 date: "2023-07-26"
 
-
 series: "Mastering TypeScript"
 part: "II. Intermediate Topics"
-chapter: "5. Unions, Intersections, and Generics"
+chapter: "5. Unions Intersections and Generics"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "2. Intermediate Topics"
-title: "Unions, Intersections, and Generics"
-description: "Advanced TypeScript Types: Unions, Intersections, and Generics."
-# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
+title: "Unions Intersections and Generics"
+description: "Advanced TypeScript Types: Unions Intersections and Generics."
 tags: ["object oriented", "typescript"]
-read_time: 15 min
-related: 
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
-  - "Classes, Interfaces, and Objects in TypeScript"
+# read_time: 15 min
 ---
 
-# Advanced TypeScript Types: Unions, Intersections, and Generics
+# Advanced TypeScript Types: Unions Intersections and Generics
 
 TypeScript's type system is one of its most powerful features, providing a robust way to define the structure and behavior of data in your applications. In this article, we'll dive into three advanced TypeScript types: unions, intersections, and generics. We'll explore how these types work, provide real-world examples, and discuss best practices for using them to build scalable enterprise solutions. Additionally, we'll touch on polymorphism, function overloading, and utility types.
 
@@ -29,7 +20,11 @@ TypeScript's type system is one of its most powerful features, providing a robus
 
 Union types allow you to define a variable that can hold multiple types. This is particularly useful when a value can be one of several types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 function printId(id: number | string): void {
   if (typeof id === "string") {
     console.log(`Your ID is: ${id.toUpperCase()}`);
@@ -50,7 +45,11 @@ In this example:
 
 Union types are useful when dealing with API responses that can return different types based on the request.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 type ApiResponse = SuccessResponse | ErrorResponse;
 
 interface SuccessResponse {
@@ -78,7 +77,11 @@ Intersection types allow you to combine multiple types into one. This is useful 
 
 ### Example: Intersection Types
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Person {
   name: string;
 }
@@ -105,7 +108,11 @@ In this example:
 
 Intersection types are beneficial when combining multiple interfaces to create a more complex type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Admin {
   permissions: string[];
 }
@@ -130,7 +137,11 @@ Generics allow you to create reusable components that work with any data type. T
 
 A generic function allows you to define a function that can work with any data type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 function identity<T>(arg: T): T {
   return arg;
 }
@@ -147,7 +158,11 @@ In this example:
 
 You can use constraints to restrict the types that can be used with your generic function.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 function loggingIdentity<T extends { length: number }>(arg: T): T {
   console.log(arg.length);
   return arg;
@@ -168,7 +183,11 @@ In this example:
 
 You can define generic functions with multiple type parameters to handle more complex scenarios.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 function merge<T, U>(obj1: T, obj2: U): T & U {
   return { ...obj1, ...obj2 };
 }
@@ -185,7 +204,11 @@ In this example:
 
 A generic class allows you to create a class that can work with different data types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 class Box<T> {
   contents: T;
 
@@ -213,7 +236,11 @@ In this example:
 
 You can also use constraints with generic classes to restrict the types that can be used.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Identifiable {
   id: number;
 }
@@ -252,7 +279,11 @@ In this example:
 
 You can also define generic classes with multiple type parameters.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 class Pair<T, U> {
   constructor(public first: T, public second: U) {}
 
@@ -278,7 +309,11 @@ In this example:
 
 Generic interfaces in TypeScript allow you to create flexible and reusable components that can work with different data types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Container<T> {
   value: T;
 }
@@ -298,7 +333,11 @@ In this example:
 
 You can define an interface with multiple generic type parameters to handle more complex scenarios.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Pair<T, U> {
   first: T;
   second: U;
@@ -319,7 +358,11 @@ In this example:
 
 You can also use generic interfaces to define function types that are flexible with their parameter and return types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Transformer<T, U> {
   (input: T): U;
 }
@@ -339,7 +382,11 @@ In this example:
 
 A common use case for generic interfaces is implementing the repository pattern in a way that works with various data models.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Repository<T> {
   add(item: T): void;
   getAll(): T[];
@@ -380,7 +427,11 @@ In this example:
 
 Sometimes you want to impose constraints on the types that can be used with your generic interface. You can achieve this using `extends`.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface Identifiable {
   id: number;
 }
@@ -425,7 +476,11 @@ Polymorphism is a core concept in object-oriented programming that allows object
 
 ### Example: Polymorphism with Classes
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 abstract class Animal {
   abstract makeSound(): void;
 }
@@ -462,7 +517,11 @@ In this example:
 
 Function overloading allows you to define multiple signatures for a function, providing different ways to call it based on the argument types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 function add(a: number, b: number): number;
 function add(a: string, b: string): string;
 function add(a: any, b: any): any {
@@ -481,9 +540,13 @@ In this example:
 
 TypeScript provides several utility types to facilitate common type transformations. These utility types can help simplify and manage types in large codebases.
 
-### Example: Partial, Readonly, and Pick
+### Example: Partial Readonly and Pick
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 interface User {
   id: number;
   name: string;
@@ -505,9 +568,9 @@ console.log(userNameAndEmail); // { name: "John", email: "john@example.com" }
 
 ### Utility Types Overview
 
-- **Partial<T>**: Makes all properties in `T` optional.
-- **Readonly<T>**: Makes all properties in `T` read-only.
-- **Pick<T, K>**: Creates a type by picking a set of properties `K` from `T`.
+- `Partial<T>`: Makes all properties in `T` optional.
+- `Readonly<T>`: Makes all properties in `T` read-only.
+- `Pick<T, K>`: Creates a type by picking a set of properties `K` from `T`.
 
 For a comprehensive list of utility types and more detailed examples, refer to the [TypeScript documentation on Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html).
 
@@ -517,7 +580,11 @@ For a comprehensive list of utility types and more detailed examples, refer to t
 
 When using union types, it's essential to use type guards to ensure type safety.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @showLineNumbers
+ */
+
 function isString(value: any): value is string {
   return typeof value === "string";
 }
@@ -544,3 +611,4 @@ Generics are crucial for writing reusable and type-safe code. Use them for creat
 Understanding and leveraging advanced TypeScript types like unions, intersections, and generics can significantly enhance your ability to build and manage scalable enterprise solutions. Polymorphism and function overloading further extend the flexibility and reusability of your code. Utility types simplify type transformations, making your codebase more maintainable.
 
 By following best practices and using these types effectively, you can create robust and maintainable TypeScript applications. For further learning, consider exploring the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) and other TypeScript resources.
+

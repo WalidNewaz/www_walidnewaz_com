@@ -19,9 +19,9 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
   const posts = data.allPosts.nodes;
   const postCount = data.postCount.totalCount;
 
-  const tutorials = data.allTutorials.nodes;
-  const tutorialsCount = data.tutorialsCount.totalCount;
-  const tutorialHeroes = data.allTutorialHeroes.nodes;
+  // const tutorials = data.allTutorials.nodes;
+  // const tutorialsCount = data.tutorialsCount.totalCount;
+  // const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
     <>
@@ -39,19 +39,6 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
           </div>
         )}
       </>
-      {/* <>
-        <HomePageMoreTutorials posts={tutorials} heroes={tutorialHeroes} heading="Tutorials" />
-        {tutorialsCount > 9 && (
-          <div
-            className="flex align-center justify-center"
-            style={{ margin: "1.5rem" }}
-          >
-            <a href="/tutorials" className="pill">
-              View More Tutorials
-            </a>
-          </div>
-        )}
-      </> */}
     </>
   );
 };
@@ -72,10 +59,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    featuredPosts: allMarkdownRemark(
+    featuredPosts: allMdx(
       filter: {
-        fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" }
         frontmatter: { featured: { eq: true } }
+        internal: { contentFilePath: { regex: "/^.*/content/blog/.*?$/" } }
       }
       limit: 2
     ) {
@@ -99,15 +86,14 @@ export const pageQuery = graphql`
           title
           tags
         }
-        headings(depth: h1) {
-          value
-        }
       }
     }
-    allPosts: allMarkdownRemark(
+    allPosts: allMdx(
       sort: { frontmatter: { date: DESC } }
       limit: 9
-      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+      filter: {
+        internal: { contentFilePath: { regex: "/^.*/content/blog/.*?$/" } }
+      }
     ) {
       nodes {
         excerpt
@@ -129,65 +115,15 @@ export const pageQuery = graphql`
           tags
           read_time
         }
-        headings(depth: h1) {
-          value
-        }
         id
       }
     }
-    postCount: allMarkdownRemark(
+    postCount: allMdx(
       sort: { frontmatter: { date: DESC } }
       limit: 9
-      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
-    ) {
-      totalCount
-    }
-    allTutorials: allMarkdownRemark(
-      sort: { frontmatter: { date: DESC } }
-      limit: 9
-      filter: { fileAbsolutePath: { regex: "/^.*/content/tutorials/.*?$/" } }
-    ) {
-      nodes {
-        excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          pathDate: date(formatString: "/YYYY/MM/DD")
-          title
-          description
-          hero_image {
-            id
-            base
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-          tags
-          read_time
-        }
-        headings(depth: h1) {
-          value
-        }
-        id
+      filter: {
+        internal: { contentFilePath: { regex: "/^.*/content/blog/.*?$/" } }
       }
-    }
-    allTutorialHeroes: allFile(
-      filter: { relativePath: { regex: ".*/hero-image.png$/" } }
-    ) {
-      nodes {
-        id
-        relativeDirectory
-        childImageSharp {
-          gatsbyImageData
-        }
-      }
-    }
-    tutorialsCount: allMarkdownRemark(
-      sort: { frontmatter: { date: DESC } }
-      limit: 9
-      filter: { fileAbsolutePath: { regex: "/^.*/content/tutorials/.*?$/" } }
     ) {
       totalCount
     }

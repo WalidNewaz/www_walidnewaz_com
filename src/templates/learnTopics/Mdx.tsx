@@ -102,7 +102,7 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
   data,
   pageContext,
 }) => {
-  const { tutorials, allTopics } = data.allMarkdownRemark;
+  const { tutorials, allTopics } = data.allMdx;
   const { tutorialHeroes } = data.allFile;
   const { topic: currentTopic } = pageContext || { topic: "" };
 
@@ -168,7 +168,11 @@ export const pageQuery = graphql`
       sort: { frontmatter: { date: DESC } }
       filter: {
         frontmatter: { tags: { eq: $topic } }
-        fileAbsolutePath: { regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/" }
+        internal: {
+          contentFilePath: {
+            regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+          }
+        }
       }
       limit: $limit
       skip: $skip
@@ -194,9 +198,6 @@ export const pageQuery = graphql`
           }
           tags
           read_time
-        }
-        headings(depth: h1) {
-          value
         }
         id
       }

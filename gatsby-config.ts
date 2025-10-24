@@ -217,9 +217,9 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map((node) => {
-                const absPath = node.fileAbsolutePath;
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map((node) => {
+                const absPath = node.internal.contentFilePath;
                 const slug = node.fields.slug;
                 const prefixPath = absPath.substring(0, absPath.indexOf(slug));
                 // console.log(prefixPath);
@@ -237,7 +237,7 @@ module.exports = {
               });
             },
             query: `{
-              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+              allMdx(sort: {frontmatter: {date: DESC}}) {
                 nodes {
                   excerpt
                   fields {
@@ -247,7 +247,10 @@ module.exports = {
                     title
                     date
                   }
-                  fileAbsolutePath
+                  internal {
+                    type
+                    contentFilePath
+                  }
                 }
               }
             }`,

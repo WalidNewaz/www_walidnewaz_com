@@ -5,7 +5,7 @@ import EmptyPosts from './EmptyPosts';
 import ArticleWidePostCard from '../../articleWidePostCard';
 
 const excerptStr = (post) =>
-  post.excerpt.slice(post.headings[0].value.length + 1, post.excerpt.length);
+  post.excerpt.slice(post.frontmatter.title.length + 1, post.excerpt.length);
 
 /**
  * Renders the featured posts
@@ -20,7 +20,7 @@ const FeaturedPosts: React.FC<{ posts }> = ({ posts }) => {
     <ArticleWidePostCard
       key={post.id}
       image={post.frontmatter.image}
-      title={post.headings[0].value}
+      title={post.frontmatter.title}
       postDate={post.frontmatter.postDate}
       readTime={post.frontmatter.readTime}
       tags={post.frontmatter.tags}

@@ -28,644 +28,7 @@ import { AggregatedTopic } from "./src/interfaces";
 /** Constants */
 import { ITEMS_PER_PAGE } from "./src/constants";
 
-/** Section: Tutorials */
-
-/**
- * Creates static pages for tutorial intros
- * @param params
- * @returns 
- */
-const createTutorialIntroPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all tutorial series intros
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/[/]content[/]tutorials[/][^/]+[/]index.mdx?$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            series
-            hero_image {
-              id
-              base
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the tutorial intros`,
-      result.errors
-    );
-    return;
-  }
-
-  const tutorials = result.data.allMarkdownRemark.nodes;
-
-  if (tutorials.length === 0) {
-    reporter.info(`No tutorial intros found.`);
-    return;
-  }
-
-  const { createPage } = actions;
-
-  tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(
-      `Creating page for tutorial intro: ${tutorial.frontmatter.series}`
-    );
-    const seriesDir = tutorial.fields.slug
-      .split("/")
-      .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-    const heroImagePattern = tutorial.frontmatter.hero_image
-      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
-      : `${seriesDir}/hero-image.png/`;
-
-    createPage({
-      path: `/tutorials${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/tutorialIntro/MarkdownRemark.tsx`),
-      context: {
-        id: tutorial.id,
-        series: tutorial.frontmatter.series,
-        heroImagePattern,
-      },
-    });
-  });
-};
-
-/**
- * Creates static pages for individual tutorial chapters
- */
-const createTutorialChapterPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all markdown tutorial chapters sorted by date
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/[\\\\/]content[\\\\/]tutorials[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
-            has_quiz
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the tutorial chapters`,
-      result.errors
-    );
-    return;
-  }
-
-  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
-
-  if (Object.keys(seriesChapters).length > 0) {
-    Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
-      reporter.info(`Creating pages for series: ${series}`);
-      const chapters = seriesChapters[series];
-      return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
-        );
-        const previousPostId = index === 0 ? null : chapters[index - 1].id;
-        const nextPostId =
-          index === chapters.length - 1 ? null : chapters[index + 1].id;
-
-        const seriesDir = chapter.fields.slug
-          .split("/")
-          .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-        // TODO: Use hero image file from the main series folder
-        // e.g. /content/tutorials/react-native/hero_image.png
-        // Currently, it uses the hero image from the chapter folder
-        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
-        // This is to ensure that the hero image is always available
-        // for the chapter page, even if the series folder doesn't have a hero image
-        const heroImagePattern = chapter.frontmatter.hero_image
-          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
-          : `${seriesDir}/hero-image.png/`;
-        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
-
-        const quizFilePath = chapter.frontmatter.has_quiz
-          ? `./content/tutorials${chapter.fields.slug}chapter-quiz.json`
-          : null;
-
-        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
-
-        // Load the quiz data if it exists
-        let quizData = null;
-        if (quizFilePath && fs.existsSync(quizFilePath)) {
-          try {
-            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
-            quizData = JSON.parse(quizContent);
-            // reporter.info(
-            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
-            // );
-            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
-          } catch (error) {
-            reporter.warn(
-              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
-            );
-          }
-        }
-
-        const { createPage } = actions;
-        createPage({
-          path: `/tutorials${chapter.fields.slug}`,
-          component: path.resolve(`./src/templates/tutorialChapter/MarkdownRemark.tsx`),
-          context: {
-            id: chapter.id,
-            previousPostId,
-            nextPostId,
-            series: chapter.frontmatter.series,
-            heroImagePattern,
-            related: chapter.frontmatter.related || [],
-            ...(quizData && { quiz: quizData }),
-          },
-        });
-      });
-    });
-  }
-};
-
-/** Section: Learn */
-
-/**
- * Creates static pages for the learn tutorial intros
- * @param params
- * @returns 
- */
-const createLearnTutorialIntroPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all tutorial series intros
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            series
-            hero_image {
-              id
-              base
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the tutorial intros`,
-      result.errors
-    );
-    return;
-  }
-
-  const tutorials = result.data.allMarkdownRemark.nodes;
-
-  if (tutorials.length === 0) {
-    reporter.info(`No learn tutorial intros found.`);
-    return;
-  }
-
-  const { createPage } = actions;
-
-  tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(
-      `Creating page for tutorial intro: ${tutorial.frontmatter.series}`
-    );
-    const seriesDir = tutorial.fields.slug
-      .split("/")
-      .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-    const heroImagePattern = tutorial.frontmatter.hero_image
-      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
-      : `${seriesDir}/hero-image.png/`;
-
-    createPage({
-      path: `/learn${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/learnTutorialIntro/MarkdownRemark.tsx`),
-      context: {
-        id: tutorial.id,
-        series: tutorial.frontmatter.series,
-        heroImagePattern,
-      },
-    });
-  });
-};
-
-/**
- * Creates static pages for individual tutorial chapters
- */
-const createLearnTutorialChapterPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all markdown tutorial chapters sorted by date
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/[\\\\/]content[\\\\/]learn[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
-            has_quiz
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the tutorial chapters`,
-      result.errors
-    );
-    return;
-  }
-
-  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
-
-  if (Object.keys(seriesChapters).length > 0) {
-    Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
-      reporter.info(`Creating pages for series: ${series}`);
-      const chapters = seriesChapters[series];
-      return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
-        );
-        const previousPostId = index === 0 ? null : chapters[index - 1].id;
-        const nextPostId =
-          index === chapters.length - 1 ? null : chapters[index + 1].id;
-
-        const seriesDir = chapter.fields.slug
-          .split("/")
-          .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-        // TODO: Use hero image file from the main series folder
-        // e.g. /content/tutorials/react-native/hero_image.png
-        // Currently, it uses the hero image from the chapter folder
-        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
-        // This is to ensure that the hero image is always available
-        // for the chapter page, even if the series folder doesn't have a hero image
-        const heroImagePattern = chapter.frontmatter.hero_image
-          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
-          : `${seriesDir}/hero-image.png/`;
-        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
-
-        const quizFilePath = chapter.frontmatter.has_quiz
-          ? `./content/learn${chapter.fields.slug}chapter-quiz.json`
-          : null;
-
-        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
-
-        // Load the quiz data if it exists
-        let quizData = null;
-        if (quizFilePath && fs.existsSync(quizFilePath)) {
-          try {
-            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
-            quizData = JSON.parse(quizContent);
-            // reporter.info(
-            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
-            // );
-            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
-          } catch (error) {
-            reporter.warn(
-              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
-            );
-          }
-        }
-
-        const { createPage } = actions;
-        createPage({
-          path: `/learn${chapter.fields.slug}`,
-          component: path.resolve(
-            `./src/templates/learnTutorialChapter/MarkdownRemark.tsx`
-          ),
-          context: {
-            id: chapter.id,
-            previousPostId,
-            nextPostId,
-            series: chapter.frontmatter.series,
-            heroImagePattern,
-            related: chapter.frontmatter.related || [],
-            ...(quizData && { quiz: quizData }),
-          },
-        });
-      });
-    });
-  }
-};
-
-/**
- * Creates a list of pages that filter learn posts based on topics
- * @param params
- */
-const createLearnTopicsPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all posts and their listed topics
-  const result = await graphql(`
-    {
-      postSummary: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/^.*/content/learn/.*?$/" } }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      result.errors
-    );
-    return;
-  }
-
-  const postCount = result.data.postSummary.totalCount;
-  const postsPerPage = ITEMS_PER_PAGE;
-  const numPages = Math.ceil(postCount / postsPerPage);
-  const allTopics: AggregatedTopic[] = result.data.postSummary.allTopics;
-
-  // Create paginated pages for all posts
-  if (numPages > 1) {
-    Array.from({ length: numPages }).forEach((_, i) => {
-      createPageTopics({
-        topic: null,
-        index: i,
-        postsPerPage,
-        actions,
-        section: "learn",
-        templateType: `learnTopics`,
-        srcType: "MarkdownRemark",
-      });
-    });
-  }
-
-  // Create paginated topic pages
-  allTopics.forEach((topic) => {
-    const numPages = Math.ceil(topic.totalCount / postsPerPage);
-    createTopicsPagesWithTopicFilter({
-      topic: topic.fieldValue,
-      numPages,
-      postsPerPage,
-      actions,
-      section: "learn",
-      srcType: "MarkdownRemark",
-    });
-  });
-};
-
-/** Section: Build */
-
-/**
- * Creates static pages for the build tutorial intros
- * @param params
- * @returns 
- */
-const createBuildTutorialIntroPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all tutorial series intros
-  const result = await graphql(`
-    {
-      allMdx(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          internal: {
-            contentFilePath: {
-              regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
-            }
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            series
-            hero_image {
-              id
-              base
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-          }
-          internal {
-            type
-            contentFilePath
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the build tutorial intros`,
-      result.errors
-    );
-    return;
-  }
-
-  const tutorials = result.data.allMdx.nodes;
-
-  if (tutorials.length === 0) {
-    reporter.warn(`No build tutorial intros found.`);
-    return;
-  }
-
-  const { createPage } = actions;
-
-  tutorials.forEach((tutorial: any, index: number) => {
-    // reporter.info(
-    //   `Creating page for build tutorial intro: ${tutorial.frontmatter.series}`
-    // );
-    const seriesDir = tutorial.fields.slug
-      .split("/")
-      .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-    const heroImagePattern = tutorial.frontmatter.hero_image
-      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
-      : `${seriesDir}/hero-image.png/`;
-
-    const postTemplate = path.resolve(
-      `./src/templates/buildTutorialIntro/${tutorial.internal.type}.tsx`
-    );
-    const postComponent =
-      tutorial.internal.type === "Mdx"
-        ? `${postTemplate}?__contentFilePath=${tutorial.internal.contentFilePath}`
-        : postTemplate;
-
-    createPage({
-      path: `/build${tutorial.fields.slug}`,
-      component: postComponent,
-      context: {
-        id: tutorial.id,
-        series: tutorial.frontmatter.series,
-        heroImagePattern,
-      },
-    });
-  });
-};
-
+/** Helper Functions */
 const getChaptersBySeries = (nodes: any[]) =>
   nodes.reduce((acc: any, chapter: any) => {
     const { series } = chapter.frontmatter;
@@ -810,6 +173,442 @@ const getAllIndexes = (siteSection: string) => `
       }
 `;
 
+
+/** Section: Learn */
+
+/**
+ * Creates static pages for the learn tutorial intros
+ * @param params
+ * @returns 
+ */
+const createLearnTutorialIntroPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  const result = await graphql(`
+    {
+      allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+            }
+          }
+        }
+      ) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            series
+            hero_image {
+              id
+              base
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+          internal {
+            type
+            contentFilePath
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading the tutorial intros`,
+      result.errors
+    );
+    return;
+  }
+
+  const tutorials = result.data.allMdx.nodes;
+
+  if (tutorials.length === 0) {
+    reporter.info(`No learn tutorial intros found.`);
+    return;
+  }
+
+  const { createPage } = actions;
+
+  tutorials.forEach((tutorial: any, index: number) => {
+    reporter.info(
+      `Creating page for tutorial intro: ${tutorial.frontmatter.series}`
+    );
+    const seriesDir = tutorial.fields.slug
+      .split("/")
+      .filter((str: string) => str !== "")[0]; // e.g. react-native
+
+    const heroImagePattern = tutorial.frontmatter.hero_image
+      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
+      : `${seriesDir}/hero-image.png/`;
+
+    const postTemplate = path.resolve(
+      `./src/templates/learnTutorialIntro/${tutorial.internal.type}.tsx`
+    );
+    const postComponent =
+      tutorial.internal.type === "Mdx"
+        ? `${postTemplate}?__contentFilePath=${tutorial.internal.contentFilePath}`
+        : postTemplate;
+    
+
+    createPage({
+      path: `/learn${tutorial.fields.slug}`,
+      component: postComponent,
+      context: {
+        id: tutorial.id,
+        series: tutorial.frontmatter.series,
+        heroImagePattern,
+      },
+    });
+  });
+};
+
+/**
+ * Creates static pages for individual tutorial chapters
+ */
+const createLearnTutorialChapterPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  const result = await graphql(`
+    {
+      allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: {
+              regex: "/[\\\\/]content[\\\\/]learn[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
+            }
+          }
+        }
+      ) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            series
+            part
+            chapter
+            pathDate: date(formatString: "/YYYY/MM/DD")
+            related
+            has_quiz
+          }
+          internal {
+            type
+            contentFilePath
+          }
+        }
+      }
+      allIndexes: allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]learn[/][^/]+[/]index.mdx$/"
+            }
+          }
+        }
+      ) {
+        nodes {
+          ${INDEX_FIELDS}
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading the tutorial chapters`,
+      result.errors
+    );
+    return;
+  }
+
+  const seriesChapters = result.data.allMdx.nodes.reduce(
+    (acc: any, article: any) => {
+      const { series } = article.frontmatter;
+      if (Object.hasOwn(acc, series)) {
+        const currChapters = [...acc[series], article];
+        return {
+          ...acc,
+          [series]: currChapters,
+        };
+      } else {
+        acc[series] = [article];
+      }
+      return acc;
+    },
+    {}
+  );
+  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+
+  if (Object.keys(seriesChapters).length > 0) {
+    Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
+      reporter.info(`Creating pages for series: ${series}`);
+      const chapters = seriesChapters[series];
+      return chapters.map((chapter: any, index: number) => {
+        reporter.info(
+          `Creating page for chapter: ${chapter.frontmatter.chapter}`
+        );
+        const previousPostId = index === 0 ? null : chapters[index - 1].id;
+        const nextPostId =
+          index === chapters.length - 1 ? null : chapters[index + 1].id;
+
+        const seriesDir = chapter.fields.slug
+          .split("/")
+          .filter((str: string) => str !== "")[0]; // e.g. react-native
+
+        const heroImagePattern = chapter.frontmatter.hero_image
+          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
+          : `${seriesDir}/hero-image.png/`;
+        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
+
+        const quizFilePath = chapter.frontmatter.has_quiz
+          ? `./content/learn${chapter.fields.slug}chapter-quiz.json`
+          : null;
+
+        // Load the quiz data if it exists
+        let quizData = null;
+        if (quizFilePath && fs.existsSync(quizFilePath)) {
+          try {
+            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
+            quizData = JSON.parse(quizContent);
+          } catch (error) {
+            reporter.warn(
+              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
+            );
+          }
+        }
+
+        const { createPage } = actions;
+        createPage({
+          path: `/learn${chapter.fields.slug}`,
+          component: getTemplateComponent("learnTutorialChapter", chapter),
+          context: {
+            id: chapter.id,
+            previousPostId,
+            nextPostId,
+            series: chapter.frontmatter.series,
+            heroImagePattern,
+            related: chapter.frontmatter.related || [],
+            ...(quizData && { quiz: quizData }),
+          },
+        });
+      });
+    });
+  }
+};
+
+/**
+ * Creates a list of pages that filter learn posts based on topics
+ * @param params
+ */
+const createLearnTopicsPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  // Get all posts and their listed topics
+  const result = await graphql(`
+    {
+      postSummary: allMarkdownRemark(
+        filter: {
+        internal: {
+          contentFilePath: {
+            regex: "/^.*/content/learn/.*?$/"
+          }
+        }
+      }
+      ) {
+        totalCount
+        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+          fieldValue
+          totalCount
+        }
+        blogPosts: nodes {
+          frontmatter {
+            tags
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog posts`,
+      result.errors
+    );
+    return;
+  }
+
+  const postCount = result.data.postSummary.totalCount;
+  const postsPerPage = ITEMS_PER_PAGE;
+  const numPages = Math.ceil(postCount / postsPerPage);
+  const allTopics: AggregatedTopic[] = result.data.postSummary.allTopics;
+
+  // Create paginated pages for all posts
+  if (numPages > 1) {
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPageTopics({
+        topic: null,
+        index: i,
+        postsPerPage,
+        actions,
+        section: "learn",
+        templateType: `learnTopics`,
+        srcType: "Mdx",
+      });
+    });
+  }
+
+  // Create paginated topic pages
+  allTopics.forEach((topic) => {
+    const numPages = Math.ceil(topic.totalCount / postsPerPage);
+    createTopicsPagesWithTopicFilter({
+      topic: topic.fieldValue,
+      numPages,
+      postsPerPage,
+      actions,
+      section: "learn",
+      srcType: "Mdx",
+    });
+  });
+};
+
+/** Section: Build */
+
+/**
+ * Creates static pages for the build tutorial intros
+ * @param params
+ * @returns 
+ */
+const createBuildTutorialIntroPages = async ({
+  graphql,
+  actions,
+  reporter,
+}: {
+  graphql: any;
+  actions: Actions;
+  reporter: Reporter;
+}) => {
+  // Get all tutorial series intros
+  const result = await graphql(`
+    {
+      allMdx(
+        sort: { frontmatter: { date: ASC } }
+        limit: 1000
+        filter: {
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+            }
+          }
+        }
+      ) {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            series
+            hero_image {
+              id
+              base
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+          internal {
+            type
+            contentFilePath
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading the build tutorial intros`,
+      result.errors
+    );
+    return;
+  }
+
+  const tutorials = result.data.allMdx.nodes;
+
+  if (tutorials.length === 0) {
+    reporter.warn(`No build tutorial intros found.`);
+    return;
+  }
+
+  const { createPage } = actions;
+
+  tutorials.forEach((tutorial: any, index: number) => {
+    // reporter.info(
+    //   `Creating page for build tutorial intro: ${tutorial.frontmatter.series}`
+    // );
+    const seriesDir = tutorial.fields.slug
+      .split("/")
+      .filter((str: string) => str !== "")[0]; // e.g. react-native
+
+    const heroImagePattern = tutorial.frontmatter.hero_image
+      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
+      : `${seriesDir}/hero-image.png/`;
+
+    const postTemplate = path.resolve(
+      `./src/templates/buildTutorialIntro/${tutorial.internal.type}.tsx`
+    );
+    const postComponent =
+      tutorial.internal.type === "Mdx"
+        ? `${postTemplate}?__contentFilePath=${tutorial.internal.contentFilePath}`
+        : postTemplate;
+
+    createPage({
+      path: `/build${tutorial.fields.slug}`,
+      component: postComponent,
+      context: {
+        id: tutorial.id,
+        series: tutorial.frontmatter.series,
+        heroImagePattern,
+      },
+    });
+  });
+};
 
 /**
  * Creates static pages for individual build tutorial chapters
@@ -964,7 +763,7 @@ const createBuildTopicsPages = async ({
   });
 };
 
-/** Section: Journal/Blog */
+/** Section: Blog */
 
 /**
  * Creates static pages for individual blog posts
@@ -1121,9 +920,6 @@ exports.createPages = async ({
   actions,
   reporter,
 }: CreatePagesArgs) => {
-  await createTutorialIntroPages({ graphql, actions, reporter });
-  await createTutorialChapterPages({ graphql, actions, reporter });
-
   // Learn Section
   await createLearnTutorialIntroPages({ graphql, actions, reporter });
   await createLearnTutorialChapterPages({ graphql, actions, reporter });
@@ -1134,7 +930,7 @@ exports.createPages = async ({
   await createBuildTutorialChapterPages({ graphql, actions, reporter });
   await createBuildTopicsPages({ graphql, actions, reporter });
 
-  // Blog/Journal Section
+  // Blog Section
   await createBlogPostPages({ graphql, actions, reporter });
   await createBlogTopicsPages({ graphql, actions, reporter });
 };
