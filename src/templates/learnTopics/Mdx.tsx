@@ -164,7 +164,7 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
 // Queries the learn directory for selected topics
 export const pageQuery = graphql`
   query ($topic: String, $skip: Int, $limit: Int) {
-    allMarkdownRemark(
+    allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: {
         frontmatter: { tags: { eq: $topic } }

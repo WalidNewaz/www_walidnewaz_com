@@ -440,32 +440,13 @@ const createLearnTopicsPages = async ({
   // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postSummary: allMarkdownRemark(
-        filter: {
-        internal: {
-          contentFilePath: {
-            regex: "/^.*/content/learn/.*?$/"
-          }
-        }
-      }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
+      ${getAllTopicsPages("learn")}
     }
   `);
 
   if (result.errors) {
     reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
+      `There was an error loading your learn posts`,
       result.errors
     );
     return;
