@@ -8,9 +8,9 @@ chapter: "4. Working with Files and Data Serialization"
 
 title: "Files and Data Serialization"
 description: "This chapter demonstrates how Python applications read, write, and serialize data into and from files. We will handle text, binary, CSV, JSON, and other common file formats."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["fundamentals", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 4: Working with Files and Data Serialization
@@ -27,6 +27,7 @@ Modern Python applications frequently read, write, and serialize data. From logs
 
 ### File Modes in Python
 
+<MdxTable>
 | Mode  | Description                           |
 | ----- | ------------------------------------- |
 | `'r'` | Read (default); file must exist       |
@@ -35,12 +36,13 @@ Modern Python applications frequently read, write, and serialize data. From logs
 | `'x'` | Create file; fails if it exists       |
 | `'b'` | Binary mode                           |
 | `'t'` | Text mode (default)                   |
+</MdxTable>
 
 ### Reading a Text File:
 
 Let's say you have a text file with the following content:
 
-```
+```bash
 This is a simple text file.
 This is the second line of the text file.
 This is the last line of the text file.
@@ -48,7 +50,10 @@ This is the last line of the text file.
 
 Here is a small python program that reads the content of the file into a variable and prints it on the console.
 
-```python {numberLines}
+```python
+"""
+@showLineNumbers
+"""
 file_path = 'sample.txt'
 
 try:
@@ -65,6 +70,9 @@ except FileNotFoundError:
 The following program demonstrates writing a string into a text file.
 
 ```python
+"""
+@showLineNumbers
+"""
 output_path = 'output.txt'
 
 # File opened in write mode
@@ -72,11 +80,14 @@ with open(output_path, 'w') as file:
     file.write("This is a new line.\nAnother line.")
 ```
 
-> **Tip:** Use **`with open()`** to ensure the file closes automatically.
+> tip: Use **`with open()`** to ensure the file closes automatically.
 
 ### Creating and Deleting Files
 
 ```python
+"""
+@showLineNumbers
+"""
 # Create
 with open("temp.txt", "x") as f:
     f.write("Sample text")
@@ -90,6 +101,9 @@ if os.path.exists("temp.txt"):
 ### Working with Directories
 
 ```python
+"""
+@showLineNumbers
+"""
 import os
 
 # Create directory
@@ -109,6 +123,9 @@ Use `os.path.join()` for safe cross-platform paths.
 ### JSON files
 
 ```python
+"""
+@showLineNumbers
+"""
 import json
 
 data = {"name": "Alice", "skills": ["Python", "ML"]}
@@ -125,6 +142,9 @@ with open("user.json", "r") as f:
 ### CSV files
 
 ```python
+"""
+@showLineNumbers
+"""
 import csv
 
 rows = [["Name", "Age"], ["Alice", 30], ["Bob", 25]]
@@ -146,6 +166,9 @@ with open("people.csv", "r") as f:
 Python's Pickle module serializes Python objects to binary.
 
 ```python
+"""
+@showLineNumbers
+"""
 import pickle
 
 data = {"x": 1, "y": 2}
@@ -160,7 +183,7 @@ with open("data.pkl", "rb") as f:
     print(restored)
 ```
 
-> ⚠️ **Warning**: Never unpickle untrusted data. It may execute arbitrary code.
+> warning: Never unpickle untrusted data. It may execute arbitrary code.
 
 ### YAML
 
@@ -191,7 +214,9 @@ with open("config.yaml", "r") as f:
 
 ### Input: `server.log`
 
-```
+```bash
+# @file: server.log
+# @showLineNumbers
 [INFO] Service started
 [WARNING] Disk space low
 [ERROR] Failed to connect
@@ -200,6 +225,8 @@ with open("config.yaml", "r") as f:
 ### Parser: `log_parser.py`
 
 ```python
+# @file: log_parser.py
+# @showLineNumbers
 import os
 import json
 
@@ -235,6 +262,10 @@ python log_parser.py server.log server_log.json
 Expected output (saved in `server_log.json`):
 
 ```json
+/**
+ * @file: server_log.json
+ * @showLineNumbers
+ */
 [
   { "level": "INFO", "message": "Service started" },
   { "level": "WARNING", "message": "Disk space low" },
@@ -249,6 +280,8 @@ Test file I/O safely with `pytest` and `tmp_path`.
 ### File: `test_log_parser.py`
 
 ```python
+# @file: test_log_parser.py
+# @showLineNumbers
 import json
 from log_parser import parse_log_file
 
@@ -275,6 +308,7 @@ pytest
 
 ### File I/O – Text Files
 
+<MdxTable>
 | Function / Method        | Description                                              | Example                        |
 | ------------------------ | -------------------------------------------------------- | ------------------------------ |
 | `open(file, mode='r')`   | Opens a file in a given mode                             | `open("file.txt", "w")`        |
@@ -285,18 +319,22 @@ pytest
 | `file.writelines(lines)` | Writes a list of strings to a file                       | `f.writelines(["a\n", "b\n"])` |
 | `file.close()`           | Closes the file (not needed with `with open(...) as f:`) | `f.close()`                    |
 | `with open(...)`         | Context manager for safe file handling                   | `with open(...) as f:`         |
+</MdxTable>
 
 ### File I/O – Binary Files
 
+<MdxTable>
 | Function / Method   | Description                               | Example                            |
 | ------------------- | ----------------------------------------- | ---------------------------------- |
 | `open(file, 'rb')`  | Opens file for **reading** in binary mode | `with open("img.jpg", "rb") as f:` |
 | `open(file, 'wb')`  | Opens file for **writing** in binary mode | `with open("img.jpg", "wb") as f:` |
 | `file.read(size)`   | Reads binary data (optional size)         | `data = f.read(1024)`              |
 | `file.write(bytes)` | Writes binary data                        | `f.write(b'\x00\x01')`             |
+</MdxTable>
 
 ### File & Directory Utilities (`os`, `shutil`, `pathlib`)
 
+<MdxTable>
 | Function / Method      | Description                      | Example                       |
 | ---------------------- | -------------------------------- | ----------------------------- |
 | `os.path.exists(path)` | Check if path exists             | `os.path.exists("file.txt")`  |
@@ -308,9 +346,11 @@ pytest
 | `shutil.rmtree(path)`  | Remove **non-empty** directory   | `shutil.rmtree("logs")`       |
 | `os.getcwd()`          | Get current working directory    | `os.getcwd()`                 |
 | `os.chdir(path)`       | Change current working directory | `os.chdir("/tmp")`            |
+</MdxTable>
 
 ### Path Handling (`os.path`, `pathlib`)
 
+<MdxTable>
 | Function / Method             | Description                            | Example                              |
 | ----------------------------- | -------------------------------------- | ------------------------------------ |
 | `os.path.join(a, b)`          | Join paths safely                      | `os.path.join("folder", "file.txt")` |
@@ -320,18 +360,22 @@ pytest
 | `pathlib.Path(path).unlink()` | Delete file (like `os.remove`)         | `Path("file.txt").unlink()`          |
 | `pathlib.Path(path).mkdir()`  | Create directory                       | `Path("dir").mkdir(exist_ok=True)`   |
 | `pathlib.Path(path).rmdir()`  | Remove directory                       | `Path("dir").rmdir()`                |
+</MdxTable>
 
 ### JSON Files (`json` module)
 
+<MdxTable>
 | Function                | Description                           | Example                                   |
 | ----------------------- | ------------------------------------- | ----------------------------------------- |
 | `json.load(file)`       | Parses JSON from a file object        | `data = json.load(open("file.json"))`     |
 | `json.loads(string)`    | Parses JSON from a string             | `json.loads('{"a":1}')`                   |
 | `json.dump(data, file)` | Writes JSON to file                   | `json.dump(data, open("file.json", "w"))` |
 | `json.dumps(data)`      | Converts Python object to JSON string | `json.dumps({"a":1})`                     |
+</MdxTable>
 
 ### Pickle Module (`pickle`) – Binary Object Serialization
 
+<MdxTable>
 | Function / Method         | Description                                                | Example                                                  |
 | ------------------------- | ---------------------------------------------------------- | -------------------------------------------------------- |
 | `pickle.dump(obj, file)`  | Serialize and write an object to a binary file             | `pickle.dump(data, open("data.pkl", "wb"))`              |
@@ -339,9 +383,11 @@ pytest
 | `pickle.dumps(obj)`       | Serialize object to a bytes object                         | `b = pickle.dumps(data)`                                 |
 | `pickle.loads(bytes_obj)` | Deserialize object from bytes                              | `data = pickle.loads(b)`                                 |
 | `pickle.HIGHEST_PROTOCOL` | Constant for the most efficient (and recent) pickle format | `pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)` |
+</MdxTable>
 
-> **Use Case:** Best for Python-only data persistence, such as storing trained ML models or temporary cache structures.
-> **Warning:** Pickle is **not secure** against untrusted sources.
+> note: Best for Python-only data persistence, such as storing trained ML models or temporary cache structures.
+
+> warning: Pickle is **not secure** against untrusted sources.
 
 ### YAML Module (`PyYAML`) – Human-Readable Serialization
 
@@ -351,6 +397,7 @@ To use YAML in Python, install **PyYAML** first:
 pip install pyyaml
 ```
 
+<MdxTable>
 | Function / Method          | Description                                              | Example                                       |
 | -------------------------- | -------------------------------------------------------- | --------------------------------------------- |
 | `yaml.dump(data, file)`    | Write Python object to YAML file                         | `yaml.dump(data, open("file.yaml", "w"))`     |
@@ -359,10 +406,11 @@ pip install pyyaml
 | `yaml.load(file, Loader)`  | Read YAML file (can execute arbitrary code – **unsafe**) | `data = yaml.load(f, Loader=yaml.FullLoader)` |
 | `yaml.safe_load(file)`     | Safely read YAML content into Python object              | `data = yaml.safe_load(open("f.yaml"))`       |
 | `yaml.safe_load_all(file)` | Load multiple YAML documents from a single file          | `docs = yaml.safe_load_all(open("f.yaml"))`   |
+</MdxTable>
 
-> **Use Case:** Ideal for configuration files (e.g., Docker, Kubernetes, CI/CD pipelines) and human-editable data.
-> **Security Tip:** Always prefer `safe_load()` over `load()` when parsing YAML.
+> Note: Ideal for configuration files (e.g., Docker, Kubernetes, CI/CD pipelines) and human-editable data.
 
+> Tip: Always prefer `safe_load()` over `load()` when parsing YAML.
 
 ## Summary
 

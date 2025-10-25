@@ -22,7 +22,7 @@ const StyledBlockquote = styled.blockquote<{ $type: CalloutType }>`
       margin: 1.5rem 0;
       padding: 0;
       border-left: 5px solid ${colors.border};
-      border-radius: 1rem;
+      border-radius: var(--borderRadius-lg);
       overflow: hidden;
       background: none;
       background: ${colors.bg};
@@ -30,7 +30,7 @@ const StyledBlockquote = styled.blockquote<{ $type: CalloutType }>`
       p {
         padding: 1rem 1.2rem;
         border-radius: 1rem;
-        margin: 0;
+        margin: 0 !important;
         line-height: 1.6;
         color: var(--text, #222);
         position: relative;
