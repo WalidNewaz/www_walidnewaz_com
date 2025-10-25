@@ -8,7 +8,7 @@ chapter: "19. Building Command-Line Applications with Python"
 
 title: "Building Command-Line Applications"
 description: "Python’s true power lies in its vast ecosystem of third-party packages, enabling developers to quickly build applications without reinventing the wheel. This chapter teaches you how to work with 3rd party libraries, create your own Python package, understand dependencies and version management."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
 tags: ["CLI Apps", "Python"]
 ---
@@ -42,6 +42,10 @@ Python's `argparse` is built-in and powerful for parsing command-line arguments.
 ### Example: Simple Calculator
 
 ```python
+"""
+@showLineNumbers
+"""
+
 import argparse
 
 parser = argparse.ArgumentParser(description="Simple CLI Calculator")
@@ -70,6 +74,10 @@ For more ergonomic CLI apps, use <a href="https://click.palletsprojects.com/" ta
 ### Example: Greet
 
 ```python
+"""
+@showLineNumbers
+"""
+
 import click
 
 @click.command()
@@ -114,17 +122,21 @@ task_manager/
 └── tasks.json
 ```
 
-**`task_manager/commands/base.py`**
-
 ```python
+"""
+@file: task_manager/commands/base.py
+@showLineNumbers
+"""
 class Command:
     def execute(self):
         raise NotImplementedError("Execute must be implemented.")
 ```
 
-**`task_manager/commands/add.py`**
-
 ```python
+"""
+@file: task_manager/commands/add.py
+@showLineNumbers
+"""
 import json
 from commands.base import Command
 
@@ -146,9 +158,11 @@ class AddTaskCommand(Command):
         print(f"Task added: {self.task}")
 ```
 
-**`task_manager/commands/list.py`**
-
 ```python
+"""
+@file: task_manager/commands/list.py
+@showLineNumbers
+"""
 import json
 from commands.base import Command
 
@@ -166,9 +180,11 @@ class ListTasksCommand(Command):
             print("No tasks found.")
 ```
 
-**`task_manager/main.py`**
-
 ```python
+"""
+@file: task_manager/main.py
+@showLineNumbers
+"""
 import argparse
 from commands.add import AddTaskCommand
 from commands.list import ListTasksCommand
@@ -187,9 +203,11 @@ elif args.command == "list":
 cmd.execute()
 ```
 
-**`task_manager/tasks.json`**
-
 ```json
+/**
+ * @file: task_manager/tasks.json
+ * @showLineNumbers
+ */
 []
 ```
 
@@ -223,33 +241,41 @@ file_processor/
 └── input.txt
 ```
 
-**`file_processor/strategies/base.py`**
-
 ```python
+"""
+@file: file_processor/strategies/base.py
+@showLineNumbers
+"""
 class ProcessorStrategy:
     def process(self, data):
         raise NotImplementedError()
 ```
 
-**`file_processor/strategies/uppercase.py`**
-
 ```python
+"""
+@file: file_processor/strategies/uppercase.py
+@showLineNumbers
+"""
 class UppercaseStrategy(ProcessorStrategy):
     def process(self, data):
         return data.upper()
 ```
 
-**`file_processor/strategies/reverse.py`**
-
 ```python
+"""
+@file: file_processor/strategies/reverse.py
+@showLineNumbers
+"""
 class ReverseStrategy(ProcessorStrategy):
     def process(self, data):
         return data[::-1]
 ```
 
-**`file_processor/main.py`**
-
 ```python
+"""
+@file: file_processor/main.py
+@showLineNumbers
+"""
 import argparse
 from strategies import UppercaseStrategy, ReverseStrategy
 
@@ -277,9 +303,11 @@ with open(args.output, 'w') as f:
 print(f"File processed using {args.strategy}.")
 ```
 
-**`file_processor/input.txt`**
-
 ```
+"""
+@file: file_processor/input.txt
+@showLineNumbers
+"""
 this is an all lower case text.
 ```
 
@@ -296,6 +324,9 @@ This will create a file `output.txt` with the text of the file `input.txt` based
 ### Use `pytest` with `subprocess`
 
 ```python
+"""
+@showLineNumbers
+"""
 import subprocess
 
 def test_task_add_and_list():
@@ -344,7 +375,10 @@ mycli/
 Inside `cli.py`, write your CLI entry point function:
 
 ```python
-# src/mycli/cli.py
+"""
+@file: src/mycli/cli.py
+@showLineNumbers
+"""
 import sys
 
 def main():
@@ -369,6 +403,8 @@ Modern Python packaging uses **PEP 621** with `pyproject.toml`.
 Here’s a minimal config to turn your CLI app into an installable tool:
 
 ```cs
+# @file: pyproject.toml
+# @showLineNumbers
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
@@ -492,6 +528,10 @@ Each tool should expose subcommands (argparse/click ok—your chapter shows both
 **Job description** (`JOB_DESC.json`)
 
 ```json
+/**
+ * @file: JOB_DESC.json
+ * @showLineNumbers
+ */
 {
   "id": "job-123",
   "image": "python:3.10-slim",
@@ -507,6 +547,10 @@ Each tool should expose subcommands (argparse/click ok—your chapter shows both
 **Job result** (stdout of `wf-runner run` and the payload stored in `job_result`)
 
 ```json
+/**
+ * @file: JOB_RES.json
+ * @showLineNumbers
+ */
 {
   "id": "job-123",
   "status": "SUCCEEDED | FAILED | TIMEOUT",
@@ -524,6 +568,8 @@ Each tool should expose subcommands (argparse/click ok—your chapter shows both
 **Workflow** (`WORKFLOW.yaml`)
 
 ```yaml
+# @file: WORKFLOW.yaml
+# @showLineNumbers
 workflow: example
 nodes:
   fetch:
@@ -547,13 +593,13 @@ The Job Queue is a **transparent message pipeline**. It does **not** schedule jo
 
 Pick one lightweight local backend:
 
-- **Filesystem (default)**
+- Filesystem (default)
   - Two dirs:
     - `./queue/job_request/`
     - `./queue/job_result/`
-  - Each message is a JSON file named {id}.json.
+  - Each message is a JSON file named `{id}.json`.
   - Use atomic writes (e.g., os.rename) to avoid partial reads.
-- **SQLite (optional)**
+- SQLite (optional)
   - Tables:
     - `job_request(id TEXT PK, payload TEXT, ts INTEGER)`
     - `job_result(id TEXT PK, payload TEXT, ts INTEGER)`
@@ -564,10 +610,11 @@ Pick one lightweight local backend:
 {
   "id": "job-123",
   "kind": "job_request | job_result",
-  "payload": { /* job_desc or job_result */ },
+  "payload": {},
   "ts": 1755497545230
 }
 ```
+
 #### Commands
 
 - `wf-queue enqueue --queue job_request payload.json` → enqueue a job request

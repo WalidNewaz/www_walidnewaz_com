@@ -203,10 +203,6 @@ const TutorialChapter: React.FC<any> = ({
             lang: GISCUS_LANG,
             loading: GISCUS_LOADING as Loading,
           }}
-          // disqusConfig={{
-          //   shortname: DISQUS_SHORTNAME,
-          //   config: { identifier: post.id, title: post.frontmatter.title },
-          // }} --- IGNORE ---
         />
       </article>
       <TutorialTOC

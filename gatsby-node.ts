@@ -293,51 +293,8 @@ const createLearnTutorialChapterPages = async ({
 }) => {
   const result = await graphql(`
     {
-      allMdx(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          internal: {
-            contentFilePath: {
-              regex: "/[\\\\/]content[\\\\/]learn[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
-            }
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
-            has_quiz
-          }
-          internal {
-            type
-            contentFilePath
-          }
-        }
-      }
-      allIndexes: allMdx(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          internal: {
-            contentFilePath: {
-              regex: "/[/]content[/]learn[/][^/]+[/]index.mdx$/"
-            }
-          }
-        }
-      ) {
-        nodes {
-          ${INDEX_FIELDS}
-        }
-      }
+      ${getAllChapters("learn")}
+      ${getAllIndexes("learn")}
     }
   `);
 
@@ -349,32 +306,34 @@ const createLearnTutorialChapterPages = async ({
     return;
   }
 
-  const seriesChapters = result.data.allMdx.nodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
+  // const seriesChapters = result.data.allMdx.nodes.reduce(
+  //   (acc: any, article: any) => {
+  //     const { series } = article.frontmatter;
+  //     if (Object.hasOwn(acc, series)) {
+  //       const currChapters = [...acc[series], article];
+  //       return {
+  //         ...acc,
+  //         [series]: currChapters,
+  //       };
+  //     } else {
+  //       acc[series] = [article];
+  //     }
+  //     return acc;
+  //   },
+  //   {}
+  // );
   // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+
+  const { nodes: allChapters } = result.data.allChapters;
+  const seriesChapters = getChaptersBySeries(allChapters);
+  const { nodes: allIndexes } = result.data.allIndexes;
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
       reporter.info(`Creating pages for series: ${series}`);
+      const seriesIntro = allIndexes.find((index: any) => index.frontmatter.series === series) || {};
       const chapters = seriesChapters[series];
       return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
-        );
         const previousPostId = index === 0 ? null : chapters[index - 1].id;
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
@@ -417,6 +376,7 @@ const createLearnTutorialChapterPages = async ({
             heroImagePattern,
             related: chapter.frontmatter.related || [],
             ...(quizData && { quiz: quizData }),
+            seriesIntro: seriesIntro,
           },
         });
       });

@@ -64,7 +64,7 @@ export function useCodeMeta(rawCode: string): {
       header = match[1] || "";
     }
 
-    // 🔧 Normalize line prefixes (handles *, #, --, //, etc.)
+    // Normalize line prefixes (handles *, #, --, //, etc.)
     header = header
       .split("\n")
       .map((line) =>

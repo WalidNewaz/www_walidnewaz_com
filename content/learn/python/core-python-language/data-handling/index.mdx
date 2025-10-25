@@ -9,7 +9,7 @@ chapter: "3. Data Handling in Python"
 title: "Data Handling in Python"
 description: "This chapter discusses hands-on Python syntax and core programming concepts."
 has_quiz: true
-tags: ["fundamentals", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 3: Data Handling in Python
@@ -135,9 +135,11 @@ print(word_map)  # {'hi': 2, 'hello': 5}
 
 We’ll build a simple CLI-based **Contact Book** that demonstrates strings, dicts, lists, and comprehensions.
 
-### contact\_book.py
-
 ```python
+"""
+@file: contact_book.py
+@showLineNumbers
+"""
 """A simple Contact Book project demonstrating Python data handling."""
 
 def add_contact(contacts: dict, name: str, phone: str, email: str) -> None:
@@ -172,7 +174,7 @@ if __name__ == "__main__":
 
 ### Output
 
-```
+```bash
 All contacts:
   Alice: 123-456 / alice@example.com
   Bob: 555-555 / bob@example.com

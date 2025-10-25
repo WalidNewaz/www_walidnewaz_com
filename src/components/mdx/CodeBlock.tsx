@@ -170,19 +170,20 @@ const StyledPre = styled.pre`
 export const CodeBlock: React.FC<any> = ({ className, children }) => {
   const language = className?.replace(/language-/, "") || "text";
   const { meta, cleanCode } = useCodeMeta(children);
+  const usedCode = Object.keys(meta).length ? cleanCode : children;
 
   const highlighted = parseHighlightRanges(meta.highlight);
 
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(cleanCode);
+    await navigator.clipboard.writeText(usedCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
 
   return (
-    <Highlight code={cleanCode.trim()} language={language}>
+    <Highlight code={usedCode.trim()} language={language}>
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <StyledPre style={style}>
           <div className="header">

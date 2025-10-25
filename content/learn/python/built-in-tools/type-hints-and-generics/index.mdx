@@ -664,7 +664,7 @@ So far we have talked about `mypy` and `pydantic` in this chapter:
 
 In this assignment, you will **apply type hints, generics, and runtime validation** to a simple workflow.
 
-#### Requirements
+### Requirements
 
 1. Define a **generic `Box[T]` class** that can hold any type (`int`, `str`, `dict`, etc.).
 2. Create a function `load_records(file: str) -> list[dict[str, str]]` that loads a CSV file and returns records. Add proper type hints.
@@ -686,7 +686,7 @@ In this assignment, you will **apply type hints, generics, and runtime validatio
        email: EmailStr
    ```
 
-#### Hints
+### Hints
 
 * Use `list[dict[str, str]]` for collections of records.
 * You can simulate CSV input with a list of dicts if you don’t want to read files.

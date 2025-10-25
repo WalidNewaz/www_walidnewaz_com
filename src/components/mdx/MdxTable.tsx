@@ -114,12 +114,34 @@ export const MdxTable: React.FC<{ children: React.ReactNode }> = ({ children }) 
       text = inner;
     } else if (Array.isArray(inner)) {
       // Safe cast because ReactNode array can contain strings or nodes
-      text = (inner as any[]).join("");
+      text = inner.reduce((acc, curr) => {
+        if (typeof curr === "string") {
+          return acc + curr;
+        } else if (React.isValidElement(curr)) {
+          const innerType = typeof curr.type === "string" ? curr.type : curr.type.name;
+          let innerText = "";
+          if (innerType === "strong") {
+            innerText = `<strong>${String(curr.props?.children || "")}</strong>`;
+          } else if (innerType === "em") {
+            innerText = `<em>${String(curr.props?.children || "")}</em>`;
+          } else if (innerType === "code") {
+            innerText = `<code>${String(curr.props?.children || "")}</code>`;
+          } else if (innerType === "a") {
+            const href = curr.props?.href || "#";
+            innerText = `<a href="${href}">${String(curr.props?.children || "")}</a>`;
+          } else if (innerType === "br") {
+            innerText = "<br />";
+          } else {
+            innerText = String(curr.props?.children || "");
+          }
+          return acc + innerText;
+        }
+        return acc;
+      }, "");
     }
   }
 
   if (typeof text !== "string") {
-    console.warn("MdxTable: unexpected children type", children);
     return <pre>{String(children)}</pre>;
   }
 

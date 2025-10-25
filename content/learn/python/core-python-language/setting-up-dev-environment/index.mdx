@@ -8,9 +8,9 @@ chapter: "1. Setting Up Your Python Development Environment"
 
 title: "Development Environment Setup"
 description: "Before diving into writing Python code, it’s essential to have a clean, efficient, and testable development environment. This chapter covers, Installing Python, Setting up virtual environments, Choosing the right IDE or editor, Creating your first Python script, Writing and running your first unit test."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["fundamentals", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 1: Setting Up Your Python Development Environment
@@ -70,6 +70,8 @@ A Python Virtual Environment is an isolated environment that allows you to manag
 #### Using `venv` (Built-in for Python 3.3+):
 
 ```bash
+# @showLineNumbers
+
 # Create a virtual environment
 python -m venv venv
 
@@ -99,14 +101,17 @@ Choosing the right **Integrated Development Environment (IDE)** can greatly enha
 
 Popular choices:
 
+<MdxTable>
 | IDE / Editor                           | Description                          | Best For                                           |
 | -------------------------------------- | ------------------------------------ | -------------------------------------------------- |
-| **VS Code (Visual Studio Code)**       | Lightweight, extensible, widely used | Full-stack development, beginners to pros          |
-| **PyCharm (Community / Professional)** | Feature-rich Python-specific IDE     | Professional Python and Django projects            |
-| **Jupyter Notebook / JupyterLab**      | Interactive notebook-style coding    | Data science, machine learning, exploratory coding |
-| **Spyder**                             | Scientific Python development        | Data analysis and scientific computing             |
-| **Sublime Text / Atom**                | Lightweight code editors             | Quick scripting and light projects                 |
-| **Thonny**                             | Beginner-friendly Python IDE         | New Python learners and students                   |
+| VS Code (Visual Studio Code)       | Lightweight, extensible, widely used | Full-stack development, beginners to pros          |
+| PyCharm (Community / Professional) | Feature-rich Python-specific IDE     | Professional Python and Django projects            |
+| Jupyter Notebook / JupyterLab      | Interactive notebook-style coding    | Data science, machine learning, exploratory coding |
+| Spyder                             | Scientific Python development        | Data analysis and scientific computing             |
+| Sublime Text / Atom                | Lightweight code editors             | Quick scripting and light projects                 |
+| Thonny                             | Beginner-friendly Python IDE         | New Python learners and students                   |
+</MdxTable>
+
 
 Throughout ths tutorial we will primarily use `PyCharm` and `Jupyter Notebook`. Instruction for downloading and setting up PyCharm may be found <a href="https://www.jetbrains.com/pycharm/" target="_blank">here</a>. Instruction for downloading and setting up Jupyter Notebook may be found <a href="https://docs.jupyter.org/en/latest/" target="_blank">here</a>.
 
@@ -151,6 +156,10 @@ To start open PyCharm. Click on the `File` menu. Select `New Project...`. Create
 When a new project created click on the `File` menu, and select `New File or Directory`. Select `File` from the dropdown on the `Project` pane, and enter file name `greet.py`. Once the file is created, enter the following code in the file.
 
 ```python
+"""
+@file: greet.py
+@showLineNumbers
+"""
 def greet(name):
     return f"Hello, {name}!"
 
@@ -169,7 +178,7 @@ python greet.py
 
 **Expected Output:**
 
-```
+```bash
 Enter your name: Walid Newaz
 Hello, Walid Newaz!
 ```
@@ -193,6 +202,10 @@ This will install the `pytest` library.
 Enter the following code in the file:
 
 ```python
+"""
+@file: test_greet.py
+@showLineNumbers
+"""
 from greet import greet
 
 def test_greet():
@@ -210,7 +223,7 @@ pytest
 
 ### Expected Test Output:
 
-```
+```bash
 collected 1 item
 
 test_greet.py .                                  [100%]

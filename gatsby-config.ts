@@ -77,12 +77,12 @@ module.exports = {
             },
           },
           // Add custom plugins here
-          {
-            resolve: `gatsby-remark-header-ids`,
-            options: {
-              // Options here
-            },
-          },
+          // {
+          //   resolve: `gatsby-remark-header-ids`,
+          //   options: {
+          //     // Options here
+          //   },
+          // },
           // {
           //   resolve: `gatsby-remark-wrap-tables`,
           //   options: {

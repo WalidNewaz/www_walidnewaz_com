@@ -11,12 +11,38 @@ import ChronologicalNav from "../../components/tutorial/ChronologicalNav";
 import ChapterTOC from "../../components/tutorial/ChapterTOC";
 import TutorialTOC from "../../components/tutorial/TutorialTOC";
 import ChapterQuiz from "../../components/organisms/ChapterQuiz";
+import { MDXProvider } from '@mdx-js/react';
+import { MDXComponents } from "../../components/mdx/MDXComponents";
+import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
+import {
+  Mapping,
+  BooleanString,
+  InputPosition,
+  Loading,
+} from "@giscus/react";
 
 /** Utilities */
 import { flattenToc } from "../../utils/templates/flattenToc";
 
 /** Types */
 import { QuizType } from "../../components/organisms/ChapterQuiz";
+
+/** Constants */
+const GISCUS_USERNAME = process.env.GATSBY_GISCUS_USERNAME || "";
+const GISCUS_REPO = process.env.GATSBY_GISCUS_REPO || "";
+const GISCUS_REPO_ID = process.env.GATSBY_GISCUS_REPO_ID || "";
+const GISCUS_CATEGORY = process.env.GATSBY_GISCUS_CATEGORY || "";
+const GISCUS_CATEGORY_ID = process.env.GATSBY_GISCUS_CATEGORY_ID || "";
+const GISCUS_MAPPING = process.env.GATSBY_GISCUS_MAPPING || "";
+const GISCUS_STRICT = process.env.GATSBY_GISCUS_STRICT || "";
+const GISCUS_REACTIONS_ENABLED =
+  process.env.GATSBY_GISCUS_REACTIONS_ENABLED || "";
+const GISCUS_EMIT_METADATA = process.env.GATSBY_GISCUS_EMIT_METADATA || "";
+const GISCUS_INPUT_POSITION = process.env.GATSBY_GISCUS_INPUT_POSITION || "";
+const GISCUS_THEME = process.env.GATSBY_GISCUS_THEME || "";
+const GISCUS_LANG = process.env.GATSBY_GISCUS_LANG || "";
+const GISCUS_LOADING = process.env.GATSBY_GISCUS_LOADING || "";
+const GISCUS_TERM = process.env.GATSBY_GISCUS_TERM || "";
 
 /** Styles */
 import "./tutorial-chapter.css";
@@ -101,6 +127,7 @@ const TutorialChapter: React.FC<any> = ({
     relatedPosts,
   },
   pageContext,
+  children,
 }) => {
   const articleBody = useRef<HTMLDivElement>(null);
   const seriesDir = post.fields.slug
@@ -132,22 +159,15 @@ const TutorialChapter: React.FC<any> = ({
         itemType="http://schema.org/Article"
         ref={articleBody}
       >
-        {/* <ArticleHeader>
-          <div className="article-post-date">{post.frontmatter.date}</div>
-          <div className="article-read-time">
-            {post.frontmatter.read_time} read
-          </div>
-        </ArticleHeader> */}
         <HeroImage
           {...{ post, heroImage: heroImagePattern }}
           className="article-hero-img"
         />
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
-          <StyledArticleBody
-            dangerouslySetInnerHTML={{ __html: post.html }}
-            itemProp="articleBody"
-          />
+          <StyledArticleBody>
+            <MDXProvider components={MDXComponents}>{children}</MDXProvider>
+          </StyledArticleBody>
         </StyledTutorialGrid>
         <StyledTutorialGrid>
           <StyledBlankDiv></StyledBlankDiv>
@@ -157,7 +177,27 @@ const TutorialChapter: React.FC<any> = ({
             </StyledArticleBody>
           )}
         </StyledTutorialGrid>
-        {/* <PostTags tags={post.frontmatter.tags} /> */}
+        <PostTags tags={post.frontmatter.tags} section="learn/f" />
+
+        <BlogFeedbackSection
+          post={post}
+          giscusConfig={{
+            username: GISCUS_USERNAME,
+            repo: GISCUS_REPO,
+            repoId: GISCUS_REPO_ID,
+            category: GISCUS_CATEGORY,
+            categoryId: GISCUS_CATEGORY_ID,
+            mapping: GISCUS_MAPPING as Mapping,
+            strict: GISCUS_STRICT as BooleanString,
+            term: GISCUS_TERM,
+            reactionsEnabled: GISCUS_REACTIONS_ENABLED as BooleanString,
+            emitMetadata: GISCUS_EMIT_METADATA as BooleanString,
+            inputPosition: GISCUS_INPUT_POSITION as InputPosition,
+            theme: GISCUS_THEME,
+            lang: GISCUS_LANG,
+            loading: GISCUS_LOADING as Loading,
+          }}
+        />
       </article>
       <TutorialTOC
         allSeriesPosts={{ nodes: filteredSeriesPosts }}

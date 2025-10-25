@@ -9,7 +9,7 @@ chapter: "2. Python Syntax and Core Concepts"
 title: "Syntax and Core Concepts"
 description: "This chapter discusses hands-on Python syntax and core programming concepts."
 has_quiz: true
-tags: ["fundamentals", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 2: Python Syntax and Core Concepts
@@ -28,6 +28,7 @@ Now that your development environment is ready, it’s time to get hands-on with
 
 ### Python Data Types
 
+<MdxTable>
 | **Category** | **Data Type** | **Description**                      | **Example**                              |
 | ------------ | ------------- | ------------------------------------ | ---------------------------------------- |
 | Numeric      | `int`         | Integer numbers                      | `x = 5`                                  |
@@ -46,6 +47,8 @@ Now that your development environment is ready, it’s time to get hands-on with
 |              | `memoryview`  | Memory-efficient view of binary data | `mv = memoryview(ba)`                    |
 | None Type    | `NoneType`    | Represents absence of value          | `result = None`                          |
 | User-defined | Custom Class  | Classes defined by developers        | `class Dog: pass`<br />`d = Dog()`         |
+</MdxTable>
+
 
 ### Python Variables
 
@@ -53,12 +56,14 @@ In Python, a **variable** is a name that refers to a value stored in memory. Var
 
 #### Key Features of Python Variables
 
+<MdxTable>
 | Feature                     | Explanation                                                                             |
 | --------------------------- | --------------------------------------------------------------------------------------- |
 | **Dynamically Typed**       | You don’t need to declare the variable type explicitly. Python infers it automatically. |
 | **No Explicit Declaration** | Simply assign a value to create a variable.                                             |
 | **Reassignment Allowed**    | You can change the value and even the type of data a variable holds later in your code. |
 | **Case Sensitive**          | `name` and `Name` are treated as two different variables.  
+</MdxTable>
 
 #### Example Variable Declarations
 
@@ -150,6 +155,7 @@ Like all high level programming languages, Python comes with many operators of v
 
 ### Categories of Python Operators
 
+<MdxTable>
 | Category             | Description                         |
 | -------------------- | ----------------------------------- |
 | Arithmetic Operators | Perform mathematical calculations   |
@@ -159,9 +165,11 @@ Like all high level programming languages, Python comes with many operators of v
 | Identity Operators   | Compare object identity (`is`)      |
 | Membership Operators | Check existence in sequences (`in`) |
 | Bitwise Operators    | Operate at the binary level         |
+</MdxTable>
 
 ### Arithmetic Operators
 
+<MdxTable>
 | Operator | Description         | Example  | Result |
 | -------- | ------------------- | -------- | ------ |
 | `+`      | Addition            | `5 + 3`  | `8`    |
@@ -171,11 +179,13 @@ Like all high level programming languages, Python comes with many operators of v
 | `//`     | Floor Division      | `5 // 2` | `2`    |
 | `%`      | Modulus (remainder) | `5 % 2`  | `1`    |
 | `**`     | Exponentiation      | `2 ** 3` | `8`    |
+</MdxTable>
 
 ### Assignment Operators
 
 Used to **assign and modify values**.
 
+<MdxTable>
 | Operator | Example   | Equivalent to |
 | -------- | --------- | ------------- |
 | `=`      | `a = 5`   |               |
@@ -186,11 +196,13 @@ Used to **assign and modify values**.
 | `//=`    | `a //= 2` | `a = a // 2`  |
 | `%=`     | `a %= 3`  | `a = a % 3`   |
 | `**=`    | `a **= 2` | `a = a ** 2`  |
+</MdxTable>
 
 ### Comparison (Relational) Operators
 
 Return **Boolean values**.
 
+<MdxTable>
 | Operator | Description           | Example  | Result  |
 | -------- | --------------------- | -------- | ------- |
 | `==`     | Equal                 | `3 == 3` | `True`  |
@@ -199,16 +211,19 @@ Return **Boolean values**.
 | `<`      | Less than             | `3 < 1`  | `False` |
 | `>=`     | Greater than or equal | `5 >= 5` | `True`  |
 | `<=`     | Less than or equal    | `4 <= 5` | `True`  |
+</MdxTable>
 
 ### Logical Operators
 
 Used to **combine multiple conditions**.
 
+<MdxTable>
 | Operator | Description       | Example            | Result     |
 | -------- | ----------------- | ------------------ | ---------- |
 | `and`    | True if both      | `x > 1 and x < 10` | True/False |
 | `or`     | True if either    | `x < 0 or x > 5`   | True/False |
 | `not`    | Negates condition | `not (x == 3)`     | True/False |
+</MdxTable>
 
 ### Identity Operators
 
@@ -224,10 +239,12 @@ print(a is c)  # False
 print(a == c)  # True (values are equal)
 ```
 
+<MdxTable>
 | Operator | Description          |
 | -------- | -------------------- |
 | `is`     | True if same object  |
 | `is not` | True if not same obj |
+</MdxTable>
 
 ### Membership Operators
 
@@ -240,28 +257,33 @@ print(2 in my_list)     # True
 print(4 not in my_list) # True
 ```
 
+<MdxTable>
 | Operator | Description             |
 | -------- | ----------------------- |
 | `in`     | True if found in object |
 | `not in` | True if not found       |
+</MdxTable>
 
 ### Bitwise Operators
 
 Operate at the **bit level**.
 
+<MdxTable>
 | Operator    | Symbol | Use Case |
 | ----------- | ------ | -------- |
 | AND         | `&`    | `a & b`  |
-| OR          | `\|`   | `a \| b` |
+| OR          | `&#124;`   | `a &#124; b` |
 | XOR         | `^`    | `a ^ b`  |
 | NOT         | `~`    | `~a`     |
 | Left Shift  | `<<`   | `a << 2` |
 | Right Shift | `>>`   | `a >> 2` |
+</MdxTable>
 
 ### Operator Precedence
 
 Precedence determines **order of execution** in expressions.
 
+<MdxTable>
 | Precedence Level | Operators                        |
 | ---------------- | -------------------------------- |
 | Highest          | `()` (Parentheses)               |
@@ -272,6 +294,7 @@ Precedence determines **order of execution** in expressions.
 |                  | Comparison: `==`, `!=`, `<`, `>` |
 |                  | Logical: `not`, `and`, `or`      |
 | Lowest           | `=` (Assignment)                 |
+</MdxTable>
 
 ## 2.3 Conditional Statements
 
@@ -297,6 +320,7 @@ Python's `match` statement, introduced in Python 3.10, provides structural patte
 Here are examples illustrating various uses of the match statement:
 
 1. **Simple Value Matching:**
+
 ```python
 status_code = 200
 
@@ -310,7 +334,9 @@ match status_code:
     case _:  # Default case, matches anything not previously matched
         print("Unknown Status")
 ```
+
 2. **Matching Multiple Values with `|` (OR operator):**
+
 ```python
 day = "Saturday"
 
@@ -322,6 +348,7 @@ match day:
     case _:
         print("Invalid day.")
 ```
+
 3. **Matching with Guards (Conditional Cases):**
 ```python
 score = 85
@@ -337,6 +364,7 @@ match subject:
     case _:
         print("Needs improvement or unknown subject.")
 ```
+
 4. **Matching Sequences (Lists and Tuples):**
 
 Here we're using structural pattern matching, introduced in Python 3.10.
@@ -352,7 +380,9 @@ match command:
     case _:
         print("Unknown command.")
 ```
+
 5. **Matching Objects (Class Instances):**
+
 ```python
 class Point:
     def __init__(self, x, y):
@@ -371,7 +401,9 @@ match p:
     case Point(x=x_val, y=y_val):
         print(f"Point at ({x_val}, {y_val})")
 ```
+
 6. **Capturing Sub-patterns and Wildcards:**
+
 ```python
 data = ("error", 401, "Unauthorized")
 
@@ -427,7 +459,10 @@ You can also **import functions from modules** (files).
 Example: If you had a file `math_utils.py`:
 
 ```python
-# math_utils.py
+"""
+@file: math_utils.py
+@showLineNumbers
+"""
 def multiply(a, b):
     return a * b
 ```
@@ -501,9 +536,12 @@ This is useful for auto-generating documentation with tools like Sphinx or IDE t
 
 Let’s build a simple command-line calculator supporting **addition**, **subtraction**, **multiplication**, and **division**.
 
-### File: `calculator.py`
+```python
+"""
+@file: calculator.py
+@showLineNumbers
+"""
 
-```python {numberLines}
 def add(a, b):
     return a + b
 
@@ -556,7 +594,7 @@ python calculator.py
 
 **Example interaction:**
 
-```
+```bash
 Simple CLI Calculator
 Operations: add, subtract, multiply, divide
 Enter operation: add
@@ -572,6 +610,10 @@ Now, let's create a unit test file.
 ### File: `test_calculator.py`
 
 ```python
+"""
+@file: test_calculator.py
+@showLineNumbers
+"""
 import pytest
 from calculator import add, sub, mul, div
 
@@ -600,7 +642,7 @@ pytest
 
 ### Expected Output:
 
-```
+```bash
 collected 5 items
 
 test_calculator.py .....                       [83%]
