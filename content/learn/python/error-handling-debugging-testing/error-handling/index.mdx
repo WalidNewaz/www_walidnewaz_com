@@ -8,9 +8,9 @@ chapter: "5. Error Handling in Python"
 
 title: "Error Handling in Python"
 description: "This chapter explores how to handle errors gracefully, log application behavior, and debug issues efficiently in Python."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["fundamentals", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 5: Error Handling in Python
@@ -23,6 +23,7 @@ Python provides a rich set of built-in exceptions that help developers gracefull
 
 ### Common Built-in Exceptions
 
+<MdxTable>
 | Exception           | Trigger                                   |
 | ------------------- | ----------------------------------------- |
 | `ValueError`        | Invalid value for a function or operation |
@@ -31,6 +32,7 @@ Python provides a rich set of built-in exceptions that help developers gracefull
 | `FileNotFoundError` | Missing file reference                    |
 | `IndexError`        | Invalid list index                        |
 | `KeyError`          | Missing key in dictionary                 |
+</MdxTable>
 
 ### Basic Try-Except Block
 
@@ -131,7 +133,7 @@ raise ValidationError("username", "Must not be empty")
 
 **Output:**
 
-```
+```bash
 ValidationError: username: Must not be empty
 ```
 
@@ -139,9 +141,9 @@ ValidationError: username: Must not be empty
 
 Here’s a **refactored CLI calculator** with logging and error handling.
 
-### `calculator.py`
-
 ```python
+# @file: calculator.py
+# @showLineNumbers
 def add(a, b): return a + b
 def subtract(a, b): return a - b
 def multiply(a, b): return a * b
@@ -183,9 +185,9 @@ if __name__ == "__main__":
 
 We’ll now test for normal results and for expected failures using `pytest`.
 
-### `test_calculator.py`
-
 ```python
+# @file: test_calculator.py
+# @showLineNumbers
 import pytest
 from calculator import add, subtract, multiply, divide
 

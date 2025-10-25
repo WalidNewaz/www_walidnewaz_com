@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-11-05"
+date: "2023-11-04"
 
 series: "Python Foundations"
 part: "II. Error Handling, Debugging and Testing"
@@ -8,9 +8,9 @@ chapter: "6. Debugging and Logging"
 
 title: "Debugging and Logging"
 description: "This chapter explores how to handle errors gracefully, log application behavior, and debug issues efficiently in Python."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["debugging", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 6: Debugging and Logging
@@ -89,6 +89,7 @@ INFO:root:App started
 
 ### Log Levels and Usage
 
+<MdxTable>
 | Level      | Use Case Example                     |
 | ---------- | ------------------------------------ |
 | `DEBUG`    | Internal state for developers        |
@@ -96,7 +97,7 @@ INFO:root:App started
 | `WARNING`  | Recoverable problems or deprecations |
 | `ERROR`    | Serious problems that need attention |
 | `CRITICAL` | Application is unusable              |
-
+</MdxTable>
 
 ### Changing Output Format
 
@@ -109,7 +110,7 @@ logging.basicConfig(
 
 **Output:**
 
-```
+```bash
 2023-07-17 16:21:10,200 - INFO - App started
 ```
 
@@ -159,9 +160,9 @@ ZeroDivisionError: division by zero
 
 Here’s a **refactored CLI calculator** with logging and error handling.
 
-### `calculator.py`
-
 ```python
+# @file: calculator.py
+# @showLineNumbers
 import logging
 
 logging.basicConfig(

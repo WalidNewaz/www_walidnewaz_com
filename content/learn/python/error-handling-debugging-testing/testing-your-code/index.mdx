@@ -8,9 +8,9 @@ chapter: "7. Testing Your Code"
 
 title: "Testing Your Code"
 description: "This chapter explores how to handle errors gracefully, log application behavior, and debug issues efficiently in Python."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["testing", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 7: Testing Your Code
@@ -32,7 +32,8 @@ Python includes a built-in testing framework called **`unittest`**.
 Example: testing a simple calculator.
 
 ```python
-# calculator.py
+# @file: calculator.py
+# @showLineNumbers
 def add(a: int, b: int) -> int:
     """Return the sum of two numbers."""
     return a + b
@@ -41,7 +42,9 @@ def add(a: int, b: int) -> int:
 Now a `unittest` test case:
 
 ```python
-# test_calculator_unittest.py
+# @file: test_calculator_unittest.py
+# @showLineNumbers
+
 import unittest
 from calculator import add
 
@@ -68,7 +71,9 @@ if __name__ == "__main__":
 `pytest` is a **third-party testing framework** that is more concise and powerful.
 
 ```python
-# test_calculator_pytest.py
+# @file: test_calculator_pytest.py
+# @showLineNumbers
+
 from calculator import add
 
 def test_add():
@@ -89,7 +94,8 @@ def test_add():
 Fixtures help you set up and tear down test resources.
 
 ```python
-# test_contacts.py
+# @file: test_contacts.py
+# @showLineNumbers
 import pytest
 
 @pytest.fixture
@@ -113,7 +119,8 @@ def test_contact_lookup(sample_contacts):
 Sometimes you want to **replace real dependencies** with fake ones. Example: testing a function that sends email.
 
 ```python
-# notifier.py
+# @file: notifier.py
+# @showLineNumbers
 def send_email(address: str, subject: str) -> str:
     """Pretend to send an email (in real apps this would call an API)."""
     return f"Email sent to {address} with subject '{subject}'"
@@ -122,7 +129,9 @@ def send_email(address: str, subject: str) -> str:
 Now, mock it in tests:
 
 ```python
-# test_notifier.py
+# @file: test_notifier.py
+# @showLineNumbers
+
 from unittest.mock import patch
 from notifier import send_email
 
@@ -141,7 +150,9 @@ def test_send_email_mocked():
 Instead of writing multiple test functions, you can parametrize one test with different inputs.
 
 ```python
-# test_math.py
+# @file: test_math.py
+# @showLineNumbers
+
 import pytest
 from calculator import add
 
