@@ -13,7 +13,7 @@ import { getTopics } from "../../utils/posts";
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
 
-const StyledTutorialsContainer = styled.div`
+const StyledPageContentContainer = styled.div`
   ${StyledSection}
 `;
 
@@ -23,12 +23,12 @@ const StyledTutorialsContainer = styled.div`
  * @returns
  */
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
-  const tutorials = data.allMarkdownRemark.nodes;
-  const { allTopics } = data.allMarkdownRemark;
+  const tutorials = data.allMdx.nodes;
+  const { allTopics } = data.allMdx;
   const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
-    <StyledTutorialsContainer>
+    <StyledPageContentContainer>
       <section className="flex flex-column wrap flex-start">
         <h2>Build</h2>
         <p className="text-2">
@@ -83,19 +83,21 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
           );
         })}
       </section>
-    </StyledTutorialsContainer>
+    </StyledPageContentContainer>
   );
 };
 
 export const query = graphql`
   {
-    allMarkdownRemark(
+    allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: {
-        fileAbsolutePath: {
-          regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+            }
+          }
         }
-      }
     ) {
       nodes {
         fields {
@@ -118,9 +120,6 @@ export const query = graphql`
           }
           tags
           read_time
-        }
-        headings(depth: h1) {
-          value
         }
         id
       }

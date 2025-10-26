@@ -3,6 +3,7 @@ import { RenderBodyArgs } from "gatsby";
 
 /** Components */
 import Layout from "./src/components/Layout";
+import { Provider } from "./src/components/ui/provider"
 
 /** Styles */
 import "./src/styles/index.css";
@@ -32,10 +33,15 @@ export const onRenderBody = ({ setHtmlAttributes }: RenderBodyArgs): void => {
   setHtmlAttributes({ lang: `en` });
 };
 
+type wrapPageElementParams = {
+  element: React.ReactNode;
+  props: any;
+};
+
 // Wraps every page in a component
-export const wrapPageElement: React.FC<{ element; props }> = ({
+export const wrapPageElement: React.FC<wrapPageElementParams> = ({
   element,
   props,
 }): React.ReactElement => {
-  return <Layout {...props}>{element}</Layout>;
+  return <Provider><Layout {...props}>{element}</Layout></Provider>;
 };

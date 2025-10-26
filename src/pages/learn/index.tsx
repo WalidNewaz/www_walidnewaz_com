@@ -28,7 +28,7 @@ type PageContext = {
  * @returns
  */
 const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContext }) => {
-  const { tutorials, allTopics } = data.allMarkdownRemark;
+  const { tutorials, allTopics } = data.allMdx;
   const { tutorialHeroes } = data.allFile;
 
   return (
@@ -88,11 +88,13 @@ const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContex
 
 export const query = graphql`
   {
-    allMarkdownRemark(
+    allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: {
-        fileAbsolutePath: {
-          regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+        internal: {
+          contentFilePath: {
+            regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+          }
         }
       }
     ) {
@@ -117,9 +119,6 @@ export const query = graphql`
           }
           tags
           read_time
-        }
-        headings(depth: h1) {
-          value
         }
         id
       }

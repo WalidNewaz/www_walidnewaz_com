@@ -34,6 +34,14 @@ const StyledSeriesNav = styled.nav`
   }
   a {
     color: var(--heading1);
+    underline-offset: 2px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--heading1);
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--heading1);
   }
 `;
 
@@ -42,15 +50,23 @@ const StyledSeriesNav = styled.nav`
  * @param params
  * @returns
  */
-const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }> = ({
+const TutorialToc: React.FC<{
+  post: any;
+  allSeriesPosts: any;
+  seriesIntro?: any;
+  isIntro?: boolean;
+  section?: string;
+}> = ({
   post,
   allSeriesPosts,
+  seriesIntro,
+  isIntro,
   section = "tutorials",
 }) => {
   const chapters = useMemo(
     () =>
       allSeriesPosts.nodes.reduce((acc: any, article: any) => {
-        const { part, chapter, pathDate } = article.frontmatter;
+        const { part, chapter } = article.frontmatter;
         const articlePath = `/${section}${article.fields?.slug}`;
         if (Object.hasOwn(acc, part)) {
           const currChapter = [
@@ -78,6 +94,9 @@ const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }
   );
 
   const seriesName = allSeriesPosts.nodes[0].frontmatter.series;
+  const seriesIntroLink = seriesIntro
+    ? `/${section}${seriesIntro.fields?.slug}`
+    : null;
 
   return (
     seriesName &&
@@ -86,10 +105,26 @@ const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }
         <div className="block-header">
           {allSeriesPosts && allSeriesPosts.nodes[0].frontmatter.series}
         </div>
-        {/* <h3 className="series-title">
-        {allSeriesPosts && allSeriesPosts.nodes[0].frontmatter.series}
-      </h3> */}
-        {/* <pre>{JSON.stringify(allSeriesPosts, null, 2)}</pre> */}
+
+        {seriesIntro && (
+          <div className="series-intro">
+            <a href={seriesIntroLink!}>
+              <h4
+                style={{
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
+                  fontSize: "1.5rem",
+                  fontWeight: isIntro ? "bold" : "normal",
+                  backgroundColor: isIntro ? "var(--surface3)" : "transparent",
+                  borderRadius: isIntro ? "0.25rem" : "none",
+                  padding: isIntro ? "0.25rem 0.5rem" : "0",
+                }}
+              >
+                Introduction
+              </h4>
+            </a>
+          </div>
+        )}
 
         <div>
           {chapters && (
@@ -98,14 +133,23 @@ const TutorialToc: React.FC<{ post: any; allSeriesPosts: any; section?: string }
                 <li key={partIndex}>
                   <span className="part-name">{part}</span>
                   <ol style={{ listStyle: "none" }} className="chapters">
-                    {chapters[part].map(
-                      (chapter: any, chapterIndex: number) => (
+                    {chapters[part].map((chapter: any, chapterIndex: number) =>
+                      post.frontmatter.chapter === chapter.title ? (
+                        <li
+                          key={chapterIndex}
+                          style={{
+                            fontWeight: "bold",
+                            backgroundColor: "var(--surface3)",
+                            padding: "0.25rem 0.5rem",
+                            borderRadius: "0.25rem",
+                            marginLeft: "1rem",
+                          }}
+                        >
+                          <span>{chapter.title}</span>
+                        </li>
+                      ) : (
                         <li key={chapterIndex}>
-                          {post.frontmatter.chapter === chapter.title ? (
-                            <span>{chapter.title}</span>
-                          ) : (
-                            <a href={chapter.articlePath}>{chapter.title}</a>
-                          )}
+                          <a href={chapter.articlePath}>{chapter.title}</a>
                         </li>
                       )
                     )}

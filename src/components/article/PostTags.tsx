@@ -9,12 +9,12 @@ import ContentRibbon from "../ContentRibbon/ContentRibbon";
  * @param params
  * @returns
  */
-const PostTags: React.FC<{ tags: string[] }> = ({ tags }) => {
+const PostTags: React.FC<{ tags: string[], section: string }> = ({ tags, section }) => {
   const showContent = true;
   const linksText = tags
     .sort()
     .map((topic) => (
-      <Pill key={topic} topic={topic} style={{
+      <Pill key={topic} topic={topic} section={section} style={{
         margin: "0.25rem",
         padding: "0.5rem 1.5rem",
         fontFamily: "var(--fontFamily-sans)",

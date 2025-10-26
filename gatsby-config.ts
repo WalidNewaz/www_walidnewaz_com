@@ -7,6 +7,7 @@
 
 import * as dotenv from "dotenv";
 
+
 /** Utils */
 import { getGtagForEnv } from "./src/utils/gtag";
 
@@ -32,6 +33,22 @@ module.exports = {
     },
   },
   plugins: [
+    // {
+    //   resolve: "@chakra-ui/gatsby-plugin",
+    //   options: {
+    //     /**
+    //      * @property {boolean} [resetCSS=true]
+    //      * if `false`, this plugin will not use `<CSSReset />
+    //      */
+    //     resetCSS: true,
+    //     /**
+    //      * @property {number} [portalZIndex=40]
+    //      * The z-index to apply to all portal nodes. This is useful
+    //      * if your app uses a lot z-index to position elements.
+    //      */
+    //     portalZIndex: 40,
+    //   },
+    // },
     `gatsby-plugin-postcss`,
     getGtagForEnv(GATSBY_ACTIVE_ENV),
     {
@@ -42,7 +59,52 @@ module.exports = {
     },
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
-    // `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`],
+        mdxOptions: {
+          remarkPlugins: [],
+          rehypePlugins: [],
+        },
+        gatsbyRemarkPlugins: [
+          {
+            resolve: "gatsby-remark-graph",
+            options: {
+              // this is the language in your code-block that triggers mermaid parsing
+              language: "mermaid", // default
+              theme: "default", // could also be dark, forest, or neutral
+            },
+          },
+          // Add custom plugins here
+          // {
+          //   resolve: `gatsby-remark-header-ids`,
+          //   options: {
+          //     // Options here
+          //   },
+          // },
+          // {
+          //   resolve: `gatsby-remark-wrap-tables`,
+          //   options: {
+          //     containerClass: "table-container",
+          //   },
+          // },
+          `gatsby-remark-katex`,
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 630,
+            },
+          },
+          {
+            resolve: `gatsby-remark-responsive-iframe`,
+            options: {
+              wrapperStyle: `margin-bottom: 1.0725rem`,
+            },
+          },
+        ],
+      },
+    },
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
@@ -106,12 +168,12 @@ module.exports = {
         gfm: true,
         plugins: [
           {
-            resolve: 'gatsby-remark-graph',
+            resolve: "gatsby-remark-graph",
             options: {
               // this is the language in your code-block that triggers mermaid parsing
-              language: 'mermaid', // default
-              theme: 'default', // could also be dark, forest, or neutral
-            }
+              language: "mermaid", // default
+              theme: "default", // could also be dark, forest, or neutral
+            },
           },
           // Add custom plugins here
           {
@@ -152,8 +214,8 @@ module.exports = {
         ],
       },
     },
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -171,9 +233,9 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map((node) => {
-                const absPath = node.fileAbsolutePath;
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map((node) => {
+                const absPath = node.internal.contentFilePath;
                 const slug = node.fields.slug;
                 const prefixPath = absPath.substring(0, absPath.indexOf(slug));
                 // console.log(prefixPath);
@@ -191,7 +253,7 @@ module.exports = {
               });
             },
             query: `{
-              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+              allMdx(sort: {frontmatter: {date: DESC}}) {
                 nodes {
                   excerpt
                   fields {
@@ -201,7 +263,10 @@ module.exports = {
                     title
                     date
                   }
-                  fileAbsolutePath
+                  internal {
+                    type
+                    contentFilePath
+                  }
                 }
               }
             }`,

@@ -28,233 +28,151 @@ import { AggregatedTopic } from "./src/interfaces";
 /** Constants */
 import { ITEMS_PER_PAGE } from "./src/constants";
 
-/** Section: Tutorials */
+/** Helper Functions */
+const getChaptersBySeries = (nodes: any[]) =>
+  nodes.reduce((acc: any, chapter: any) => {
+    const { series } = chapter.frontmatter;
+    if (Object.hasOwn(acc, series)) {
+      const currChapters = [...acc[series], chapter];
+      return {
+        ...acc,
+        [series]: currChapters,
+      };
+    } else {
+      acc[series] = [chapter];
+    }
+    return acc;
+  }, {});
 
-/**
- * Creates static pages for tutorial intros
- * @param params
- * @returns 
- */
-const createTutorialIntroPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all tutorial series intros
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
+const getChapterHeroImagePattern = (chapter: any, reporter: Reporter) => {
+  const seriesDir = chapter.fields.slug
+    .split("/")
+    .filter((str: string) => str !== "")[0]; // e.g. react-native
+
+  let heroImagePattern = "";
+  if (chapter.frontmatter.hero_image) {
+    heroImagePattern = `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`;
+  } else {
+    heroImagePattern = `${seriesDir}/hero-image.png/`;
+  }
+  // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
+  return heroImagePattern;
+};
+
+const getPrevPostId = (currIndex: number, chapters: any[]) => {
+  if (currIndex === 0) {
+    return null;
+  }
+  return chapters[currIndex - 1].id;
+};
+
+const getNextPostId = (currIndex: number, chapters: any[]) => {
+  if (currIndex === chapters.length - 1) {
+    return null;
+  }
+  return chapters[currIndex + 1].id;
+};
+
+const getTemplatePath = (templateType: string, srcType: string) => {
+  return path.resolve(`./src/templates/${templateType}/${srcType}.tsx`);
+};
+
+const getTemplateComponent = (templateType: string, post: any) => {
+  const postTemplate = getTemplatePath(templateType, post.internal.type);
+  return post.internal.type === "Mdx"
+    ? `${postTemplate}?__contentFilePath=${post.internal.contentFilePath}`
+    : postTemplate;
+};
+
+const getQuizData = (chapter: any, section: string, reporter: Reporter) => {
+  const quizFilePath = chapter.frontmatter.has_quiz
+    ? `./content/${section}${chapter.fields.slug}chapter-quiz.json`
+    : null;
+
+  // Load the quiz data if it exists
+  let quizData = null;
+  if (quizFilePath && fs.existsSync(quizFilePath)) {
+    try {
+      const quizContent = fs.readFileSync(quizFilePath, "utf-8");
+      quizData = JSON.parse(quizContent);
+    } catch (error) {
+      reporter.warn(
+        `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
+      );
+    }
+  }
+  return quizData;
+};
+
+export const CHAPTER_FIELDS = `
+  id
+  fields {
+    slug
+  }
+  frontmatter {
+    series
+    part
+    chapter
+    has_quiz
+  }
+  internal {
+    type
+    contentFilePath
+  }
+`;
+
+export const INDEX_FIELDS = `
+  id
+  fields {
+    slug
+  }
+  frontmatter {
+    date(formatString: "MMMM DD, YYYY")
+    title
+    series
+  }
+  internal {
+    type
+    contentFilePath
+  }
+`;
+
+const getAllChapters = (siteSection: string) => `
+  allChapters: allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
         filter: {
-          fileAbsolutePath: {
-            regex: "/[/]content[/]tutorials[/][^/]+[/]index.mdx?$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            series
-            hero_image {
-              id
-              base
-              childImageSharp {
-                gatsbyImageData
-              }
+          internal: {
+            contentFilePath: {
+              regex: "/.*?/content/${siteSection}/(?![^/]+[/]index.mdx$).+.mdx$/"
             }
           }
         }
+      ) {
+        nodes {
+          ${CHAPTER_FIELDS}
+        }
       }
-    }
-  `);
+`;
 
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the tutorial intros`,
-      result.errors
-    );
-    return;
-  }
-
-  const tutorials = result.data.allMarkdownRemark.nodes;
-
-  if (tutorials.length === 0) {
-    reporter.info(`No tutorial intros found.`);
-    return;
-  }
-
-  const { createPage } = actions;
-
-  tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(
-      `Creating page for tutorial intro: ${tutorial.frontmatter.series}`
-    );
-    const seriesDir = tutorial.fields.slug
-      .split("/")
-      .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-    const heroImagePattern = tutorial.frontmatter.hero_image
-      ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
-      : `${seriesDir}/hero-image.png/`;
-
-    createPage({
-      path: `/tutorials${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/tutorialIntro/index.tsx`),
-      context: {
-        id: tutorial.id,
-        series: tutorial.frontmatter.series,
-        heroImagePattern,
-      },
-    });
-  });
-};
-
-/**
- * Creates static pages for individual tutorial chapters
- */
-const createTutorialChapterPages = async ({
-  graphql,
-  actions,
-  reporter,
-}: {
-  graphql: any;
-  actions: Actions;
-  reporter: Reporter;
-}) => {
-  // Get all markdown tutorial chapters sorted by date
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
+const getAllIndexes = (siteSection: string) => `
+  allIndexes: allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
         filter: {
-          fileAbsolutePath: {
-            regex: "/[\\\\/]content[\\\\/]tutorials[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]${siteSection}[/][^/]+[/]index.mdx$/"
+            }
           }
         }
       ) {
         nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
-            has_quiz
-          }
+          ${INDEX_FIELDS}
         }
       }
-    }
-  `);
+`;
 
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading the tutorial chapters`,
-      result.errors
-    );
-    return;
-  }
-
-  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
-
-  if (Object.keys(seriesChapters).length > 0) {
-    Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
-      reporter.info(`Creating pages for series: ${series}`);
-      const chapters = seriesChapters[series];
-      return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
-        );
-        const previousPostId = index === 0 ? null : chapters[index - 1].id;
-        const nextPostId =
-          index === chapters.length - 1 ? null : chapters[index + 1].id;
-
-        const seriesDir = chapter.fields.slug
-          .split("/")
-          .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-        // TODO: Use hero image file from the main series folder
-        // e.g. /content/tutorials/react-native/hero_image.png
-        // Currently, it uses the hero image from the chapter folder
-        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
-        // This is to ensure that the hero image is always available
-        // for the chapter page, even if the series folder doesn't have a hero image
-        const heroImagePattern = chapter.frontmatter.hero_image
-          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
-          : `${seriesDir}/hero-image.png/`;
-        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
-
-        const quizFilePath = chapter.frontmatter.has_quiz
-          ? `./content/tutorials${chapter.fields.slug}chapter-quiz.json`
-          : null;
-
-        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
-
-        // Load the quiz data if it exists
-        let quizData = null;
-        if (quizFilePath && fs.existsSync(quizFilePath)) {
-          try {
-            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
-            quizData = JSON.parse(quizContent);
-            // reporter.info(
-            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
-            // );
-            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
-          } catch (error) {
-            reporter.warn(
-              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
-            );
-          }
-        }
-
-        const { createPage } = actions;
-        createPage({
-          path: `/tutorials${chapter.fields.slug}`,
-          component: path.resolve(`./src/templates/tutorialChapter/index.tsx`),
-          context: {
-            id: chapter.id,
-            previousPostId,
-            nextPostId,
-            series: chapter.frontmatter.series,
-            heroImagePattern,
-            related: chapter.frontmatter.related || [],
-            ...(quizData && { quiz: quizData }),
-          },
-        });
-      });
-    });
-  }
-};
 
 /** Section: Learn */
 
@@ -272,15 +190,16 @@ const createLearnTutorialIntroPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all tutorial series intros
   const result = await graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
         filter: {
-          fileAbsolutePath: {
-            regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
+            }
           }
         }
       ) {
@@ -301,6 +220,10 @@ const createLearnTutorialIntroPages = async ({
               }
             }
           }
+          internal {
+            type
+            contentFilePath
+          }
         }
       }
     }
@@ -314,7 +237,7 @@ const createLearnTutorialIntroPages = async ({
     return;
   }
 
-  const tutorials = result.data.allMarkdownRemark.nodes;
+  const tutorials = result.data.allMdx.nodes;
 
   if (tutorials.length === 0) {
     reporter.info(`No learn tutorial intros found.`);
@@ -335,9 +258,18 @@ const createLearnTutorialIntroPages = async ({
       ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
       : `${seriesDir}/hero-image.png/`;
 
+    const postTemplate = path.resolve(
+      `./src/templates/learnTutorialIntro/${tutorial.internal.type}.tsx`
+    );
+    const postComponent =
+      tutorial.internal.type === "Mdx"
+        ? `${postTemplate}?__contentFilePath=${tutorial.internal.contentFilePath}`
+        : postTemplate;
+    
+
     createPage({
       path: `/learn${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/learnTutorialIntro/index.tsx`),
+      component: postComponent,
       context: {
         id: tutorial.id,
         series: tutorial.frontmatter.series,
@@ -359,33 +291,10 @@ const createLearnTutorialChapterPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all markdown tutorial chapters sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/[\\\\/]content[\\\\/]learn[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
-            has_quiz
-          }
-        }
-      }
+      ${getAllChapters("learn")}
+      ${getAllIndexes("learn")}
     }
   `);
 
@@ -397,32 +306,34 @@ const createLearnTutorialChapterPages = async ({
     return;
   }
 
-  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
+  // const seriesChapters = result.data.allMdx.nodes.reduce(
+  //   (acc: any, article: any) => {
+  //     const { series } = article.frontmatter;
+  //     if (Object.hasOwn(acc, series)) {
+  //       const currChapters = [...acc[series], article];
+  //       return {
+  //         ...acc,
+  //         [series]: currChapters,
+  //       };
+  //     } else {
+  //       acc[series] = [article];
+  //     }
+  //     return acc;
+  //   },
+  //   {}
+  // );
   // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+
+  const { nodes: allChapters } = result.data.allChapters;
+  const seriesChapters = getChaptersBySeries(allChapters);
+  const { nodes: allIndexes } = result.data.allIndexes;
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
       reporter.info(`Creating pages for series: ${series}`);
+      const seriesIntro = allIndexes.find((index: any) => index.frontmatter.series === series) || {};
       const chapters = seriesChapters[series];
       return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
-        );
         const previousPostId = index === 0 ? null : chapters[index - 1].id;
         const nextPostId =
           index === chapters.length - 1 ? null : chapters[index + 1].id;
@@ -431,12 +342,6 @@ const createLearnTutorialChapterPages = async ({
           .split("/")
           .filter((str: string) => str !== "")[0]; // e.g. react-native
 
-        // TODO: Use hero image file from the main series folder
-        // e.g. /content/tutorials/react-native/hero_image.png
-        // Currently, it uses the hero image from the chapter folder
-        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
-        // This is to ensure that the hero image is always available
-        // for the chapter page, even if the series folder doesn't have a hero image
         const heroImagePattern = chapter.frontmatter.hero_image
           ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
           : `${seriesDir}/hero-image.png/`;
@@ -446,18 +351,12 @@ const createLearnTutorialChapterPages = async ({
           ? `./content/learn${chapter.fields.slug}chapter-quiz.json`
           : null;
 
-        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
-
         // Load the quiz data if it exists
         let quizData = null;
         if (quizFilePath && fs.existsSync(quizFilePath)) {
           try {
             const quizContent = fs.readFileSync(quizFilePath, "utf-8");
             quizData = JSON.parse(quizContent);
-            // reporter.info(
-            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
-            // );
-            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
           } catch (error) {
             reporter.warn(
               `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
@@ -468,9 +367,7 @@ const createLearnTutorialChapterPages = async ({
         const { createPage } = actions;
         createPage({
           path: `/learn${chapter.fields.slug}`,
-          component: path.resolve(
-            `./src/templates/learnTutorialChapter/index.tsx`
-          ),
+          component: getTemplateComponent("learnTutorialChapter", chapter),
           context: {
             id: chapter.id,
             previousPostId,
@@ -479,6 +376,7 @@ const createLearnTutorialChapterPages = async ({
             heroImagePattern,
             related: chapter.frontmatter.related || [],
             ...(quizData && { quiz: quizData }),
+            seriesIntro: seriesIntro,
           },
         });
       });
@@ -502,26 +400,13 @@ const createLearnTopicsPages = async ({
   // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postSummary: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/^.*/content/learn/.*?$/" } }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
+      ${getAllTopicsPages("learn")}
     }
   `);
 
   if (result.errors) {
     reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
+      `There was an error loading your learn posts`,
       result.errors
     );
     return;
@@ -541,6 +426,8 @@ const createLearnTopicsPages = async ({
         postsPerPage,
         actions,
         section: "learn",
+        templateType: `learnTopics`,
+        srcType: "Mdx",
       });
     });
   }
@@ -554,6 +441,7 @@ const createLearnTopicsPages = async ({
       postsPerPage,
       actions,
       section: "learn",
+      srcType: "Mdx",
     });
   });
 };
@@ -577,12 +465,14 @@ const createBuildTutorialIntroPages = async ({
   // Get all tutorial series intros
   const result = await graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
         filter: {
-          fileAbsolutePath: {
-            regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+          internal: {
+            contentFilePath: {
+              regex: "/[/]content[/]build[/][^/]+[/]index.mdx?$/"
+            }
           }
         }
       ) {
@@ -603,6 +493,10 @@ const createBuildTutorialIntroPages = async ({
               }
             }
           }
+          internal {
+            type
+            contentFilePath
+          }
         }
       }
     }
@@ -616,19 +510,19 @@ const createBuildTutorialIntroPages = async ({
     return;
   }
 
-  const tutorials = result.data.allMarkdownRemark.nodes;
+  const tutorials = result.data.allMdx.nodes;
 
   if (tutorials.length === 0) {
-    reporter.info(`No build tutorial intros found.`);
+    reporter.warn(`No build tutorial intros found.`);
     return;
   }
 
   const { createPage } = actions;
 
   tutorials.forEach((tutorial: any, index: number) => {
-    reporter.info(
-      `Creating page for build tutorial intro: ${tutorial.frontmatter.series}`
-    );
+    // reporter.info(
+    //   `Creating page for build tutorial intro: ${tutorial.frontmatter.series}`
+    // );
     const seriesDir = tutorial.fields.slug
       .split("/")
       .filter((str: string) => str !== "")[0]; // e.g. react-native
@@ -637,9 +531,17 @@ const createBuildTutorialIntroPages = async ({
       ? `${tutorial.fields.slug}${tutorial.frontmatter.hero_image.base}/`
       : `${seriesDir}/hero-image.png/`;
 
+    const postTemplate = path.resolve(
+      `./src/templates/buildTutorialIntro/${tutorial.internal.type}.tsx`
+    );
+    const postComponent =
+      tutorial.internal.type === "Mdx"
+        ? `${postTemplate}?__contentFilePath=${tutorial.internal.contentFilePath}`
+        : postTemplate;
+
     createPage({
       path: `/build${tutorial.fields.slug}`,
-      component: path.resolve(`./src/templates/buildTutorialIntro/index.tsx`),
+      component: postComponent,
       context: {
         id: tutorial.id,
         series: tutorial.frontmatter.series,
@@ -661,33 +563,11 @@ const createBuildTutorialChapterPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all markdown tutorial chapters sorted by date
+  // Get all build tutorial chapters sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: ASC } }
-        limit: 1000
-        filter: {
-          fileAbsolutePath: {
-            regex: "/[\\\\/]content[\\\\/]build[\\\\/](?![^\\\\/]+[\\\\/]index.mdx?$).+.(md|mdx)$/"
-          }
-        }
-      ) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            series
-            part
-            chapter
-            pathDate: date(formatString: "/YYYY/MM/DD")
-            related
-            has_quiz
-          }
-        }
-      }
+      ${getAllChapters("build")}
+      ${getAllIndexes("build")}
     }
   `);
 
@@ -699,94 +579,68 @@ const createBuildTutorialChapterPages = async ({
     return;
   }
 
-  const seriesChapters = result.data.allMarkdownRemark.nodes.reduce(
-    (acc: any, article: any) => {
-      const { series } = article.frontmatter;
-      if (Object.hasOwn(acc, series)) {
-        const currChapters = [...acc[series], article];
-        return {
-          ...acc,
-          [series]: currChapters,
-        };
-      } else {
-        acc[series] = [article];
-      }
-      return acc;
-    },
-    {}
-  );
-  // reporter.info(`Series Chapters: ${JSON.stringify(seriesChapters)}`);
+  const { nodes: allChapters } = result.data.allChapters;
+  const seriesChapters = getChaptersBySeries(allChapters);
+  const { nodes: allIndexes } = result.data.allIndexes;
 
   if (Object.keys(seriesChapters).length > 0) {
     Object.keys(seriesChapters).map((series: string, seriesIndex: number) => {
       reporter.info(`Creating pages for series: ${series}`);
+      const seriesIntro = allIndexes.find((index: any) => index.frontmatter.series === series) || {};
       const chapters = seriesChapters[series];
+
       return chapters.map((chapter: any, index: number) => {
-        reporter.info(
-          `Creating page for chapter: ${chapter.frontmatter.chapter}`
-        );
-        const previousPostId = index === 0 ? null : chapters[index - 1].id;
-        const nextPostId =
-          index === chapters.length - 1 ? null : chapters[index + 1].id;
 
-        const seriesDir = chapter.fields.slug
-          .split("/")
-          .filter((str: string) => str !== "")[0]; // e.g. react-native
-
-        // TODO: Use hero image file from the main series folder
-        // e.g. /content/tutorials/react-native/hero_image.png
-        // Currently, it uses the hero image from the chapter folder
-        // e.g. /content/tutorials/react-native/getting-started/hero_image.png
-        // This is to ensure that the hero image is always available
-        // for the chapter page, even if the series folder doesn't have a hero image
-        const heroImagePattern = chapter.frontmatter.hero_image
-          ? `${chapter.fields.slug}${chapter.frontmatter.hero_image.base}/`
-          : `${seriesDir}/hero-image.png/`;
-        // reporter.info(`Hero Image Pattern for ${chapter.frontmatter.chapter}: ${heroImagePattern}`);
-
-        const quizFilePath = chapter.frontmatter.has_quiz
-          ? `./content/build${chapter.fields.slug}chapter-quiz.json`
-          : null;
-
-        // console.log(`Quiz File Path for ${chapter.frontmatter.chapter}:`, quizFilePath);
-
-        // Load the quiz data if it exists
-        let quizData = null;
-        if (quizFilePath && fs.existsSync(quizFilePath)) {
-          try {
-            const quizContent = fs.readFileSync(quizFilePath, "utf-8");
-            quizData = JSON.parse(quizContent);
-            // reporter.info(
-            //   `Loaded quiz data for chapter ${chapter.frontmatter.chapter}`
-            // );
-            // reporter.info(`Quiz Data: ${JSON.stringify(quizData)}`);
-          } catch (error) {
-            reporter.warn(
-              `Failed to load quiz data for chapter ${chapter.frontmatter.chapter}: ${error}`
-            );
-          }
-        }
+        const pagePath = `/build${chapter.fields.slug}`;
+        const postComponent = getTemplateComponent("buildTutorialChapter", chapter);
+        const chapterId = chapter.id;
+        const previousPostId = getPrevPostId(index, chapters);
+        const nextPostId = getNextPostId(index, chapters);
+        const series = chapter.frontmatter.series;
+        const heroImagePattern = getChapterHeroImagePattern(chapter, reporter);
+        const quizData = getQuizData(chapter, "build", reporter);
 
         const { createPage } = actions;
         createPage({
-          path: `/build${chapter.fields.slug}`,
-          component: path.resolve(
-            `./src/templates/buildTutorialChapter/index.tsx`
-          ),
+          path: pagePath,
+          component: postComponent,
           context: {
-            id: chapter.id,
-            previousPostId,
-            nextPostId,
-            series: chapter.frontmatter.series,
-            heroImagePattern,
-            related: chapter.frontmatter.related || [],
+            id: chapterId,
+            previousPostId: previousPostId,
+            nextPostId: nextPostId,
+            series: series,
+            heroImagePattern: heroImagePattern,
             ...(quizData && { quiz: quizData }),
+            seriesIntro: seriesIntro,
           },
         });
       });
     });
   }
 };
+
+const getAllTopicsPages = (siteSection: string) => `
+  postSummary: allMdx(
+      filter: {
+        internal: {
+          contentFilePath: {
+            regex: "/^.*/content/${siteSection}/.*?$/"
+          }
+        }
+      }
+    ) {
+      totalCount
+      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
+      }
+      blogPosts: nodes {
+        frontmatter {
+          tags
+        }
+      }
+    }
+`;
 
 /**
  * Creates a list of pages that filter build posts based on topics
@@ -804,20 +658,7 @@ const createBuildTopicsPages = async ({
   // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postSummary: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/^.*/content/build/.*?$/" } }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
+      ${getAllTopicsPages("build")}
     }
   `);
 
@@ -843,6 +684,8 @@ const createBuildTopicsPages = async ({
         postsPerPage,
         actions,
         section: "build",
+        templateType: `buildTopics`,
+        srcType: "Mdx",
       });
     });
   }
@@ -856,11 +699,12 @@ const createBuildTopicsPages = async ({
       postsPerPage,
       actions,
       section: "build",
+      srcType: "Mdx",
     });
   });
 };
 
-/** Section: Journal/Blog */
+/** Section: Blog */
 
 /**
  * Creates static pages for individual blog posts
@@ -874,13 +718,14 @@ const createBlogPostPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { frontmatter: { date: ASC } }
         limit: 1000
-        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+        filter: {
+          internal: { contentFilePath: { regex: "/.*?/content/blog/.+.mdx$/" } }
+        }
       ) {
         nodes {
           id
@@ -900,6 +745,10 @@ const createBlogPostPages = async ({
             pathDate: date(formatString: "/YYYY/MM/DD")
             related
           }
+          internal {
+            type
+            contentFilePath
+          }
         }
       }
     }
@@ -914,7 +763,7 @@ const createBlogPostPages = async ({
   }
 
   const { createPage } = actions;
-  const posts = result.data.allMarkdownRemark.nodes;
+  const posts = result.data.allMdx.nodes;
 
   if (posts.length > 0) {
     posts.forEach((post: any, index: number) => {
@@ -929,7 +778,7 @@ const createBlogPostPages = async ({
 
       createPage({
         path: `/blog${pathDate}${post.fields.slug}`,
-        component: path.resolve(`./src/templates/blogPost/index.tsx`),
+        component: getTemplateComponent("blogPost", post),
         context: {
           id: post.id,
           previousPostId,
@@ -956,23 +805,9 @@ const createBlogTopicsPages = async ({
   actions: Actions;
   reporter: Reporter;
 }) => {
-  // Get all posts and their listed topics
   const result = await graphql(`
     {
-      postSummary: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
-      ) {
-        totalCount
-        allTopics: group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-        blogPosts: nodes {
-          frontmatter {
-            tags
-          }
-        }
-      }
+      ${getAllTopicsPages("blog")}
     }
   `);
 
@@ -997,6 +832,9 @@ const createBlogTopicsPages = async ({
         index: i,
         postsPerPage,
         actions,
+        section: "blog",
+        templateType: `blogTopics`,
+        srcType: "Mdx",
       });
     });
   }
@@ -1009,6 +847,8 @@ const createBlogTopicsPages = async ({
       numPages,
       postsPerPage,
       actions,
+      section: "blog",
+      srcType: "Mdx",
     });
   });
 };
@@ -1021,9 +861,6 @@ exports.createPages = async ({
   actions,
   reporter,
 }: CreatePagesArgs) => {
-  await createTutorialIntroPages({ graphql, actions, reporter });
-  await createTutorialChapterPages({ graphql, actions, reporter });
-
   // Learn Section
   await createLearnTutorialIntroPages({ graphql, actions, reporter });
   await createLearnTutorialChapterPages({ graphql, actions, reporter });
@@ -1034,18 +871,20 @@ exports.createPages = async ({
   await createBuildTutorialChapterPages({ graphql, actions, reporter });
   await createBuildTopicsPages({ graphql, actions, reporter });
 
-  // Blog/Journal Section
+  // Blog Section
   await createBlogPostPages({ graphql, actions, reporter });
   await createBlogTopicsPages({ graphql, actions, reporter });
 };
 
 /**
+ * Add custom fields to GraphQL nodes
+ * 
  * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
 exports.onCreateNode = ({ node, actions, getNode }: CreateNodeArgs) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode });
 
     createNodeField({
@@ -1054,53 +893,6 @@ exports.onCreateNode = ({ node, actions, getNode }: CreateNodeArgs) => {
       value,
     });
   }
-};
-
-/**
- * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
- */
-exports.createSchemaCustomization = ({
-  actions,
-}: CreateSchemaCustomizationArgs) => {
-  const { createTypes } = actions;
-
-  // Explicitly define the siteMetadata {} object
-  // This way those will always be defined even if removed from gatsby-config.js
-
-  // Also explicitly define the Markdown frontmatter
-  // This way the "MarkdownRemark" queries will return `null` even when no
-  // blog posts are stored inside "content/blog" instead of returning an error
-  createTypes(`
-    type SiteSiteMetadata {
-      author: Author
-      siteUrl: String
-      social: Social
-    }
-
-    type Social {
-      linkedin: String
-    }
-
-    type Author {
-      name: String
-      summary: String
-    }
-
-    type MarkdownRemark implements Node {
-      frontmatter: Frontmatter
-      fields: Fields
-    }
-
-    type Frontmatter {
-      title: String
-      description: String
-      date: Date @dateformat
-    }
-
-    type Fields {
-      slug: String
-    }
-  `);
 };
 
 /**
@@ -1131,31 +923,66 @@ export const createSchemaCustomization = ({
   actions,
 }: CreateSchemaCustomizationArgs) => {
   const { createTypes } = actions;
+  
   createTypes(`
-    type MarkdownRemark implements Node {
+    type SiteSiteMetadata {
+      author: Author
+      siteUrl: String
+      social: Social
+    }
+
+    type Social {
+      linkedin: String
+    }
+
+    type Author {
+      name: String
+      summary: String
+    }
+
+    interface MarkdownOrMdx @nodeInterface {
       id: ID!
       frontmatter: Frontmatter
       fields: Fields
     }
 
+    type MarkdownRemark implements Node & MarkdownOrMdx {
+      frontmatter: Frontmatter
+      fields: Fields
+    }
+
+    type Mdx implements Node & MarkdownOrMdx {
+      frontmatter: Frontmatter
+      fields: Fields
+    }
+
     type Frontmatter {
+      featured: Boolean
+      date: Date @dateformat
       series: String
       part: String
       chapter: String
       title: String
+      description: String
+      has_quiz: Boolean
+      tags: [String]
       hero_image: File @fileByRelativePath
       pathDate: Date @dateformat
       related: [String]
-      has_quiz: Boolean
+      collections: [String]
+      required_courses: [String]
+      difficulty: String
+      audience: String
+      series: String
     }
 
     type Fields {
       slug: String
     }
 
-    type MarkdownRemarkFrontmatter {
-      has_quiz: Boolean
-      hero_image: File @link(from: "hero_image")
+    type File implements Node {
+      absolutePath: String
+      childImageSharp: ImageSharp
     }
   `);
 };
