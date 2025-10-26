@@ -33,22 +33,6 @@ module.exports = {
     },
   },
   plugins: [
-    // {
-    //   resolve: "@chakra-ui/gatsby-plugin",
-    //   options: {
-    //     /**
-    //      * @property {boolean} [resetCSS=true]
-    //      * if `false`, this plugin will not use `<CSSReset />
-    //      */
-    //     resetCSS: true,
-    //     /**
-    //      * @property {number} [portalZIndex=40]
-    //      * The z-index to apply to all portal nodes. This is useful
-    //      * if your app uses a lot z-index to position elements.
-    //      */
-    //     portalZIndex: 40,
-    //   },
-    // },
     `gatsby-plugin-postcss`,
     getGtagForEnv(GATSBY_ACTIVE_ENV),
     {
@@ -76,19 +60,6 @@ module.exports = {
               theme: "default", // could also be dark, forest, or neutral
             },
           },
-          // Add custom plugins here
-          // {
-          //   resolve: `gatsby-remark-header-ids`,
-          //   options: {
-          //     // Options here
-          //   },
-          // },
-          // {
-          //   resolve: `gatsby-remark-wrap-tables`,
-          //   options: {
-          //     containerClass: "table-container",
-          //   },
-          // },
           `gatsby-remark-katex`,
           {
             resolve: `gatsby-remark-images`,
@@ -140,78 +111,11 @@ module.exports = {
         path: `${__dirname}/content/build`,
       },
     },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `grow`,
-    //     path: `${__dirname}/content/grow`,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `journal`,
-    //     path: `${__dirname}/content/journal`,
-    //   },
-    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        // GitHub Flavored Markdown mode (default: true)
-        gfm: true,
-        plugins: [
-          {
-            resolve: "gatsby-remark-graph",
-            options: {
-              // this is the language in your code-block that triggers mermaid parsing
-              language: "mermaid", // default
-              theme: "default", // could also be dark, forest, or neutral
-            },
-          },
-          // Add custom plugins here
-          {
-            resolve: `gatsby-remark-header-ids`,
-            options: {
-              // Options here
-            },
-          },
-          {
-            resolve: `gatsby-remark-wrap-tables`,
-            options: {
-              containerClass: "table-container",
-            },
-          },
-          `gatsby-remark-katex`,
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 630,
-            },
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
-          },
-          {
-            resolve: `gatsby-remark-vscode`,
-            options: {
-              theme: {
-                default: "Solarized Light",
-                dark: "Solarized Dark",
-              },
-            },
-          },
-          `gatsby-remark-prismjs`,
-        ],
       },
     },
     `gatsby-plugin-sharp`,
@@ -238,17 +142,14 @@ module.exports = {
                 const absPath = node.internal.contentFilePath;
                 const slug = node.fields.slug;
                 const prefixPath = absPath.substring(0, absPath.indexOf(slug));
-                // console.log(prefixPath);
                 const paths = prefixPath.split("/");
                 const lastPath = paths.pop();
-                // console.log(lastPath);
 
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + `/${lastPath}` + slug,
                   guid: site.siteMetadata.siteUrl + `/${lastPath}` + slug,
-                  // custom_elements: [{ "content:encoded": node.html }],
                 });
               });
             },
