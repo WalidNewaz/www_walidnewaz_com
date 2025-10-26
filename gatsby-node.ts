@@ -259,7 +259,7 @@ const createLearnTutorialIntroPages = async ({
       : `${seriesDir}/hero-image.png/`;
 
     const postTemplate = path.resolve(
-      `./src/templates/learnTutorialIntro/${tutorial.internal.type}.tsx`
+      `./src/templates/learnTutorialIntro/Mdx.tsx`
     );
     const postComponent =
       tutorial.internal.type === "Mdx"
@@ -532,7 +532,7 @@ const createBuildTutorialIntroPages = async ({
       : `${seriesDir}/hero-image.png/`;
 
     const postTemplate = path.resolve(
-      `./src/templates/buildTutorialIntro/${tutorial.internal.type}.tsx`
+      `./src/templates/buildTutorialIntro/Mdx.tsx`
     );
     const postComponent =
       tutorial.internal.type === "Mdx"
