@@ -8,85 +8,24 @@
  * Currently there is no pagination support.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { graphql, PageProps } from "gatsby";
 import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import PaginatedArticleCards from "../../components/PaginatedArticleCards";
 import Topics from "../../components/Topics";
 import ArticlePostCard from "../../components/molecules/articlePostCard";
-
-/** Interfaces */
-import { AllTopics } from "../../interfaces";
-
-/** Hooks */
-import { useFetchNextPage } from "../../hooks/useFetchNextPage";
 
 /** Utils */
 import { getTopics } from "../../utils/posts";
 
-/** Constants */
-import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
-
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
-const BlogPostContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
 
 const StyledTutorialsContainer = styled.div`
   ${StyledSection}
 `;
-
-type PostTopic = {
-  frontmatter: {
-    tags: string[];
-  };
-};
-
-type AllPosts = {
-  allPosts: {
-    posts: {
-      excerpt: string;
-      fields: {
-        slug: string;
-      };
-      frontmatter: {
-        date: string;
-        pathDate: string;
-        title: string;
-        description: string;
-        hero_image: {
-          id: string;
-          childImageSharp: {
-            gatsbyImageData: any;
-          };
-        };
-        tags: string[];
-        read_time: string;
-      };
-      headings: {
-        value: string;
-      }[];
-      id: string;
-    }[];
-    totalCount: number;
-  };
-  postTopics: AllTopics;
-  allFile: {
-    tutorialHeroes: {
-      id: string;
-      relativeDirectory: string;
-      childImageSharp: {
-        gatsbyImageData: any;
-      };
-    }[];
-  };
-};
 
 type PageContext = {
   topic: string;
@@ -144,8 +83,6 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
           return (
             <ArticlePostCard
               key={tutorial.id}
-              // postDate={tutorial.frontmatter.date}
-              // readTime={tutorial.frontmatter.read_time}
               title={tutorial.frontmatter.series}
               image={heroImagePattern}
               slug={`/learn${tutorial.fields.slug}`}
@@ -183,21 +120,10 @@ export const pageQuery = graphql`
         }
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
-          pathDate: date(formatString: "/YYYY/MM/DD")
           title
           series
-          part
-          chapter
           description
-          hero_image {
-            id
-            base
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
           tags
-          read_time
         }
         id
       }
@@ -220,4 +146,4 @@ export const pageQuery = graphql`
 
 export default BlogTopicPage;
 
-export const Head: React.FC = () => <Seo title="All posts" />;
+export const Head: React.FC = () => <Seo title="Learn Topics" />;

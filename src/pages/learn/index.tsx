@@ -69,8 +69,6 @@ const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContex
           return (
             <ArticlePostCard
               key={tutorial.id}
-              // postDate={tutorial.frontmatter.date}
-              // readTime={tutorial.frontmatter.read_time}
               title={tutorial.frontmatter.series}
               image={heroImagePattern}
               slug={`/learn${tutorial.fields.slug}`}
@@ -89,14 +87,8 @@ const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContex
 export const query = graphql`
   {
     allMdx(
-      sort: { frontmatter: { date: DESC } }
-      filter: {
-        internal: {
-          contentFilePath: {
-            regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"
-          }
-        }
-      }
+      sort: {frontmatter: {date: DESC}}
+      filter: {internal: {contentFilePath: {regex: "/[/]content[/]learn[/][^/]+[/]index.mdx?$/"}}}
     ) {
       tutorials: nodes {
         fields {
@@ -104,30 +96,19 @@ export const query = graphql`
         }
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
-          pathDate: date(formatString: "/YYYY/MM/DD")
           title
           series
-          part
-          chapter
           description
-          hero_image {
-            id
-            base
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
           tags
-          read_time
         }
         id
       }
-      allTopics: group(field: { frontmatter: { tags: SELECT } }) {
+      allTopics: group(field: {frontmatter: {tags: SELECT}}) {
         fieldValue
         totalCount
       }
     }
-    allFile(filter: { relativePath: { regex: ".*/hero-image.png$/" } }) {
+    allFile(filter: {relativePath: {regex: ".*/hero-image.png$/"}}) {
       tutorialHeroes: nodes {
         id
         relativeDirectory
@@ -141,4 +122,4 @@ export const query = graphql`
 
 export default TutorialsPage;
 
-export const Head: React.FC = () => <Seo title="Learn" />;
+export const Head: React.FC = () => <Seo title="Learn Topics" />;
