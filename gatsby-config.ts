@@ -6,12 +6,10 @@
  */
 
 import * as dotenv from "dotenv";
-
+dotenv.config();
 
 /** Utils */
 import { getGtagForEnv } from "./src/utils/gtag";
-
-dotenv.config();
 
 /** Constants */
 const GATSBY_ACTIVE_ENV = process.env.GATSBY_ACTIVE_ENV || "development";
