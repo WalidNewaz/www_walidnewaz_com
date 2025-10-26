@@ -49,13 +49,18 @@ const StyledHomePageFeaturesSection = styled.section`
   }
 `;
 
+interface HomePageFeaturesProps {
+  featuredPosts: any[];
+  profileImg: any;
+}
+
 /**
  * Renders the top of the index page containing the featured posts and
  * short bio.
  * @param params
  * @returns
  */
-const HomePageFeatures: React.FC<{ featuredPosts; profileImg }> = ({
+const HomePageFeatures: React.FC<HomePageFeaturesProps> = ({
   featuredPosts,
   profileImg,
 }) => {

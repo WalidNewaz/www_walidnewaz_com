@@ -104,7 +104,7 @@ const getQuizData = (chapter: any, section: string, reporter: Reporter) => {
   return quizData;
 };
 
-export const CHAPTER_FIELDS = `
+const CHAPTER_FIELDS = `
   id
   fields {
     slug
@@ -121,7 +121,7 @@ export const CHAPTER_FIELDS = `
   }
 `;
 
-export const INDEX_FIELDS = `
+const INDEX_FIELDS = `
   id
   fields {
     slug
