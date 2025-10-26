@@ -8,9 +8,9 @@ chapter: "2. Building Your First API with FastAPI"
 
 title: "Building Your First API with FastAPI"
 description: "In this chapter, we go beyond \"Hello World\" and build a Todo List REST API."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["FastAPI", "Python", "Web Dev"]
+tags: ["Python", "Web Dev"]
 ---
 
 # Chapter 2: Building Your First API with FastAPI
@@ -28,7 +28,7 @@ We’ll keep things **in-memory** for now (no database yet) to focus on the HTTP
 
 Project structure now looks like this:
 
-```
+```bash
 fastapi-todo/
 ├── pyproject.toml
 ├── fastapi_todo/
@@ -41,7 +41,10 @@ fastapi-todo/
 ## 2.2 Define Pydantic Models
 
 ```python
-# filename: fastapi_todo/models.py
+"""
+@file: fastapi_todo/models.py
+@showLineNumbers
+"""
 from pydantic import BaseModel, Field
 
 
@@ -68,7 +71,10 @@ class TodoCreate(BaseModel):
 ## 2.3 Implement CRUD Endpoints
 
 ```python
-# filename: fastapi_todo/main.py
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 from typing import List
 
 from fastapi import FastAPI, HTTPException
@@ -134,7 +140,10 @@ def delete_todo(todo_id: int) -> None:
 ## 2.4 Write Tests
 
 ```python
-# filename: tests/test_main.py
+"""
+@file: tests/test_main.py
+@showLineNumbers
+"""
 from fastapi.testclient import TestClient
 from fastapi_todo.main import app
 

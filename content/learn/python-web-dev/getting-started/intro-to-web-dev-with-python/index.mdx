@@ -8,9 +8,9 @@ chapter: "1. Introduction to Web Development with Python"
 
 title: "Introduction to Web Development with Python"
 description: "In this chapter, we set the stage for building modern web applications with Python."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["Introduction", "Python", "Web Dev"]
+tags: ["Python", "Web Dev"]
 ---
 
 # Chapter 1: Introduction to Web Development with Python
@@ -78,7 +78,7 @@ poetry add --group dev pytest mypy httpx
 
 ### Step 2: Basic project structure
 
-```
+```bash
 fastapi-todo/
 ├── pyproject.toml
 ├── fastapi_todo/
@@ -90,7 +90,10 @@ fastapi-todo/
 ## 1.4 Hello World in FastAPI
 
 ```python
-# filename: fastapi_todo/main.py
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -124,7 +127,10 @@ Visit: `http://127.0.0.1:8000/` → you’ll see `{"message": "Hello, FastAPI wo
 ## 1.5 Writing Tests with Pytest + HTTPX
 
 ```python
-# filename: tests/test_main.py
+"""
+@file: tests/test_main.py
+@showLineNumbers
+"""
 from fastapi.testclient import TestClient
 from fastapi_todo.main import app
 

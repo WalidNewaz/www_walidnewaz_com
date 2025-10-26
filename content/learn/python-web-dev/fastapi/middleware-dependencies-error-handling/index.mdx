@@ -8,9 +8,9 @@ chapter: "3. Middleware, Dependencies, and Error Handling"
 
 title: "Middleware, Dependencies, and Error Handling"
 description: "In this chapter, we will examine the middleware pattern, applying dependencies, and handling errors and exceptions."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["FastAPI", "Python", "Web Dev"]
+tags: ["Python", "Web Dev"]
 ---
 
 # Chapter 3: Middleware, Dependencies, and Error Handling
@@ -33,7 +33,10 @@ We will extend our **Todo API** from Chapter 2 by:
 Middleware allows you to **run logic before and after each request**.
 
 ```python
-# filename: fastapi_todo/main.py
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 import time
 from fastapi import FastAPI, Request
 
@@ -62,7 +65,10 @@ Dependencies are functions that can be **injected** into routes to provide share
 Here we simulate a simple **API key authentication**:
 
 ```python
-# filename: fastapi_todo/dependencies.py
+"""
+@file: fastapi_todo/dependencies.py
+@showLineNumbers
+"""
 from fastapi import Header, HTTPException
 
 def get_api_key(x_api_key: str = Header(...)) -> str:
@@ -75,7 +81,10 @@ def get_api_key(x_api_key: str = Header(...)) -> str:
 Use it in routes:
 
 ```python
-# filename: fastapi_todo/main.py (inside CRUD routes)
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 from fastapi import Depends
 from fastapi_todo.dependencies import get_api_key
 
@@ -88,7 +97,7 @@ def secure_list_todos() -> list[Todo]:
 **Explanation:**
 
 * Any request to `/secure-todos` must send a header (case insensitive):
-  ```
+  ```bash
   X-API-Key: secret-key
   ```
 * Otherwise, it will return **403 Forbidden**.
@@ -100,7 +109,10 @@ FastAPI provides `HTTPException` for structured error responses.
 Let’s add **custom error handlers**.
 
 ```python
-# filename: fastapi_todo/main.py
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 from fastapi.responses import JSONResponse
 from fastapi.exception_handlers import RequestValidationError
 from fastapi.exceptions import RequestValidationError
@@ -140,6 +152,9 @@ Now if you try to access the route `/todos/1`, when the app server is restarted,
 If you try to create a todo item using an `int` as the value of `title` instead of a `str`, you may get something like the following:
 
 ```json
+/**
+ * @showLineNumbers
+ */
 {
     "error": "Validation failed",
     "details": [
@@ -161,7 +176,10 @@ This vastly improves debugging when using the API routes.
 ## 3.4 Tests for Middleware, Dependencies, and Errors
 
 ```python
-# filename: tests/test_errors.py
+"""
+@file: tests/test_errors.py
+@showLineNumbers
+"""
 from fastapi.testclient import TestClient
 from fastapi_todo.main import app
 

@@ -8,9 +8,9 @@ chapter: "4. Authentication and Authorization in FastAPI"
 
 title: "Authentication and Authorization in FastAPI"
 description: "In this chapter, you will learn about authentication and authorization using FastAPI. We'll also learn about JWT (JSON Web Token) based authentication."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["FastAPI", "Python", "Web Dev"]
+tags: ["Python", "Web Dev"]
 ---
 
 # Chapter 4: Authentication and Authorization in FastAPI
@@ -39,7 +39,10 @@ poetry add "python-jose[cryptography]" passlib[bcrypt]
 ## 4.2 Create User & Auth Utilities
 
 ```python
-# filename: fastapi_todo/auth.py
+"""
+@file: fastapi_todo/auth.py
+@showLineNumbers
+"""
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -86,7 +89,10 @@ def decode_access_token(token: str) -> dict:
 ## 4.3 User Model and Login Endpoint
 
 ```python
-# filename: fastapi_todo/main.py
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi_todo.auth import (
@@ -128,7 +134,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()) -> dict[str, str]:
 ## 4.4 Protect Routes with JWT
 
 ```python
-# filename: fastapi_todo/main.py (continued)
+"""
+@file: fastapi_todo/main.py
+@showLineNumbers
+"""
 def get_current_user(token: str = Depends(oauth2_scheme)) -> str:
     """Extract current user from JWT token."""
     try:
@@ -155,7 +164,10 @@ def secure_list_todos(current_user: str = Depends(get_current_user)) -> list[Tod
 ## 4.5: Tests for Authentication
 
 ```python
-# filename: tests/test_auth.py
+"""
+@file: tests/test_auth.py
+@showLineNumbers
+"""
 from fastapi.testclient import TestClient
 from fastapi_todo.main import app
 
