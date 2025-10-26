@@ -6,17 +6,10 @@ series: "Mastering TypeScript"
 part: "IV. Advanced Topics"
 chapter: "13. TypeScript Modules and Namespaces"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "4. Advanced Topics"
 title: "TypeScript Modules and Namespaces"
 description: "TypeScript provides robust mechanisms for organizing and managing your codebase through the use of modules and namespaces. These features not only help in maintaining a clean code structure but also enhance reusability, scalability, and maintainability of your applications. This article will delve into the details of TypeScript modules and namespaces, providing practical examples and guidance on how to effectively utilize these constructs to organize your code."
-hero_image: "module-68955_1920.jpg"
-tags: ["modules", "namespaces", "typescript"]
-read_time: 5 min
-related:
-  - "Introduction to TypeScript"
-  - "Classes, Interfaces, and Objects in TypeScript"
+
+tags: ["TypeScript"]
 ---
 
 # TypeScript Modules and Namespaces: Organizing Your Codebase
@@ -31,9 +24,14 @@ TypeScript modules are closely aligned with ES6 modules. They help in encapsulat
 
 Let's create a simple module that provides functionality related to user management:
 
-**user.ts**
-
-```typescript {numberLines}
+```typescript
+/**
+ * @file user.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 export interface User {
     id: number;
     username: string;
@@ -51,9 +49,14 @@ export function deleteUser(user: User): void {
 
 In this example, the `User` interface and the functions `createUser` and `deleteUser` are exported, making them available for import in other parts of the application.
 
-**app.ts**
-
-```typescript {numberLines}
+```typescript
+/**
+ * @file app.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { User, createUser, deleteUser } from './user';
 
 const newUser: User = createUser('johndoe', 'john@example.com');
@@ -71,9 +74,14 @@ Namespaces in TypeScript are an older feature that provides a way to logically g
 
 Here’s how you can define a namespace for utility functions:
 
-**utils.ts**
-
-```typescript {numberLines}
+```typescript
+/**
+ * @file: utils.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 namespace Utils {
     export function log(message: string): void {
         console.log(message);
@@ -87,7 +95,7 @@ namespace Utils {
 
 You can use these functions by referencing them with their namespace:
 
-```typescript {numberLines}
+```typescript
 Utils.log('This is a log message');
 Utils.error('This is an error message');
 ```

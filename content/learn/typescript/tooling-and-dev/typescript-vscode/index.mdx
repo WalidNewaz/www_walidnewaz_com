@@ -6,18 +6,10 @@ series: "Mastering TypeScript"
 part: "III. Tooling and Development Environment"
 chapter: "11. TypeScript and VSCode"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "3. Tooling and Development Environment"
 title: "TypeScript and VSCode"
 description: "TypeScript and VSCode: Tips and Tricks for Efficient Development"
-# hero_image: "typescript-banner.png"
-tags: ["dev tools", "typescript"]
-read_time: 5 min
-related:
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
-  - "TypeScript Linters and Formatters"
+
+tags: ["TypeScript"]
 ---
 
 # TypeScript and VSCode: Tips and Tricks for Efficient Development
@@ -32,7 +24,14 @@ Visual Studio Code (VSCode) is a highly popular editor among TypeScript develope
 
 To make the most out of IntelliSense with TypeScript, ensure your `jsconfig.json` or `tsconfig.json` files are correctly set up. This helps VSCode to understand the project context better:
 
-```json {numberLines}
+```json
+/**
+ * @file: tsconfig.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "compilerOptions": {
     "module": "commonjs",
@@ -67,7 +66,14 @@ VSCode allows you to customize how TypeScript is compiled through `tasks.json`, 
 
 Create a `tasks.json` in the `.vscode` directory:
 
-```json {numberLines}
+```json
+/**
+ * @file: tasks.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "version": "2.0.0",
   "tasks": [
@@ -96,7 +102,14 @@ VSCode's built-in debugger is incredibly powerful for debugging TypeScript appli
 
 Set up your `.vscode/launch.json`:
 
-```json {numberLines}
+```json
+/**
+ * @file: .vscode/launch.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "version": "0.2.0",
   "configurations": [

@@ -6,18 +6,10 @@ series: "Mastering TypeScript"
 part: "V. Best Practices and Patterns"
 chapter: "15. Tips for Writing Clean Code"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "5. Best Practices and Patterns"
 title: "Tips for Writing Clean Code"
 description: "Writing clean, maintainable, and effective TypeScript requires understanding some best practices and principles. This article explores several important tips that can help you leverage TypeScript's capabilities to enhance your coding practices."
-# hero_image: "developer-8829735_1920.jpg"
-tags: ["modules", "namespaces", "typescript"]
-read_time: 15 min
-related:
-  - "Introduction to TypeScript"
-  - "Classes, Interfaces, and Objects in TypeScript"
-  - "TypeScript Utility Types"
+
+tags: ["TypeScript"]
 ---
 
 # Effective TypeScript: Tips for Writing Clean and Maintainable Code
@@ -34,7 +26,14 @@ Being explicit about your types makes your code more predictable and easier to u
 
 #### Example:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 // Avoid
 let age = 25;
 
@@ -60,7 +59,14 @@ Functions in TypeScript can specify types for their parameters, which ensures th
 
 #### Example:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 // Avoid
 function calculateArea(dimension) {
   return dimension.length * dimension.width;
@@ -89,7 +95,14 @@ TypeScript’s `any` type is flexible but defeats the purpose of using a strongl
 
 #### Example:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 // Avoid
 let data: any = "This could be anything";
 
@@ -117,7 +130,14 @@ For complex types that are used in multiple places across your codebase, use typ
 
 #### Example:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 type UserID = string | number;
 
 interface User {
@@ -151,7 +171,14 @@ Consider a user management system where different operations are performed on a 
 
 #### Defining Segregated Interfaces
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface User {
     id: string;
     email: string;
@@ -176,7 +203,14 @@ interface UserDeleter {
 
 #### Implementing the Interfaces
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 class UserManager implements UserCreator, UserUpdater, UserDeleter {
     createUser(user: User): User {
         console.log('User created:', user);
@@ -212,7 +246,14 @@ Union types in TypeScript allow you to define a type that could be one of severa
 
 Suppose you have a function that needs to handle both numbers and strings. You can use a union type to allow the function to accept either type of input.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function formatInput(input: string | number) {
   if (typeof input === 'string') {
     return input.toUpperCase();
@@ -234,7 +275,14 @@ Type guards are TypeScript techniques used to provide information about the type
 
 Let's say you have an application that deals with both `Employee` and `Manager` types, where `Manager` is a specialization of `Employee` with additional responsibilities.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Employee {
   id: number;
   name: string;
@@ -289,7 +337,14 @@ Suppose you are creating a library that handles user data. You might start by de
 
 #### Using an Interface
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface User {
     id: number;
     name: string;
@@ -307,7 +362,14 @@ function greet(user: User): string {
 
 #### Using a Type Alias
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 type User = {
     id: number;
     name: string;
@@ -329,7 +391,14 @@ function greet(user: User): string {
 
 Interfaces are inherently extendable. They can be easily extended by other interfaces using the `extends` keyword, allowing developers to build upon existing types without modifying the original interface.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Employee extends User {
     department: string;
 }
@@ -343,7 +412,14 @@ Interfaces in TypeScript support declaration merging. If you declare an interfac
 
 This feature is invaluable in large applications or libraries where modularization might lead to the same interface being augmented across different parts of the application or by different plugins.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface User {
     id: number;
 }
@@ -362,7 +438,14 @@ Type aliases, in contrast, do not allow declaration merging and can be declared 
 
 Interfaces can be implemented by classes, which is a way to ensure that a class meets a particular contract. This is especially useful when writing libraries or frameworks where you might provide base classes that users can extend.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 class StandardUser implements User {
     id: number;
     name: string;
@@ -386,7 +469,14 @@ The `Partial<T>` utility type makes all properties of type `T` optional. This is
 
 #### Example: Updating User Settings
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface UserSettings {
     theme: string;
     notifications: boolean;
@@ -410,7 +500,14 @@ updateUserSettings({
 
 #### Example: Configuration Object
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Config {
     readonly apiUrl: string;
     readonly maxConnections: number;
@@ -430,7 +527,14 @@ config.apiUrl = 'https://newapi.example.com';  // Error: apiUrl is readonly
 
 #### Example: Storing Product Ratings
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface ProductRating {
     averageRating: number;
     numberOfRatings: number;
@@ -450,14 +554,21 @@ console.log(productRatings["product1"].averageRating);  // Output: 4.5
 
 #### Example: Excluding Specific Roles
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 type Role = 'admin' | 'editor' | 'viewer';
 
 // Define a type for roles that does not include 'admin'
 type NonAdminRoles = Exclude<Role, 'admin'>;
 
 const userRole: NonAdminRoles = 'viewer';  // Valid
-const adminRole: NonAdminRoles = 'admin';  // Error: 'admin' cannot be assigned to type 'NonAdminRoles'
+const adminRole: NonAdminRoles = 'admin';  // Invalid
 ```
 
 ### 5. `ReturnType<T>`
@@ -466,7 +577,14 @@ const adminRole: NonAdminRoles = 'admin';  // Error: 'admin' cannot be assigned 
 
 #### Example: Infer Function Return Type
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function getUser() {
     return { name: 'Alice', age: 25 };
 }

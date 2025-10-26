@@ -9,14 +9,9 @@ chapter: "3. Understanding TypeScript Types"
 
 title: "Understanding TypeScript Types"
 description: "TypeScript Fundamentals: Understanding Types and Interfaces. Learn how to write more type-safe and manageable code."
-# hero_image: "typescript-banner.png"
-tags: ["beginner", "typescript"]
-read_time: 15 min
-related: 
-  - "Introduction to TypeScript"
-  - "Environment setup for TypeScript"
----
 
+tags: ["TypeScript"]
+---
 
 # TypeScript Fundamentals: Understanding Types and Interfaces
 
@@ -38,7 +33,14 @@ let isDone: boolean = true;
 
 In JavaScript, as well as TypeScript, all numbers are either floating point values or BigIntegers. The floating point numbers are designated the type `number`, while BigIntegers are designated the type `bigint`. In addition to decimal and hexadecimal literals, TypeScript also supports binary and octal literals introduced in ECMAScript 2015.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let decimal: number = 11;
 let hex: number = 0xf00d;
 let binary: number = 0b1011;
@@ -50,7 +52,14 @@ let bigNumber: bigint = 100n;
 
 Text data in JavaScript is generally represented as data of type `string`. This is also the case in TypeScript.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let color: string = "blue";
 color = 'red';
 let sentence: string = `Hello ${name}!`;
@@ -60,7 +69,14 @@ let sentence: string = `Hello ${name}!`;
 
 JavaScript allows an array to be an ordered collection of values, of any type. However TypeScript allows enforcing the type of data that is contained within an array. Here are the ways an array may be declared in TypeScript:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let list: number[] = [0, 1, 3];
 let evens: Array<number> = [2, 4, 6];
 ```
@@ -69,7 +85,14 @@ let evens: Array<number> = [2, 4, 6];
 
 Tuples are arrays with a fixed number of elements whose types are known. You can use tuples to express values such as the positions x, y, z in Cartesian coordinates, or longitude, latitude values representing geographic data.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let x: [string, number];
 key = ["key", 1001];  // OK
 key = [10001, "key"]; // Error
@@ -79,7 +102,14 @@ key = [10001, "key"]; // Error
 
 Many high level languages such as C# and Java has had enumerated data types since their inception. JavaScript does not. TypeScript adds this feature which allows a more friendly way to assign names to a set of numeric values.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 enum Color {
   Red,
   Green,
@@ -91,7 +121,14 @@ let c: Color = Color.Green;
 
 It is also possible to manually set the values in the enum:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 enum Position {
   First = 1,
   Second = 2,
@@ -103,7 +140,14 @@ let myPosition: Position = Position.Second;
 
 The names of the enum values can be accessed by indexing into the enum as shown below:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 enum Color {
   Red,
   Green,
@@ -119,7 +163,14 @@ console.log(name);
 
 At times we may need to declare a variable whose type isn't known at compile time. For instance the value may come from dynamic content such as value returned from an API. In this instance, we want to instruct the compiler as well as future readers of the code that this variable could be anything, so we give it the `unknown` type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let notSure: unknown = 4;
 notSure = "maybe a string instead";
  
@@ -129,7 +180,14 @@ notSure = false;
 
 `unknown` types cannot be directly assigned to another variable without performing a type check, such as a [type guard](#type-guards):
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 declare const maybe: unknown;
 // 'maybe' could be a string, object, boolean, undefined, or other types
 const aNumber: number = maybe;
@@ -148,7 +206,14 @@ if (maybe === true) {
 
 Sometimes you may need to opt-out of type checking all together, either when the type data is not available, or would take an inordinate amount of time to specify. In these scenarios, we label the variables with `any` type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 declare function getValue(key: string): any;
 // OK, return value of 'getValue' is not checked
 const str: string = getValue("myString");
@@ -160,7 +225,14 @@ Unlike `unknown`, variables of type `any` can access arbitrary properties, witho
 
 All properties of an `any` type object are also of type `any`:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let looselyTyped: any = {};
 let d = looselyTyped.a.b.c.d;
 // `d` is of type `any`
@@ -176,7 +248,14 @@ However, when using the `strictNullChecks` flag in `tsconfig.json`, applications
 
 The `never` type represents the type of values that never occur. As an example, `never` is the return type of a function that always throws an error, or never returns.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 // Function returning never must not have a reachable end point
 function error(message: string): never {
   throw new Error(message);
@@ -197,7 +276,14 @@ function infiniteLoop(): never {
 
 `object` is a type that represents composite types, i.e. anything that are not `number`, `string`, `boolean`, `bigint`, `symbol`, `null`, or `undefined`.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 declare function create(o: object | null): void;
 // OK
 create({ prop: 0 });
@@ -209,7 +295,14 @@ create(42)
 
 The types `Number`, `String`, `Boolean`, `Symbol` and `Object` are not equivalent to their lowercase versions. These types do not refer to the language primitives, and should almost never be used as types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function reverse(s: String): String {
   return s.split("").reverse().join("");
 }
@@ -221,7 +314,14 @@ reverse("hello world");
 
 You can explicitly specify the types of variables and function parameters to make your code more predictable and readable.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function greet(name: string): string {
   return `Hello, ${name}!`;
 }
@@ -237,27 +337,46 @@ Assertions have two forms.
 
 `as`-syntax:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let someValue: unknown = "Hello World!";
 let strLen: number = (someValue as string).length;
 ```
 
 "angle-bracket" syntax:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 let someValue: unknown = "Hello World!";
 let strLen: number = (<string>someValue).length;
 ```
 
-:::tip
-When using TypeScript with JSX, only `as`-style assertions are allowed.
-:::
+> tip: When using TypeScript with JSX, only `as`-style assertions are allowed.
 
 ## Interfaces
 
 Interfaces are used to define the shape of objects, making your code more expressive and enforcing a contract for your objects.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface User {
   id: number;
   name: string;
@@ -279,7 +398,14 @@ let user: User = getUser();
 
 Type aliases are similar to interfaces, but they can also represent primitive types, union types, and more.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 type ID = number;
 type Status = 'active' | 'inactive';
 
@@ -304,7 +430,14 @@ let product: Product = getProduct();
 
 You can combine types and interfaces to create more complex types.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 type Address = {
   street: string;
   city: string;
@@ -342,7 +475,14 @@ Here are some common types of type guards and examples to illustrate their usage
 
 The `typeof` operator can be used to narrow down types to primitive types such as `string`, `number`, `boolean`, and `symbol`.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function printValue(value: string | number): void {
   if (typeof value === "string") {
     console.log(`String value: ${value}`);
@@ -359,7 +499,14 @@ printValue(42);              // Number value: 42
 
 The `instanceof` operator can be used to narrow down types to specific classes.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 class Dog {
   bark() {
     console.log("Woof!");
@@ -391,7 +538,14 @@ makeSound(cat); // Meow!
 
 User-defined type guards use a function to check whether a value is of a specific type. These functions return a boolean value and have a specific return type called a type predicate.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Bird {
   fly(): void;
 }
@@ -428,7 +582,14 @@ makeAnimalMove(fish); // Swimming
 
 The `in` operator can be used to check whether an object has a specific property.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Car {
   drive(): void;
 }
@@ -461,7 +622,14 @@ moveVehicle(boat); // Sailing
 
 You can combine different type guards to handle complex type narrowing scenarios.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Admin {
   admin: true;
   manage: () => void;

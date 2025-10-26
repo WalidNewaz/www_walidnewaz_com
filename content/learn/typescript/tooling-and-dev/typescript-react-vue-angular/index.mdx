@@ -6,18 +6,10 @@ series: "Mastering TypeScript"
 part: "III. Tooling and Development Environment"
 chapter: "9. TypeScript with React, Vue, and Angular"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "3. Tooling and Development Environment"
 title: "TypeScript with React, Vue, and Angular"
 description: "Using TypeScript with Popular Frameworks: React, Vue, and Angular"
-# hero_image: "typescript-banner.png"
-tags: ["react", "vue", "angular", "typescript"]
-read_time: 10 min
-related:
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
-  - "Classes, Interfaces, and Objects in TypeScript"
+
+tags: ["TypeScript"]
 ---
 
 # Using TypeScript with Popular Frameworks: React, Vue, and Angular
@@ -54,7 +46,14 @@ This will automatically open up your default web browser to `http://localhost:30
 
 Create a functional component `Greeting.tsx` that accepts props:
 
-```tsx {numberLines}
+```tsx
+/**
+ * @file: Greeting.tsx
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React from 'react';
 
 interface GreetingProps {
@@ -72,7 +71,14 @@ In this example, `GreetingProps` is an interface that specifies the expected str
 
 Update the `App.tsx` file to incorporate the new `Greeting` component.
 
-```tsx {numberLines 4, 11}
+```tsx
+/**
+ * @file: App.tsx
+ * @showLineNumbers
+ * @highlight 4, 11
+ * @copy
+ * @exec
+ */
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -140,7 +146,11 @@ The vue application will be launched at `http://localhost:8000/`. The following 
 
 Create a `GreetUser.vue` component in the `components` directory:
 
-```html {numberLines}
+```html
+<!-- 
+@file: GreetUser.vue
+@showLineNumbers
+-->
 <template>
   <h2>Hello {{ name }}!</h2>
 </template>
@@ -164,7 +174,11 @@ h2 {
 
 ### Update the `App.vue` file to incorporate the new `GreetUser` component.
 
-```html {numberLines}
+```html
+<!-- 
+@file: App.vue
+@showLineNumbers
+-->
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <GreetUser name="Vue.js"/>
@@ -221,7 +235,14 @@ The vue application will be launched at `http://localhost:4200/`. The following 
 
 Modify the `app.component.ts` file in your Angular project:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file: app.component.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { Component } from '@angular/core';
 
 Component({

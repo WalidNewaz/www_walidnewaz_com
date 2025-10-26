@@ -6,17 +6,10 @@ series: "Mastering TypeScript"
 part: "II. Intermediate Topics"
 chapter: "4. Classes, Interfaces, and Objects in TypeScript"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "2. Intermediate Topics"
 title: "Classes, Interfaces, and Objects in TypeScript"
 description: "Using classes, interfaces, and objects in TypeScript to build scalable applications."
-# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
-tags: ["object oriented", "typescript"]
-read_time: 15 min
-related: 
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
+
+tags: ["TypeScript"]
 ---
 
 # Classes, Interfaces, and Objects in TypeScript
@@ -35,7 +28,14 @@ Access modifiers in TypeScript control the visibility of class members (properti
 - **Private**: Private members are only accessible within the class they are defined. They cannot be accessed or modified outside the class.
 - **Protected**: Protected members are similar to private members but can also be accessed within derived classes (subclasses).
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 class Person {
   public name: string;
   private age: number;
@@ -66,7 +66,14 @@ console.log(person.greet()); // Hello, my name is Alice and I am 30 years old.
 
 Constructors are special methods in a class responsible for initializing the class's properties when an instance of the class is created. In TypeScript, the `constructor` keyword is used to define a constructor. You can have one or more parameters in the constructor to set up the initial state of the object.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 class Car {
   private make: string;
   private model: string;
@@ -91,7 +98,14 @@ console.log(car.displayInfo()); // 2022 Tesla Model S
 
 Interfaces define the shape of an object, specifying the properties and methods that the object must implement. They are essential for defining contracts and ensuring type safety in large codebases.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Animal {
   name: string;
   sound(): string;
@@ -142,7 +156,14 @@ An abstract class is a class that is meant to be extended by other classes but n
 2. **Can contain abstract methods**: Abstract methods must be implemented by derived classes.
 3. **Can contain implemented methods**: Abstract classes can also have methods with actual implementation that derived classes can inherit.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 abstract class Animal {
   constructor(public name: string) {}
 
@@ -174,7 +195,14 @@ In this example:
 
 Abstract methods are methods that are declared in an abstract class but do not contain any implementation. Derived classes are required to implement these methods.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 abstract class Shape {
   abstract area(): number;
 
@@ -206,7 +234,6 @@ Both abstract classes and interfaces are used to define the structure of a class
   - Can have access modifiers (public, private, protected).
   - Can have fields and constructors.
   - A class can extend only one abstract class.
-
 - **Interfaces**:
   - Cannot contain implementation; they only define method signatures and properties.
   - All members are implicitly public.
@@ -217,7 +244,14 @@ Both abstract classes and interfaces are used to define the structure of a class
 
 Objects in TypeScript are instances of classes or interfaces. They can also be defined using object literals.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Product {
   id: number;
   name: string;
@@ -242,7 +276,14 @@ Classes, interfaces, and objects in TypeScript provide a robust framework for bu
 
 #### Defining Interfaces
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Customer {
   id: number;
   name: string;
@@ -259,7 +300,14 @@ interface Order {
 
 #### Implementing Classes
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 class ECommerceSystem {
   private customers: Customer[] = [];
   private orders: Order[] = [];
@@ -292,7 +340,14 @@ console.log(system.listOrders());
 
 #### Example: Testing the E-Commerce System
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { ECommerceSystem, Customer, Order, Product } from './ecommerce-system';
 
 test('should add a customer and place an order', () => {

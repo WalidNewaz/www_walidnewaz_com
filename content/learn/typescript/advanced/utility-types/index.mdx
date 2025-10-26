@@ -6,18 +6,10 @@ series: "Mastering TypeScript"
 part: "IV. Advanced Topics"
 chapter: "14. TypeScript Utility Types"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "4. Advanced Topics"
 title: "TypeScript Utility Types"
 description: "TypeScript offers a powerful feature set for building robust applications, and one of the most versatile aspects of TypeScript is its ability to perform type manipulation using utility types. These built-in utility types provide flexible ways to transform types in your applications, enhancing reusability, maintainability, and scalability of your codebase. This article delves into several commonly used utility types, demonstrating their practical applications with examples."
-hero_image: "swiss-army-knife-152396_1920.png"
-tags: ["typescript"]
-read_time: 7 min
-related:
-  - "Introduction to TypeScript"
-  - "Classes, Interfaces, and Objects in TypeScript"
-  - "TypeScript Modules and Namespaces"
+
+tags: ["TypeScript"]
 ---
 
 # Type Manipulation with Utility Types
@@ -36,7 +28,14 @@ Let’s explore some of the most commonly used utility types in TypeScript:
 
 The `Partial<T>` utility type takes a type `T` and makes all of its properties optional. This is useful when you want to create objects that do not include all the properties of the original type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface User {
     id: number;
     name: string;
@@ -54,7 +53,14 @@ updateUser(1, { name: "John Doe" }); // Only update the name, leave other proper
 
 `Readonly<T>` makes all properties of type `T` read-only, meaning the properties of an object cannot be reassigned.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Task {
     title: string;
     description: string;
@@ -72,7 +78,14 @@ task.title = "Start a new article"; // Error: Cannot assign to 'title' because i
 
 `Record<K, T>` creates a type with a set of properties `K` of type `T`. This is useful for objects that act as dictionaries.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface CatInfo {
     age: number;
     breed: string;
@@ -90,7 +103,14 @@ console.log(cats.Felix.breed); // Output: Tabby
 
 `Pick<T, K>` creates a type by picking the set of properties `K` from `T`. It is useful when you want to create a new type that only includes a subset of the properties of another type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 interface Product {
     id: number;
     name: string;
@@ -110,19 +130,33 @@ const productPreview: ProductPreview = {
 
 `Exclude<T, U>` constructs a type by excluding from `T` all properties that are assignable to `U`.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 type AvailableDrinks = "Coffee" | "Tea" | "Orange Juice" | "Lemonade";
 type HotDrinks = Exclude<AvailableDrinks, "Orange Juice" | "Lemonade">;
 
-const myDrink: HotDrinks = "Coffee"; // Valid
-const coldDrink: HotDrinks = "Orange Juice"; // Error: Type '"Orange Juice"' is not assignable to type 'HotDrinks'.
+const myDrink: HotDrinks = "Coffee";         // Valid
+const coldDrink: HotDrinks = "Orange Juice"; // Invalid
 ```
 
 ### 6. `ReturnType<T>`
 
 Obtains the return type of a function type. This is useful when you need to use the return type of a function elsewhere in your code.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function getAge(): number {
     return 30;
 }
@@ -134,7 +168,14 @@ type Age = ReturnType<typeof getAge>;  // number
 
 Extracts the types of parameters from a function type as a tuple type.
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function greet(name: string, age: number): string {
     return `Hello ${name}, you are ${age} years old.`;
 }

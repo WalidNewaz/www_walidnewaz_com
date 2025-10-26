@@ -6,17 +6,10 @@ series: "Mastering TypeScript"
 part: "III. Tooling and Development Environment"
 chapter: "10. TypeScript Linters and Formatters"
 
-# series: "Mastering TypeScript Series"
-# chapter: "3. Tooling and Development Environment"
 title: "TypeScript Linters and Formatters"
 description: "Enhancing Productivity with TypeScript Linters and Formatters"
-# hero_image: "typescript-banner.png"
-tags: ["dev tools", "typescript"]
-read_time: 6 min
-related:
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
-  - "Classes, Interfaces, and Objects in TypeScript"
+
+tags: ["TypeScript"]
 ---
 
 # Enhancing Productivity with TypeScript Linters and Formatters
@@ -29,7 +22,8 @@ Code formatters and linters are a standard part of the tooling used within a sta
 
 First, initialize a new Node.js project and add TypeScript:
 
-```bash {numberLines}
+```bash
+# @showLineNumbers
 mkdir my-ts-project
 cd my-ts-project
 npm init -y
@@ -49,7 +43,14 @@ npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --
 
 Next, create an `.eslintrc.js` file to configure ESLint:
 
-```javascript {numberLines}
+```javascript
+/**
+ * @file: .eslintrc.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
@@ -76,7 +77,14 @@ npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
 
 Update the `.eslintrc.js` to integrate Prettier:
 
-```javascript {numberLines}
+```javascript
+/**
+ * @file: .eslintrc.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 module.exports = {
   // previous configuration...
   extends: [
@@ -88,7 +96,14 @@ module.exports = {
 
 Create a `.prettierrc` file to configure Prettier options:
 
-```json {numberLines}
+```json
+/**
+ * @file: .prettierrc
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "semi": true,
   "singleQuote": true
@@ -139,6 +154,13 @@ This command formats all files, applying the defined code style consistently acr
 Enhance your `package.json` to include scripts that facilitate running ESLint and Prettier across your TypeScript codebase:
 
 ```json
+/**
+ * @file: package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 "scripts": {
   "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
   "format": "prettier --write 'src/**/*.{ts,tsx}'"

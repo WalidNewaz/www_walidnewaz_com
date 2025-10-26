@@ -6,18 +6,10 @@ series: "Mastering TypeScript"
 part: "V. Best Practices and Patterns"
 chapter: "16. Testing TypeScript Applications"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "5. Best Practices and Patterns"
 title: "Testing TypeScript Applications"
 description: "With TypeScript, testing involves not just runtime behavior but also ensuring type correctness and application logic. This article discusses various types of tests applicable to TypeScript applications, tools that facilitate these tests, and best practices to keep in mind."
-# hero_image: "developer-8829735_1920.jpg"
-tags: ["testing", "typescript"]
-read_time: 10 min
-related:
-  - "Introduction to TypeScript"
-  - "Classes, Interfaces, and Objects in TypeScript"
-  - "TypeScript Utility Types"
+
+tags: ["TypeScript"]
 ---
 
 # Testing TypeScript Applications: Tools and Techniques
@@ -66,11 +58,25 @@ npm install --save-dev mocha chai
 
 ### Example: Testing a TypeScript function with Jest
 
-```typescript {numberLines}
-// sum.ts
+```typescript
+/**
+ * @file sum.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 export const sum = (a: number, b: number): number => a + b;
+```
 
-// sum.test.ts
+```typescript
+/**
+ * @file sum.test.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { sum } from './sum';
 
 test('adds 1 + 2 to equal 3', () => {
@@ -94,8 +100,14 @@ Integration tests verify that different modules or services work together as exp
 
 #### Example: Testing an API with Supertest and Jest
 
-```typescript {numberLines}
-// server.ts
+```typescript
+/**
+ * @file server.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import express from 'express';
 const app = express();
 
@@ -104,8 +116,16 @@ app.get('/user', (req, res) => {
 });
 
 export default app;
+```
 
-// server.test.ts
+```typescript
+/**
+ * @file server.test.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import request from 'supertest';
 import app from './server';
 
@@ -138,7 +158,14 @@ Cypress is a modern web automation test framework designed to simplify the proce
 
 **Example: Testing a Login Form**
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file server.test.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 describe('Login Form', () => {
   it('successfully logs in', () => {
     cy.visit('/login'); // Adjust URL to your application’s login page
@@ -160,7 +187,14 @@ Selenium is one of the most established tools for automating browsers. It suppor
 
 **Example: Testing a Login Form with Selenium WebDriver**
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file server.test.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { Builder, By, until } from 'selenium-webdriver';
 
 (async function example() {
@@ -183,7 +217,8 @@ Integrating E2E tests into your CI/CD pipeline ensures tests are automatically r
 
 For instance, here is how you might configure a GitHub Actions workflow to run Cypress tests:
 
-```yaml {numberLines}
+```yaml
+# @showLineNumbers
 name: E2E Tests
 on: [push]
 jobs:
@@ -211,7 +246,14 @@ Although Jest is predominantly known as a unit testing framework, it can also be
 
 **Example: Testing Function Execution Time**
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 describe('Performance Testing', () => {
     test('function should execute under 1000 milliseconds', () => {
         const start = performance.now();
@@ -236,8 +278,9 @@ Artillery is a powerful, modern load testing and smoke-testing tool that can tes
 
 **Example: Load Testing an API Endpoint**
 
-```yaml {numberLines}
-# Save this configuration to a file named artillery.yml
+```yaml
+# @showLineNumbers
+# @file artillery.yml
 config:
   target: 'http://localhost:3000'  # URL of your application
   phases:
@@ -264,7 +307,9 @@ Both Jest and Artillery can be integrated into CI/CD pipelines to ensure perform
 
 **Example: GitHub Actions Configuration for Running Artillery Tests**
 
-```yaml {numberLines}
+```yaml
+# @showLineNumbers
+# @file artillery.yml
 name: Load Test
 on: [push]
 

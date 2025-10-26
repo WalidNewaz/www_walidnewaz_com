@@ -6,17 +6,10 @@ series: "Mastering TypeScript"
 part: "III. Tooling and Development Environment"
 chapter: "7. TypeScript in Node.js"
 
-# series: "Mastering TypeScript Series"
-# chapter: "3. Tooling and Development Environment"
 title: "TypeScript in Node.js"
 description: "TypeScript in Node.js: Writing Your First TypeScript Node Application"
-# hero_image: "typescript-banner.png"
-tags: ["node.js", "typescript"]
-read_time: 15 min
-related:
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
-  - "Classes, Interfaces, and Objects in TypeScript"
+
+tags: ["TypeScript"]
 ---
 
 # TypeScript in Node.js: Writing Your First TypeScript Node Application
@@ -60,7 +53,14 @@ npm install --save-dev typescript @types/node
 
 This file configures the options for the TypeScript compiler. Create `tsconfig.json` in the root of your project and add the following configuration:
 
-```json {numberLines}
+```json
+/**
+ * @file: tsconfig.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "compilerOptions": {
     "module": "commonjs",
@@ -99,8 +99,14 @@ npm install --save-dev @types/express
 
 Create a new file `src/index.ts`. This will be the entry point for your application:
 
-```typescript {numberLines}
-// src/index.ts
+```typescript
+/**
+ * @file: src/index.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import express from "express";
 
 const app = express();
@@ -125,7 +131,14 @@ In this example:
 
 Modify your `package.json` to include a build script and a start script:
 
-```json {numberLines}
+```json
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 "scripts": {
  "build": "tsc",
  "start": "node dist/index.js"
@@ -161,8 +174,14 @@ Let’s create a more realistic example of an application that simulates the ret
 
 To keep things simple for the time being, let’s create the database with some static files:
 
-```typescript {numberLines}
-// src/db/persons.ts
+```typescript
+/**
+ * @file: src/db/persons.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 export default [
   {
     name: "John Doe",
@@ -179,8 +198,14 @@ export default [
 ];
 ```
 
-```typescript {numberLines}
-// src/db/cars.ts
+```typescript
+/**
+ * @file: src/db/cars.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 export default [
   {
     id: 1,
@@ -217,8 +242,15 @@ export default [
 
 Let’s create some classes to model the entities within these “databases”.
 
-```typescript {numberLines}
-// src/model/Car.ts
+```typescript
+/**
+ * @file: src/model/Car.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
+
 /**
  * Represents a car in the system.
  */
@@ -267,8 +299,15 @@ export default class Car {
 
 Here is the final model:
 
-```typescript {numberLines}
-// src/model/Person.ts
+```typescript
+/**
+ * @file: src/model/Person.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
+
 import Car from "./Car";
 
 /**
@@ -309,8 +348,15 @@ export default class Person {
 
 The app class handles the business logic and handles the requests sent to the server:
 
-```typescript {numberLines}
-// src/app.ts
+```typescript
+/**
+ * @file: src/app.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
+
 // Models
 import Person from "./model/Person";
 import Car from "./model/Car";
@@ -368,7 +414,14 @@ export default class CarApp {
 
 Let’s add new write handlers to invoke these business methods:
 
-```typescript {numberLines}
+```typescript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import express from "express";
 
 import CarApp from "./app";

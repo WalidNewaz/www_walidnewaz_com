@@ -8,12 +8,8 @@ chapter: "2. Environment setup for TypeScript"
 
 title: "Environment setup for TypeScript"
 description: "Setting Up Your TypeScript Environment: Tools and Best Practices"
-# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
-tags: ["beginner", "typescript"]
-read_time: 6 min
-related: 
-  - "Introduction to TypeScript"
-  - "Understanding TypeScript Types"
+
+tags: ["TypeScript"]
 ---
 
 # Setting Up Your TypeScript Environment: Tools and Best Practices
@@ -81,7 +77,14 @@ Let's create a simple TypeScript project to demonstrate how to set up your envir
 
 Create a new TypeScript file, `src/index.ts`:
 
-```javascript {numberLines}
+```javascript
+/**
+ * @file: src/index.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 export function greet(name: string): string {
   return `Hello, ${name}!`;
 }
@@ -93,7 +96,14 @@ console.log(greet("World"));
 
 Set the destination directory to `dist`.
 
-```json {numberLines 3}
+```json
+/**
+ * @file: tsconfig.json
+ * @showLineNumbers
+ * @highlight 3
+ * @copy
+ * @exec
+ */
 {
   "compilerOptions": {
     "outDir": "./dist"
@@ -125,7 +135,7 @@ node dist/index.js
 
 Run the following in your terminal:
 
-```bash {outputLines: 1}
+```bash
 npx ts-jest config:init
 ```
 
@@ -137,7 +147,14 @@ You can also use `jest --init` command, to have more options related to Jest. Ho
 
 In your `./src` directory create the file `index.test.ts` and add the following source:
 
-```javascript {numberLines}
+```javascript
+/**
+ * @file: index.test.ts
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { greet } from "./index";
 
 test("greet", () => {
@@ -149,7 +166,14 @@ test("greet", () => {
 
 Update `package.json` to add a test script:
 
-```json {numberLines}
+```json
+/**
+ * @file: package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "scripts": {
     "test": "jest"
@@ -176,6 +200,13 @@ You should see something like the following as an output:
 - Enable strict mode in your `tsconfig.json` to enforce strict type checking and catch potential errors early:
 
 ```json {numberLines 3}
+/**
+ * @file: tsconfig.json
+ * @showLineNumbers
+ * @highlight 3
+ * @copy
+ * @exec
+ */
 {
   "compilerOptions": {
     "strict": true

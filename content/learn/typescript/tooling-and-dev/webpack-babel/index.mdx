@@ -6,18 +6,10 @@ series: "Mastering TypeScript"
 part: "III. Tooling and Development Environment"
 chapter: "8. TypeScript with Webpack and Babel"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "3. Tooling and Development Environment"
 title: "TypeScript with Webpack and Babel"
 description: "Setting Up a TypeScript Project with Webpack and Babel"
-# hero_image: "mohammad-rahmani-_Fx34KeqIEw-unsplash.jpg"
-tags: ["Build tools", "typescript"]
-read_time: 12 min
-related:
-  - "Introduction to TypeScript"
-  - "Classes, Interfaces, and Objects in TypeScript"
-  - "TypeScript in Node.js"
+
+tags: ["TypeScript"]
 ---
 
 # Setting Up a TypeScript Project with Webpack and Babel
@@ -66,7 +58,8 @@ Follow these steps to integrate TypeScript with Webpack and Babel, configuring t
 
 ### Step 1: Initialize the Project
 
-```bash {numberLines}
+```bash
+# @showLineNumbers
 mkdir typescript-webpack-babel
 cd typescript-webpack-babel
 npm init -y
@@ -80,9 +73,14 @@ npm install --save-dev typescript webpack webpack-cli babel-loader @babel/core @
 
 ### Step 3: Configure TypeScript
 
-Create a `tsconfig.json`:
-
-```json {numberLines}
+```json
+/**
+ * @file: tsconfig.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "compilerOptions": {
     "outDir": "./dist/",
@@ -100,9 +98,14 @@ Create a `tsconfig.json`:
 
 ### Step 4: Configure Babel
 
-Create a `.babelrc` file:
-
-```json {numberLines}
+```json
+/**
+ * @file: .babelrc
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "presets": ["@babel/preset-env", "@babel/preset-typescript"]
 }
@@ -110,9 +113,14 @@ Create a `.babelrc` file:
 
 ### Step 5: Configure Webpack
 
-Create a `webpack.config.js`:
-
-```javascript {numberLines}
+```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -170,6 +178,13 @@ This option controls if and how source maps are generated. An `inline-source-map
 #### Module
 
 ```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 module: {
   rules: [
     {
@@ -188,6 +203,13 @@ module: {
 #### Resolve
 
 ```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 output: {
   filename: 'bundle.js',
   path: path.resolve(__dirname, 'dist')
@@ -199,6 +221,13 @@ This defines the output file's name and location. The compiled code will be outp
 #### Plugins
 
 ```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 plugins: [
   new HtmlWebpackPlugin({
     template: 'src/index.html'
@@ -211,6 +240,13 @@ The `HtmlWebpackPlugin` plugin takes the `src/index.html` file as a template and
 #### DevServer
 
 ```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 devServer: {
   static: './dist',
   hot: true
@@ -226,7 +262,14 @@ This configuration provides a robust setup for developing a TypeScript-based web
 
 #### Create an `index.html` file inside the `src` directory
 
-```html {numberLines}
+```html
+<!--
+@file: index.html
+@showLineNumbers
+@highlight
+@copy
+@exec
+-->
 <!doctype html>
 <html lang="en">
   <head>
@@ -252,6 +295,13 @@ document.getElementById('app')!.innerHTML = `<h1>Hello from TypeScript and Webpa
 Modify `package.json`:
 
 ```json
+/**
+ * @file: package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 "scripts": {
   "build": "webpack --mode production",
   "start": "webpack serve --open --mode development"

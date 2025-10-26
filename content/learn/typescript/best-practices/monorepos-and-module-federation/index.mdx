@@ -6,17 +6,10 @@ series: "Mastering TypeScript"
 part: "V. Best Practices and Patterns"
 chapter: "18. Monorepos and Module Federation"
 
-
-# series: "Mastering TypeScript Series"
-# chapter: "5. Best Practices and Patterns"
 title: "Monorepos and Module Federation"
 description: "This article explores two advanced architectural strategies — Monorepos and Module Federation — that can significantly enhance the scalability, maintainability, and development efficiency of large TypeScript projects."
-# hero_image: "developer-8829735_1920.jpg"
-tags: ["monorepos", "typescript"]
-read_time: 10 min
-related:
-  - "Introduction to TypeScript"
-  - "Testing TypeScript Applications"
+
+tags: ["TypeScript"]
 ---
 
 # Managing Large TypeScript Projects: Monorepos and Module Federation
@@ -40,7 +33,8 @@ Tools like `Lerna` are popular for managing JavaScript and TypeScript monorepos.
 
 #### Initialize a New Monorepo
 
-```bash {numberLines}
+```bash
+# @showLineNumbers
 mkdir my-monorepo
 cd my-monorepo
 npm init -y
@@ -51,7 +45,14 @@ npm install --save-dev lerna
 
 Add to `lerna.json`:
 
-```json {numberLines}
+```json
+/**
+ * @file: lerna.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
  "packages": ["packages/*"],
  "version": "0.1.0",
@@ -64,7 +65,14 @@ Add to `lerna.json`:
 
 Add to `package.json`:
 
-```json {numberLines}
+```json
+/**
+ * @file: package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
  "name": "my-monorepo",
  "private": true,
@@ -90,8 +98,14 @@ my-monorepo/
 
 Modify each package's `package.json` to reflect interdependencies:
 
-```javascript
-// /ui-components/package.json
+```json
+/**
+ * @file: /ui-components/package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
  "name": "ui-components",
  "version": "1.0.0",
@@ -99,8 +113,16 @@ Modify each package's `package.json` to reflect interdependencies:
    "lib": "1.0.0"
  }
 }
+```
 
-// /sparta-ui/package.json
+```json
+/**
+ * @file: /sparta-ui/package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
  "name": "sparta-ui",
  "version": "1.0.0",
@@ -109,8 +131,16 @@ Modify each package's `package.json` to reflect interdependencies:
    "ui-components": "1.0.0"
  }
 }
+```
 
-// /sparta-api/package.json
+```json
+/**
+ * @file: /sparta-api/package.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
  "name": "sparta-api",
  "version": "1.0.0",
@@ -166,7 +196,14 @@ To set up Module Federation, configure the Webpack of the host and remote applic
 
 #### Host Configuration (`webpack.config.js`)
 
-```javascript  {numberLines}
+```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
@@ -187,7 +224,14 @@ The host configuration uses the `ModuleFederationPlugin` to define a remote. Thi
 
 #### Remote Configuration (`webpack.config.js`)
 
-```javascript  {numberLines}
+```javascript
+/**
+ * @file: webpack.config.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
