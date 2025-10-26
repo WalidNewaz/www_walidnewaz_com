@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-11-16"
+date: "2023-11-15"
 
 series: "Python Foundations"
 part: "V. Concurrency and Patterns"
@@ -8,9 +8,9 @@ chapter: "16. Python Design Patterns"
 
 title: "Python Design Patterns"
 description: "Design patterns are tried-and-tested solutions to common software design problems. This chapter introduces core design patterns in Python, with real-world examples and use cases for each."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["Design Patterns", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 16: Python Design Patterns
@@ -28,11 +28,13 @@ This chapter introduces core design patterns in Python, with real-world examples
 
 ## 16.2 Categories of Design Patterns
 
+<MdxTable>
 | Category   | Purpose                       |
 | ---------- | ----------------------------- |
 | Creational | Object creation logic         |
 | Structural | Relationships between objects |
 | Behavioral | Communication between objects |
+</MdxTable>
 
 ## 16.3 Creational Patterns
 
@@ -43,6 +45,10 @@ Creational Design Patterns are a category of software design patterns that deal 
 Ensures a class has only **one instance**, and provides a global point of access to it.
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class Singleton:
     _instance = None
 
@@ -63,6 +69,9 @@ print(a is b)  # True
 Creates objects **without specifying the exact class**. For instance, in a workflow management system you often have many task types (HTTP call, SQL query, Spark job, Docker task…). A factory method lets the scheduler/loader create the correct concrete class from a spec (YAML/JSON/UI) without hard‑coding class names everywhere.
 
 ```python
+"""
+@showLineNumbers
+"""
 class Task(ABC):
     @abstractmethod
     def run(self): ...
@@ -102,6 +111,10 @@ With **Abstract Factory**, you define an interface that creates an entire *famil
 **1) Define part interfaces**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
@@ -122,6 +135,10 @@ class Infotainment(ABC):
 **2) Concrete parts per model**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 # Tesla Model 3 parts
 class Model3Engine(Engine):
     def spec(self) -> str:
@@ -152,6 +169,10 @@ class CorollaInfotainment(Infotainment):
 **3) Abstract Factory for “families of parts”**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class PartsFactory(ABC):
     @abstractmethod
     def create_engine(self) -> Engine: ...
@@ -164,6 +185,10 @@ class PartsFactory(ABC):
 **4) Concrete factories per car model (family)**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class Model3Factory(PartsFactory):
     def create_engine(self) -> Engine:
         return Model3Engine()
@@ -184,6 +209,10 @@ class CorollaFactory(PartsFactory):
 **5) The assembler (client) stays model-agnostic**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 @dataclass
 class Car:
     model: str
@@ -227,6 +256,10 @@ print(car2.model, "|", car2.engine.spec(), "|", car2.wheels.spec(), "|", car2.in
 Add a new factory without touching existing ones:
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class Model3PerformanceWheels(Wheels):
     def spec(self) -> str:
         return "20-inch performance wheels, summer tires"
@@ -261,6 +294,10 @@ You’ll often see **Abstract Factory + Builder** together: the abstract factory
 Let’s say a `Car` can have many optional features: engine, transmission, tires, infotainment, color, and safety package. Some combinations must be validated (e.g., Performance engine requires Sport tires).
 
 ```python
+"""
+@showLineNumbers
+"""
+
 from dataclasses import dataclass
 from typing import Optional
 
@@ -361,6 +398,10 @@ class CarBuilder:
 **Usage:**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 sport_sedan = (
     CarBuilder("Falcon S")
     .with_engine("V6 Turbo", 380)
@@ -378,6 +419,10 @@ sport_sedan = (
 **Director** is not a design pattern, however, if you have repeated recipes (e.g., “base economy”, “performance pack”), a **Director** encodes the build steps.
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class CarDirector:
     def build_economy(self, model: str) -> Car:
         return (
@@ -408,6 +453,10 @@ class CarDirector:
 **Abstract Factory** ensures compatible families of parts (e.g., **Eco** vs **Performance**). The **Builder** then assembles them into a car.
 
 ```python
+"""
+@showLineNumbers
+"""
+
 from abc import ABC, abstractmethod
 
 # ----- Abstract Factory for parts -----
@@ -482,6 +531,10 @@ Instead of rewriting your app for each provider, you write **adapters** to norma
 **Step 1: Define a Common Interface**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class Notifier:
     def send(self, message: str):
         raise NotImplementedError
@@ -490,6 +543,10 @@ class Notifier:
 **Step 2: Third-Party APIs (Incompatible Interfaces)**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 # Pretend this is a library you can't change
 class SlackAPI:
     def post_message(self, channel: str, text: str):
@@ -509,6 +566,10 @@ Notice:
 **Step 3: Create Adapters**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class SlackAdapter(Notifier):
     def __init__(self, slack_api: SlackAPI, channel: str):
         self.slack_api = slack_api
@@ -531,6 +592,10 @@ class EmailAdapter(Notifier):
 **Step 4: Client Code (No Changes!)**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 def notify_all(notifiers: list[Notifier], message: str):
     for notifier in notifiers:
         notifier.send(message)
@@ -545,7 +610,7 @@ notify_all(notifiers, "Adapter Pattern makes integrations easy!")
 
 **Output**
 
-```
+```bash
 [Slack] #dev-team: Adapter Pattern makes integrations easy!
 [Email] To:admin@example.com | Notification: Adapter Pattern makes integrations easy!
 ```
@@ -576,6 +641,10 @@ Instead of stuffing all of that into one `FileReader`, you build decorators.
 **Step 1: Define a Common Interface**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class DataSource:
     def read(self) -> str:
         raise NotImplementedError
@@ -584,6 +653,10 @@ class DataSource:
 **Step 2: Concrete Implementation**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class FileDataSource(DataSource):
     def __init__(self, filename: str):
         self.filename = filename
@@ -596,6 +669,10 @@ class FileDataSource(DataSource):
 **Step 3: Base Decorator**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class DataSourceDecorator(DataSource):
     def __init__(self, wrappee: DataSource):
         self.wrappee = wrappee
@@ -609,6 +686,10 @@ This ensures all decorators behave like a `DataSource`.
 **Step 4: Concrete Decorators**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 class EncryptionDecorator(DataSourceDecorator):
     def read(self) -> str:
         data = self.wrappee.read()
@@ -630,6 +711,10 @@ class LoggingDecorator(DataSourceDecorator):
 **Step 5: Client Code**
 
 ```python
+"""
+@showLineNumbers
+"""
+
 # Suppose "example.txt" contains: "hello world"
 source = FileDataSource("example.txt")
 
@@ -666,6 +751,10 @@ The **Composite Pattern** lets you treat **individual objects (leaves)** and **g
 **Goal:** compute **total cost** and **total weight** of a car from nested assemblies (engine, chassis, wheels…), where each assembly can contain parts or other assemblies.
 
 ```python
+"""
+@showLineNumbers
+"""
+
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -762,6 +851,10 @@ if __name__ == "__main__":
 Goal: compose **tasks** into **sequences** (or even trees) and execute them with a single `run()` call. Each task returns a result; groups aggregate results.
 
 ```python
+"""
+@showLineNumbers
+"""
+
 from abc import ABC, abstractmethod
 from typing import Any, List
 
@@ -848,7 +941,11 @@ This is especially useful when:
 Imagine a workflow engine that executes tasks. Some tasks may require **special authorization** or **restricted access** (e.g., “Approve Payment”).
 
 ```python
-# filename: workflow/proxy_pattern.py
+"""
+@file: workflow/proxy_pattern.py
+@showLineNumbers
+"""
+
 from abc import ABC, abstractmethod
 
 
@@ -893,7 +990,7 @@ if __name__ == "__main__":
 
 **Output:**
 
-```
+```bash
 Access denied for Alice with role=Employee!
 Task 'Approve Payment' executed by Bob...
 ```
@@ -928,6 +1025,9 @@ The **Chain of Responsibility (CoR)** pattern is a **behavioral design pattern**
 In a **Workflow Engine** a request moves through multiple processors — *authentication*, *validation*, *execution*, *logging*. Each processor either handles or forwards the request.
 
 ```python
+"""
+@showLineNumbers
+"""
 class WorkflowHandler(ABC):
     def __init__(self, next_handler=None):
         self.next_handler = next_handler
@@ -970,7 +1070,7 @@ if __name__ == "__main__":
 
 **Output:**
 
-```
+```bash
 Authentication passed
 Request validated
 Workflow executed, results attached
@@ -996,6 +1096,9 @@ The **Observer Pattern** is a **behavioral design pattern** where an object, cal
 Imagine a **workflow engine** where tasks execute, and multiple subsystems (UI, logging, monitoring) need updates whenever a task finishes. Instead of tightly coupling task execution with all those systems, we use the **Observer Pattern**.
 
 ```python
+"""
+@showLineNumbers
+"""
 from abc import ABC, abstractmethod
 
 
@@ -1092,6 +1195,9 @@ The **Strategy Pattern** is a **behavioral design pattern** that defines a famil
 Imagine a workflow orchestration system where tasks can be executed **sequentially** or **in parallel**. Instead of hardcoding execution logic into the workflow, we define a **Strategy interface** and multiple implementations.
 
 ```python
+"""
+@showLineNumbers
+"""
 from abc import ABC, abstractmethod
 import asyncio
 import time
@@ -1221,6 +1327,9 @@ Below is a minimal but *useful* example that would fit a workflow orchestration 
 * A **MacroCommand** for batching
 
 ```python
+"""
+@showLineNumbers
+"""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
@@ -1455,6 +1564,9 @@ We’ll build a small arithmetic expression tree with nodes like `Number`, `Var`
 **1) Node hierarchy (the “elements”)**
 
 ```python
+"""
+@showLineNumbers
+"""
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 from typing import Any, Dict
@@ -1493,11 +1605,14 @@ class Mul(Expr):
         return visitor.visit_Mul(self)
 ```
 
-> Each node implements `accept(self, visitor)` and forwards control to a type-specific `visitor.visit_<ClassName>(self)` method. That’s the **double-dispatch**: the runtime type of the node picks which visitor method to run.
+> note: Each node implements `accept(self, visitor)` and forwards control to a type-specific `visitor.visit_<ClassName>(self)` method. That’s the **double-dispatch**: the runtime type of the node picks which visitor method to run.
 
 **2) Visitor base class with safe fallback**
 
 ```python
+"""
+@showLineNumbers
+"""
 class Visitor(ABC):
     """Base visitor with a safe fallback."""
     def generic_visit(self, node: Expr) -> Any:
@@ -1510,13 +1625,16 @@ class Visitor(ABC):
         return meth(node)
 ```
 
-> Our nodes call `visit_*` directly. The `visit()` helper is handy if you have nodes that don’t implement `accept()` (or for internal recursion).
+> tip: Our nodes call `visit_*` directly. The `visit()` helper is handy if you have nodes that don’t implement `accept()` (or for internal recursion).
 
 **3) Concrete visitors**
 
-- **Evaluator**: compute value with variables
+**Evaluator**: compute value with variables
 
 ```python
+"""
+@showLineNumbers
+"""
 class Evaluator(Visitor):
     def __init__(self, env: Dict[str, float] | None = None):
         self.env = env or {}
@@ -1536,9 +1654,12 @@ class Evaluator(Visitor):
         return node.left.accept(self) * node.right.accept(self)
 ```
 
-- **PrettyPrinter**: generate a readable string
+**PrettyPrinter**: generate a readable string
 
 ```python
+"""
+@showLineNumbers
+"""
 class PrettyPrinter(Visitor):
     def visit_Number(self, node: Number) -> str:
         # Render integers nicely (no trailing .0)
@@ -1556,9 +1677,12 @@ class PrettyPrinter(Visitor):
         return f"({node.left.accept(self)} * {node.right.accept(self)})"
 ```
 
-- **NodeCounter**: tally nodes (useful for diagnostics or cost models)
+**NodeCounter**: tally nodes (useful for diagnostics or cost models)
 
 ```python
+"""
+@showLineNumbers
+"""
 class NodeCounter(Visitor):
     def __init__(self):
         self.counts: Dict[str, int] = {}
@@ -1583,9 +1707,7 @@ class NodeCounter(Visitor):
         return 1 + node.left.accept(self) + node.right.accept(self)
 ```
 
-- Using the visitors on a nested structure
-
-Let’s build an expression:
+Using the visitors on a nested structure—let’s build an expression:
 
 $(2 + x) \times (3 + 4)$
 

@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-11-09"
+date: "2023-11-08"
 
 series: "Python Foundations"
 part: "III. Object-Oriented and Functional Python"
@@ -8,7 +8,7 @@ chapter: "10. Functional Features in Python"
 
 title: "Functional Features in Python"
 description: "This chapter explores advanced object-oriented programming (OOP) concepts in Python to help you build more flexible, reusable, and scalable software systems."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
 tags: ["OOP", "Python"]
 ---
@@ -47,7 +47,7 @@ def run_function(fn, value):
 print(run_function(greet, "Bob"))  # Hello, Bob!
 ```
 
-> **Key Idea:** Functions behave like any other object in Python.
+> Note: Functions behave like any other object in Python.
 
 ## 10.2 Lambdas and Higher-Order Functions
 
@@ -114,6 +114,9 @@ A **decorator** is a function that takes another function and returns a new func
 Common use cases: logging, timing, caching, access control.
 
 ```python
+"""
+@showLineNumbers
+"""
 def simple_decorator(fn):
     def wrapper(*args, **kwargs):
         print("Before function call")
@@ -131,7 +134,7 @@ print(greet("Alice"))
 
 **Output:**
 
-```
+```bash
 Before function call
 After function call
 Hello, Alice!
@@ -142,6 +145,9 @@ Hello, Alice!
 Let’s build a **logging decorator** to automatically log function calls.
 
 ```python
+"""
+@showLineNumbers
+"""
 import logging
 from functools import wraps
 
@@ -182,7 +188,7 @@ if __name__ == "__main__":
 
 ### Sample Log Output (`app.log`)
 
-```
+```console
 2023-11-05 12:34:10,001 - INFO - Called add with args=(2, 3) kwargs={}
 2023-11-05 12:34:10,002 - INFO - add returned 5
 2023-11-05 12:34:10,003 - INFO - Called greet with args=('Alice',) kwargs={}

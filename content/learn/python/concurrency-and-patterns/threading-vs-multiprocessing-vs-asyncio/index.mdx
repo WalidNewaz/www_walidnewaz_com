@@ -9,7 +9,7 @@ chapter: "15. Concurrency in Python – threading vs multiprocessing vs asyncio"
 title: "threading vs multiprocessing vs asyncio"
 description: "This chapter continues the discussion of concurrency in Python by introducing two additional concepts, threading and asyncio. After reading this chapter the reader should have basic, yet functional knowlege of the wide range of options available to developers when writing programs that execute concurrent tasks."
 has_quiz: true
-tags: ["Concurrency", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 15: Concurrency in Python – `threading` vs `multiprocessing` vs `asyncio`
@@ -92,7 +92,7 @@ Finished visiting https://www.mit.edu/.
 Time taken to visit 3 links: 2.01 seconds.
 ```
 
-> **Good for:** I/O-bound operations like downloading files, reading from disk, or handling socket streams, essentially serializing access to any shared resource.
+> tip: **Good for:** I/O-bound operations like downloading files, reading from disk, or handling socket streams, essentially serializing access to any shared resource.
 
 ## 15.2 The Global Interpreter Lock
 
@@ -116,7 +116,7 @@ The **Global Interpreter Lock (GIL)** is a mutex (mutual exclusion lock) that pr
 4. The GIL is periodically released to allow other threads a chance to run (e.g., every few milliseconds or after certain bytecode instructions).
 5. For I/O-bound tasks (like network or file operations), threads can release the GIL early, allowing other threads to progress.
 
-> Only one thread at a time can hold the GIL and execute Python code. Other threads must wait until the GIL is released. Even if multiple cores are available, the GIL forces execution to serialize at the Python bytecode level. Native extensions like NumPy can release the GIL during heavy computation, which allows true multi-core execution underneath.
+> note: Only one thread at a time can hold the GIL and execute Python code. Other threads must wait until the GIL is released. Even if multiple cores are available, the GIL forces execution to serialize at the Python bytecode level. Native extensions like NumPy can release the GIL during heavy computation, which allows true multi-core execution underneath.
 
 ## 15.3 asyncio
 
@@ -190,12 +190,14 @@ If you’ve used Node.js:
 
 ## 15.4 Performance Comparison
 
+<MdxTable>
 | Task Type    | Best Tool                | Reason                                   |
 | ------------ | ------------------------ | ---------------------------------------- |
 | File I/O     | `threading`              | Simple and easy to use for parallel I/O  |
 | CPU-bound    | `multiprocessing`        | Bypasses GIL by using multiple processes |
 | Network I/O  | `asyncio`                | Event loop handles thousands of tasks    |
 | Web scraping | `asyncio` or `threading` | Lightweight and fast concurrency         |
+</MdxTable>
 
 ## 15.5 Chapter Assignment: Comparing Concurrency Models
 
@@ -225,11 +227,13 @@ In this assignment, you will extend the idea of running code in isolated environ
    * Save all logs to `/logs/concurrency_results.log`.
    * Print a performance comparison table at the end, e.g.:
 
+<MdxTable>
 | Model           | Total Time (s) | Notes (CPU-bound vs I/O-bound) |
 | --------------- | -------------- | ------------------------------ |
 | Threading       | …              | Best for I/O tasks             |
 | Multiprocessing | …              | Best for CPU-bound tasks       |
 | Asyncio         | …              | Best for network-style I/O     |
+</MdxTable>
 
 ### **Hints & Resources**
 

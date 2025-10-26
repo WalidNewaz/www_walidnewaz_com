@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-11-05"
+date: "2023-11-06"
 
 series: "Python Foundations"
 part: "III. Object-Oriented and Functional Python"
@@ -8,7 +8,7 @@ chapter: "8. Object-Oriented Programming"
 
 title: "Object-Oriented Programming"
 description: "As applications grow, you’ll need ways to organize code around data and behavior. That’s where Object-Oriented Programming (OOP) comes in."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
 tags: ["OOP", "Python"]
 ---
@@ -102,22 +102,28 @@ These methods allow you to define how **custom objects behave like built-in type
 
 ### Commonly Used Dunder Methods (With Examples)
 
+<MdxTable>
 | Dunder Method              | Purpose                                | Example                                |
 | -------------------------- | -------------------------------------- | -------------------------------------- |
-| `__init__`                 | Constructor: initialize an object      | `__init__(self)`                       |
-| `__str__`                  | String representation (`str(obj)`)     | `__str__(self)`                        |
-| `__repr__`                 | Developer representation (`repr(obj)`) | `__repr__(self)`                       |
-| `__len__`                  | Used by `len(obj)`                     | `__len__(self)`                        |
-| `__getitem__`              | Indexing: `obj[index]`                 | `__getitem__(self, index)`             |
-| `__setitem__`              | Set value at index: `obj[index] = x`   | `__setitem__(self, index, value)`      |
-| `__eq__`, `__lt__`, etc.   | Comparisons: `==`, `<`, etc.           | `__eq__(self, other)`                  |
-| `__add__`, `__mul__`, etc. | Arithmetic operations                  | `__add__(self, other)`                 |
-| `__call__`                 | Make object callable like a function   | `__call__(self, *args)`                |
-| `__enter__`, `__exit__`    | Context managers (`with` block)        | `__enter__(self), __exit__(self, ...)` |
+| `&#95;&#95;init&#95;&#95;`                 | Constructor: initialize an object      | `&#95;&#95;init&#95;&#95;(self)`                       |
+| `&#95;&#95;str&#95;&#95;`                  | String representation (`str(obj)`)     | `&#95;&#95;str&#95;&#95;(self)`                        |
+| `&#95;&#95;repr&#95;&#95;`                 | Developer representation (`repr(obj)`) | `&#95;&#95;repr&#95;&#95;(self)`                       |
+| `&#95;&#95;len&#95;&#95;`                  | Used by `len(obj)`                     | `&#95;&#95;len&#95;&#95;(self)`                        |
+| `&#95;&#95;getitem&#95;&#95;`              | Indexing: `obj[index]`                 | `&#95;&#95;getitem&#95;&#95;(self, index)`             |
+| `&#95;&#95;setitem&#95;&#95;`              | Set value at index: `obj[index] = x`   | `&#95;&#95;setitem&#95;&#95;(self, index, value)`      |
+| `&#95;&#95;eq&#95;&#95;`, `&#95;&#95;lt&#95;&#95;`, etc.   | Comparisons: `==`, `<`, etc.           | `&#95;&#95;eq&#95;&#95;(self, other)`                  |
+| `&#95;&#95;add&#95;&#95;`, `&#95;&#95;mul&#95;&#95;`, etc. | Arithmetic operations                  | `&#95;&#95;add&#95;&#95;(self, other)`                 |
+| `&#95;&#95;call&#95;&#95;`                 | Make object callable like a function   | `&#95;&#95;call&#95;&#95;(self, *args)`                |
+| `&#95;&#95;enter&#95;&#95;`, `&#95;&#95;exit&#95;&#95;`    | Context managers (`with` block)        | `&#95;&#95;enter&#95;&#95;(self), &#95;&#95;exit&#95;&#95;(self, ...)` |
+</MdxTable>
+
 
 **Example:**
 
 ```python
+"""
+@showLineNumbers
+"""
 class Book:
     def __init__(self, title, author):
         self.title = title
@@ -148,9 +154,11 @@ Let’s build a simple **Task Manager** where you can:
 * List all tasks
 * Search tasks by status
 
-### File: `task_manager.py`
-
 ```python
+"""
+@file: task_manager.py
+@showLineNumbers
+"""
 class Task:
     def __init__(self, title, description=""):
         self.title = title
@@ -186,6 +194,9 @@ class TaskManager:
 ### Usage Example
 
 ```python
+"""
+@showLineNumbers
+"""
 if __name__ == "__main__":
     manager = TaskManager()
 
@@ -203,7 +214,7 @@ if __name__ == "__main__":
 
 **Expected Output:**
 
-```
+```bash
 All Tasks:
 [Done] Write unit tests: For the task manager application
 [Pending] Refactor code
@@ -216,9 +227,11 @@ Pending Tasks:
 
 ## 8.6 Writing Unit Tests for the Task Manager
 
-### File: `test_task_manager.py`
-
 ```python
+"""
+@file: test_task_manager.py
+@showLineNumbers
+"""
 import pytest
 from task_manager import TaskManager
 
@@ -265,7 +278,7 @@ pytest
 
 Expected result:
 
-```
+```bash
 collected 4 items
 
 test_task_manager.py ....                      [100%]

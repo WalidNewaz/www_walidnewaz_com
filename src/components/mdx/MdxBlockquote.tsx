@@ -79,6 +79,10 @@ const detectCalloutType = (children: React.ReactNode): CalloutType => {
   return "default";
 };
 
+const removePrefixFromText = (text: string): string => {
+  return text.replace(/^(Note|Tip|Warning|Info)\:\s*/igm, "").trim();
+};
+
 /**
  * MDX-compatible blockquote replacement.
  * This replaces the default <blockquote> tag in MDX rendering.
@@ -91,7 +95,17 @@ export const MdxBlockquote: React.FC<{ children: React.ReactNode }> = ({ childre
     if (!React.isValidElement(child)) return child;
     if (typeof child.props.children === "string") {
       return React.cloneElement(child, {
-        children: child.props.children.replace(/^(Note|Tip|Warning|Info):\s*/i, ""),
+        children: removePrefixFromText(child.props.children),
+      });
+    } else if (Array.isArray(child.props.children)) {
+      const newChildren = child.props.children.map((grandChild: any, index: number) => {
+        if (typeof grandChild === "string" && index === 0) {
+          return removePrefixFromText(grandChild);
+        }
+        return grandChild;
+      });
+      return React.cloneElement(child, {
+        children: newChildren,
       });
     }
     return child;

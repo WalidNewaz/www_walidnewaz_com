@@ -8,9 +8,9 @@ chapter: "13. Type Hints and Generics"
 
 title: "Type Hints and Generics"
 description: "Despite Python being a dynamically typed language, it provides a flexible and powerful mechanism, and tools to make your code more versatile, and type safe at the same time."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
-tags: ["Python Types", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 13: Python Type Hints and Generics
@@ -50,7 +50,7 @@ greet("Alice", "thirty")  # mypy or IDE will warn: expected int, got str
 
 Python won’t raise an error at runtime, but type checkers like `mypy` will flag it.
 
-> **Note:** `mypy` needs to be installed and run on your codebase to identify annotation errors. Visit the <a href="https://mypy-lang.org/" target="_blank">mypy</a> site for additional instructions.
+> Note: `mypy` needs to be installed and run on your codebase to identify annotation errors. Visit the <a href="https://mypy-lang.org/" target="_blank">mypy</a> site for additional instructions.
 
 #### Default Values
 
@@ -148,7 +148,7 @@ print(Node.__annotations__)
 # {'value': <class 'int'>, 'next': 'None | Node'}
 ```
 
-> **Note:** Only things that are annotated are listed here. Un-annotated items are not listed within the dictionary.
+> Note: Only things that are annotated are listed here. Un-annotated items are not listed within the dictionary.
 
 ## 13.2 Collections and the `typing` Module
 

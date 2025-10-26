@@ -1,6 +1,6 @@
 ---
 featured: false
-date: "2023-11-08"
+date: "2023-11-09"
 
 series: "Python Foundations"
 part: "IV. Python’s Built-in Tools"
@@ -8,7 +8,7 @@ chapter: "11. Data Structures and Algorithms"
 
 title: "Data Structures and Algorithms"
 description: "Understanding DSA is essential for building efficient applications, preparing for technical interviews, and writing production-grade backend systems."
-# hero_image: "python-tutorial-banner.png"
+
 has_quiz: true
 tags: ["DSA", "Python"]
 ---
@@ -26,6 +26,7 @@ We’ll cover:
 
 ## 11.1 Python’s Built-in Data Structures
 
+<MdxTable>
 | Type    | Description                             | Example             |
 | ------- | --------------------------------------- | ------------------- |
 | `list`  | Ordered, mutable collection             | `[1, 2, 3]`         |
@@ -33,6 +34,7 @@ We’ll cover:
 | `set`   | Unordered collection of unique elements | `{1, 2, 3}`         |
 | `dict`  | Key-value store                         | `{"name": "Alice"}` |
 | `str`   | Sequence of Unicode characters          | `"Hello"`           |
+</MdxTable>
 
 ### Example: Stack using a List
 
@@ -59,6 +61,7 @@ Think of it as answering:
 
 Time complexity describes **how long** an algorithm takes to run based on the size of the input (`n`).
 
+<MdxTable>
 | Big-O Notation | Name             | Example Algorithm                       |
 | -------------- | ---------------- | --------------------------------------- |
 | `O(1)`         | Constant Time    | Accessing an element by index           |
@@ -68,6 +71,7 @@ Time complexity describes **how long** an algorithm takes to run based on the si
 | `O(n^2)`       | Quadratic Time   | Nested loops (e.g., bubble sort)        |
 | `O(2^n)`       | Exponential Time | Recursive Fibonacci without memoization |
 | `O(n!)`        | Factorial Time   | Solving the traveling salesman problem  |
+</MdxTable>
 
 ### Space Complexity
 
@@ -121,6 +125,9 @@ For each element, we iterate again over the list.
 #### Logarithmic Time - O(log n)
 
 ```python
+"""
+@showLineNumbers
+"""
 def binary_search(sorted_list, target):
     low, high = 0, len(sorted_list) - 1
     while low <= high:
@@ -155,6 +162,9 @@ Now that we've discussed the Big-O Notation, let's review some common algorithms
 ### Linear Search
 
 ```python
+"""
+@showLineNumbers
+"""
 def linear_search(arr, target):
     for i, value in enumerate(arr):
         if value == target:
@@ -182,6 +192,9 @@ Average Case: `O(1)` — constant space.
 ### Binary Search
 
 ```python
+"""
+@showLineNumbers
+"""
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
 
@@ -218,6 +231,9 @@ Average Case: `O(1)`
 ### Bubble Sort
 
 ```python
+"""
+@showLineNumbers
+"""
 def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -240,7 +256,7 @@ Worst Case: `O(n²)`
 - The array is sorted in reverse. Every pass makes `n-i-1` comparisons.
 - Total comparisons:
 
-```
+```python
   (n-1) + (n-2) + ... + 1 = n(n-1) / 2
 ```
 
@@ -248,6 +264,7 @@ Worst Case: `O(n²)`
 
 In addition to Python's built-in types (`list`, `set`, `tuple`, `dict`), there are several other useful data structures in the `collections` and `heapq` modules that are worth looking into further.
 
+<MdxTable>
 | Structure              | Source Module | Description                                                                                                        |
 | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `deque`                | `collections` | Double-ended queue with O(1) append and pop operations on both ends. Great for queues and sliding window problems. |
@@ -260,9 +277,7 @@ In addition to Python's built-in types (`list`, `set`, `tuple`, `dict`), there a
 | `array.array`          | `array`       | Compact storage of basic C-style data types (int, float).                                                          |
 | `set` and `frozenset`  | built-in      | Mutable and immutable sets with fast membership tests.                                                             |
 | `bitarray` (3rd-party) | `bitarray`    | Efficient arrays of booleans or bits (optional, if using external libraries).                                      |
-
-
----
+</MdxTable>
 
 Problem solving in Computer Science revolves around data structures and algorithms. Structuring a problem using optimal data structures and using the correct algorithms to solve the problem have great impact on the performance and usability for the software.
 

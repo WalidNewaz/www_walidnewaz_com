@@ -1,16 +1,16 @@
 ---
 featured: false
-date: "2023-11-12"
+date: "2023-11-13"
 
 series: "Python Foundations"
 part: "V. Concurrency and Patterns"
 chapter: "14. Concurrency and Process Management"
 
 title: "Concurrency and Process Management"
-description: "Python's standard library provides a wide array of modules that cover everything from file handling and math to networking and concurrency. These libraries help developers avoid reinventing the wheel and build powerful applications quickly."
-# hero_image: "python-tutorial-banner.png"
+description: "Python's standard library provides a wide array of modules that allows programs that use concurrency."
+
 has_quiz: true
-tags: ["Concurrency", "Python"]
+tags: ["Python"]
 ---
 
 # Chapter 14: Concurrency and Process Management
@@ -60,7 +60,7 @@ with open("output.txt", "w") as f:
     subprocess.run(["echo", "Hello, subprocess!"], stdout=f)
 ```
 
-> ⚠️ `subprocess` runs external programs; it does not execute Python code directly unless you call `python`.
+> note: `subprocess` runs external programs; it does not execute Python code directly unless you call `python`.
 
 ### Passing Input to a Subprocess
 
@@ -96,6 +96,9 @@ This example assumes:
 * Your local system can run `docker` commands without `sudo`.
 
 ```python
+"""
+@showLineNumbers
+"""
 import subprocess
 import os
 import tempfile
@@ -276,7 +279,7 @@ if __name__ == '__main__':
     print(f"Counter value: {counter.value}")
 ```
 
-> Warning: This is an example of **shared state, race conditions, and synchronization** in `multiprocessing`. The current code “works sometimes,” but it’s actually **racy**.
+> Warning: This is an example of **&#32;shared state, race conditions, and synchronization** in `multiprocessing`. The current code “works sometimes,” but it’s actually **racy**.
 
 `counter.value += 1` is **not atomic**. Two processes can read the same old value and both write back, losing increments. You might print something less than `4000`.
 
@@ -360,7 +363,7 @@ This performs similar to **Fix 1** shown earlier, because the computational comp
 
 This is why choosing efficient **data structures and algorithms (DSA)** matters in parallel and distributed computing.
 
-> **Note:** A discussion of efficient parallel and distributed algorithms design is beyond the scope of this chapter, which focuses on Python and related frameworks.
+> Note: A discussion of efficient parallel and distributed algorithms design is beyond the scope of this chapter, which focuses on Python and related frameworks.
 
 ### Using a Manager for Shared Dict or List
 
@@ -392,7 +395,7 @@ if __name__ == '__main__':
 - The manager server modifies the single shared list instance in its own memory space.
 - When the parent process later prints `shared`, the proxy fetches the latest contents from the server.
 
-> **Note:** Managers use IPC (Inter-Process Communication) under the hood (pipes/sockets + pickling). This makes it easy but slower than raw shared memory (`Value`, `Array`), because of serialization overhead.
+> Note: Managers use IPC (Inter-Process Communication) under the hood (pipes/sockets + pickling). This makes it easy but slower than raw shared memory (`Value`, `Array`), because of serialization overhead.
 
 ### Practical Example: `multiprocessing`
 
@@ -401,6 +404,10 @@ Let's build a mini utility that compresses multiple files using `gzip` in parall
 #### **Step 1: `compress.py`**
 
 ```python
+"""
+@file: compress.py
+@showLineNumbers
+"""
 import gzip
 import shutil
 from multiprocessing import Pool
@@ -425,6 +432,10 @@ if __name__ == '__main__':
 #### **Step 2: Create Sample Files `sample_data.py`**
 
 ```python
+"""
+@file: sample_data.py
+@showLineNumbers
+"""
 from pathlib import Path
 
 Path("data").mkdir(exist_ok=True)
@@ -445,7 +456,10 @@ Check the `data/` directory — you should see `.gz` files created in parallel.
 ## 14.3 Testing your parallel code
 
 ```python
-# test_counter.py
+"""
+@file: test_counter.py
+@showLineNumbers
+"""
 from multiprocessing import Value, Process
 
 def increment(counter, n):
