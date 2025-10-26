@@ -61,11 +61,9 @@ const TutorialsPage: React.FC<PageProps<any, PageContext>> = ({ data, pageContex
           const seriesDir = tutorial.fields.slug
             .split("/")
             .filter((str: string) => str !== "")[0]; // e.g. react-native
-          const heroImagePattern =
-            tutorial.frontmatter.hero_image ||
-            tutorialHeroes.find((hero: any) => {
-              return hero.relativeDirectory === seriesDir;
-            });
+          const heroImagePattern = tutorialHeroes.find((hero: any) => {
+            return hero.relativeDirectory === seriesDir;
+          });
           return (
             <ArticlePostCard
               key={tutorial.id}
@@ -96,10 +94,12 @@ export const query = graphql`
         }
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
+          pathDate: date(formatString: "/YYYY/MM/DD")
           title
           series
+          part
+          chapter
           description
-          tags
           hero_image {
             id
             base
@@ -107,6 +107,8 @@ export const query = graphql`
               gatsbyImageData
             }
           }
+          tags
+          read_time
         }
         id
       }
