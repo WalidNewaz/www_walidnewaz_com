@@ -41,8 +41,8 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
   data,
   pageContext,
 }) => {
-  const { tutorials, allTopics } = data.allMdx;
-  const { tutorialHeroes } = data.allFile;
+  const { tutorials, allTopics } = data?.allMdx || { tutorials: [], allTopics: [] };
+  const { tutorialHeroes } = data?.allFile || { tutorialHeroes: [] };
   const { topic: currentTopic } = pageContext || { topic: "" };
 
   return (
