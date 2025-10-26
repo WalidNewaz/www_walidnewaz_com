@@ -76,10 +76,11 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
             .split("/")
             .filter((str: string) => str !== "")[0]; // e.g. react-native
           const heroImagePattern = tutorialHeroes.find((hero: any) => {
-            // return hero.relativeDirectory === seriesDir;
-            return hero.relativeDirectory.startsWith(seriesDir);
+            console.log({"relativeDirectory": hero.relativeDirectory, "seriesDir": seriesDir});
+            return hero.relativeDirectory === seriesDir;
+            // return hero.relativeDirectory.startsWith(`${seriesDir}/`);
           });
-          console.log("heroImagePattern", heroImagePattern);
+          console.log({"heroImagePattern": heroImagePattern});
           return (
             <ArticlePostCard
               key={tutorial.id}
