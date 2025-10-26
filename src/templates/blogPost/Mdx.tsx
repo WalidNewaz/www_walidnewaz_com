@@ -50,9 +50,6 @@ const BlogPostTemplate: React.FC<any> = ({
   pageContext,
   children,
 }) => {
-  // const { posts } = relatedPosts;
-
-  console.log("children:", children);
 
   return (
     <>
