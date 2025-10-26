@@ -100,6 +100,13 @@ export const query = graphql`
           series
           description
           tags
+          hero_image {
+            id
+            base
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
         }
         id
       }
