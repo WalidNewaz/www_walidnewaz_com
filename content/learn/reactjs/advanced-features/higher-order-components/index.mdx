@@ -6,17 +6,10 @@ series: "Modern React.js"
 part: "II. Advanced React Features"
 chapter: "6. Higher-Order Components"
 
-
-# series: "Modern React.js Series"
-# chapter: "2. Advanced React Features"
 title: "Higher-Order Components"
 description: "Higher-Order Components (HOCs) and Render Props are two advanced techniques that help in sharing behavior across React components."
-# hero_image: "lautaro-andreani-UYsBCu9RP3Y-unsplash.jpg"
-tags: ['HOCs', 'render props', 'react']
-read_time: 7 min
-related:
-  - "Class and Functional React Components"
-  - "React Hooks: A brief introduction"
+
+tags: ['React']
 ---
 
 # Higher-Order Components (HOCs) and Render Props
@@ -37,7 +30,10 @@ Higher-Order Components (HOCs) are an advanced pattern in React that allows deve
 
 Let’s start with a simple example where an HOC adds logging functionality to any component. This HOC logs information to the console every time the component is mounted or updated.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useEffect } from 'react';
 
 // Logging Higher-Order Component
@@ -69,7 +65,10 @@ In this example, `withLogging` is an HOC that enhances any component by adding l
 
 Consider a scenario where multiple components need to display content based on user authentication status. An HOC can be used to inject this behavior.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 
 // Mock function to check user authentication
@@ -118,7 +117,10 @@ Render props is a technique in React for sharing code between components using a
 
 Let's consider a simple use case where you want to create a component that tracks the mouse position on the screen and makes this data available to other components.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useState } from 'react';
 
 const MouseTracker = ({ children }) => {
@@ -156,7 +158,10 @@ In this example, `MouseTracker` is a component that tracks the mouse position an
 
 Consider a scenario where you want a component that handles input and filters a list based on the query but leaves the rendering of the filtered list to the consumer of the component.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useState } from 'react';
 
 const ListFilter = ({ items, render }) => {

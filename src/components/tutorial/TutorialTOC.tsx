@@ -142,6 +142,7 @@ const TutorialToc: React.FC<{
                             backgroundColor: "var(--surface3)",
                             padding: "0.25rem 0.5rem",
                             borderRadius: "0.25rem",
+                            marginLeft: "1rem",
                           }}
                         >
                           <span>{chapter.title}</span>

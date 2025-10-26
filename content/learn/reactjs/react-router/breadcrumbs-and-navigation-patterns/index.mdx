@@ -8,12 +8,8 @@ chapter: "11. Implementing breadcrumbs"
 
 title: "Implementing breadcrumbs"
 description: "Breadcrumbs provide users with contextual information about their current location within the app and allow them to navigate efficiently."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['react router', 'breadcrumb']
-read_time: 6 min
-related: 
-  - "React Hooks: A brief introduction"
-  - "React Context API"
+
+tags: ['React']
 ---
 
 # Implementing Breadcrumbs and Navigation Patterns
@@ -42,7 +38,14 @@ React Router doesn't have a built-in breadcrumb component, but we can implement 
 
 Each route in the configuration should include a `breadcrumb` property for generating breadcrumbs dynamically. The `breadcrumb` property is added as a child of the `handle` property of each route. Any value is allowed within the `handle` property, and therefore we add our `breadcrumb` value there.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import Home from "./pages/Home";
 import Electronics from "./pages/Electronics";
 import MobilePhones from "./pages/MobilePhones";
@@ -94,7 +97,14 @@ export default routes;
 
 2. **Create the Breadcrumb Component**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { Link, useMatches } from 'react-router-dom';
 
 export default function Breadcrumbs() {
@@ -122,7 +132,14 @@ export default function Breadcrumbs() {
 
 The breadcrumb metadata needs to be passed using the `handle` property in the route configuration:
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes';
 import Breadcrumbs from './components/Breadcrumbs';

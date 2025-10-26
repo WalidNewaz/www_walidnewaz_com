@@ -6,17 +6,10 @@ series: "Modern React.js"
 part: "III. State Management in React"
 chapter: "8. React Context API"
 
-
-# series: "Modern React.js Series"
-# chapter: "3. State Management in React"
 title: "React Context API"
 description: "React Context API: Managing Global State Without Redux."
-# hero_image: "kelly-sikkema-gcHFXsdcmJE-unsplash.jpg"
-tags: ['context', 'react']
-read_time: 6 min
-related: 
-  - "Class and Functional React Components"
-  - "React Hooks: A brief introduction"
+
+tags: ['React']
 ---
 
 # React Context API: Managing Global State Without Redux
@@ -45,7 +38,10 @@ Let's walk through a simple example to demonstrate how to use the Context API. W
 
 First, we need to create a context. This can be done using `React.createContext()`.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { createContext, useState } from 'react';
 
 // Create a context with default value
@@ -74,7 +70,10 @@ export default AuthContext;
 
 Next, we wrap our application (or part of it) with the `AuthProvider` component. This will provide the authentication state to any component within its tree.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -92,7 +91,10 @@ ReactDOM.render(
 
 Any component that needs access to the authentication state can now consume the context using the `useContext` hook.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useContext } from 'react';
 import AuthContext from './AuthContext';
 
@@ -118,7 +120,10 @@ export default UserProfile;
 
 We can create a login component that uses the context to update the user state.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useContext } from 'react';
 import AuthContext from './AuthContext';
 
@@ -138,7 +143,10 @@ export default Login;
 
 Before the `useContext` hook was introduced, the way to consume the content within a component was to use the Consumer sub-component of the context.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useContext } from 'react';
 import AuthContext from './AuthContext';
 
@@ -163,7 +171,11 @@ export default UserProfile;
 
 Sometimes, you may need to use a different context value for a part of the component tree. When you need this, you can override the context for part of the tree by wrapping that part in a provider with a different value.
 
-```jsx {numberLines 1,3}
+```jsx
+/**
+ * @showLineNumbers
+ * @highlight: 1,3
+ */
 <ThemeContext.Provider value="light">
    ...
    <ThemeContext.Provider value="dark">

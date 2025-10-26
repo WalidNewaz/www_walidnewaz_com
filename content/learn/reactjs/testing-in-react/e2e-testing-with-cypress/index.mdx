@@ -8,8 +8,8 @@ chapter: "16. End-to-End testing with Cypress"
 
 title: "End-to-End testing with Cypress"
 description: "End-to-end (E2E) testing is a crucial aspect of modern web development, ensuring that applications function correctly from the user's perspective. Cypress is a powerful and user-friendly JavaScript testing framework that simplifies E2E testing for React applications."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ["react", "testing"]
+
+tags: ["React"]
 ---
 
 # End-to-End Testing with Cypress
@@ -105,7 +105,14 @@ Cypress uses a simple syntax to interact with UI elements and verify expected be
 
 Create a test file inside `cypress/e2e/` (e.g., `app.cy.js`) and write a simple test:
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 describe("React App Test", () => {
   it("should visit the homepage", () => {
     cy.visit("http://localhost:3000");
@@ -118,7 +125,14 @@ describe("React App Test", () => {
 
 You can simulate user interactions such as clicking buttons and typing text:
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 describe("Login Form", () => {
   it("should allow a user to log in", () => {
     cy.visit("/login");
@@ -134,7 +148,14 @@ describe("Login Form", () => {
 
 Ensure that navigation between pages works as expected:
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 describe("Navigation", () => {
   it("should navigate to the product details page", () => {
    cy.visit("http://localhost:5173");
@@ -170,8 +191,14 @@ cy.get('h1').should('contain', username)
 
 You may want to reuse this flow while testing other parts of your application. You can wrap these steps into a reusable `command` as shown below:
 
-```javascript
-// In cypress/support/commands.js
+```jsx
+/**
+ * @file: cypress/support/commands.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 Cypress.Commands.add('login', (username, password) => {
  cy.session(
    username,
@@ -207,8 +234,13 @@ it('does something on a secured page', function () {
 Fixtures in Cypress allow you to load static test data from JSON files. This helps simulate real-world scenarios without hardcoding values inside your tests.
 
 ```javascript
-// In cypress/fixtures/user.json
-
+/**
+ * @file: cypress/fixtures/user.json
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 {
   "username": "testuser",
   "email": "testuser@example.com"
@@ -216,6 +248,13 @@ Fixtures in Cypress allow you to load static test data from JSON files. This hel
 ```
 
 ```javascript
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 // In your spec file
 describe("User login test", () => {
   beforeEach(() => {

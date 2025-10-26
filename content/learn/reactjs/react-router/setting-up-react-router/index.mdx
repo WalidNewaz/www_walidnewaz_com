@@ -8,12 +8,9 @@ chapter: "9. Setting up React Router for Navigation"
 
 title: "Setting up React Router for Navigation"
 description: "React Router is a powerful library that enables navigation and dynamic routing in React applications. Whether you're building a single-page application (SPA) or a complex, multi-page app."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['react router']
+
+tags: ['React']
 read_time: 5 min
-related: 
-  - "React Hooks: A brief introduction"
-  - "React Context API"
 ---
 
 # Setting up React Router for Navigation
@@ -90,6 +87,10 @@ export default function Contact() {
 2. Set Up Routing in **App.jsx**:
 
 ```jsx
+/**
+ * @file: App.jsx
+ * @showLineNumbers
+ */
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
@@ -121,6 +122,10 @@ export default App;
 3. Update **index.jsx**:
 
 ```jsx
+/**
+ * @file: index.jsx
+ * @showLineNumbers
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -150,6 +155,9 @@ You should now be able to navigate between the `Home`, `About`, and `Contact` pa
 React Router allows you to define a fallback route for when a user navigates to a non-existent page.
 
 ```jsx
+/**
+ * @showLineNumbers
+ */
 import NotFound from './components/NotFound';
 
 <Routes>
@@ -174,6 +182,9 @@ export default function NotFound() {
 For more complex applications, you can define nested routes to handle hierarchical navigation.
 
 ```jsx
+/**
+ * @showLineNumbers
+ */
 <Routes>
   <Route path="/" element={<Home />} />
   <Route path="/about" element={<About />}>
@@ -188,6 +199,9 @@ For more complex applications, you can define nested routes to handle hierarchic
 In some cases, you may need to navigate programmatically (e.g., after a form submission). Use the `useNavigate` hook for this:
 
 ```jsx
+/**
+ * @showLineNumbers
+ */
 import { useNavigate } from 'react-router-dom';
 
 function Form() {

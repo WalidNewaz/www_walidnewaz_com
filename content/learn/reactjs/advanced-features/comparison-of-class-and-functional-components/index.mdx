@@ -6,17 +6,10 @@ series: "Modern React.js"
 part: "II. Advanced React Features"
 chapter: "4. Class and Functional React Components"
 
-
-# series: "Modern React.js Series"
-# chapter: "2. Advanced React Features"
 title: "Class and Functional React Components"
 description: "Comparison of Class Components and Functional Components in React."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['components', 'react']
-read_time: 5 min
-related: 
-  - "React Hooks: A brief introduction"
-  - "React Context API"
+
+tags: ['React']
 ---
 
 # Comparison of Class Components and Functional Components in React
@@ -29,7 +22,10 @@ Class components were the standard way to create stateful components in React be
 
 ### Example
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { Component } from 'react';
 
 class Greeting extends Component {
@@ -75,7 +71,10 @@ Functional components are simpler and more concise than class components. They w
 
 ### Example
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useState } from 'react';
 
 const Greeting = () => {
@@ -148,5 +147,3 @@ Functional components were introduced to simplify the process of creating compon
 Both class components and functional components have their own strengths and weaknesses. Class components offer a familiar structure for managing state and side effects, but can be verbose and complex. Functional components, enhanced by hooks, provide a simpler, more flexible, and modern approach to building React applications.
 
 For most new projects and modern React development, functional components with hooks are the recommended approach due to their simplicity, reusability, and improved performance. However, understanding both approaches and knowing when to use each can help you make informed decisions and write better React applications.
-
-Happy coding!

@@ -8,12 +8,8 @@ chapter: "10. Advanced Routing Techniques: Nested Routes, Dynamic Routing, and R
 
 title: "Advanced Routing Techniques"
 description: "Advanced React routing techniques such as nested routes, dynamic routing, and route guards allow developers to create more complex and feature-rich applications."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['react router', 'nested route']
-read_time: 8 min
-related: 
-  - "React Hooks: A brief introduction"
-  - "React Context API"
+
+tags: ['React']
 ---
 
 # Advanced Routing Techniques: Nested Routes, Dynamic Routing, and Route Guards
@@ -42,8 +38,11 @@ src/
 
 1. **Create the Components:**
 
-```jsx {numberLines}
-// Dashboard.jsx
+```jsx
+/**
+ * @showLineNumbers
+ */
+// DashboardHome.jsx
 import { Outlet, Link } from 'react-router-dom';
 
 export default function Dashboard() {
@@ -80,7 +79,10 @@ export default function Settings() {
 
 2. **Set Up the Nested Routes:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import DashboardHome from './pages/DashboardHome';
@@ -118,9 +120,14 @@ The `<Outlet>` component is an essential part of React Router, used to render ch
 
 For example, if you are building a dashboard with sections like "Profile" and "Settings," you can use the `<Outlet>` component in the parent route to define where these sections will appear within the layout.
 
-- **Layout example:**
+**Layout example:**
 
-```jsx {numberLines 4,5,6,17}
+```jsx
+/**
+ * @showLineNumbers
+ * @highlight
+ */
+
 // Dashboard.jsx
 import { Link, Outlet } from 'react-router-dom';
 
@@ -144,9 +151,13 @@ export default function Dashboard() {
 }
 ```
 
-- **Route Configuration:**
+**Route Configuration:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ * @highlight
+ */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
@@ -193,7 +204,12 @@ src/
 
 1. **Create the Components:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ */
 // Products.jsx
 import { Link } from 'react-router-dom';
 
@@ -235,7 +251,12 @@ export default function ProductDetails() {
 
 2. **Set Up the Routes:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Products from './pages/Products';
 import ProductDetails from './pages/ProductDetails';
@@ -273,8 +294,12 @@ Route guards are used to protect specific routes by restricting access based on 
 
 1. **Create a Fake Authentication Service:**
 
-```jsx {numberLines}
-// auth.js
+```jsx
+/**
+ * @file: auth.js
+ * @showLineNumbers
+ * @highlight
+ */
 export const isAuthenticated = () => {
   return localStorage.getItem('auth') === 'true';
 };
@@ -290,7 +315,12 @@ export const logout = () => {
 
 2. **Create a Protected Route Component:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ */
 import { Navigate } from 'react-router-dom';
 import { isAuthenticated } from './auth';
 
@@ -304,7 +334,14 @@ export default function ProtectedRoute({ children }) {
 
 3. **Set Up Routes with Guards:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Dashboard from './pages/Dashboard';
@@ -333,7 +370,14 @@ export default App;
 
 4. **Create the Login Component:**
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { useNavigate } from 'react-router-dom';
 import { login } from './auth';
 

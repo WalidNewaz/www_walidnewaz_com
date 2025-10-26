@@ -8,15 +8,12 @@ chapter: "1. Introduction to React"
 
 title: "Introduction to React"
 description: "Introduction to React: Understanding components, props, and state"
-# hero_image: "pexels-realtoughcandy-11035471.jpg"
-tags: ['beginner', 'react']
-read_time: 10 min
-related: 
-  - "Building your first React component"
-  - "Setting Up Your First React Project"
+
+tags: ['React']
+
 ---
 
-# Introduction to React: Understanding components, props, and state
+# Introduction to React
 
 React is a powerful JavaScript library for building user interfaces, particularly for single-page applications. It allows developers to create reusable UI components, manage their state efficiently, and compose complex UIs from small, isolated pieces of code. In this article, we’ll dive into the core concepts of React: components, props, and state.
 
@@ -32,7 +29,10 @@ Components are the building blocks of a React application. They allow you to spl
 
 Functional components are simple JavaScript functions. These functions accept props (more on props later) and return React elements describing what should appear on the screen.
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 
 function Welcome(props) {
@@ -46,7 +46,10 @@ export default Welcome;
 
 Class components are more feature-rich than functional components. They can hold and manage state and lifecycle methods.
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { Component } from 'react';
 
 class Welcome extends Component {
@@ -66,7 +69,10 @@ Props (short for properties) are the way components communicate with each other.
 
 Here’s how you can use props in a functional component:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 
 function Greeting(props) {
@@ -78,7 +84,10 @@ export default Greeting;
 
 You can use this component in another component by passing props to it:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 import Greeting from './Greeting';
 
@@ -97,7 +106,10 @@ export default App;
 
 You can define default values for props using `defaultProps`:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 function Greeting(props) {
   return <h1>{props.message}</h1>;
 }
@@ -115,7 +127,10 @@ State is similar to props, but it is private and fully controlled by the compone
 
 To use state in a class component, you need to initialize it in the constructor:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -145,7 +160,10 @@ export default Counter;
 
 With the introduction of React Hooks, you can use state in functional components:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { useState } from 'react';
 
 function Counter() {
@@ -181,7 +199,10 @@ Lifecycle methods are special methods in class components that allow you to run 
 
 Here’s an example of a component with lifecycle methods:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React, { Component } from 'react';
 
 class Timer extends Component {

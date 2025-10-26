@@ -8,8 +8,8 @@ chapter: "15. Testing Hooks and Asynchronous Code in React"
 
 title: "Unit testing Hooks and Asynchronous Code in React"
 description: "In React, developers often need to test hooks, and other asynchronous code effectively to ensure their applications behave as expected. This article dives into techniques and tools for testing hooks, and asynchronous code using popular libraries like Jest and React Testing Library (RTL)."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ["react", "testing"]
+
+tags: ["React"]
 ---
 
 # Testing Hooks and Asynchronous Code in React
@@ -42,7 +42,14 @@ React hooks encapsulate reusable logic in functional components. Testing hooks e
 
 Here’s a simple custom hook `useCounter`:
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { useState } from 'react';
 
 export function useCounter(initialValue = 0) {
@@ -58,7 +65,14 @@ export function useCounter(initialValue = 0) {
 
 This hook returns the internal `count` state as well as various functions to alter the state. We need to test the functions that modify the state. You can use `@testing-library/react-hooks` to test the behavior of this custom hook:
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { act } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { useCounter } from './useCounter';
@@ -114,8 +128,14 @@ The result of the `renderHook` method allows us to interact with the hook's curr
 
 Let’s say you have the following service method that fetches a user’s information from an API endpoint based on a user id.
 
-```javascript
-// ./UserService.js
+```jsx
+/**
+ * @file: ./UserService.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 
 export function fetchUserById(userId) {
   return fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
@@ -126,7 +146,14 @@ export function fetchUserById(userId) {
 
 We don't need to unit test `fetch`. However we do need to test the effect of any response returned from `fetch` by mocking the response. In this instance you can mock the returned value of `fetchUserById` which happens to be a `Promise` that resolves to the response of `fetch`.
 
-```javascript
+```jsx
+/**
+ * @file: ./UserService.test.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { vi, expect, it, describe } from "vitest";
 import { getUserById } from "./userService";
 
@@ -150,7 +177,14 @@ However this is not very interesting. It would be more useful to test how a comp
 
 Here’s a component that fetches user data and displays the data:
 
-```javascript
+```jsx
+/**
+ * @file: ./UserInfo.js
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { useEffect, useState } from "react";
 
 import { getUserById } from "../../services/userService";
@@ -175,7 +209,14 @@ export default UserInfo;
 
 We're going to use <a href="https://vitest.dev/" target="_blank">Vitest</a> and <a href="https://testing-library.com/docs/react-testing-library/intro/" target="_blank">React Testing Library</a> to test the `UserInfo` component:
 
-```javascript
+```jsx
+/**
+ * @file
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { vi, test, expect } from "vitest";
 import { render } from "vitest-browser-react";
 import { waitFor } from "@testing-library/react";

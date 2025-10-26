@@ -8,15 +8,11 @@ chapter: "2. Setting Up Your First React Project"
 
 title: "Setting Up Your First React Project"
 description: "Introduction to React: Setting Up Your First React Project"
-# hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
-tags: ['beginner', 'react']
-read_time: 10 min
-related: 
-  - "Introduction to React"
-  - "Building your first React component"
+
+tags: ['React']
 ---
 
-# Introduction to React: Setting Up Your First React Project
+# Setting Up Your First React Project
 
 Creating a new React project can seem challenging, especially if you're new to the framework. However, with the help of `Create React App`, the process is streamlined and straightforward. In this article, we'll guide you through setting up your first React project, understanding the basic folder structure, and creating a simple React component.
 
@@ -102,7 +98,10 @@ React components are the building blocks of any React application. Let's create 
 
 ### Open `App.js` and replace its content with the following code
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 import './App.css';
 
@@ -121,7 +120,10 @@ export default App;
 
 ### Open `App.css` and add some basic styling
 
-```css {numberLines}
+```css
+/**
+ * @showLineNumbers
+ */
 .App {
   text-align: center;
 }
@@ -146,7 +148,10 @@ Save your changes and go back to your browser. You should see a styled "Hello, W
 
 Let's add another component to understand how components work together in React. Create a new file in the `src` folder named `Greeting.js` and add the following code:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 
 function Greeting(props) {
@@ -164,7 +169,10 @@ In this example, the `Greeting` component accepts a `message` prop and displays 
 
 Now, modify the `App.js` file to use the `Greeting` component:
 
-```javascript {numberLines}
+```jsx
+/**
+ * @showLineNumbers
+ */
 import React from 'react';
 import './App.css';
 import Greeting from './Greeting';
@@ -199,4 +207,4 @@ To further personalize and enhance your React knowledge, check out the following
 
 ## Conclusion
 
-Setting up your first React project with Create React App is a breeze, thanks to its streamlined setup process. Understanding the folder structure and learning how to create and use components are essential steps in your React journey. With this foundation, you're well on your way to building dynamic and interactive web applications using React. Happy coding!
+Setting up your first React project with Create React App is a breeze, thanks to its streamlined setup process. Understanding the folder structure and learning how to create and use components are essential steps in your React journey. With this foundation, you're well on your way to building dynamic and interactive web applications using React.

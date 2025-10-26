@@ -143,6 +143,7 @@ const StyledPre = styled.pre`
   .highlight-line {
     background: rgba(255, 255, 255, 0.12);
     border-left: 3px solid #50fa7b;
+    margin-left: -3px;   /* offset for border */
     width: 100%;              /* extra safeguard */
     
     @media (prefers-color-scheme: dark) {
@@ -183,11 +184,17 @@ export const CodeBlock: React.FC<any> = ({ className, children }) => {
   };
 
   return (
-    <Highlight code={usedCode.trim()} language={language}>
+    <Highlight
+      code={usedCode.trim()}
+      language={language}
+      theme={themes.oceanicNext}
+    >
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <StyledPre style={style}>
           <div className="header">
-            <span>{meta.file || language}</span>
+            <span>
+              {meta?.file && meta.file.length > 0 ? meta.file : language}
+            </span>
             {meta.copy !== false && (
               <button className="copy" onClick={handleCopy}>
                 {copied ? <FiCheck /> : <FiCopy />}
@@ -211,10 +218,7 @@ export const CodeBlock: React.FC<any> = ({ className, children }) => {
                   .join(" ");
 
                 return (
-                  <div
-                    key={i}
-                    {...lineProps} className={mergedClassName}
-                  >
+                  <div key={i} {...lineProps} className={mergedClassName}>
                     {meta.showLineNumbers && (
                       <span
                         style={{
@@ -235,8 +239,6 @@ export const CodeBlock: React.FC<any> = ({ className, children }) => {
               })}
             </div>
           </div>
-
-
         </StyledPre>
       )}
     </Highlight>

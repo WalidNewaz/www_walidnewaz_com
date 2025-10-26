@@ -8,15 +8,11 @@ chapter: "3. Building your first React component"
 
 title: "Building your first React component"
 description: "Introduction to React: Building your first React component"
-# hero_image: "pexels-antonio-batinic-2573434-4164418.jpg"
-tags: ['beginner', 'react']
-read_time: 10 min
-related: 
-  - "Introduction to React"
-  - "Setting Up Your First React Project"
+
+tags: ['React']
 ---
 
-# Introduction to React: Building your first React component
+# Building your first React component
 
 React, is a powerful JavaScript library for building user interfaces. It is renowned for its efficiency and flexibility. One of the foundational concepts of React is components, which are reusable pieces of code that represent a part of the UI. In this article, we'll walk you through building your first React component, step-by-step.
 
@@ -36,7 +32,7 @@ Before creating your first component, ensure you have a React environment set up
 1. **Install Node.js and npm**: React and Create React App require Node.js and npm. You can download and install them from [nodejs.org](https://nodejs.org/).
 2. **Create a New React App**
 
-```shell {numberLines}
+```shell
 npx create-react-app my-first-react-app
 cd my-first-react-app
 npm start
@@ -52,8 +48,11 @@ Let's create a simple React component that displays a greeting message.
 
 First, we'll create a functional component. Open the `src` directory and create a new file named `Greeting.js`.
 
-```javascript {numberLines}
-// src/Greeting.js
+```jsx
+/**
+ * @file: src/Greeting.js
+ * @showLineNumbers
+ */
 import React from 'react';
 
 function Greeting() {
@@ -69,8 +68,11 @@ In this file, we've defined a functional component named `Greeting` that returns
 
 Next, let's use this `Greeting` component in our main `App` component. Open `src/App.js` and modify it as follows:
 
-```javascript {numberLines}
-// src/App.js
+```jsx
+/**
+ * @file: src/App.js
+ * @showLineNumbers
+ */
 import React from 'react';
 import './App.css';
 import Greeting from './Greeting';
@@ -100,8 +102,11 @@ Props are inputs to a React component. They allow you to pass data from a parent
 
 Update the `Greeting` component to accept and use props:
 
-```javascript {numberLines}
-// src/Greeting.js
+```jsx
+/**
+ * @file: src/Greeting.js
+ * @showLineNumbers
+ */
 import React from 'react';
 
 function Greeting(props) {
@@ -115,8 +120,11 @@ export default Greeting;
 
 Now, pass a `name` prop to the `Greeting` component in `App.js`:
 
-```javascript {numberLines}
-// src/App.js
+```jsx
+/**
+ * @file: src/App.js
+ * @showLineNumbers
+ */
 import React from 'react';
 import './App.css';
 import Greeting from './Greeting';
@@ -146,8 +154,11 @@ Let's create a class component and use state to manage the data. We'll create a 
 
 Create a new file named `Counter.js` in the `src` directory:
 
-```javascript {numberLines}
-// src/Counter.js
+```jsx
+/**
+ * @file: src/Counter.js
+ * @showLineNumbers
+ */
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -179,8 +190,11 @@ In this code, we've defined a `Counter` class component with a state property `c
 
 Import and use the `Counter` component in `App.js`:
 
-```javascript {numberLines}
-// src/App.js
+```jsx
+/**
+ * @file: src/App.js
+ * @showLineNumbers
+ */
 import React from 'react';
 import './App.css';
 import Greeting from './Greeting';
@@ -217,4 +231,4 @@ To further explore React and enhance your skills, consider checking out these re
 - [State and Lifecycle](https://reactjs.org/docs/state-and-lifecycle.html): Understand state management and lifecycle methods in React.
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html): Learn about using hooks to manage state and side effects in functional components.
 
-By experimenting with different components and exploring these resources, you'll gain a deeper understanding of React and become proficient in building dynamic, responsive UIs. Happy coding!
+By experimenting with different components and exploring these resources, you'll gain a deeper understanding of React and become proficient in building dynamic, responsive UIs.

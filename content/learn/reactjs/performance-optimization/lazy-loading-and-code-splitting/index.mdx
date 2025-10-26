@@ -8,8 +8,8 @@ chapter: "13. Lazy Loading and Code Splitting"
 
 title: "Lazy Loading and Code Splitting"
 description: "Lazy loading reduces the initial load time only loading critical code upfront, while dynamically loading rest when required. Code splitting enables code to be distributed among multiple files, rather than a single large application bundle."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['react', 'optimization']
+
+tags: ['React']
 ---
 
 # Lazy Loading and Code Splitting with React.lazy and Suspense
@@ -26,7 +26,12 @@ Code splitting is the process of breaking your application’s code into smaller
 
 For instance here is what happens when you build an application prior to code splitting:
 
-```bash {numberLines 8-10}
+```bash
+# @file:
+# @showLineNumbers
+# @highlight: 8-10
+# @copy
+# @exec
 $ npm run build
 
 > react-codeslitting@0.0.0 build
@@ -42,7 +47,12 @@ dist/assets/index-DtDfJKGn.js   261.76 kB │ gzip: 84.25 kB
 
 Here is the same application build after code splitting:
 
-```bash {numberLines 8-15}
+```bash
+# @file:
+# @showLineNumbers
+# @highlight: 8-15
+# @copy
+# @exec
 $ npm run build
 
 > react-codeslitting@0.0.0 build
@@ -73,7 +83,14 @@ React provides the `React.lazy` function to define components that are loaded dy
 
 Here’s an example of how to use `React.lazy` to lazily load a component:
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { Suspense } from 'react';
 
 // Lazy-load the component
@@ -106,7 +123,14 @@ Lazy loading is especially useful when working with React Router to split your c
 
 ### Example: Lazy Loading Routes
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -144,7 +168,14 @@ When lazy loading components, errors like missing or incorrect module paths can 
 
 ### Example: Error Handling with Lazy Loading
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { Suspense } from 'react';
 
 const LazyComponent = React.lazy(() => import('./LazyComponent'));
@@ -194,7 +225,14 @@ React 18 introduced the `useTransition` hook, which enables smoother UI interact
 
 ### Example: Lazy Loading with useTransition
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { Suspense, useState, useTransition } from 'react';
 
 const LazyComponent = React.lazy(() => import('./LazyComponent'));

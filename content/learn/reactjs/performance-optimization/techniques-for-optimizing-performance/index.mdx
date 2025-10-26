@@ -8,21 +8,17 @@ chapter: "12. Optimizing Performance in React Applications"
 
 title: "Optimizing Performance in React Applications"
 description: "As React applications grow in size and complexity, ensuring they remain responsive and fast becomes increasingly challenging. This chapter explores techniques for optimizing the performance of React applications."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ['react', 'performance']
+
+tags: ['React']
 ---
 
 # Optimizing Performance in React Applications
 
 Performance optimization is a critical aspect of modern web development. As React applications grow in size and complexity, ensuring they remain responsive and fast becomes increasingly challenging. In this article, part of the "Modern React.js" series, we’ll explore techniques for optimizing the performance of React applications to create a seamless user experience.
 
----
-
 ## Why Optimize React Applications?
 
 Poorly optimized applications lead to slower load times, higher memory consumption, and a subpar user experience. Performance bottlenecks can arise from inefficient rendering, memory leaks, or excessive re-renders. By employing optimization techniques, we can improve both the performance and scalability of React applications.
-
----
 
 ## Key Techniques for Optimizing React Applications
 
@@ -32,7 +28,14 @@ Code splitting allows you to load parts of your application on demand, reducing 
 
 #### Example
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { Suspense } from 'react';
 
 const LazyComponent = React.lazy(() => import('./LazyComponent'));
@@ -53,8 +56,6 @@ export default App;
 
 This technique is particularly useful for large applications where components are not always needed immediately.
 
----
-
 ### 2. **Memoization with `React.memo` and `useMemo`**
 
 Memoization prevents unnecessary re-renders by caching the results of expensive computations or preventing components from re-rendering when their props haven’t changed.
@@ -67,7 +68,14 @@ When a component wrapped in `React.memo` receives new props, React performs a sh
 
 Use `React.memo` when you have functional components that are expensive to render, especially if their props don't change frequently. It's useful for optimizing components that receive large data sets as props or that are part of frequently re-rendered lists.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 const ExpensiveComponent = React.memo(({ data }) => {
   console.log('Rendering ExpensiveComponent');
   return <div>{data}</div>;
@@ -80,7 +88,14 @@ const ExpensiveComponent = React.memo(({ data }) => {
 
 Use `useMemo` when you have computationally intensive operations within a component that shouldn't be recomputed on every render. It's useful for memoizing values derived from complex calculations, filtered lists, or objects that are passed as props to child components to prevent unnecessary re-renders of the child components.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { useMemo } from 'react';
 
 function ExpensiveCalculation({ items }) {
@@ -93,15 +108,20 @@ function ExpensiveCalculation({ items }) {
 }
 ```
 
----
-
 ### 3. **Avoiding Reconciliation with `key`**
 
 When rendering lists, React uses the `key` property to identify which items have changed. Using stable, unique keys helps React optimize rendering by avoiding unnecessary DOM updates.
 
 #### Example
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 const items = ['Apple', 'Banana', 'Cherry'];
 
 function List() {
@@ -115,8 +135,6 @@ function List() {
 }
 ```
 
----
-
 ### 4. **Optimizing State Management**
 
 Managing state efficiently can significantly improve performance. Here are some tips:
@@ -125,7 +143,14 @@ Managing state efficiently can significantly improve performance. Here are some 
 
 Lift state up to a parent component to prevent unnecessary re-renders of deeply nested components.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function Parent() {
   const [count, setCount] = useState(0);
 
@@ -141,15 +166,20 @@ function Child({ count, setCount }) {
 
 Avoid overusing `React.Context` for frequently updated state, as it can trigger re-renders in all consuming components. For complex state management, consider libraries like Redux or Zustand.
 
----
-
 ### 5. **Leveraging the `useCallback` Hook**
 
 `useCallback` is a **React Hook** used to memoize the function definition itself, ensuring the function reference remains stable across renders unless its dependencies change.
 
 `useCallback` is particularly beneficial when passing callbacks as props to child components that rely on referential equality to prevent unnecessary re-renders.
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { useState, useCallback } from 'react';
 
 function Parent() {
@@ -165,15 +195,20 @@ function Child({ onClick }) {
 }
 ```
 
----
-
 ### 6. **Virtualizing Large Lists**
 
 For applications displaying large datasets, rendering all items at once can be costly. Libraries like **react-window** or **react-virtualized** only render items visible in the viewport.
 
 #### Example with `react-window`
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { FixedSizeList } from 'react-window';
 
 const Row = ({ index, style }) => <div style={style}>Row {index}</div>;
@@ -192,15 +227,20 @@ function App() {
 }
 ```
 
----
-
 ### 7. **Debouncing and Throttling User Input**
 
 For frequently fired events like typing or scrolling, debouncing or throttling can reduce the number of updates.
 
 #### Example with `lodash`
 
-```jsx {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { useState } from 'react';
 import { debounce } from 'lodash';
 
@@ -216,8 +256,6 @@ function Search() {
 }
 ```
 
----
-
 ### 8. **Optimizing Images and Assets**
 
 Optimizing assets can improve load times:
@@ -227,12 +265,17 @@ Optimizing assets can improve load times:
 #### Example
 
 ```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 function ImageComponent() {
   return <img src="image.webp" loading="lazy" alt="Optimized Image" />;
 }
 ```
-
----
 
 ## Conclusion
 

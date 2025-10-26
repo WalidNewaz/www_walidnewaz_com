@@ -110,7 +110,7 @@ export function useCodeMeta(rawCode: string): {
  * Parses highlight ranges like "1,3-5" into an array of line numbers.
  */
 export function parseHighlightRanges(raw?: string): number[] {
-  if (!raw) return [];
+  if (typeof raw !== "string") return [];
   const lines: number[] = [];
   raw.split(",").forEach((range) => {
     if (range.includes("-")) {

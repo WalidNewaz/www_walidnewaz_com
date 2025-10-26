@@ -8,8 +8,8 @@ chapter: "14. Writing unit tests with Jest and React Testing Library"
 
 title: "Writing unit tests"
 description: "Unit testing ensures that individual components and functions work as expected, providing confidence in code stability and maintainability. In this article we’ll focus on writing unit tests using Jest and React Testing Library (RTL)."
-# hero_image: "lautaro-andreani-xkBaqlcqeb4-unsplash.jpg"
-tags: ["react", "testing"]
+
+tags: ["React"]
 ---
 
 # Writing unit tests with Jest and React Testing Library
@@ -61,7 +61,14 @@ Let’s explore how to write tests for React components and functions.
 
 #### Component: `Button`
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React from "react";
 
 function Button({ label, onClick }) {
@@ -78,7 +85,14 @@ The test ensures that:
 1. The button renders correctly.
 2. It handles user interactions.
 
-```javascript {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Button from "./Button";
@@ -101,7 +115,14 @@ test("renders Button and handles click", () => {
 
 #### Component: `LoginForm`
 
-```javascript {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { useState } from "react";
 
 function LoginForm({ onSubmit }) {
@@ -141,7 +162,14 @@ export default LoginForm;
 
 #### Test for `LoginForm`
 
-```javascript {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import LoginForm from "./LoginForm";
@@ -174,7 +202,14 @@ test("submits login form with correct data", () => {
 
 #### Component: `FetchUser`
 
-```javascript {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React, { useEffect, useState } from "react";
 
 function FetchUser({ userId }) {
@@ -200,7 +235,14 @@ export default FetchUser;
 
 #### Test for `FetchUser`
 
-```javascript {numberLines}
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import FetchUser from "./FetchUser";
@@ -261,7 +303,14 @@ In order to execute the test, add the following section to your `package.json`:
 
 Write your test for a component:
 
-```javascript
+```jsx
+/**
+ * @file:
+ * @showLineNumbers
+ * @highlight
+ * @copy
+ * @exec
+ */
 import { expect, test, vi } from 'vitest'
 import { render } from 'vitest-browser-react'
 import Button from './Button';
