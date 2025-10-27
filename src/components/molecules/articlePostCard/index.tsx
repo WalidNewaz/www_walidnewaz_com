@@ -1,5 +1,5 @@
 import React from "react";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import styled from "styled-components";
 
 const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
@@ -14,16 +14,23 @@ const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
   ) : null;
 
 const HeroImage: React.FC<{
-  image: any;
+  image?: IGatsbyImageData;
   title: string;
-}> = ({ image, title }) =>
-  image ? (
+}> = ({ image, title }) => {
+  const isBrowser = typeof window !== "undefined";
+  if (!image) {
+    console.warn("HeroImage received undefined image for", title);
+    return null;
+  }
+
+  return isBrowser && image ? (
     <GatsbyImage
-      image={image.childImageSharp.gatsbyImageData}
+      image={image}
       alt={title}
       className="hero"
     />
   ) : null;
+};
 
 const StyledCardText = styled.div`
   display: flex;
@@ -35,7 +42,7 @@ const StyledCardText = styled.div`
 
 const ArticlePostCard: React.FC<{
   title: string;
-  image: any;
+  image?: IGatsbyImageData;
   postDate?: string;
   slug: string;
   readTime?: string;

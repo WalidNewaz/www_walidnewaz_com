@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import ArticlePostCard from "../../components/molecules/articlePostCard";
 import Topics from "../../components/Topics";
+import TutorialCards from "../../components/tutorial/TutorialCards";
 
 /** Utils */
 import { getTopics } from "../../utils/posts";
@@ -40,17 +40,15 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
         </p>
       </section>
 
-      {
-        tutorials.length === 0 && (
-          <section className="blog-posts col flex wrap">
-            <h2>No tutorials found.</h2>
-            <p className="text-2">
-              It seems we couldn't find any tutorials at the moment. Please
-              check back later for updates!
-            </p>
-          </section>
-        )
-      }
+      {tutorials.length === 0 && (
+        <section className="blog-posts col flex wrap">
+          <h2>No tutorials found.</h2>
+          <p className="text-2">
+            It seems we couldn't find any tutorials at the moment. Please check
+            back later for updates!
+          </p>
+        </section>
+      )}
 
       <section className="blog-posts col flex wrap">
         <h2>Topics:</h2>
@@ -58,30 +56,11 @@ const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
-        {tutorials.map((tutorial: any) => {
-          const seriesDir = tutorial.fields.slug
-            .split("/")
-            .filter((str: string) => str !== "")[0]; // e.g. react-native
-          const heroImagePattern =
-            tutorial.frontmatter.hero_image ||
-            tutorialHeroes.find((hero: any) => {
-              return hero.relativeDirectory === seriesDir;
-            });
-          return (
-            <ArticlePostCard
-              key={tutorial.id}
-              // postDate={tutorial.frontmatter.date}
-              // readTime={tutorial.frontmatter.read_time}
-              title={tutorial.frontmatter.series}
-              image={heroImagePattern}
-              slug={`/build${tutorial.fields.slug}`}
-              tags={[
-                tutorial.frontmatter.tags[tutorial.frontmatter.tags.length - 1],
-              ]}
-              className="col-4"
-            />
-          );
-        })}
+        <TutorialCards
+          tutorials={tutorials}
+          tutorialHeroes={tutorialHeroes}
+          section="build"
+        />
       </section>
     </StyledPageContentContainer>
   );
