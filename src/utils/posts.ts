@@ -36,3 +36,22 @@ export const getPageLink = (pathname: string, query: any, index: number) => {
 export function makeHeadingId(depth: number, title: string) {
   return `heading-${depth}-${slugify(title.replace(/[:.()]/g, "").toLowerCase())}`;
 }
+
+/**
+ * fetches hero image data in a given directory
+ * @param post 
+ * @param allHeroes 
+ * @param seriesDir 
+ * @returns 
+ */
+export const getHeroImageDataInDir = (
+  post: any,
+  allHeroes: any[],
+  seriesDir: string
+) => {
+  return (
+    post.frontmatter.hero_image?.childImageSharp?.gatsbyImageData ??
+    allHeroes.find((hero: any) => hero.relativeDirectory === seriesDir)
+      ?.childImageSharp?.gatsbyImageData
+  );
+};

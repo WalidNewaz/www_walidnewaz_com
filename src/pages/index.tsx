@@ -5,7 +5,6 @@ import { graphql, PageProps } from "gatsby";
 import Seo from "../components/seo";
 import HomePageFeatures from "../components/page/home/HomePageFeatures";
 import HomePageMorePosts from "../components/MorePosts";
-import HomePageMoreTutorials from "../components/MoreTutorials";
 
 /**
  * This is the homepage of the blog
@@ -18,10 +17,6 @@ const Index: React.FC<PageProps<any>> = ({ data }) => {
 
   const posts = data.allPosts.nodes;
   const postCount = data.postCount.totalCount;
-
-  // const tutorials = data.allTutorials.nodes;
-  // const tutorialsCount = data.tutorialsCount.totalCount;
-  // const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
     <>

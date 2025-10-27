@@ -8,24 +8,19 @@
  * Currently there is no pagination support.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { graphql, PageProps } from "gatsby";
 import styled from "styled-components";
 
 /** Components */
 import Seo from "../../components/seo";
-import PaginatedArticleCards from "../../components/PaginatedArticleCards";
 import Topics from "../../components/Topics";
-import ArticlePostCard from "../../components/molecules/articlePostCard";
+import TutorialCards from "../../components/tutorial/TutorialCards";
 
 /** Interfaces */
 import { AllTopics } from "../../interfaces";
 
-/** Hooks */
-import { useFetchNextPage } from "../../hooks/useFetchNextPage";
-
 /** Utilities */
-import { flattenToc } from "../../utils/templates/flattenToc";
 import { getTopics } from "../../utils/posts";
 
 /** Constants */
@@ -33,61 +28,10 @@ import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
 
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
-const BlogPostContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
 
 const StyledTutorialsContainer = styled.div`
   ${StyledSection}
 `;
-
-type PostTopic = {
-  frontmatter: {
-    tags: string[];
-  };
-};
-
-type AllPosts = {
-  allPosts: {
-    posts: {
-      excerpt: string;
-      fields: {
-        slug: string;
-      };
-      frontmatter: {
-        date: string;
-        pathDate: string;
-        title: string;
-        description: string;
-        hero_image: {
-          id: string;
-          childImageSharp: {
-            gatsbyImageData: any;
-          };
-        };
-        tags: string[];
-        read_time: string;
-      };
-      headings: {
-        value: string;
-      }[];
-      id: string;
-    }[];
-    totalCount: number;
-  };
-  postTopics: AllTopics;
-  allFile: {
-    tutorialHeroes: {
-      id: string;
-      relativeDirectory: string;
-      childImageSharp: {
-        gatsbyImageData: any;
-      };
-    }[];
-  };
-};
 
 type PageContext = {
   topic: string;
@@ -133,30 +77,11 @@ const BlogTopicPage: React.FC<PageProps<any, PageContext>> = ({
       </section>
 
       <section className="blog-posts col flex wrap pb-12">
-        {tutorials.map((tutorial: any) => {
-          const seriesDir = tutorial.fields.slug
-            .split("/")
-            .filter((str: string) => str !== "")[0]; // e.g. react-native
-          const heroImagePattern =
-            tutorial.frontmatter.hero_image ||
-            tutorialHeroes.find((hero: any) => {
-              return hero.relativeDirectory === seriesDir;
-            });
-          return (
-            <ArticlePostCard
-              key={tutorial.id}
-              // postDate={tutorial.frontmatter.date}
-              // readTime={tutorial.frontmatter.read_time}
-              title={tutorial.frontmatter.series}
-              image={heroImagePattern}
-              slug={`/build${tutorial.fields.slug}`}
-              tags={[
-                tutorial.frontmatter.tags[tutorial.frontmatter.tags.length - 1],
-              ]}
-              className="col-4"
-            />
-          );
-        })}
+        <TutorialCards
+          tutorials={tutorials}
+          tutorialHeroes={tutorialHeroes}
+          section="build"
+        />
       </section>
     </StyledTutorialsContainer>
   );

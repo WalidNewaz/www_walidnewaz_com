@@ -84,7 +84,7 @@ const MorePosts: React.FC<{ posts: any; heading?: string }> = ({
         title={
           post.frontmatter.title || post.headings[0].value || post.fields.slug
         }
-        image={post.frontmatter.hero_image}
+        image={post.frontmatter.hero_image.childImageSharp?.gatsbyImageData}
         slug={`/blog${post.frontmatter.pathDate}${post.fields.slug}`}
         tags={post.frontmatter.tags}
       />
