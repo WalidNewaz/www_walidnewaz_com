@@ -177,7 +177,7 @@ const IndentedHeadings: React.FC<{
 
   // Identify which heading is currently in view
   useEffect(() => {
-    const headings = document.querySelectorAll('h2, h3');
+    const headings = document.querySelectorAll('h1, h2, h3');
 
     const options = {
       root: null, // Use the viewport as the root
