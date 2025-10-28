@@ -29,14 +29,9 @@ type PageContext = {
  * @returns
  */
 const TutorialsPage: React.FC<PageProps<any>> = ({ data }) => {
-  // const { tutorials, allTopics } = data?.allMdx || { tutorials: [], allTopics: [] };
-  // const { tutorialHeroes } = data?.allFile || { tutorialHeroes: [] };
-
   const tutorials = data?.allMdx?.nodes ?? [];
   const allTopics = data?.allMdx?.allTopics ?? [];
   const tutorialHeroes = data?.allTutorialHeroes?.nodes ?? [];
-  // const { allTopics } = data.allMdx;
-  // const tutorialHeroes = data.allTutorialHeroes.nodes;
 
   return (
     <ErrorBoundary>
@@ -96,6 +91,7 @@ export const query = graphql`
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
           pathDate: date(formatString: "/YYYY/MM/DD")
+          draft
           title
           series
           part

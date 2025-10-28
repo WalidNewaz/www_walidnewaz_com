@@ -62,8 +62,8 @@ const CourseDetailsSection: React.FC<{ course: any }> = ({ course }) => {
     { label: "Difficulty", value: course.frontmatter.difficulty || "N/A" },
     { label: "Audience", value: course.frontmatter.audience || "N/A" },
     { label: "Required Courses", value: course.frontmatter.required_courses?.join(", ") || "None" },
-    { label: "Draft", value: course.frontmatter.draft ? (<Badge variant="solid" colorScheme="red">Yes</Badge>) : <Badge variant="solid" colorScheme="green">No</Badge> },
-    { label: "Featured", value: course.frontmatter.featured ? (<Badge variant="solid" colorScheme="green">Yes</Badge>) : <Badge variant="solid" colorScheme="blue">No</Badge> },
+    { label: "Draft", value: course.frontmatter.draft ? (<Badge variant="solid" size="md" colorPalette="red">Yes</Badge>) : <Badge variant="solid" size="md" colorPalette="green">No</Badge> },
+    { label: "Featured", value: course.frontmatter.featured ? (<Badge variant="solid" size="md" colorPalette="green">Yes</Badge>) : <Badge variant="solid" size="md" colorPalette="blue">No</Badge> },
   ];
 
   return (

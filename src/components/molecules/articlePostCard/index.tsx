@@ -1,6 +1,7 @@
 import React from "react";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import styled from "styled-components";
+import Badges from "../../tutorial/Badges";
 
 const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
   tags && tags.length > 0 ? (
@@ -12,6 +13,11 @@ const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
       ))}
     </ul>
   ) : null;
+
+const badgeColors: { [key: string]: string } = {
+  Draft: "red",
+  Published: "green",
+};
 
 const HeroImage: React.FC<{
   image?: IGatsbyImageData;
@@ -47,8 +53,18 @@ const ArticlePostCard: React.FC<{
   slug: string;
   readTime?: string;
   tags: Array<string>;
+  badges?: Array<string>;
   className?: string;
-}> = ({ title, image, postDate, slug, readTime, tags, className = "" }) => {
+}> = ({
+  title,
+  image,
+  postDate,
+  slug,
+  readTime,
+  tags,
+  badges,
+  className = "",
+}) => {
   return (
     <article
       className={`card bg-surface-3 rad-shadow ${className}`}
@@ -58,6 +74,7 @@ const ArticlePostCard: React.FC<{
       <HeroImage {...{ image, title }} />
       <StyledCardText>
         <div className="text">
+          <Badges badges={badges} badgeColors={badgeColors} />
           <div className="flex flex-row space-between w-100 h-100">
             {postDate && (
               <p

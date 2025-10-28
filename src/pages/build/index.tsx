@@ -85,6 +85,7 @@ export const query = graphql`
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
           pathDate: date(formatString: "/YYYY/MM/DD")
+          draft
           title
           series
           part
