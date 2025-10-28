@@ -2,6 +2,7 @@ import * as React from "react"
 import Header from "./Header"
 import Footer from "./Footer"
 import { BackToTopButton } from "../atoms/BackToTopButton"
+import { Analytics } from '@vercel/analytics/next';
 
 declare let __PATH_PREFIX__: string
 
@@ -17,6 +18,7 @@ const Layout: React.FC<{ location, children }> = ({ location, children }) => {
       </main>
       <Footer />
       <BackToTopButton />
+      <Analytics />
     </div>
   )
 }
