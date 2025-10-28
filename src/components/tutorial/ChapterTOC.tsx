@@ -26,7 +26,6 @@ const StyledTOC = styled.div`
     padding-right: 0.5rem;
   }
 
-
   h1,
   h2,
   h3,
@@ -177,11 +176,11 @@ const IndentedHeadings: React.FC<{
 
   // Identify which heading is currently in view
   useEffect(() => {
-    const headings = document.querySelectorAll('h1, h2, h3');
+    const headings = document.querySelectorAll("h1, h2, h3");
 
     const options = {
       root: null, // Use the viewport as the root
-      rootMargin: '0px 0px -80% 0px', // Creates a thin trigger area at the top
+      rootMargin: "0px 0px -80% 0px", // Creates a thin trigger area at the top
       threshold: 0,
     };
 
@@ -206,19 +205,23 @@ const IndentedHeadings: React.FC<{
         {headings.map((heading: ChapterHeading, index: number) => {
           return (
             heading.depth <= maxDeth && (
-              <li key={index}>
+              <li
+                key={index}
+                style={{
+                  padding: "0.25rem",
+                  marginBlock: "0.25rem",
+                  ...(selectedId === heading.id && {
+                    color: "var(--text2)",
+                    backgroundColor: "var(--surface4)",
+                    fontWeight: "bold",
+                    borderRadius: "0.25rem",
+                  }),
+                }}
+              >
                 <a
                   href={`#${heading.id}`}
                   onClick={handleTOCClick}
-                  style={{
-                    paddingLeft: 1 * (heading.depth - 1) + "rem",
-                    ...(selectedId === heading.id && {
-                      color: "var(--text2)",
-                      backgroundColor: "var(--surface4)",
-                      fontWeight: "bold",
-                      borderRadius: "0.25rem",
-                    }),
-                  }}
+                  style={{ paddingLeft: 1 * (heading.depth - 1) + "rem" }}
                 >
                   {heading.value.replace(/(<\/?code.*?>|&lt;|&gt;|<|>)/g, "")}
                 </a>
@@ -279,10 +282,10 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
 
   return (
     <StyledTOC>
-        <StyledChapterOutline>
-          <p className="pb-4 m-0 text-2xl font-extrabold">Chapter Outline</p>
-          <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
-        </StyledChapterOutline>
+      <StyledChapterOutline>
+        <p className="pb-4 m-0 text-2xl font-extrabold">Chapter Outline</p>
+        <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
+      </StyledChapterOutline>
       <nav>
         <IndentedHeadings
           headings={chapter.headings}
