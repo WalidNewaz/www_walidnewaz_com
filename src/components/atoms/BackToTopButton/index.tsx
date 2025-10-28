@@ -72,6 +72,13 @@ export const BackToTopButton: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Display the scroll-to-top button by default if the page is already scrolled
+  useEffect(() => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const halfPage = window.innerHeight / 2;
+    setVisible(scrollTop > halfPage);
+  }, []);
+
   return (
     <Button
       onClick={scrollToTop}
