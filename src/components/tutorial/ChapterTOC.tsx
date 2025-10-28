@@ -169,11 +169,36 @@ const IndentedHeadings: React.FC<{
       if (targetElement) {
         window.scrollTo({
           top: (targetElement as HTMLElement).offsetTop - (isOpen ? 175 : 75),
-          behavior: "smooth",
+          behavior: "instant",
         });
       }
     }
   };
+
+  // Identify which heading is currently in view
+  useEffect(() => {
+    const headings = document.querySelectorAll('h2, h3');
+
+    const options = {
+      root: null, // Use the viewport as the root
+      rootMargin: '0px 0px -80% 0px', // Creates a thin trigger area at the top
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // This heading is now the one closest to the top
+          document.body.dataset.activeHeading = entry.target.id;
+          setSelectedId(entry.target.id);
+        }
+      });
+    }, options);
+
+    headings.forEach((heading) => {
+      observer.observe(heading);
+    });
+  }, []);
 
   return (
     isOpen && (
@@ -188,8 +213,8 @@ const IndentedHeadings: React.FC<{
                   style={{
                     paddingLeft: 1 * (heading.depth - 1) + "rem",
                     ...(selectedId === heading.id && {
-                      color: "var(--brand)",
-                      backgroundColor: "white",
+                      color: "var(--text2)",
+                      backgroundColor: "var(--surface4)",
                       fontWeight: "bold",
                       borderRadius: "0.25rem",
                     }),
