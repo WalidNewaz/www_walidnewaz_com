@@ -36,6 +36,9 @@ const TutorialCards: React.FC<any> = ({
           ),
         ]
       : [];
+
+    const badges = [tutorial.frontmatter.draft ? "Draft" : "Published"];
+
     return (
       <ArticlePostCard
         key={tutorial.id}
@@ -43,6 +46,7 @@ const TutorialCards: React.FC<any> = ({
         image={image}
         slug={`/${section}${tutorial.fields.slug}`}
         tags={tags}
+        badges={badges}
         className="col-4"
       />
     );
