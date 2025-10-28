@@ -39,6 +39,13 @@ module.exports = {
         excludes: ["/confirm-subscription/"],
       },
     },
+    {
+      resolve: "@vercel/gatsby-plugin-vercel-analytics",
+      options: {
+        // (optional) Prints metrics in the console when true
+        debug: false,
+      },
+    },
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
     {
