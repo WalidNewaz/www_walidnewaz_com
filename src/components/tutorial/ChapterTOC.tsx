@@ -209,7 +209,7 @@ const IndentedHeadings: React.FC<{
                 key={index}
                 style={{
                   padding: "0.25rem",
-                  marginBlock: "0.25rem",
+                  marginBlock: "0.75rem",
                   ...(selectedId === heading.id && {
                     color: "var(--text2)",
                     backgroundColor: "var(--surface4)",
