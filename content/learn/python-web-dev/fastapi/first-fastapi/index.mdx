@@ -50,7 +50,6 @@ from pydantic import BaseModel, Field
 
 class Todo(BaseModel):
     """Represents a Todo item."""
-
     id: int
     title: str = Field(..., min_length=1, max_length=100)
     completed: bool = False
@@ -58,7 +57,6 @@ class Todo(BaseModel):
 
 class TodoCreate(BaseModel):
     """Model for creating a new Todo."""
-
     title: str = Field(..., min_length=1, max_length=100)
 ```
 
@@ -206,7 +204,60 @@ poetry run mypy fastapi_todo
 
 This ensures functions and models are **correctly typed**.
 
-## 2.6 API Endpoints and Flow
+## 2.6 Testing the endpoints via the commandline
+
+### 2.6.1 Launch the app
+
+```bash
+poetry run uvicorn fastapi_todo.main:app --reload
+```
+
+You can test the functionality of various routes for instance using `curl`:
+
+```bash
+curl http://127.0.0.1:8000/todos
+```
+
+This will initially return an empty list:
+
+```bash
+[]
+```
+
+### 2.6.2 Submit a new todo item
+
+Enter the following command to add a to-do item:
+
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Learn FastAPI deeply"}' \
+  http://127.0.0.1:8000/todos
+```
+
+The server returns the complete to-do item as a response:
+
+```bash
+{"id":1,"title":"Learn FastAPI deeply","completed":false}
+```
+
+This adds a to-do item to the app's memory. To verify, run:
+
+```bash
+curl http://127.0.0.1:8000/todos
+```
+
+Now you should see something like this as a response in your console:
+
+```bash
+[{"id":1,"title":"Learn FastAPI deeply","completed":false}]
+```
+
+If you are familiar with how REST works, you should be able to play around with all the routes and test their functionality.
+
+## 2.7 API Endpoints and Flow
+
+The following diagram depicts the information flow related to requestes made to the to-do application.
 
 ```mermaid
 flowchart LR
@@ -220,7 +271,7 @@ flowchart LR
   client-- DELETE /todos/:id -->server -- Delete a todo from DB --> db
 ```
 
-## 2.7 Further Reading
+## 2.8 Further Reading
 
 * [FastAPI Request Handling](https://fastapi.tiangolo.com/tutorial/body/)
 * [Pydantic Models](https://docs.pydantic.dev/)

@@ -124,7 +124,7 @@ poetry run uvicorn fastapi_todo.main:app --reload
 
 Visit: `http://127.0.0.1:8000/` → you’ll see `{"message": "Hello, FastAPI world!"}`.
 
-## 1.5 Writing Tests with Pytest + HTTPX
+## 1.5 Writing Tests with Pytest & HTTPX
 
 ```python
 """
@@ -153,8 +153,6 @@ def test_read_root() -> None:
 ```bash
 poetry run pytest
 ```
-
----
 
 ## 1.6 Static Type Checking with MyPy
 

@@ -738,3 +738,35 @@ header[class*="header"] nav .logo {
     padding: var(--spacing-4) var(--spacing-0) var(--spacing-4);
   }
 }
+
+/* MermaidJS */
+.messageText {
+  fill: var(--text1) !important;
+  stroke: var(--text1) !important;
+}
+
+line[class*="messageLine"] {
+  stroke: var(--text1) !important;
+}
+
+#arrowhead path {
+  fill: currentColor !important; /* uses stroke color from parent line */
+  stroke: none !important;
+}
+
+tspan {
+  font-family: var(--fontFamily-sans) !important;
+}
+
+marker[class*="marker flowchart"] {
+  fill: var(--text1) !important;
+}
+
+.flowchart-link {
+  stroke: currentColor !important;
+}
+
+span.edgeLabel {
+  padding: 0.25rem !important;
+  border-radius: 0.25rem !important;
+}
