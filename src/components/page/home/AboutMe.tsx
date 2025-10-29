@@ -1,6 +1,7 @@
 import * as React from "react";
 import { GatsbyImage } from "gatsby-plugin-image";
 
+
 /**
  * Renders the About Me section of the homepage
  * @param params
@@ -22,12 +23,16 @@ const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
         }}
       >
         <p className="margin-block-0">
-          Hi, I&apos;m Walid Newaz, a software engineer who enjoys writing and
-          learning about software programming, the outdoors, and common
-          observations.
+          Hi, I'm Walid Newaz — a full-stack developer documenting my journey
+          toward AI software engineering. I build tutorials, developer tools,
+          and workflow systems that bridge web development and applied AI — one
+          project, one lesson at a time.
         </p>
-        <p className="padding-block-5 margin-block-0">
-          <a href="/about">Read more about me &gt;</a>
+        <p className="padding-block-5 margin-block-0 text-center">
+          Connect with me on{" "}
+          <a href="https://www.linkedin.com/in/walid-newaz" className="underline">LinkedIn</a> and{" "}
+          <a href="https://github.com/walidnewaz" className="underline">GitHub</a>.<br />
+          <a href="/about" className="underline">Read more about me &gt;</a>
         </p>
       </section>
     </article>
