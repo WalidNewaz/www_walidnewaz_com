@@ -745,7 +745,7 @@ header[class*="header"] nav .logo {
   stroke: var(--text1) !important;
 }
 
-line[class*="messageLine"] {
+line[class*="messageLine"], path[class*="messageLine"] {
   stroke: var(--text1) !important;
 }
 
