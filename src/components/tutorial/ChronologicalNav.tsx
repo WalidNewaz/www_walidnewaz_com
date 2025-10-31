@@ -44,7 +44,7 @@ const StyledList = styled.ul`
 const ChronologicalNav: React.FC<{ previous: any; next: any; section?: string }> = ({
   previous,
   next,
-  section = "tutorials",
+  section = "learn",
 }) => (
   <StyledList>
     {previous && (
