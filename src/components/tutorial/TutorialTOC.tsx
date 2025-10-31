@@ -61,7 +61,7 @@ const TutorialToc: React.FC<{
   allSeriesPosts,
   seriesIntro,
   isIntro,
-  section = "tutorials",
+  section = "learn",
 }) => {
   const chapters = useMemo(
     () =>
