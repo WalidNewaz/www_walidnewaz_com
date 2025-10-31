@@ -10,6 +10,7 @@ import CourseDetailsSection from "../../components/tutorial/CourseDetailsSection
 import PublishedInfo from "../../components/tutorial/PublishedInfo";
 import { MDXProvider } from "@mdx-js/react";
 import { MDXComponents } from "../../components/mdx/MDXComponents";
+import CourseActions from "../../components/tutorial/CourseActions";
 
 /** Utils */
 import { formatPublishedDate } from "../../utils/dates";
@@ -91,9 +92,18 @@ const TutorialIntroTemplate: React.FC<any> = ({
               {seriesIntro.frontmatter.title}
             </h1>
             <CourseDetailsSection course={seriesIntro} />
-            <PublishedInfo
-              publishedDate={formatPublishedDate(seriesIntro.frontmatter.date)}
-            />
+            <div className="w-full flex justify-between gap-4">
+              <PublishedInfo
+                publishedDate={formatPublishedDate(seriesIntro.frontmatter.date)}
+              />
+              <div>
+                <CourseActions
+                  githubUrl={seriesIntro.frontmatter.github_url}
+                  colabUrl={seriesIntro.frontmatter.drive_url}
+                  liveDemoUrl={seriesIntro.frontmatter.live_demo_url}
+                />
+              </div>
+            </div>
 
             <h3>Course Overview</h3>
             <MDXProvider components={MDXComponents}>{children}</MDXProvider>
@@ -154,6 +164,9 @@ export const pageQuery = graphql`
         featured
         tags
         draft
+        github_url
+        drive_url
+        live_demo_url
       }
       tableOfContents
       fields {

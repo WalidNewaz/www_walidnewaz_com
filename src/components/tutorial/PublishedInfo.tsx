@@ -6,8 +6,6 @@ interface PublishedInfoProps {
 }
 
 const PublishedWrapper = styled.section`
-  margin-top: 1rem;
-  padding: 0.5rem 1.5rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -38,7 +36,7 @@ const PublishedWrapper = styled.section`
 const PublishedInfo: React.FC<PublishedInfoProps> = ({ publishedDate }) => {
   return (
     <PublishedWrapper>
-      <span className="label">Published:</span>
+      {/* <span className="label">Published:</span> */}
       <span>{publishedDate}</span>
     </PublishedWrapper>
   );
