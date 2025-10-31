@@ -14,6 +14,7 @@ import ChapterQuiz from "../../components/organisms/ChapterQuiz";
 import { MDXProvider } from '@mdx-js/react';
 import { MDXComponents } from "../../components/mdx/MDXComponents";
 import BlogFeedbackSection from "../../components/organisms/BlogFeedbackSection";
+import CourseActions from "../../components/tutorial/CourseActions";
 import {
   Mapping,
   BooleanString,
@@ -166,6 +167,13 @@ const TutorialChapter: React.FC<any> = ({
         <StyledTutorialGrid>
           <ChapterTOC chapter={post} maxDeth={3} />
           <StyledArticleBody>
+            <div className="w-full flex justify-end gap-4">
+              <CourseActions
+                  githubUrl={post.frontmatter.github_url}
+                  colabUrl={post.frontmatter.drive_url}
+                  liveDemoUrl={post.frontmatter.live_demo_url}
+                />
+            </div>
             <MDXProvider components={MDXComponents}>{children}</MDXProvider>
           </StyledArticleBody>
         </StyledTutorialGrid>
@@ -252,6 +260,9 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         read_time
         tags
+        github_url
+        drive_url
+        live_demo_url
       }
       tableOfContents
       fields {

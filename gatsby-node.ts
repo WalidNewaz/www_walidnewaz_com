@@ -974,6 +974,9 @@ export const createSchemaCustomization = ({
       difficulty: String
       audience: String
       series: String
+      github_url: String
+      drive_url: String
+      live_demo_url: String
     }
 
     type Fields {
