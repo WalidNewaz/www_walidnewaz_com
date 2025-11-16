@@ -187,7 +187,7 @@ export const CodeBlock: React.FC<any> = ({ className, children }) => {
     <Highlight
       code={usedCode.trim()}
       language={language}
-      theme={themes.oceanicNext}
+      theme={themes.vsDark}
     >
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <StyledPre style={style}>
