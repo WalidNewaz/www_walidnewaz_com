@@ -28,7 +28,7 @@ In FastAPI, both authentication and authorization are usually implemented using 
 
 ## 4.1 HTTP Basic Authentication
 
-Let's demostrate HTTP Basic Authentication using a simple demo.
+Let's demonstrate HTTP Basic Authentication using a simple demo.
 
 ### 4.1.1 How it is used
 
@@ -187,9 +187,9 @@ In modern systems, Basic Auth is largely replaced by **token-based schemes** (e.
 
 OAuth is the **most common and secure approach** for implementing authentication and authorization for web applications, mobile applications, and APIs. OAuth 2.0 was designed to allow a website or applicaton to access resources hosted by another provider on behalf of a user.
 
-OAuth 2.0 is primarily an **Authorization** protocol, as opposed to an **Authentication** protocol, meaning it determines what resources someone or something is allowed to access, rather than identify who they are. That is why the responsibility of authicating is often delegated to a separate **Identity Provider (IDP)**.
+OAuth 2.0 is primarily an **Authorization** protocol, as opposed to an **Authentication** protocol. Authorization determines what resources a client can access rather than who they are. That is why the responsibility of authenticating is often delegated to a separate **Identity Provider (IDP)**.
 
-The topic of OAuth 2.0 is fairly exampansive. While we are going to build several examples to demostrate practical use cases, I'd encourage you to go through the [Further Reading](#heading-2-44-further-reading) to get a deeper understanding on all the topics related to Authentication and Authorization.
+The topic of OAuth 2.0 is fairly expansive. While we are going to build several examples to demonstrate practical use cases, I'd encourage you to go through the [Further Reading](#heading-2-44-further-reading) to get a deeper understanding on all the topics related to Authentication and Authorization.
 
 ### 4.2.1 OAuth2 Concepts
 
@@ -210,13 +210,13 @@ In OAuth 2.0 scopes define exactly what resources may be accessed by a client. T
 
 #### Grant Types
 
-In OAuth 2.0 Grant Types refer to the steps a client has to perform in order to access to a secure resource. The following lists the possible Grant Types:
+In OAuth 2.0 Grant Types refer to the steps a client has to perform in order to access a secure resource. The following lists the possible Grant Types:
 
 - **Authorization Code** Grant Type
 - **Implicit** Grant Type
 - **Authorization Code Grant with Proof Key for Code Exchange (PKCE)**
 - **Resource Owner Credentials** Grant Type
-- **Client Crendentials** Grant Type
+- **Client Credentials** Grant Type
 - **Device Authorization Flow**
 - **Refresh Token** Grant Type
 
@@ -224,7 +224,7 @@ I will not go into further details of each Grant Type, but I'd highly encourage 
 
 ### 4.2.2 Password Flow
 
-The following diagram demostrates the OAuth 2.0 **Password Flow** grant flow, also known as the **Resource Owner Credentials** grant flow. It is one of the simpler OAuth2 Grant types. However, this grant requires that the client acquires the resource owner's credentials, which are then passed on to the Authorization server.
+The following diagram demonstrates the OAuth 2.0 **Password Flow** grant flow, also known as the **Resource Owner Credentials** grant flow. It is one of the simpler OAuth2 Grant types. However, this grant requires that the client acquires the resource owner's credentials, which are then passed on to the Authorization server.
 
 In the following diagram, the `User` is the **Resource Owner**. The `Web App` rendered on the browser, acts as the **Client**. The `Auth Provider` is the **Authorization server**. And finally the `API server` is the **Resource server**.
 
@@ -248,7 +248,7 @@ sequenceDiagram
 
 #### Password Flow Overview
 
-1. User sends enters their credentials into a login form and submits it to `/auth/token`
+1. User enters their credentials into a login form and submits it to `/auth/token`
 2. Server validates credentials and returns a JWT access token
 3. User sends that token in the `Authorization: Bearer <token>` header for subsequent requests
 4. Server decodes and verifies token on each protected route
@@ -287,12 +287,16 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # Config
-SECRET_KEY = "supersecretkey"
+SECRET_KEY = "supersecretkey"       # In real apps, load from env
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def get_password_hash(password: str) -> str:
+    """Hash plain password using bcrypt."""
+    return pwd_context.hash(password)
 
 # Fake DB
 fake_users_db = {
@@ -399,7 +403,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         raise HTTPException(status_code=401, detail="Token expired or invalid")
 
 @app.get("/api/todos", dependencies=[Depends(get_current_user)])
-def secure_list_todos() -> List[TodoItem]:
+def secure_list_todos():
     """List todos, but only if API key is valid."""
     return todos.get_all_todos()
 ```
@@ -421,9 +425,12 @@ curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8000/api/todos
 If you have been adding todo items, you should see an array with your todos within them.
 
 
-## 4.5 Summary
+## 4.3 Summary
 
-In this chapter we've studied the uses and implementation of HTTP Basic Authentication, and OAuth 2.0 in a FastAPI application. We have only briefly touched on the usage of OAuth 2.0. Because the topics of Authentication and Authorization are so integral to web application development, we will continue with these topics in the following chapters.
+In this chapter we've studied the uses and implementation of HTTP Basic Authentication, and OAuth 2.0 in a FastAPI application. We have only briefly touched on the usage of OAuth 2.0.
+
+In the next few chapters, we will explore the topic of Authentication and Authorization further within the context of OAuth. We will explore how to expire access tokens correctly, how to use refresh tokens. We will also integrate our todo app with 3rd Party IDPs for tokens, and implement RBAC and ABAC policies to protect endpoints and resources. We will also review how mobile and or desktop clients can interact with secure resources using OAuth 2.0, and secure token management.
+
 
 ## 4.4 Further Reading
 
