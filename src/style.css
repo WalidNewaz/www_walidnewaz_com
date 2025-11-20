@@ -756,6 +756,7 @@ line[class*="messageLine"], path[class*="messageLine"] {
 
 tspan {
   font-family: var(--fontFamily-sans) !important;
+  font-size: 1.2rem !important;
 }
 
 marker[class*="marker flowchart"] {

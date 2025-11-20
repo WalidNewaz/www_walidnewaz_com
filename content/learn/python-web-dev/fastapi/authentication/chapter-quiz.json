@@ -1,5 +1,5 @@
 {
-  "topic": "Authentication and Authorization in FastAPI",
+  "topic": "Authentication in FastAPI",
   "questions": [
     {
       "question": "What is the difference between authentication and authorization?",
