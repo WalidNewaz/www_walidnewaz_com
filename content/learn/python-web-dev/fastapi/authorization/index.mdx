@@ -30,7 +30,7 @@ We also introduce a realistic multi-user Todo app flow and expand our test suite
 
 ## 5.1 Preparation & Cleanup
 
-You may have noticed that the volume of code in our Todo application is rapidly growing, and so are the number of REST endpoints. Starting from this chapter onwards, we are going to organize the code into logical directory structues similar to the one shown below.
+You may have noticed that the volume of code in our Todo application is rapidly growing, and so are the number of REST endpoints. Starting from this chapter onwards, we are going to organize the code into logical directory structures similar to the one shown below.
 
 ```bash
 app/
@@ -94,7 +94,7 @@ You can see the actual structure [here](https://github.com/WalidNewaz/python-web
 
 ## 5.2 User Registration
 
-Now we have a clean repository. Let's add the user registration process. Add the necessary module to validate email addresses using Pydantic.
+Now we have a clean repository. Let's add the user registration process. Install the optional Pydantic `email` module to validate addresses.
 
 ### 5.2.1 Install prerequisites
 
@@ -230,7 +230,7 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "username": "john",
+  "username": "jdoe",
   "password": "password",
   "name": "John Doe",
   "email": "jdoe@example.com"
@@ -348,7 +348,7 @@ def require_admin(role: str = Depends(get_user_role)):
 
 This method depends on the `get_user_role()` to decode the user's JWT token and return the user's role. The method `require_admin()` then ensures that the correct role is being used. While this strategy works, it introduces a vulnerability within the authorization mechanism.
 
-What if a user obtains an access token by logging in, which expires in 30 minutes. A few minutes later, the adminstrator changes the user's role. Since the token has not expired, the user will continue to have the same access until the token expires. The situation could get worse if the **refresh token** is used to issue a new **access token** without taking the user's current status in the database, since refresh tokens generally have a long expiration time.
+What if a user obtains an access token by logging in, which expires in 30 minutes. A few minutes later, the administrator changes the user's role. Since the token has not expired, the user will continue to have the same access until the token expires. The situation could get worse if the **refresh token** is used to issue a new **access token** without taking the user's current status in the database, since refresh tokens generally have a long expiration time. We will discuss **refresh tokens** in a later chapter.
 
 To eliminate such possibilities, and to ensure that user's access to protected resources is managed in real-time, we need to query the database to ensure that the user has the correct authorization at the time the resource is being requested. The following section shows how.
 
@@ -371,7 +371,7 @@ def require_admin(
         raise HTTPException(status_code=403, detail="Not authorized")
 ```
 
-This version retrieve the user's information from the database to ensure that the user requesting the resource has the role `admin` assigned to them. This allows us to control access to protected resources in real-time regardless of the expiration of the access or refresh tokens.
+This version retrieves the user's information from the database to ensure that the user requesting the resource has the role `admin` assigned to them. This allows us to control access to protected resources in real-time regardless of the expiration of the access or refresh tokens.
 
 ### 5.3.4 Protecting admin only routes
 
@@ -459,7 +459,15 @@ We won’t implement ABAC fully here, but this is a good point to explain the co
 
 You can add a `department` or `clearance_level` field to your user model and add conditional logic in your route dependencies to simulate ABAC.
 
-## 5.5 Chapter Assignment
+## 5.5 Chapter Summary
+
+In this chapter, we implemented role-based authorization in our FastAPI app using JWT tokens. We introduced `current_user` and `require_role` dependencies to enforce access control based on user roles, such as `user` and `admin`. By modeling user objects with attached roles, we demonstrated how route protection could be achieved with a combination of dependency injection and Pydantic validation. We also touched on the differences between authentication and authorization, and structured our `todo` endpoints to reflect real-world scenarios involving regular and elevated access.
+
+We emphasized the importance of clear separation between identity (who you are) and permission (what you're allowed to do), providing examples where different roles result in different access levels. You should now be comfortable designing secure routes, validating tokens, and building user-aware APIs.
+
+In the next chapter, we’ll take our authorization logic even further by introducing OAuth2 scopes for more fine-grained access control. We'll also explore how token expiration works, what refresh tokens are, and how external Identity Providers (IDPs) like Google or Auth0 integrate into modern OAuth2 flows. This will provide both the theoretical understanding and practical patterns needed to design scalable, production-grade authentication and authorization systems.
+
+## 5.6 Chapter Assignment
 
 Extend the todo routes to support per-user tasks:
 
@@ -469,7 +477,7 @@ Extend the todo routes to support per-user tasks:
 * Store todos in memory per-user
 * Add tests for all new features
 
-## 5.6 Further Reading
+## 5.7 Further Reading
 
 * FastAPI Security - [https://fastapi.tiangolo.com/tutorial/security/first-steps/](https://fastapi.tiangolo.com/tutorial/security/first-steps/)
 * OAuth2 Scopes - [https://fastapi.tiangolo.com/advanced/security/oauth2-scopes/](https://fastapi.tiangolo.com/advanced/security/oauth2-scopes/)
