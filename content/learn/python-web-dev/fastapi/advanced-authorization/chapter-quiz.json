@@ -1,0 +1,65 @@
+{
+  "topic": "Advanced Authorization in FastAPI",
+  "questions": [
+    {
+      "question": "What does a scope represent in OAuth2?",
+      "options": [
+        {
+          "text": "A token expiration date",
+          "correct": false,
+          "explanation": "⚠️ Expiration is stored separately in the token."
+        },
+        {
+          "text": "A user's permission for a specific action",
+          "correct": true,
+          "explanation": "🎉 Correct. Scopes define what actions a token permits."
+        },
+        {
+          "text": "The encryption method used in the token",
+          "correct": false,
+          "explanation": "⚠️ Encryption is handled by the JWT algorithm."
+        }
+      ]
+    },
+    {
+      "question": "What happens when a token with an 'exp' field is used after expiry?",
+      "options": [
+        {
+          "text": "It is automatically renewed",
+          "correct": false,
+          "explanation": "⚠️ Tokens don't auto-renew; they must be reissued."
+        },
+        {
+          "text": "A 401 error is returned",
+          "correct": true,
+          "explanation": "🎉 Correct. Token expiration leads to 401 Unauthorized."
+        },
+        {
+          "text": "It redirects the user to login",
+          "correct": false,
+          "explanation": "⚠️ Redirect logic must be implemented by the client."
+        }
+      ]
+    },
+    {
+      "question": "What is the purpose of a refresh token?",
+      "options": [
+        {
+          "text": "To replace a short-lived access token without logging in again",
+          "correct": true,
+          "explanation": "🎉 Correct. Refresh tokens extend sessions securely."
+        },
+        {
+          "text": "To provide a scope summary",
+          "correct": false,
+          "explanation": "⚠️ Scopes live inside access tokens, not refresh tokens."
+        },
+        {
+          "text": "To register a new user",
+          "correct": false,
+          "explanation": "⚠️ Registration is separate from token issuance."
+        }
+      ]
+    }
+  ]
+}
