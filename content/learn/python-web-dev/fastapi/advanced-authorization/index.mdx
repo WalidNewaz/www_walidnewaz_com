@@ -43,6 +43,8 @@ FastAPI lets us define expected scopes using the `OAuth2PasswordBearer` class an
 In the following code we are declaring the OAuth2 security scheme with three available scopes, `read:todos`, `write:todos`, and `admin`. The `scopes` parameter receives a `dict` with each key as the scope and the value representing the description of the scope.
 
 ```python
+# @file app/auth/service.py
+# @showLineNumbers
 from fastapi.security import OAuth2PasswordBearer
 
 oauth2_scheme = OAuth2PasswordBearer(
@@ -112,7 +114,7 @@ def login(
 Let's update the existing `get_current_user()` dependecy function to allow verifying that the user's access token has valid scopes assigned:
 
 ```python
-# @file main.py
+# @file app/auth/dependencies.py
 # @showLineNumbers
 
 from fastapi import Security, HTTPException, status
@@ -139,7 +141,7 @@ async def get_current_user(security_scopes: SecurityScopes, token: str = Depends
 In the following route handlers for todo items, we are ensuring that the user has necessary permission to access the `list_todos`, and `create_todo` functions. The permissions are represented within the `scopes` array of the security dependencies.
 
 ```python
-# @file main.py
+# @file app/todos/router.py
 # @showLineNumbers
 
 @router.get("", dependencies=[Security(get_current_user, scopes=["read:todos"])], response_model=List[TodoItem])
