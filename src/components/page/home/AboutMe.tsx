@@ -13,7 +13,7 @@ const AboutMe: React.FC<{ profileImg }> = ({ profileImg }) => {
       <GatsbyImage
         image={profileImg.childImageSharp.gatsbyImageData}
         alt="Walid Newaz"
-        className="hero margin-5"
+        className="hero margin-5 !w-auto"
       />
       <section
         className="padding-inline-5"
