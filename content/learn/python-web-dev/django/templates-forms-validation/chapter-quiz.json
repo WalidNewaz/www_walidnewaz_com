@@ -1,0 +1,85 @@
+{
+  "topic": "Templates, Forms, and Validation in Django",
+  "questions": [
+    {
+      "question": "What does `{% csrf_token %}` do in a Django form?",
+      "options": [
+        {
+          "text": "Protects against Cross-Site Request Forgery attacks",
+          "correct": true,
+          "explanation": "🎉 Correct. CSRF tokens validate form requests come from your site."
+        },
+        {
+          "text": "Hashes user passwords",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Password hashing is separate, handled in auth."
+        },
+        {
+          "text": "Validates form fields",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Field validation is handled by Django's forms API."
+        }
+      ]
+    },
+    {
+      "question": "What happens if `form.is_valid()` returns False?",
+      "options": [
+        {
+          "text": "The form is redisplayed with error messages",
+          "correct": true,
+          "explanation": "🎉 Correct. Invalid forms are shown again with errors."
+        },
+        {
+          "text": "The post is still created",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Invalid forms never save data."
+        },
+        {
+          "text": "The user is redirected to the homepage",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Redirect only happens when the form is valid."
+        }
+      ]
+    },
+    {
+      "question": "Which method is used in Django to process form submissions?",
+      "options": [
+        {
+          "text": "POST",
+          "correct": true,
+          "explanation": "🎉 Correct. Form submissions are handled with POST."
+        },
+        {
+          "text": "GET",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. GET only retrieves data."
+        },
+        {
+          "text": "PATCH",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. PATCH is not used in Django forms by default."
+        }
+      ]
+    },
+    {
+      "question": "What does `form.cleaned_data` contain?",
+      "options": [
+        {
+          "text": "Validated and sanitized form input",
+          "correct": true,
+          "explanation": "🎉 Correct. `cleaned_data` ensures inputs meet field requirements."
+        },
+        {
+          "text": "The raw unvalidated form input",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Raw inputs are in `request.POST`, not `cleaned_data`."
+        },
+        {
+          "text": "HTML template code",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Templates are separate from form processing."
+        }
+      ]
+    }
+  ]
+}
