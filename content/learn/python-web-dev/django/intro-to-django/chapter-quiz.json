@@ -1,0 +1,85 @@
+{
+  "topic": "Introduction to Django",
+  "questions": [
+    {
+      "question": "Which command creates a new Django project?",
+      "options": [
+        {
+          "text": "`django-admin startproject`",
+          "correct": true,
+          "explanation": "🎉 Correct. This creates a new Django project with settings, URLs, etc."
+        },
+        {
+          "text": "`python manage.py startapp`",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That creates a new app inside an existing project."
+        },
+        {
+          "text": "`django-admin startapp`",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. startapp is for apps, not projects."
+        }
+      ]
+    },
+    {
+      "question": "What is the role of `INSTALLED_APPS` in Django settings?",
+      "options": [
+        {
+          "text": "It registers apps and enables their functionality",
+          "correct": true,
+          "explanation": "🎉 Correct. `INSTALLED_APPS` tells Django which apps are active."
+        },
+        {
+          "text": "It runs unit tests for all apps",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Pytest or Django test runner runs tests, not `INSTALLED_APPS`."
+        },
+        {
+          "text": "It sets the base template directory",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Templates are configured separately."
+        }
+      ]
+    },
+    {
+      "question": "What does the MVT pattern stand for in Django?",
+      "options": [
+        {
+          "text": "Model-View-Template",
+          "correct": true,
+          "explanation": "🎉 Correct. Django organizes apps into Models, Views, and Templates."
+        },
+        {
+          "text": "Model-View-Transform",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Transform is not part of Django's architecture."
+        },
+        {
+          "text": "Main-Variable-Template",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. This is not related to Django."
+        }
+      ]
+    },
+    {
+      "question": "What is the purpose of `manage.py` in Django?",
+      "options": [
+        {
+          "text": "It provides a CLI to run server, migrations, and other commands",
+          "correct": true,
+          "explanation": "🎉 Correct. `manage.py` is the entrypoint for Django management commands."
+        },
+        {
+          "text": "It defines the database schema",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Models define schema, not `manage.py`."
+        },
+        {
+          "text": "It contains project templates",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Templates live in app-level or global template directories."
+        }
+      ]
+    }
+  ]
+}
