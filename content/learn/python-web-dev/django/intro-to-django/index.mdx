@@ -17,8 +17,6 @@ github_url: https://github.com/WalidNewaz/python-web-dev/tree/main/chapter_7
 
 # Chapter 7: Introduction to Django
 
-Django is a **batteries-included web framework** designed for building full-stack applications quickly. While FastAPI shines for APIs and async workloads, Django is ideal for **applications with server-rendered HTML, authentication, admin dashboards, and a well-structured ORM**.
-
 In this chapter, you will learn:
 
 * What Django is and how it follows the **MVT (Model-View-Template)** pattern.
@@ -27,11 +25,40 @@ In this chapter, you will learn:
 * How to create your first app and render a simple page.
 * How to run tests in Django with **Pytest-Django**.
 
-## 7.1 Django Project
+## 7.1 What is Django
 
-A **Django project** is the overall web application: it defines global configuration, settings, URL routing, middleware, and deployment behavior. Every Django project contains a central configuration package—usually named after the project itself—that stores `settings.py`, `urls.py`, `wsgi.py`, and ASGI configuration. This “project layer” is responsible for orchestrating the entire application. It doesn’t contain business logic or domain-specific code; instead, it organizes the pieces that make up your site. Think of the Django project as the container that wires everything together.
+In the previous section, we delved into developing APIs using **FastAPI**. **FastAPI** is a modern, lightweight, high-performance framework focused on building web APIs. It emphasizes speed, developer productivity, and type-driven validation through Pydantic, and it adheres to an asynchronous-first design that excels in microservices, backend APIs, and systems that need to handle high concurrency.
 
-### 7.1.1 Install Django with Poetry
+**Django** is another Python framework designed to develop web applications. It however, is a batteries‑included web framework designed for building full‑stack applications quickly and is particularly well‑suited for server‑rendered HTML, authentication, admin dashboards and a structured ORM. It follows the “convention over configuration” approach and the **Model-View-Template (MVT)** architectural pattern, making it ideal for large, cohesive, server-rendered applications that benefit from strong structure and consistency.
+
+While FastAPI gives you the flexibility to pick your own ORM, template engine, or authentication approach, Django provides a vertically integrated ecosystem that handles all of these pieces for you. In the end, Django is best suited for full-stack applications with server-rendered HTML, whereas FastAPI shines in modern API development and microservice architectures.
+
+
+## 7.2 Understanding the MVT Pattern
+
+Unlike FastAPI’s explicit routing + views, Django uses **MVT**:
+
+* **Model** → Defines the database schema.
+* **View** → Python function/class that handles requests.
+* **Template** → HTML that is rendered and returned.
+
+```mermaid
+flowchart LR
+    U[User Request] --> V[View]
+    V --> M[Model - Database]
+    V --> T[Template]
+    M --> V
+    T --> V
+    V --> U[Response - HTML/JSON]
+```
+
+This separation keeps your business logic in views and models, while allowing templates to focus on presentation. Understanding MVT is essential because it guides how Django applications are structured, promotes maintainable code, and helps developers reason clearly about where different pieces of logic belong in a Django project.
+
+## 7.3 Django Project
+
+A **Django project** is the overall web application: it defines global configuration, settings, URL routing, middleware, and deployment behavior. Every Django project contains a central configuration package—usually named after the project itself—that stores `settings.py`, `urls.py`, `wsgi.py`, and ASGI configuration. This “project layer” is responsible for orchestrating the entire application. It doesn’t contain business logic or domain-specific code; instead, it organizes the pieces that make up your site. The project acts as the container that orchestrates all the pieces.
+
+### 7.3.1 Install Django With Poetry
 
 ```bash
 poetry new blogsite --src
@@ -39,9 +66,9 @@ cd blogsite
 poetry add django
 ```
 
-We're using `Poetry` to add a new project called `blogsite`. We also install the `django`, `pytest` and `pytest-django` modules as dependencies. After this step, we are now ready to bootstrap our first Django project.
+We're using `Poetry` to add a new project called `blogsite`. We also install the `django`, `pytest` and `pytest-django` modules as dependencies. Your are now ready to bootstrap your first Django project.
 
-### 7.1.2 Start a Django Project with django-admin
+### 7.3.2 Start a Django Project With django-admin
 
 We use the `django-admin` tool to start a project. Here is the command format:
 
@@ -60,7 +87,7 @@ This creates the following directory structure:
         └── ...
 ```
 
-### 7.1.3 Organize source
+### 7.3.3 Organize Source
 
 We're going to use the `src/` as the `<target>`. This is similar to the project structure of the FastAPI applications we'd worked on in the previous section. In order to do this, first we need to start the Django project within a temporary directory:
 
@@ -87,16 +114,19 @@ rm -rf src/*  # Make sure the target dir is empty
 mv temp_project/blogsite src
 ```
 
+### 7.3.4 Modify manage.py
+
 Finally, let's move the `manage.py` to project root:
 
 ```bash
 mv temp_project/manage.py manage.py
 ```
 
-The update the `manage.py` is needed:
+Now we must add `src` to the `sys.path` in `manage.py`. Unless we do this, Python cannot import anything from `src/` where our `blogsite` project directory resides.
 
 ```python
 # @file manage.py
+# @highlight 4-5
 from pathlib import Path
 
 # Add this BEFORE calling execute_from_command_line()
@@ -105,6 +135,8 @@ sys.path.append(str(BASE_DIR / "src"))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogsite.settings')
 ```
+
+### 7.3.5 Project Cleanup
 
 Delete the temp folder:
 
@@ -129,7 +161,7 @@ blogsite/
 └── pyproject.toml
 ```
 
-### 7.1.4 Run the development server
+### 7.3.6 Run the Development Server
 
 ```bash
 poetry run python manage.py runserver
@@ -156,13 +188,16 @@ For more information on production servers see: https://docs.djangoproject.com/e
 
 Visit `http://127.0.0.1:8000/` → you’ll see Django’s default welcome page.
 
-## 7.2 Django Apps
+
+## 7.4 Django Apps
+
+Once the project skeleton is built, the next step is to create feature‑specific apps (e.g., a blog or user profile module).
 
 A **Django app**, is a self-contained module that implements a specific feature or domain of your site. Each app typically provides its own *models*, *views*, *templates*, *admin configuration*, and *URLs*. For example, a _blog_, a _comments system_, a _payments module_, or a _user profile area_ would each be packaged as separate Django apps. A single Django project can include many apps, and each app can be reused across multiple projects.
 
 Apps are registered using `INSTALLED_APPS` in `settings.py`, which tells Django to load their **models**, **migrations**, and **configuration**. In practice, Django apps help you keep your project modular and scalable: each app owns one piece of functionality, and the Django project coordinates them into a cohesive whole.
 
-### 7.2.1 Creating a Blog App
+### 7.4.1 Creating a Blog App
 
 In order to create an app within the Django project, we use the `manage.py` CLI utility. Here is the command format:
 
@@ -209,7 +244,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-### 7.2.2 Adding a View
+### 7.4.2 Adding a View
 
 A **Django view** is the function or class responsible for handling an incoming HTTP request and returning an HTTP response. It acts as the core of your application’s request–response cycle: the view receives data from the URL router, performs any necessary business logic (such as querying the database, validating input, or calling services), and then returns a response—often HTML, JSON, or a redirect. Views are intentionally decoupled from templates and models, which keeps the application modular: the view decides **what** data to send, templates decide **how** to present it, and models decide **how** data is stored.
 
@@ -225,7 +260,7 @@ def home(request):
     return HttpResponse("Hello, Django Blog!")
 ```
 
-### 7.2.3 Mapping view with URL
+### 7.4.3 Mapping View With URLs
 
 A **Django URL** is a mapping between a specific URL pattern and the view that should handle requests to that pattern. Django’s URL routing system looks at the incoming request path, matches it against the patterns defined in your `urls.py` modules, and then dispatches the request to the corresponding view function or class. This separation of routing from business logic keeps the application organized: URLs define **how users reach a resource**, while views define **what happens once they do**.
 
@@ -242,7 +277,7 @@ urlpatterns = [
 ]
 ```
 
-### 7.2.3 Launch the app
+### 7.4.4 Launch the App
 
 We need to make some additional changes so that the app is properly registered with the Django project. Update the app name for blog to match the directory structure:
 
@@ -280,17 +315,17 @@ poetry run python manage.py runserver
 
 Now visit `http://127.0.0.1:8000/` → you’ll see `"Hello, Django Blog!"`.
 
-## 7.3 Testing with Pytest-Django
+## 7.5 Testing With pytest-django
 
 Just like the previous chapters, we're going to use `pytest` to test our application. 
 
-### 7.3.1 Install dependencies
+### 7.5.1 Install Dependencies
 
 ```bash
 poetry add --group dev pytest pytest-django
 ```
 
-### 7.3.2 Config pyproject.toml
+### 7.5.2 Config pyproject.toml
 
 ```toml
 [tool.pytest.ini_options]
@@ -300,7 +335,7 @@ pythonpath = ["src"]
 
 This makes pytest behave like `manage.py` by making `src/` importable.
 
-### 7.3.3 Simple test
+### 7.5.3 Simple Test
 
 Write a simple test:
 
@@ -341,31 +376,15 @@ tests/apps/blog/test_views.py .                                                 
 ================================== 1 passed in 0.09s ===================================
 ```
 
-## 7.4 Understanding the MVT Pattern
 
-Unlike FastAPI’s explicit routing + views, Django uses **MVT**:
 
-* **Model** → Defines the database schema.
-* **View** → Python function/class that handles requests.
-* **Template** → HTML that is rendered and returned.
-
-```mermaid
-flowchart LR
-    U[User Request] --> V[View]
-    V --> M[Model - Database]
-    V --> T[Template]
-    M --> V
-    T --> V
-    V --> U[Response - HTML/JSON]
-```
-
-## 7.5 Chapter Summary
+## 7.6 Chapter Summary
 
 In this chapter we showed you how to setup a Django project, and create an app within the project. We added a custom view, and tied it to an app URL. We also discussed the essence of the MVT pattern.
 
 In the next chapter, we’ll add actual HTML templates and form handling to the Blog app.
 
-## 7.6 Further Reading
+## 7.7 Further Reading
 
 * [Django Official Docs](https://docs.djangoproject.com/en/stable/)
 * [Pytest-Django Plugin](https://pytest-django.readthedocs.io/)
