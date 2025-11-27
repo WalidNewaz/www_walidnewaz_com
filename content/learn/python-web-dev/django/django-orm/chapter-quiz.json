@@ -1,0 +1,85 @@
+{
+  "topic": "Django ORM",
+  "questions": [
+    {
+      "question": "What does `makemigrations` do in Django?",
+      "options": [
+        {
+          "text": "Generates migration files from model changes",
+          "correct": true,
+          "explanation": "🎉 Correct. It creates migration scripts based on model definitions."
+        },
+        {
+          "text": "Applies migrations to the database",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That is done with migrate."
+        },
+        {
+          "text": "Starts a new Django app",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Apps are created with startapp."
+        }
+      ]
+    },
+    {
+      "question": "How do you filter posts where the title contains 'Python' (case-insensitive)?",
+      "options": [
+        {
+          "text": "`Post.objects.filter(title__icontains='Python')`",
+          "correct": true,
+          "explanation": "🎉 Correct. `__icontains` performs a case-insensitive `LIKE` query."
+        },
+        {
+          "text": "`Post.objects.filter(title.contains('Python'))`",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. contains is not valid syntax."
+        },
+        {
+          "text": "`Post.objects.get(title='Python')`",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. get requires an exact match and raises error if not found."
+        }
+      ]
+    },
+    {
+      "question": "What is returned by `Post.objects.all()`?",
+      "options": [
+        {
+          "text": "A `QuerySet` of all `Post` records",
+          "correct": true,
+          "explanation": "🎉 Correct. `all()` returns a `QuerySet`, which can be iterated over or further filtered."
+        },
+        {
+          "text": "A list of dictionaries",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The ORM returns `QuerySets`, not plain dicts."
+        },
+        {
+          "text": "A single `Post` instance",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Use `get()` for a single instance."
+        }
+      ]
+    },
+    {
+      "question": "What does `__str__` do in a Django model?",
+      "options": [
+        {
+          "text": "Defines the human-readable representation of the object",
+          "correct": true,
+          "explanation": "🎉 Correct. Useful for admin, shell, and debugging."
+        },
+        {
+          "text": "Specifies how queries are executed",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Queries are defined with the `QuerySet` API."
+        },
+        {
+          "text": "Defines database table name",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Table names are set in Meta or auto-generated."
+        }
+      ]
+    }
+  ]
+}
