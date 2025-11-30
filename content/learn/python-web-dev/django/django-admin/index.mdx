@@ -158,3 +158,134 @@ This adds:
 * A search bar
 * Sidebar filters
 
+### 10.4.2 Organizing Form Layout (Fieldsets)
+
+Set `fielsets` to control the layout of admin "add" and "chnage" pages.
+
+`fieldset` is a list of 2-touples, in the format (name, field_options), 
+
+```python
+# @file src/apps/blog/admin.py
+# @showLineNumbers
+
+fieldsets = (
+    ("Post Information", {
+        "fields": ("title", "content")
+    }),
+)
+```
+
+![Admin Post change](admin-post-change.png "Admin Post change")
+
+## 10.5 Using Custom Forms in Admin
+
+Django Admin can use Django forms for consistent validation.
+
+```python
+# @file src/apps/blog/forms.py
+# @showLineNumbers
+
+from django import forms
+from .models import Post
+
+class PostAdminForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["title", "content"]
+
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if len(title) < 5:
+            raise forms.ValidationError("Title must be at least 5 characters long.")
+        return title
+```
+
+Attach the form to your admin:
+
+```python
+# @file src/apps/blog/admin.py
+# @showLineNumbers
+
+from .forms import PostAdminForm
+
+class PostAdmin(admin.ModelAdmin):
+    form = PostAdminForm
+```
+
+You can test the form validation by entering an invalid `title`, and save it:
+
+![Admin Post validation error](admin-post-validation.png "Admin Post validation error")
+
+## 10.6 Permissions and Access Control
+
+Django Admin uses Django's built-in permissions system.
+
+Each model automatically gets:
+
+* `add_post`
+* `change_post`
+* `delete_post`
+* `view_post`
+
+You can add custom permissions:
+
+```python
+# @file src/apps/blog/models.py
+# @showLineNumbers
+
+class Post(models.Model):
+    ...
+    class Meta:
+        permissions = [
+            ("can_publish", "Can publish posts"),
+        ]
+```
+
+The new custom permissions added to a model need to be migrated to the database. Therefore you'd need to run the following in the terminal:
+
+```bash
+poetry run python manage.py makemigrations blog
+poetry run python manage.py migrate
+```
+
+Then assign these to users or groups via the admin interface. This new permission would be available under user permissions:
+
+![Model custom permissions](model-permissions.png "Model custom permissions")
+
+## 10.7 How Django Admin Works Internally
+
+The admin uses introspection and metadata from your models to build:
+
+* Forms
+* Tables
+* Filters
+* Search queries
+* Relationships
+
+This makes the admin extremely powerful for internal data management, but also means:
+
+**Never expose Django Admin to untrusted users.**
+
+Always:
+
+* Restrict access
+* Use strong passwords
+* Enable HTTPS in production
+
+## 10.8 Chapter Assignment
+
+**Build an Editorial Dashboard**
+
+1. Create a model `Author` with fields: `name`, `bio`, `twitter_handle`.
+2. Create a model `Article` with fields: `title`, `body`, `author`, `status`.
+3. Register both models in the admin.
+4. Customize:
+   * `list_display`
+   * `search_fields`
+   * `list_filter`
+   * `readonly_fields`
+5. Add a custom permission: `can_publish`.
+
+Bonus:
+
+* Add a custom admin action `mark_as_published`.
