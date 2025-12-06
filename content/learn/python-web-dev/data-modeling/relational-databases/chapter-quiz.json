@@ -1,0 +1,65 @@
+{
+  "topic": "Working with Relational Databases",
+  "questions": [
+    {
+      "question": "What is the role of SessionLocal in FastAPI + SQLAlchemy?",
+      "options": [
+        {
+          "text": "It provides a database session for each request",
+          "correct": true,
+          "explanation": "🎉 Correct. SessionLocal manages DB sessions per request."
+        },
+        {
+          "text": "It defines the database schema",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. The schema is defined in Base models."
+        },
+        {
+          "text": "It runs Alembic migrations",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Alembic handles migrations."
+        }
+      ]
+    },
+    {
+      "question": "What does Post.objects.filter(title__icontains='Python') return?",
+      "options": [
+        {
+          "text": "All posts with 'Python' in the title (case-insensitive)",
+          "correct": true,
+          "explanation": "🎉 Correct. __icontains is a case-insensitive filter."
+        },
+        {
+          "text": "Only the first post with 'Python' in the title",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That would require get()."
+        },
+        {
+          "text": "An SQL string",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. It returns a QuerySet, not raw SQL."
+        }
+      ]
+    },
+    {
+      "question": "Which tool is used for database migrations in FastAPI projects?",
+      "options": [
+        {
+          "text": "Alembic",
+          "correct": true,
+          "explanation": "🎉 Correct. Alembic is used with SQLAlchemy for migrations."
+        },
+        {
+          "text": "manage.py",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. manage.py is Django's CLI tool."
+        },
+        {
+          "text": "pytest-django",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Pytest-django is for testing, not migrations."
+        }
+      ]
+    }
+  ]
+}
