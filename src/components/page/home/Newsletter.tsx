@@ -42,7 +42,7 @@ const NEWSLETTER_OPTIONS = {
       show: true,
       url: "https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic",
     },
-    recaptcha: { enabled: true },
+    recaptcha: { enabled: false },
     return_visitor: { action: "hide", custom_content: "" },
     slide_in: {
       display_in: "bottom_right",

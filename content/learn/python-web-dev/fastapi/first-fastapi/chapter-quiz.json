@@ -1,0 +1,85 @@
+{
+  "topic": "Building Your First API with FastAPI",
+  "questions": [
+    {
+      "question": "What is the purpose of `response_model` in FastAPI?",
+      "options": [
+        {
+          "text": "It validates and shapes the output response.",
+          "correct": true,
+          "explanation": "🎉 Correct. FastAPI ensures responses conform to the response_model."
+        },
+        {
+          "text": "It validates incoming requests.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Incoming requests are validated using request body models."
+        },
+        {
+          "text": "It runs tests automatically.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Testing is done via Pytest, not response_model."
+        }
+      ]
+    },
+    {
+      "question": "Which HTTP method is used to create a new Todo?",
+      "options": [
+        {
+          "text": "GET",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. GET is used to retrieve data."
+        },
+        {
+          "text": "POST",
+          "correct": true,
+          "explanation": "🎉 Correct. POST is used to create resources."
+        },
+        {
+          "text": "PUT",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. PUT is for updating resources."
+        }
+      ]
+    },
+    {
+      "question": "What happens if a Todo with a given ID is not found?",
+      "options": [
+        {
+          "text": "The server returns a 404 error.",
+          "correct": true,
+          "explanation": "🎉 Correct. FastAPI raises an HTTPException with status_code=404."
+        },
+        {
+          "text": "The server crashes.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Proper exception handling prevents crashes."
+        },
+        {
+          "text": "It returns an empty list.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That only applies when listing todos."
+        }
+      ]
+    },
+    {
+      "question": "Why do we use Pydantic's `Field` in our models?",
+      "options": [
+        {
+          "text": "To enforce validation rules like min_length and max_length.",
+          "correct": true,
+          "explanation": "🎉 Correct. Field helps validate inputs with constraints."
+        },
+        {
+          "text": "To run background tasks.",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Field is unrelated to async or background tasks."
+        },
+        {
+          "text": "To generate database schemas.",
+          "correct": false,
+          "explanation": "Incorrect. Field is not a database feature, it's for data validation."
+        }
+      ]
+    }
+  ]
+}

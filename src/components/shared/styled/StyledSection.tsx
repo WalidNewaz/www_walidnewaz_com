@@ -12,7 +12,7 @@ const StyledSection = css`
     font-weight: var(--fontWeight-bold);
     transition: color 300ms linear;
     line-height: var(--lineHeight-normal);
-    margin-top: var(--spacing-6);
+    margin-top: var(--spacing-4);
     margin-bottom: var(--spacing-4);
   }
 

@@ -1,0 +1,85 @@
+{
+  "topic": "Authorization in FastAPI",
+  "questions": [
+    {
+      "question": "What is the default role assigned to a new user?",
+      "options": [
+        {
+          "text": "admin",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. 'admin' is a special role. Default is 'user'."
+        },
+        {
+          "text": "user",
+          "correct": true,
+          "explanation": "🎉 Correct. New users are registered as 'user'."
+        },
+        {
+          "text": "guest",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. 'guest' is not defined in this system."
+        }
+      ]
+    },
+    {
+      "question": "Which function ensures a user is an admin before accessing a route?",
+      "options": [
+        {
+          "text": "get_user_role_from_token",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. This retrieves the role but doesn't enforce it."
+        },
+        {
+          "text": "require_admin",
+          "correct": true,
+          "explanation": "🎉 Correct. This function enforces the admin role."
+        },
+        {
+          "text": "decode_jwt",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. This is a lower-level utility, not an authorization check."
+        }
+      ]
+    },
+    {
+      "question": "What HTTP status is returned when a non-admin user tries to access an admin route?",
+      "options": [
+        {
+          "text": "401",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. 401 means unauthenticated, not unauthorized."
+        },
+        {
+          "text": "403",
+          "correct": true,
+          "explanation": "🎉 Correct. 403 Forbidden is used for unauthorized access."
+        },
+        {
+          "text": "500",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. 500 indicates a server error."
+        }
+      ]
+    },
+    {
+      "question": "What is a major difference between RBAC and ABAC?",
+      "options": [
+        {
+          "text": "RBAC is faster",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. That might be true in some cases but is not the defining difference."
+        },
+        {
+          "text": "RBAC uses roles; ABAC uses attributes",
+          "correct": true,
+          "explanation": "🎉 Correct. RBAC grants access by roles, ABAC by user/environment attributes."
+        },
+        {
+          "text": "ABAC is more secure",
+          "correct": false,
+          "explanation": "⚠️ Incorrect. Security depends on implementation, not just model choice."
+        }
+      ]
+    }
+  ]
+}

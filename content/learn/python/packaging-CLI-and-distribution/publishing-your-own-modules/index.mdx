@@ -1,0 +1,192 @@
+---
+featured: false
+date: "2023-11-22"
+
+series: "Python Foundations"
+part: "VI. Packaging, CLI, and Distribution"
+chapter: "18. Publishing Your Own Modules"
+
+title: "Publishing Your Own Modules"
+description: "In this chapter we show you how to author your own Python packages, and publish them in PyPI."
+
+has_quiz: true
+tags: ["Python"]
+---
+
+# Chapter 18: Publishing Your Own Modules
+
+The tousands of python modules that are available in `PyPi` have been authored by many individuals over the years. In this chapter you will learn to contribute your own modules to the Python ecosystem.
+
+This chapter will teach you how to:
+
+* Create your own Python package
+* Publish your package to PyPI
+
+## 18.1 Creating Your Own Python Module
+
+So far, we’ve seen how to install and use **third-party modules** from PyPI. But one of Python’s biggest strengths is how easy it is to **write and share your own modules**. This section walks you through:
+
+1. Writing a simple **functional module**.
+2. Using it inside another project on the same computer.
+3. Packaging and publishing it to **PyPI** so others can install it with `pip install`.
+
+### Step 1: Writing a Simple Functional Module
+
+A **module** is just a `.py` file containing functions, classes, or variables. Let’s write a small module called `mathutils.py`:
+
+```python
+# mathutils.py
+"""
+A small utility module for math operations.
+"""
+
+def add(a: float, b: float) -> float:
+    return a + b
+
+def subtract(a: float, b: float) -> float:
+    return a - b
+
+def multiply(a: float, b: float) -> float:
+    return a * b
+
+def divide(a: float, b: float) -> float:
+    if b == 0:
+        raise ValueError("Division by zero is not allowed")
+    return a / b
+```
+
+At this point, `mathutils.py` is just a file. You can import and use it in **any script** in the same directory:
+
+```python
+from mathutils import add, divide
+
+print(add(3, 5))       # 8
+print(divide(10, 2))   # 5.0
+```
+
+### Step 2: Using the Module in Another Project (Locally)
+
+To reuse the module in another project, you can:
+
+#### Option 1: Copy the file
+
+Copy `mathutils.py` into your new project’s folder. This works for quick experiments but is messy.
+
+#### Option 2: Install it in “editable” mode
+
+Create a **package structure**:
+
+```bash
+mathutils/
+    mathutils/
+        __init__.py
+        operations.py
+    pyproject.toml
+```
+
+Move functions into `operations.py`:
+
+```python
+# mathutils/operations.py
+def add(a, b): return a + b
+def subtract(a, b): return a - b
+```
+
+And expose them in `__init__.py`:
+
+```python
+# mathutils/__init__.py
+from .operations import add, subtract
+```
+
+Now, install your package locally in **editable mode**:
+
+```bash
+pip install -e .
+```
+
+This tells Python to use the module from your source folder. Any edits to the code will immediately reflect in projects that import it:
+
+```python
+from mathutils import add
+print(add(2, 3))   # 5
+```
+
+### Step 3: Building and Publishing the Module
+
+To share your module with the world, you need to publish it to **PyPI** (Python Package Index).
+
+#### Add Metadata (`pyproject.toml`)
+
+Create a `pyproject.toml` file at the root of your package:
+
+```cs
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mathutils-walid"  # unique name on PyPI
+version = "0.1.0"
+description = "A small math utility module"
+authors = [{ name = "Walid Newaz", email = "you@example.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["mathutils"]
+```
+
+#### Build the Package
+
+```bash
+pip install build twine
+python -m build
+```
+
+This creates:
+
+```bash
+dist/
+  mathutils_walid-0.1.0.tar.gz
+  mathutils_walid-0.1.0-py3-none-any.whl
+```
+
+#### Publish to TestPyPI
+
+First, test publishing to the sandbox index:
+
+```bash
+twine upload --repository testpypi dist/*
+```
+
+Visit: [https://test.pypi.org/project/](https://test.pypi.org/project/) to see your package.
+
+#### Publish to PyPI
+
+When ready, push to the real PyPI:
+
+```bash
+twine upload dist/*
+```
+
+Then anyone can install your module:
+
+```bash
+pip install mathutils-walid
+```
+
+#### Key Takeaways
+
+* A **module** is just a `.py` file; a **package** is a directory with `__init__.py`.
+* Use `pip install -e .` for local development.
+* Use `pyproject.toml` and tools like **setuptools**, **build**, and **twine** to publish.
+* PyPI is the global repository — but always test with **TestPyPI** first.
+
+## Conclusion
+
+You’ve learned how to:
+
+* Build and publish your own Python packages
+* Follow best practices for Python module packaging

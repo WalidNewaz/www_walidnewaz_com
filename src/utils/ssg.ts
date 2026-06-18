@@ -16,12 +16,16 @@ export const createPageTopics = async ({
   postsPerPage,
   actions,
   section = "blog",
+  templateType,
+  srcType = "MarkdownRemark",
 }: {
   topic: string | null;
   index: number;
   postsPerPage: number;
   actions: Actions;
   section?: string;
+  templateType?: string;
+  srcType?: string;
 }) => {
   const { createPage } = actions;
   const topicPathStr = topic ? `${topic}/` : "";
@@ -30,9 +34,13 @@ export const createPageTopics = async ({
     index === 0
       ? `/${section}/f/${topicPathStr}`
       : `/${section}/f/${topicPathStr}${currentPage}`;
+  if (templateType === undefined) {
+    console.error("pagePath:", pagePath);
+    throw new Error("templateType is required to create topic pages");
+  }
   createPage({
     path: pagePath,
-    component: path.resolve(`./src/templates/${section}Topics/index.tsx`),
+    component: path.resolve(`./src/templates/${templateType}/${srcType}.tsx`),
     context: {
       ...(topic && { topic }),
       currentPage,
@@ -49,12 +57,14 @@ export const createTopicsPagesWithTopicFilter = async ({
   postsPerPage,
   actions,
   section = "blog",
+  srcType = "MarkdownRemark",
 }: {
   topic: string;
   numPages: number;
   postsPerPage: number;
   actions: Actions;
   section?: string;
+  srcType?: string;
 }) => {
   if (numPages > 1) {
     Array.from({ length: numPages }).forEach((_, i) => {
@@ -64,6 +74,8 @@ export const createTopicsPagesWithTopicFilter = async ({
         postsPerPage,
         actions,
         section,
+        templateType: `${section}Topics`,
+        srcType,
       });
     });
   } else {
@@ -73,6 +85,8 @@ export const createTopicsPagesWithTopicFilter = async ({
       postsPerPage,
       actions,
       section,
+      templateType: `${section}Topics`,
+      srcType,
     });
   }
 };

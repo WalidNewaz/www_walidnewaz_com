@@ -11,7 +11,7 @@ import Topics from "../../components/Topics";
 import { getTopics } from "../../utils/posts";
 
 /** Hooks */
-import { useFetchNextPage } from "../../hooks/posts";
+import { useFetchNextPage } from "../../hooks/useFetchNextPage";
 
 /** Constants */
 import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
@@ -19,17 +19,8 @@ import { ITEMS_PER_PAGE, MAX_PAGES } from "../../constants";
 /** Styles */
 import StyledSection from "../../components/shared/styled/StyledSection";
 
-const StyledBlogPage = styled.section`
+const StyledPageContentContainer = styled.div`
   ${StyledSection}
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-
-  @media (max-width: 940px) {
-    padding: var(--spacing-4) var(--spacing-0);
-  }
 `;
 
 interface Image {
@@ -65,7 +56,7 @@ interface AggregatedTopic {
 }
 
 interface AllPosts {
-  allMarkdownRemark: {
+  allMdx: {
     posts: Post[];
     postCount: number;
     allTopics: AggregatedTopic[];
@@ -91,7 +82,7 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   uri,
   location,
 }) => {
-  const { posts, postCount, allTopics } = data.allMarkdownRemark;
+  const { posts, postCount, allTopics } = data.allMdx;
   const [currentPage, setCurrentPage] = useState(pageContext.currentPage || 1);
   const fetchNextPage = useFetchNextPage();
   const query = {
@@ -100,8 +91,31 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
   };
 
   return (
-    <StyledBlogPage>
-      <Topics topics={getTopics(allTopics)} section="blog/f" />
+    <StyledPageContentContainer>
+      <section className="flex flex-column wrap flex-start">
+        <h2>Blog</h2>
+        <p className="text-2">
+          This section contains my personal blog posts on software development,
+          and other topics, sometimes even outside of tech. Feel free to explore
+          the articles and share your thoughts in the comments!
+        </p>
+      </section>
+
+      {posts.length === 0 && (
+        <section className="blog-posts flex flex-column wrap flex-start">
+          <h2>No posts found.</h2>
+          <p className="text-2">
+            It seems we couldn't find any posts at the moment. Please check back
+            later for updates!
+          </p>
+        </section>
+      )}
+
+      <section className="blog-posts col flex wrap">
+        <h2>Topics:</h2>
+        <Topics topics={getTopics(allTopics)} section="blog/f" />
+      </section>
+
       <PaginatedArticleCards
         posts={posts}
         currentPage={currentPage}
@@ -114,18 +128,18 @@ const BlogPage: React.FC<PageProps<AllPosts, PageContext>> = ({
         pathname={location.pathname}
         query={query}
       />
-    </StyledBlogPage>
+    </StyledPageContentContainer>
   );
 };
 
-// Queries the blog directory for file names.
-// This is the first page of the blog, so we only want to show the 9 most recent posts.
 export const query = graphql`
   {
-    allMarkdownRemark(
+    allMdx(
       sort: { frontmatter: { date: DESC } }
       limit: 9
-      filter: { fileAbsolutePath: { regex: "/^.*/content/blog/.*?$/" } }
+      filter: {
+        internal: { contentFilePath: { regex: "/^.*/content/blog/.*?$/" } }
+      }
     ) {
       posts: nodes {
         excerpt
@@ -145,9 +159,6 @@ export const query = graphql`
           }
           tags
           read_time
-        }
-        headings(depth: h1) {
-          value
         }
         id
       }

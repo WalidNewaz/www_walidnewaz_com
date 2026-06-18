@@ -1,0 +1,64 @@
+name: deploy-production
+run-name: Build, test, and deploy application for production
+on: 
+  push:
+    branches:
+      - main
+env:
+  GATSBY_ACTIVE_ENV: production
+  BUILD_ENV: production
+  BUILD_DIRECTORY: ./public
+  AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_CLOUDFRONT_DIST_ID: ${{ vars.AWS_CLOUDFRONT_DIST_ID }}
+  S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME_PROD }}
+  GA_TRACKING_ID: ${{ vars.GA_TRACKING_ID }}
+  GATSBY_ALGOLIA_SITE_VERIFICATION: ${{ secrets.GATSBY_ALGOLIA_SITE_VERIFICATION }}
+  GATSBY_GISCUS_REPO_ID: ${{ secrets.GATSBY_GISCUS_REPO_ID }}
+  GATSBY_GISCUS_CATEGORY_ID: ${{ secrets.GATSBY_GISCUS_CATEGORY_ID }}
+  GATSBY_GISCUS_USERNAME: ${{ vars.GATSBY_GISCUS_USERNAME }}
+  GATSBY_GISCUS_REPO: ${{ vars.GATSBY_GISCUS_REPO }}
+  GATSBY_GISCUS_CATEGORY: ${{ vars.GATSBY_GISCUS_CATEGORY }}
+  GATSBY_GISCUS_MAPPING: ${{ vars.GATSBY_GISCUS_MAPPING }}
+  GATSBY_GISCUS_STRICT: ${{ vars.GATSBY_GISCUS_STRICT }}
+  GATSBY_GISCUS_REACTIONS_ENABLED: ${{ vars.GATSBY_GISCUS_REACTIONS_ENABLED }}
+  GATSBY_GISCUS_EMIT_METADATA: ${{ vars.GATSBY_GISCUS_EMIT_METADATA }}
+  GATSBY_GISCUS_INPUT_POSITION: ${{ vars.GATSBY_GISCUS_INPUT_POSITION }}
+  GATSBY_GISCUS_THEME: ${{ vars.GATSBY_GISCUS_THEME }}
+  GATSBY_GISCUS_LANG: ${{ vars.GATSBY_GISCUS_LANG }}
+  GATSBY_GISCUS_LOADING: ${{ vars.GATSBY_GISCUS_LOADING }}
+  GATSBY_GISCUS_TERM: ${{ vars.GATSBY_GISCUS_TERM }}
+
+jobs:
+  staging-deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        path: .
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+    - name: Install dependencies
+      run: npm install
+    - name: Install Gatsby CLI
+      run: npm install -g gatsby-cli
+    - name: Build
+      run: npm run build
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    - name: Deploy to AWS S3
+      run: |
+        aws s3 sync ${{ env.BUILD_DIRECTORY }} s3://${{ env.S3_BUCKET_NAME }} --delete
+    - name: Invalidate CloudFront cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ env.AWS_CLOUDFRONT_DIST_ID }} --paths "/*"
+  

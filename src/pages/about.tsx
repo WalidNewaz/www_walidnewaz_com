@@ -84,11 +84,9 @@ const About: React.FC<{ data }> = ({ data }) => {
         <p>
           Over the years I've delivered fast, reliable, and maintainable
           applications for web, backend, and API-driven platforms. My core
-          experience has been in
-          <strong>JavaScript/TypeScript (React, Node.js)</strong> and expanded
-          into
-          <strong>Python</strong> for backend services, automation, and AI
-          projects. I care deeply about{" "}
+          experience has been in <strong>JavaScript/TypeScript (React, Node.js)</strong>&nbsp;
+          and expanded into <strong>Python</strong> for backend services, automation, and AI
+          projects. I care deeply about&nbsp;
           <strong>architecture, maintainability, and user experience</strong>.
         </p>
 
@@ -98,7 +96,7 @@ const About: React.FC<{ data }> = ({ data }) => {
           <li>User portals and static websites</li>
           <li>Coupon and promotions management</li>
           <li>Workflow and API orchestration platforms</li>
-          <li>Team travel planning applications</li>
+          <li>Outdoor travel planning applications</li>
         </ul>
 
         <p>
@@ -118,7 +116,7 @@ const About: React.FC<{ data }> = ({ data }) => {
           Outside of code, I'm usually{" "}
           <strong>hiking the Colorado Front Range with my dog</strong>,
           experimenting in the kitchen, or exploring new places. I'm a big fan
-          of music, art, books, and podcasts that expand perspective.
+          of music, art, books, and podcasts that expand my perspective.
         </p>
 
         <p>

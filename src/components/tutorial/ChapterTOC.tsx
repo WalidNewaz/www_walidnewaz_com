@@ -26,7 +26,6 @@ const StyledTOC = styled.div`
     padding-right: 0.5rem;
   }
 
-
   h1,
   h2,
   h3,
@@ -73,12 +72,19 @@ const StyledTOC = styled.div`
     z-index: 2;
     top: 3.65rem;
     border-radius: 0;
-    padding: var(--spacing-6);
+    padding: var(--spacing-3) var(--spacing-5);
+
+    width: 100vw;
+    margin-left: -1.5rem;
+
+    p {
+      padding: 0;
+    }
 
     h1 {
       margin: 0;
       padding: 0;
-    }    
+    }
 
     @media screen and (prefers-color-scheme: dark) {
       background-color: rgb(16 23 34);
@@ -162,11 +168,36 @@ const IndentedHeadings: React.FC<{
       if (targetElement) {
         window.scrollTo({
           top: (targetElement as HTMLElement).offsetTop - (isOpen ? 175 : 75),
-          behavior: "smooth",
+          behavior: "instant",
         });
       }
     }
   };
+
+  // Identify which heading is currently in view
+  useEffect(() => {
+    const headings = document.querySelectorAll("h1, h2, h3");
+
+    const options = {
+      root: null, // Use the viewport as the root
+      rootMargin: "0px 0px -80% 0px", // Creates a thin trigger area at the top
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // This heading is now the one closest to the top
+          document.body.dataset.activeHeading = entry.target.id;
+          setSelectedId(entry.target.id);
+        }
+      });
+    }, options);
+
+    headings.forEach((heading) => {
+      observer.observe(heading);
+    });
+  }, []);
 
   return (
     isOpen && (
@@ -174,19 +205,23 @@ const IndentedHeadings: React.FC<{
         {headings.map((heading: ChapterHeading, index: number) => {
           return (
             heading.depth <= maxDeth && (
-              <li key={index}>
+              <li
+                key={index}
+                style={{
+                  padding: "0.25rem",
+                  marginBlock: "0.75rem",
+                  ...(selectedId === heading.id && {
+                    color: "var(--text2)",
+                    backgroundColor: "var(--surface4)",
+                    fontWeight: "bold",
+                    borderRadius: "0.25rem",
+                  }),
+                }}
+              >
                 <a
                   href={`#${heading.id}`}
                   onClick={handleTOCClick}
-                  style={{
-                    paddingLeft: 1 * (heading.depth - 1) + "rem",
-                    ...(selectedId === heading.id && {
-                      color: "var(--brand)",
-                      backgroundColor: "white",
-                      fontWeight: "bold",
-                      borderRadius: "0.25rem",
-                    }),
-                  }}
+                  style={{ paddingLeft: 1 * (heading.depth - 1) + "rem" }}
                 >
                   {heading.value.replace(/(<\/?code.*?>|&lt;|&gt;|<|>)/g, "")}
                 </a>
@@ -247,10 +282,10 @@ const ChapterTOC: React.FC<{ chapter: any; maxDeth?: number }> = ({
 
   return (
     <StyledTOC>
-        <StyledChapterOutline>
-          <h1 className="pb-4">Chapter Outline</h1>
-          <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
-        </StyledChapterOutline>
+      <StyledChapterOutline>
+        <p className="pb-4 m-0 text-2xl font-extrabold">Chapter Outline</p>
+        <HamburgerMenu isOpen={false} onClick={() => toggleMenu()} />
+      </StyledChapterOutline>
       <nav>
         <IndentedHeadings
           headings={chapter.headings}

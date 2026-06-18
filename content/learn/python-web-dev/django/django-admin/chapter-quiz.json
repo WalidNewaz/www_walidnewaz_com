@@ -1,0 +1,65 @@
+{
+  "topic": "Django Admin",
+  "questions": [
+    {
+      "question": "What must you do to make a model appear in Django Admin?",
+      "options": [
+        {
+          "text": "Add it to `INSTALLED_APPS`",
+          "correct": false,
+          "explanation": "⚠️ Being installed is required, but does not make it appear in Admin."
+        },
+        {
+          "text": "Register it in `admin.py`",
+          "correct": true,
+          "explanation": "🎉 Only registered models appear in the Admin interface."
+        }
+      ]
+    },
+    {
+      "question": "Which Admin feature lets you display additional columns in the list view?",
+      "options": [
+        {
+          "text": "`search_fields`",
+          "correct": false,
+          "explanation": "⚠️ `search_fields` only enables the search box."
+        },
+        {
+          "text": "`list_display`",
+          "correct": true,
+          "explanation": "🎉 `list_display` controls which fields appear in the listing table."
+        }
+      ]
+    },
+    {
+      "question": "What is the purpose of a read-only field in Django Admin?",
+      "options": [
+        {
+          "text": "To prevent editing metadata while still showing it",
+          "correct": true,
+          "explanation": "🎉 `readonly_fields` restrict changes while still displaying field values."
+        },
+        {
+          "text": "To hide the field",
+          "correct": false,
+          "explanation": "⚠️ Hidden fields are different; `readonly_fields` remain visible."
+        }
+      ]
+    },
+    {
+      "question": "What does the Django Admin permissions system use?",
+      "options": [
+        {
+          "text": "The built-in Django permissions",
+          "correct": true,
+          "explanation": "🎉 Admin uses Django's permission system for authorization."
+        },
+        {
+          "text": "A separate admin-specific permission database",
+          "correct": false,
+          "explanation": "⚠️ Admin permissions integrate directly with Django's auth framework."
+        }
+      ]
+    }
+  ]
+}
