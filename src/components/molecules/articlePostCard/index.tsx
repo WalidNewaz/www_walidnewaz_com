@@ -3,16 +3,9 @@ import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import styled from "styled-components";
 import Badges from "../../tutorial/Badges";
 
-const Tags: React.FC<{ tags: Array<string> }> = ({ tags }) =>
-  tags && tags.length > 0 ? (
-    <ul className="list-none flex flex-row justify-end margin-block-0 gap-1">
-      {tags.map((tag) => (
-        <li key={tag} className="pill margin-block-0">
-          {tag}
-        </li>
-      ))}
-    </ul>
-  ) : null;
+import * as styles from "./ArticlePostCard.module.css";
+import Tags from "./Tags";
+
 
 const badgeColors: { [key: string]: string } = {
   Draft: "red",
@@ -103,7 +96,7 @@ const ArticlePostCard: React.FC<{
             {title}
           </h3>
         </div>
-        <div className="tags">
+        <div className={styles.tagsContainer}>
           <Tags tags={tags} />
         </div>
       </StyledCardText>

@@ -1,91 +1,96 @@
-import React, { useRef, useState, useEffect } from 'react';
-import './ContentRibbon.css';
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import ContentRibbonProps from './ContentRibbon.interface';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
-/**
- * A scrollable container that creates scroll buttons if the content in
- * the children nodes happen to overflow the size of the container as
- * displayed.
- *
- * @param children Any number of React nodes
- * @returns A JSX component that wraps the children with a scrollable container.
- */
+import * as styles from "./ContentRibbon.module.css";
+import ContentRibbonProps from "./ContentRibbon.interface";
+
+const SCROLL_DISTANCE = 200;
+
 const ContentRibbon: React.FC<ContentRibbonProps> = ({
   children,
-  className = '',
-  scrollContainerClassName = '',
+  className = "",
+  scrollContainerClassName = "",
 }) => {
   const ribbonRef = useRef<HTMLDivElement>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showScrollRight, setShowScrollRight] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  useEffect(() => {
-    if (ribbonRef.current) {
-      ribbonRef.current.addEventListener('scroll', handleScroll);
-      handleScroll();
+  const updateScrollState = useCallback(() => {
+    const element = ribbonRef.current;
+
+    if (!element) {
+      return;
     }
-    return () => {
-      if (ribbonRef.current) {
-        ribbonRef.current.removeEventListener('scroll', handleScroll);
-      }
-    };
+
+    const { scrollLeft, scrollWidth, clientWidth } = element;
+    const remainingDistance = scrollWidth - clientWidth - scrollLeft;
+
+    setCanScrollLeft(scrollLeft > 1);
+    setCanScrollRight(remainingDistance > 1);
   }, []);
 
-  const handleScroll = () => {
-    if (ribbonRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = ribbonRef.current;
-      setScrollPosition(scrollLeft);
-      setShowScrollRight(scrollLeft < scrollWidth - clientWidth);
-    }
-  };
+  useEffect(() => {
+    updateScrollState();
 
-  const handleScrollLeft = () => {
-    if (ribbonRef.current) {
-      ribbonRef.current.scrollLeft -= 200; // Adjust scroll distance as needed
-      handleScroll();
-    }
-  };
+    const element = ribbonRef.current;
 
-  const handleScrollRight = () => {
-    if (ribbonRef.current) {
-      ribbonRef.current.scrollLeft += 200; // Adjust scroll distance as needed
-      handleScroll();
+    if (!element || typeof ResizeObserver === "undefined") {
+      return;
     }
+
+    const observer = new ResizeObserver(updateScrollState);
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [children, updateScrollState]);
+
+  const scrollBy = (distance: number) => {
+    ribbonRef.current?.scrollBy({
+      left: distance,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div className={`content-ribbon ${className}`}>
+    <div className={`${styles.contentRibbon} ${className}`.trim()}>
       <div
-        className={`ribbon-scroll-container ${scrollContainerClassName}`}
         ref={ribbonRef}
+        className={
+          `${styles.ribbonScrollContainer} ${scrollContainerClassName}`.trim()
+        }
+        onScroll={updateScrollState}
       >
         {children}
       </div>
-      {scrollPosition > 0 && (
+
+      {canScrollLeft && (
         <button
-          className='scroll-button scroll-left left-1'
-          onClick={handleScrollLeft}
-          data-testid='scroll-left-button'
-          style={{ left: '0.25rem' }}
+          type="button"
+          className={`${styles.scrollButton} ${styles.scrollLeft}`}
+          onClick={() => scrollBy(-SCROLL_DISTANCE)}
+          data-testid="scroll-left-button"
+          aria-label="Scroll left"
         >
-          <BsChevronLeft
-            className='w-6 h-6'
-            style={{ marginInline: '0.35rem', marginTop: '0.25rem' }}
-          />
+          <BsChevronLeft aria-hidden="true" />
         </button>
       )}
-      {showScrollRight && (
+
+      {canScrollRight && (
         <button
-          className='scroll-button scroll-right right-1'
-          onClick={handleScrollRight}
-          data-testid='scroll-right-button'
-          style={{ right: '0.25rem' }}
+          type="button"
+          className={`${styles.scrollButton} ${styles.scrollRight}`}
+          onClick={() => scrollBy(SCROLL_DISTANCE)}
+          data-testid="scroll-right-button"
+          aria-label="Scroll right"
         >
-          <BsChevronRight
-            className='w-6 h-6'
-            style={{ marginInline: '0.35rem', marginTop: '0.25rem' }}
-          />
+          <BsChevronRight aria-hidden="true" />
         </button>
       )}
     </div>

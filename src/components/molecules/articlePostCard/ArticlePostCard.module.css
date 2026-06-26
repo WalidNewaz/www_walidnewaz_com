@@ -1,0 +1,30 @@
+.tagList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tag {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.35rem 0.75rem;
+  margin: 0;
+  font-family: var(--fontFamily-sans);
+  font-size: var(--fontSize-1);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tagsContainer {
+  width: 100%;
+  margin-top: 1rem;
+}
