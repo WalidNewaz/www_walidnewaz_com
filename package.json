@@ -125,7 +125,7 @@
     "publish": "./node_modules/.bin/dotenv ./scripts/publish.sh",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start:dev": "NODE_OPTIONS=\"--max-old-space-size=8192\" gatsby develop --port 3030",
-    "gatsby:build": "gatsby build --port 3030",
+    "gatsby:build": "gatsby build",
     "gatsby:develop": "gatsby develop --port 3030",
     "gatsby:serve": "gatsby serve --port 3030",
     "gatsby:clean": "gatsby clean",
