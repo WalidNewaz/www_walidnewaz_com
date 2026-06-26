@@ -1,18 +1,12 @@
 import * as React from "react";
-import styled from "styled-components";
 
-import "./newsletter.css";
+import * as styles from "./newsletter.module.css";
 
-const StyledForm = styled.form`
-  background-color: rgb(249, 250, 251);
-  border-radius: 4px;
-  margin: 1.15rem;
-  width: 100%;
+const CONVERTKIT_FORM_ID = "6707899";
+const CONVERTKIT_FORM_UID = "1929cc2957";
 
-  @media (max-width: 768px) {
-    margin: 2.25rem;
-  }
-`;
+const CONVERTKIT_POWERED_BY_URL =
+  "https://convertkit.com/features/forms?utm_campaign=poweredby&utm_content=form&utm_medium=referral&utm_source=dynamic";
 
 const NEWSLETTER_OPTIONS = {
   settings: {
@@ -40,10 +34,15 @@ const NEWSLETTER_OPTIONS = {
     },
     powered_by: {
       show: true,
-      url: "https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic",
+      url: CONVERTKIT_POWERED_BY_URL,
     },
-    recaptcha: { enabled: false },
-    return_visitor: { action: "hide", custom_content: "" },
+    recaptcha: {
+      enabled: false,
+    },
+    return_visitor: {
+      action: "hide",
+      custom_content: "",
+    },
     slide_in: {
       display_in: "bottom_right",
       trigger: "timer",
@@ -62,126 +61,172 @@ const NEWSLETTER_OPTIONS = {
     },
   },
   version: "5",
-};
+} as const;
 
-const NewsLetterForm: React.FC = () => (
-  <StyledForm
-    action="https://app.convertkit.com/forms/6707899/subscriptions"
-    className="seva-form formkit-form rad-shadow"
-    style={{
-      backgroundColor: 'transparent',
-      border: 'none',
-    }}
-    method="post"
-    data-sv-form="6707899"
-    data-uid="1929cc2957"
-    data-format="inline"
-    data-version="5"
-    data-options={JSON.stringify(NEWSLETTER_OPTIONS)}
-    // min-width="400 500 600 700 800"
-  >
-    <div className="formkit-background bg-surface-3 rad-shadow"></div>
-    <div data-style="minimal">
+type ClassNameValue = string | false | null | undefined;
+
+function joinClassNames(...classNames: ClassNameValue[]): string {
+  return classNames.filter(Boolean).join(" ");
+}
+
+const NewsletterForm: React.FC = () => {
+  return (
+    <form
+      action={`https://app.convertkit.com/forms/${CONVERTKIT_FORM_ID}/subscriptions`}
+      className={joinClassNames(
+        styles.form,
+        "seva-form",
+        "formkit-form",
+        "rad-shadow",
+      )}
+      method="post"
+      data-sv-form={CONVERTKIT_FORM_ID}
+      data-uid={CONVERTKIT_FORM_UID}
+      data-format="inline"
+      data-version="5"
+      data-options={JSON.stringify(NEWSLETTER_OPTIONS)}
+    >
       <div
-        className="formkit-header"
-        data-element="header"
-        style={{
-          color: "rgb(77, 77, 77)",
-          fontSize: "27px",
-          fontWeight: "700",
-        }}
-      >
-        <h3 className="heading">Never Miss an Update.</h3>
-      </div>
-      <div
-        className="formkit-subheader"
-        data-element="subheader"
-        style={{
-          color: "rgb(104, 104, 104)",
-          fontSize: "18px",
-        }}
-      >
-        <p className="text-2">Subscribe to get the latest content by email.</p>
-      </div>
-      <ul
-        className="formkit-alert formkit-alert-error"
-        data-element="errors"
-        data-group="alert"
-      ></ul>
-      <div
-        data-element="fields"
-        data-stacked="false"
-        className="seva-fields formkit-fields"
-      >
-        <div className="formkit-field">
-          <input
-            className="formkit-input"
-            name="email_address"
-            aria-label="Email Address"
-            placeholder="Email Address"
-            required
-            type="email"
-            style={{
-              color: "rgb(0, 0, 0)",
-              borderColor: "rgb(227, 227, 227)",
-              borderRadius: "4px",
-              fontWeight: "400",
-            }}
-          />
+        className={joinClassNames(
+          styles.background,
+          "formkit-background",
+          "bg-surface-3",
+          "rad-shadow",
+        )}
+        aria-hidden="true"
+      />
+
+      <div className={styles.content} data-style="minimal">
+        <header
+          className={joinClassNames(styles.header, "formkit-header")}
+          data-element="header"
+        >
+          <h3 id="newsletter-heading" className={styles.heading}>
+            Never Miss an Update.
+          </h3>
+        </header>
+
+        <div
+          className={joinClassNames(styles.subheader, "formkit-subheader")}
+          data-element="subheader"
+        >
+          <p className={styles.description}>
+            Subscribe to get the latest content by email.
+          </p>
         </div>
-        <button
-          data-element="submit"
-          className="formkit-submit formkit-submit bg-surface-4"
-          style={{
-            color: "rgb(255, 255, 255)",
-            // backgroundColor: "rgb(0, 100, 0)",
-            borderRadius: "4px",
-            fontWeight: "700",
-          }}
+
+        <ul
+          className={joinClassNames(
+            styles.alert,
+            "formkit-alert",
+            "formkit-alert-error",
+          )}
+          data-element="errors"
+          data-group="alert"
+          aria-live="polite"
+          aria-atomic="true"
+        />
+
+        <div
+          className={joinClassNames(
+            styles.fields,
+            "seva-fields",
+            "formkit-fields",
+          )}
+          data-element="fields"
+          data-stacked="false"
         >
-          <div className="formkit-spinner">
-            <div></div>
-            <div></div>
-            <div></div>
+          <div
+            className={joinClassNames(styles.field, "formkit-field")}
+          >
+            <label className={styles.visuallyHidden} htmlFor="newsletter-email">
+              Email address
+            </label>
+
+            <input
+              id="newsletter-email"
+              className={joinClassNames(styles.input, "formkit-input")}
+              name="email_address"
+              aria-label="Email address"
+              placeholder="Email address"
+              autoComplete="email"
+              required
+              type="email"
+            />
           </div>
-          <span className="text-2">Subscribe</span>
-        </button>
-      </div>
-      <div
-        className="formkit-guarantee text-2"
-        data-element="guarantee"
-        style={{
-          color: "rgb(77, 77, 77)",
-          fontSize: "13px",
-          fontWeight: "400",
-        }}
-      >
-        We won't send you spam. Unsubscribe at any time.
-      </div>
-      <div className="formkit-powered-by-convertkit-container">
-        <a
-          href="https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"
-          data-element="powered-by"
-          className="formkit-powered-by-convertkit"
-          data-variant="dark"
-          target="_blank"
-          rel="nofollow"
+
+          <button
+            type="submit"
+            data-element="submit"
+            className={joinClassNames(
+              styles.submit,
+              "formkit-submit",
+              "bg-surface-4",
+            )}
+          >
+            <span
+              className={joinClassNames(styles.spinner, "formkit-spinner")}
+              aria-hidden="true"
+            >
+              <span />
+              <span />
+              <span />
+            </span>
+
+            <span className={styles.submitLabel}>Subscribe</span>
+          </button>
+        </div>
+
+        <div
+          className={joinClassNames(
+            styles.guarantee,
+            "formkit-guarantee",
+          )}
+          data-element="guarantee"
         >
-          Built with ConvertKit
-        </a>
+          We won&apos;t send you spam. Unsubscribe at any time.
+        </div>
+
+        <div
+          className={joinClassNames(
+            styles.poweredByContainer,
+            "formkit-powered-by-convertkit-container",
+          )}
+        >
+          <a
+            href={CONVERTKIT_POWERED_BY_URL}
+            data-element="powered-by"
+            className={joinClassNames(
+              styles.poweredBy,
+              "formkit-powered-by-convertkit",
+            )}
+            data-variant="dark"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          >
+            Built with ConvertKit
+          </a>
+        </div>
       </div>
-    </div>
-  </StyledForm>
-);
+    </form>
+  );
+};
 
 /**
  * Newsletter signup section on the homepage.
- * @returns
  */
 const Newsletter: React.FC = () => {
   return (
-    <section className="newsletter col flex justify-center">
-      <NewsLetterForm />
+    <section
+      className={joinClassNames(
+        styles.newsletter,
+        "col",
+        "flex",
+        "justify-center",
+      )}
+      aria-labelledby="newsletter-heading"
+    >
+      <NewsletterForm />
     </section>
   );
 };
